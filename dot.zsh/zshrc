@@ -1,0 +1,113 @@
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+export DEFAULT_USER="enushi"
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="agnoster"
+#"robbyrussell"
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+# alias mvim="~/.vim/mvim.sh"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to disable command auto-correction.
+# DISABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true" 
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PATH:$PYENV_ROOT/shims
+alias pip3-upgrade='pip3 install --upgrade pip && pip3 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip3 install --upgrade'
+alias pip2-upgrade='pip2 install --upgrade pip && pip2 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip2 install --upgrade'
+alias ssh-sakura='ssh -L 7144:localhost:7144 -L 18080:localhost:8080 root@sakura'
+if [ `uname` = "Darwin" ]; then
+    export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
+    export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
+    export GOROOT=/usr/local/opt/go/libexec
+    export GOPATH=$HOME/.go
+    export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+    export JAVA_HOME=$(/usr/libexec/java_home)
+    export EDITOR="vim"
+elif uname -a | grep -sq "Ubuntu"; then
+    export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+    export PATH=$PATH:$PYENV_ROOT/bin
+    export PATH=$HOME/bin:$PATH
+    export PATH=$HOME/.rbenv/bin:$PATH
+    if which rbenv > /dev/null; then
+        eval "$(rbenv init -)"
+    fi
+elif uname -a | grep -sq "ARCH"; then
+    export PATH=$HOME/bin:/usr/local/bin:$PATH
+    alias fullcharge='sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s ST 0 99 && sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s SP 0 99'
+    alias savebat='sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s ST 0 40 && sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s SP 0 80'
+     screenfetch
+fi
+
+export TERM=xterm-256color
+if which pyenv > /dev/null; then
+    eval "$(pyenv init -)"
+fi
+
+if [ -e $HOME/.sdkman/bin/sdkman-init.sh ]; then
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+fi

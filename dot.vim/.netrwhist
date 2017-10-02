@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/nch/.config/autostart'
+let g:netrw_dirhist_2='/Users/nch/mywork/atcoder/Beginner01'
+let g:netrw_dirhist_3='/Users/nch/dotfiles/dot.zsh/zsh'
+let g:netrw_dirhist_4='/Users/nch/.zsh'

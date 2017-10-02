@@ -1,0 +1,128 @@
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+if = '''! has('nvim')'''
+on_i = 1
+hook_add = 'let g:neocomplete#enable_at_startup = 1'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+if = '''has('nvim')'''
+on_i = 1
+hook_add ='''
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#sources = {}
+'''
+
+[[plugins]]
+repo   = 'Shougo/unite.vim'
+depends = ['neomru.vim', 'vimfiler.vim', 'vimshell']
+on_cmd = ['Unite']
+
+# unite.vim を読み込んだら一緒に読み込む
+[[plugins]]
+repo      = 'Shougo/neomru.vim'
+on_source = ['unite.vim']
+
+####################
+### 文法チェック ###
+####################
+[[plugins]]
+repo = 'vim-syntastic/syntastic'
+on_ft = ['python', 'python3', 'scala', 'go', 'kotlin']
+hook_add = '''
+let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+'''
+############
+### TOML ###
+############
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+################
+### Markdown ###
+################
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown','mkd']
+
+[[plugins]]
+repo = 'joker1007/vim-markdown-quote-syntax'
+on_ft = ['markdown','mkd']
+
+[[plugins]]
+repo = 'kannokanno/previm'
+on_ft = ['markdown','mkd']
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = ['markdown','mkd']
+
+##############
+### Kotlin ###
+##############
+
+[[plugins]]
+repo = 'udalov/kotlin-vim'
+on_ft = ['kotlin']
+
+#############
+### Scala ###
+#############
+
+#[[plugins]]
+#repo = 'ensime/ensime-vim'
+#on_ft = ['scala']
+#hook_add = '''
+#autocmd BufWritePost *.scala silent :EnTypeCheck
+#nnoremap <localleader>t :EnTypeCheck<CR>
+#'''
+
+[[plugins]]
+repo = 'derekwyatt/vim-scala'
+on_ft = ['scala']
+
+##############
+### Python ###
+##############
+
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = ['python','python3']
+hook_add = '''
+" jediにvimの設定を任せると'completeopt+=preview'するので 自動設定機能をOFFにし手動で設定を行う
+let g:jedi#auto_vim_configuration = 0
+
+" 補完の最初の項目が選択された状態だと使いにくいためオフにする
+let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#completions_command = '<C-d>'
+
+" quickrunと被るため大文字に変更
+let g:jedi#rename_command = '<Leader>R'
+
+" gundoと被るため大文字に変更
+let g:jedi#goto_assignments_command = '<Leader>G'
+'''
+
+[[plugins]]
+repo = 'lambdalisue/vim-pyenv'
+depends = ['jedi-vim']
+on_source = ['jedi-vim']
+on_ft = ['python', 'python3']
+hook_post_source= '''
+if jedi#init_python()
+  function! s:jedi_auto_force_py_version() abort
+    let major_version = pyenv#python#get_internal_major_version()
+    call jedi#force_py_version(major_version)
+  endfunction
+  augroup vim-pyenv-custom-augroup
+    autocmd! *
+    autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+    autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+  augroup END
+endif
+'''
+

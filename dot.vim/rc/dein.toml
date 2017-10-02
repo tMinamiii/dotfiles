@@ -1,0 +1,103 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+hook_add = 'nmap <F9> :VimFilerExplorer<CR>'
+
+[[plugins]]
+repo = 'Shougo/vimshell'
+
+[[plugins]]
+repo = 'jpalardy/vim-slime'
+
+#############
+### GTAGS ###
+#############
+
+[[plugins]]
+repo = '5t111111/alt-gtags.vim'
+hook_add = '''
+map <C-n> :cn<CR>
+map <C-p> :cp<CR>
+nnoremap <C-g> :AltGtags<CR>
+nnoremap <C-h> :AltGtags -r<CR>
+nnoremap <C-k> :AltGtags -s<CR>
+'''
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = 'nmap <F8> :TagbarToggle<CR>'
+
+#######################
+### vim status line ###
+#######################
+[[plugins]]
+repo    = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
+hook_add = '''
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'powerlineish'
+let g:airline_exclude_preview = 1
+let g:airline#extensions#tabline#enabled = 1
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+####################
+### カラーテーマ ###
+####################
+[[plugins]]
+repo = 'dracula/vim'
+
+###########################
+### vim内プログラム実行 ###
+###########################
+# 非同期通信を可能にする
+# 'build'が指定されているのでインストール時に自動的に
+# 指定されたコマンドが実行され vimproc がコンパイルされる
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+#hook_post_update = '''
+#  if dein#util#_is_windows()
+#    let cmd = 'tools\\update-dll-mingw'
+#  elseif dein#util#_is_cygwin()
+#    let cmd = 'make -f make_cygwin.mak'
+#  elseif executable('gmake')
+#    let cmd = 'gmake'
+#  else
+#    let cmd = 'make'
+#  endif
+#  let g:dein#plugin.build = cmd
+#'''
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+depends = ['vimproc.vim']
+hook_add = '''
+let g:quickrun_config = {
+\ "_": {
+\    "runner": "vimproc",
+\    "runner/vimproc/updatetime": 10,
+\    "outputter/buffer/split": ":botright 10sp",
+\    "outputter/buffer/append": 0,
+\    "outputter/buffer/close_on_empty": 1,
+\    "hook/time/enable": 1,
+\    },
+\ }
+
+let g:quickrun_config.c = {
+\ 'command' : 'clang',
+\ }
+'''
+
+##################
+### コード整理 ###
+##################
+[[plugins]]
+repo = 'godlygeek/tabular'
+
+
