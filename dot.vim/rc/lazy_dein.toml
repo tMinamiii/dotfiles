@@ -13,6 +13,10 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#sources = {}
 '''
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+if = '''has('nvim')'''
+on_ft = ['python', 'python3']
 
 [[plugins]]
 repo   = 'Shougo/unite.vim'
@@ -125,4 +129,10 @@ if jedi#init_python()
   augroup END
 endif
 '''
+
+[[plugins]]
+repo = 'tell-k/vim-autopep8'
+on_ft = ['python', 'python3']
+hook_add='let g:autopep8_disable_show_diff = 1'
+
 
