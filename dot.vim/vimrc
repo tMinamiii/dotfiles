@@ -33,16 +33,19 @@ set colorcolumn=80              " その代わり80文字目にラインを入�
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
 set expandtab                   " タブをスペースにする
-"set noexpandtab                " タブをタブとして扱う(スペースに展開しない)
+
+set encoding=utf-8
+set ambiwidth=double
+" set noexpandtab               " タブをタブとして扱う(スペースに展開しない)
 set tabstop=4                   " タブを表示するときの幅
 set shiftwidth=4                " タブを挿入するときの幅
 set softtabstop=0
 set showtabline=2               " 常にタブラインを表示
-set t_Co=256                    " この設定がないと色が正しく表示されない
+"set t_Co=256
+set termguicolors
 set laststatus=2
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
-set listchars=tab:»·,trail:·,extends:»,precedes:«,nbsp:% ",eol:↲ "不可視文字をUnicodeにする
-
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮ ",nbsp:%,eol:↲ "不可視文字をUnicodeにする
 """"" MacVimのMetaキー有効化
 if has("gui_macvim")
     set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
@@ -76,10 +79,10 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 """"" gui font  """""
 if has('unix')
-    set guifont=Ricty\ for\ Powerline\ 16
+    set guifont=Cica\ 16
 endif
 if has('mac') 
-    set guifont=Ricty_for_Powerline:h16
+    set guifont=Cica:h16
 endif
 
 """""" dein (load plugins)"""""
@@ -121,6 +124,8 @@ endif
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
 syntax on
-if has('gui_running')
-    color dracula
-endif
+" if has('gui_running')
+"    color dracula
+" endif
+colorscheme dracula
+color dracula
