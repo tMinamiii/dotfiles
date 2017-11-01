@@ -1,24 +1,4 @@
 [[plugins]]
-repo = 'Shougo/neocomplete.vim'
-if = '''! has('nvim')'''
-on_i = 1
-hook_add = 'let g:neocomplete#enable_at_startup = 1'
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-if = '''has('nvim')'''
-on_i = 1
-hook_add ='''
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#sources = {}
-'''
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-if = '''has('nvim')'''
-on_ft = ['python', 'python3']
-
-[[plugins]]
 repo   = 'Shougo/unite.vim'
 depends = ['neomru.vim', 'vimfiler.vim', 'vimshell']
 on_cmd = ['Unite']

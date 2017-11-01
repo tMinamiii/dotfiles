@@ -77,6 +77,11 @@ noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
+
+if has("nvim")
+    tnoremap <ESC> <C-\><C-n>
+endif
+
 """"" gui font  """""
 if has('unix')
     set guifont=Cica\ 16
