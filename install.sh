@@ -37,3 +37,9 @@ fi
 ln -s ~/dotfiles/dot.vim ~/.vim
 ln -s ~/dotfiles/dot.vim ~/.config/nvim
 ln -s ~/dotfiles/dot.vim/ideavimrc ~/.ideavimrc
+
+###### Xsession ######
+if uname -a | grep -sq "Linux"; then
+    ln -s ~/dotfiles/dot.Xsession/xsessionrc ~/.xsessionrc
+fi
+
