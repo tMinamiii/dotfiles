@@ -96,6 +96,13 @@ elif uname -a | grep -sq "Ubuntu"; then
     if which rbenv > /dev/null; then
         eval "$(rbenv init -)"
     fi
+elif uname -a | grep -sq "Microsoft"; then
+    export PATH=$PATH/:$PYENV_ROOT/bin
+    export PATH=$HOME/bin:$PATH
+    export PATH=$HOME/.rbenv/bin:$PAHT
+    if which rbenv > /dev/null; then
+        eval "$(rbenv init -)"
+    fi
 elif uname -a | grep -sq "ARCH"; then
     export PATH=$HOME/bin:/usr/local/bin:$PATH
     alias fullcharge='sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s ST 0 99 && sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s SP 0 99'
