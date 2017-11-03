@@ -82,6 +82,8 @@ if has("nvim")
     tnoremap <ESC> <C-\><C-n>
 endif
 
+let python_highlight_all=1
+
 """"" gui font  """""
 if has('unix')
     set guifont=Cica\ 16

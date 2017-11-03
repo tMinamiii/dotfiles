@@ -30,7 +30,7 @@ fc-cache -vf
 
 if uname -a | grep -sq "Ubuntu"; then
   gconftool-2 --get /apps/gnome-terminal/profiles/Default/font
-  gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "Ricty for Powerline 11"
+  gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "Cica 12"
 fi
 
 ###### vim setup ######
@@ -43,3 +43,5 @@ if uname -a | grep -sq "Linux"; then
     ln -s ~/dotfiles/dot.Xsession/xsessionrc ~/.xsessionrc
 fi
 
+###### tmux ######
+ln -s ~/dotfiles/dot.tmux/tmux.conf ~/.tmux.conf
