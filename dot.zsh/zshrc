@@ -101,6 +101,8 @@ elif uname -a | grep -sq "Microsoft"; then
     export PATH=$PYENV_ROOT/bin:$PATH
     export PATH=$HOME/bin:$PATH
     export PATH=$HOME/.rbenv/bin:$PATH
+    zstyle ':completion:*' list-colors 'di=36' 'ow=36'
+    
     if which rbenv > /dev/null; then
         eval "$(rbenv init -)"
     fi

@@ -84,7 +84,6 @@ if has("nvim")
     tnoremap <C-q><C-q> <C-\><C-n>
 endif
 
-let python_highlight_all=1
 
 """"" gui font  """""
 if has('unix')
@@ -130,11 +129,11 @@ if dein#check_install()
     call dein#install()
 endif
 
-" ファイルタイププラグインおよびインデントを有効化
-filetype plugin indent on
 syntax on
 " if has('gui_running')
 "    color dracula
 " endif
-colorscheme dracula
 color dracula
+"color badwolf
+" ファイルタイププラグインおよびインデントを有効化
+filetype plugin indent on
