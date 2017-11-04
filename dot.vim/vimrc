@@ -46,6 +46,8 @@ set t_Co=256
 set laststatus=2
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮ ",nbsp:%,eol:↲ "不可視文字をUnicodeにする
+set ttimeout
+set ttimeoutlen=0
 """"" MacVimのMetaキー有効化
 if has("gui_macvim")
     set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
@@ -79,7 +81,7 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 
 if has("nvim")
-    tnoremap <ESC> <C-\><C-n>
+    tnoremap <C-q><C-q> <C-\><C-n>
 endif
 
 let python_highlight_all=1
