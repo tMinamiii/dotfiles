@@ -81,7 +81,7 @@ noremap <Left> <Nop>
 noremap <Right> <Nop>
 
 if has("nvim")
-    tnoremap <C-q><C-q> <C-\><C-n>
+    tnoremap <C-j><C-j> <C-\><C-n>
 endif
 
 
@@ -134,6 +134,6 @@ syntax on
 "    color dracula
 " endif
 color dracula
-"color badwolf
+"color nova 
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
