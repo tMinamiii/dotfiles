@@ -22,8 +22,8 @@ set nowritebackup               " Backupを無効化
 set nobackup                    " Backupを無効化
 set noswapfile                  " swapを無効化
 set backspace=indent,eol,start  " バックスペースでなんでも消せるようにする
-set clipboard=unnamed
-
+"set clipboard=unnamed
+set clipboard+=unnamedplus
 """"" [表示系]
 set list                        " 不可視文字の可視化
 set number                      " 行番号の表示
@@ -128,6 +128,8 @@ endif
 if dein#check_install()
     call dein#install()
 endif
+
+let g:loaded_python_provider = 1
 
 syntax on
 " if has('gui_running')

@@ -7,7 +7,7 @@ if [ -e ~/.zshrc ]; then
   mv ~/.zshrc ~/dotzshrcbk
 fi
 
-ln -s ~/dotfiles/dot.zsh/zsh ~/.zsh
+#ln -s ~/dotfiles/dot.zsh/zsh ~/.zsh
 ln -s ~/dotfiles/dot.zsh/zshrc ~/.zshrc
 
 ##### keymap for thinkpad setup #####
@@ -21,12 +21,12 @@ if [ `uname` = "Darwin" ]; then
   #brew tap sanemat/font
   #brew uninstall ricty && brew install ricty --vim-powerline --powerline
   ln -s ~/Dropbox/Fonts/Ricty*.ttf ~/Library/Fonts
-
-elif [ `uname` = "Linux" ]; then
+  fc-cache -vf
+elif uname -a | grep -sq "Ubuntu"; then
   ln -s ~/Dropbox/Fonts ~/.fonts
+  fc-cache -vf
 fi
 
-fc-cache -vf
 
 if uname -a | grep -sq "Ubuntu"; then
   gconftool-2 --get /apps/gnome-terminal/profiles/Default/font
@@ -34,12 +34,15 @@ if uname -a | grep -sq "Ubuntu"; then
 fi
 
 ###### vim setup ######
+if [ ! -e ~/.config ]; then
+    mkdir .config
+fi
+
 ln -s ~/dotfiles/dot.vim ~/.vim
 ln -s ~/dotfiles/dot.vim ~/.config/nvim
-ln -s ~/dotfiles/dot.vim/ideavimrc ~/.ideavimrc
 
 ###### Xsession ######
-if uname -a | grep -sq "Linux"; then
+if uname -a | grep -sq "Ubuntu"; then
     ln -s ~/dotfiles/dot.Xsession/xsessionrc ~/.xsessionrc
 fi
 
