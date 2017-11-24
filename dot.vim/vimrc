@@ -48,6 +48,7 @@ set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮ ",nbsp:%,eol:↲ "不可視文字をUnicodeにする
 set ttimeout
 set ttimeoutlen=0
+
 """"" MacVimのMetaキー有効化
 if has("gui_macvim")
     set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
@@ -80,9 +81,7 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-if has("nvim")
-    tnoremap <C-j><C-j> <C-\><C-n>
-endif
+tnoremap <C-j><C-j> <C-\><C-n>
 
 
 """"" gui font  """""
@@ -129,7 +128,8 @@ if dein#check_install()
     call dein#install()
 endif
 
-let g:loaded_python_provider = 1
+let g:python_host_prog=$PYENV_ROOT.'/versions/2.7.14/bin/python'
+let g:python3_host_prog=$PYENV_ROOT.'/versions/3.5.4/bin/python'
 
 syntax on
 " if has('gui_running')

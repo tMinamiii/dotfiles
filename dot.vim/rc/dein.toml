@@ -11,13 +11,23 @@ nmap <F9> :VimFilerExplorer<CR>
 repo = 'Shougo/vimshell'
 
 [[plugins]]
-repo = 'Shougo/neocomplete.vim'
+repo = 'Shougo/deoplete.nvim'
+# hook_add ='''
+# let g:deoplete#enable_at_startup = 1
+# let g:deoplete#omni#input_patterns = {}
+# let g:deoplete#sources = {}
+# '''
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
 if = '''! has('nvim')'''
-hook_add = 'let g:neocomplete#enable_at_startup = 1'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+if = '''! has('nvim')'''
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-if = '''has('nvim')'''
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni#input_patterns = {}
