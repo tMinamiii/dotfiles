@@ -80,7 +80,7 @@ export PATH=$PATH:$PYENV_ROOT/shims
 alias pip3-upgrade='pip3 install --upgrade pip && pip3 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip3 install --upgrade'
 alias pip2-upgrade='pip2 install --upgrade pip && pip2 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip2 install --upgrade'
 alias ssh-sakura='ssh -L 7144:localhost:7144 -L 18080:localhost:8080 root@sakura'
-alias build-neovim='make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release'
+alias build-neovim='git pull && make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
 alias neovim='~/neovim/bin/nvim'
 if [ `uname` = "Darwin" ]; then
     export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
