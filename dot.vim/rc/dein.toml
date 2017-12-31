@@ -2,29 +2,18 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/vimfiler.vim'
-hook_add = '''
-nmap <F9> :VimFilerExplorer<CR>
-'''
-
-[[plugins]]
 repo = 'Shougo/vimshell'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-# hook_add ='''
-# let g:deoplete#enable_at_startup = 1
-# let g:deoplete#omni#input_patterns = {}
-# let g:deoplete#sources = {}
-# '''
+hook_add ='''
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#sources = {}
+ '''
 
 [[plugins]]
-repo = 'roxma/nvim-yarp'
-if = '''! has('nvim')'''
-
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-if = '''! has('nvim')'''
+repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
@@ -33,13 +22,17 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#sources = {}
 '''
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-if = '''has('nvim')'''
-on_ft = ['python', 'python3']
 
+################
+### terminal ###
+################
+# tmuxやscreen経由で別ペインに転送する
 [[plugins]]
 repo = 'jpalardy/vim-slime'
+
+#############
+### Filer ###
+#############
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
@@ -59,6 +52,23 @@ let NERDTreeShowHidden=1
 
 [[plugins]]
 repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+hook_add = '''
+nmap <F9> :VimFilerExplorer<CR>
+'''
+
+# vimfiler に必要
+[[plugins]]
+repo   = 'Shougo/unite.vim'
+depends = ['neomru.vim', 'vimfiler.vim', 'vimshell']
+on_cmd = ['Unite']
+
+# unite.vim を読み込んだら一緒に読み込む
+[[plugins]]
+repo      = 'Shougo/neomru.vim'
+on_source = ['unite.vim']
 
 #############
 ### GTAGS ###
@@ -113,43 +123,9 @@ repo = 'trevordmiller/nova-vim'
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 
-#hook_post_update = '''
-#  if dein#util#_is_windows()
-#    let cmd = 'tools\\update-dll-mingw'
-#  elseif dein#util#_is_cygwin()
-#    let cmd = 'make -f make_cygwin.mak'
-#  elseif executable('gmake')
-#    let cmd = 'gmake'
-#  else
-#    let cmd = 'make'
-#  endif
-#  let g:dein#plugin.build = cmd
-#'''
-
-#[[plugins]]
-#repo = 'thinca/vim-quickrun'
-#depends = ['vimproc.vim']
-#hook_add = '''
-#let g:quickrun_config = {
-#\ "_": {
-#\    "runner": "vimproc",
-#\    "runner/vimproc/updatetime": 10,
-#\    "outputter/buffer/split": ":botright 10sp",
-#\    "outputter/buffer/append": 0,
-#\    "outputter/buffer/close_on_empty": 1,
-#\    "hook/time/enable": 1,
-#\    },
-#\ }
-
-#let g:quickrun_config.c = {
-#\ 'command' : 'clang',
-#\ }
-#'''
-
 ##################
 ### コード整理 ###
 ##################
 [[plugins]]
 repo = 'godlygeek/tabular'
-
 

@@ -1,13 +1,3 @@
-[[plugins]]
-repo   = 'Shougo/unite.vim'
-depends = ['neomru.vim', 'vimfiler.vim', 'vimshell']
-on_cmd = ['Unite']
-
-# unite.vim を読み込んだら一緒に読み込む
-[[plugins]]
-repo      = 'Shougo/neomru.vim'
-on_source = ['unite.vim']
-
 ####################
 ### 文法チェック ###
 ####################
@@ -25,9 +15,13 @@ let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
 
-################
-### Markdown ###
-################
+#######################
+### HTML / Markdown ###
+#######################
+[[plugins]]
+repo = 'https://github.com/mattn/emmet-vim'
+on_ft = ['html']
+
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown','mkd']
@@ -56,14 +50,6 @@ on_ft = ['kotlin']
 ### Scala ###
 #############
 
-#[[plugins]]
-#repo = 'ensime/ensime-vim'
-#on_ft = ['scala']
-#hook_add = '''
-#autocmd BufWritePost *.scala silent :EnTypeCheck
-#nnoremap <localleader>t :EnTypeCheck<CR>
-#'''
-
 [[plugins]]
 repo = 'derekwyatt/vim-scala'
 on_ft = ['scala']
@@ -74,22 +60,40 @@ on_ft = ['scala']
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
-on_ft = ['python','python3']
+on_ft = ['python','python3','djangohtml']
+build = '''
+pip install jedi
+'''
 hook_add = '''
 " jediにvimの設定を任せると'completeopt+=preview'するので 自動設定機能をOFFにし手動で設定を行う
 let g:jedi#auto_vim_configuration = 0
-
+let g:jedi#auto_initialization = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#completions_enabled = 0
 " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 1
-let g:jedi#completions_command = '<C-d>'
+" let g:jedi#popup_select_first = 0
+" let g:jedi#popup_on_dot = 1
+" let g:jedi#completions_command = '<C-d>'
 
 " quickrunと被るため大文字に変更
-let g:jedi#rename_command = '<Leader>R'
+" let g:jedi#rename_command = '<Leader>R'
 
 " gundoと被るため大文字に変更
-let g:jedi#goto_assignments_command = '<Leader>G'
+let g:jedi#goto_command = '<Leader>d'
 '''
+
+[[plugins]]
+repo = 'zchee/deoplete-jedi'
+on_ft = ['python', 'python3']
+
+[[plugins]]
+repo = 'jmcantrell/vim-virtualenv'
+on_ft = ['python', 'python3']
+
+[[plugins]]
+repo = 'tell-k/vim-autopep8'
+on_ft = ['python', 'python3']
+hook_add='let g:autopep8_disable_show_diff = 1'
 
 [[plugins]]
 repo = 'lambdalisue/vim-pyenv'
@@ -109,10 +113,5 @@ if jedi#init_python()
   augroup END
 endif
 '''
-
-[[plugins]]
-repo = 'tell-k/vim-autopep8'
-on_ft = ['python', 'python3']
-hook_add='let g:autopep8_disable_show_diff = 1'
 
 
