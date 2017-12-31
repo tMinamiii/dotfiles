@@ -1,0 +1,7 @@
+xkb_symbols "ctrl" {  
+  replace key <CAPS> { [ Control_L ] }
+  replace key <Control_L> { [ Alt_L ] }
+  replace key <Control_R> { [ Alt_R ] }
+}
+
+
