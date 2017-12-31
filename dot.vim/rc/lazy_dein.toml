@@ -57,6 +57,13 @@ on_ft = ['scala']
 ##############
 ### Python ###
 ##############
+[[plugins]]
+repo = 'fisadev/vim-isort'
+on_ft = ['python', 'python3', 'djangohtml']
+hook_add = '''
+let g:vim_isort_map = '<C-i>'
+let g:vim_isort_python_version = 'python3'
+'''
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
