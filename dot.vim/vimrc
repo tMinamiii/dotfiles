@@ -21,7 +21,8 @@ set matchtime=3                 " 対応括弧のハイライト表示を3秒に
 set nowritebackup               " Backupを無効化
 set nobackup                    " Backupを無効化
 set noswapfile                  " swapを無効化
-set backspace=indent,eol,start  " バックスペースでなんでも消せるようにする
+set backspace=0
+" set backspace=indent,eol,start  " バックスペースでなんでも消せるようにする
 "set clipboard=unnamed
 set clipboard+=unnamedplus
 """"" [表示系]
@@ -45,9 +46,10 @@ set laststatus=2
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮ ",nbsp:%,eol:↲ "不可視文字をUnicodeにする
 set ttimeout
-set ttimeoutlen=0
+set ttimeoutlen=50
 set scrolloff=3                 " 3行残して画面スクロールする
 set sh=zsh
+"set lazyredraw
 
 """"" MacVimのMetaキー有効化
 if has("gui_macvim")
@@ -66,8 +68,6 @@ if ! has("nvim")
     endw
 endif
 """"" key remap
-imap <silent> <C-c> <ESC>
-nmap <silent> <C-c> <ESC>
 nnoremap <silent> <ESC><ESC> :noh<CR>
 nnoremap <silent> <M-p> :bp<CR>
 nnoremap <silent> <M-n> :bn<CR>
@@ -76,10 +76,25 @@ nnoremap <silent> <M-d> :bd<CR>
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+" vim strict mode
+vnoremap  <C-c>    <nop>
+vnoremap  <Up>     <nop>
+vnoremap  <Down>   <nop>
+vnoremap  <Left>   <nop>
+vnoremap  <Right>  <nop>
+inoremap  <C-c>    <nop>
+inoremap  <Up>     <nop>
+inoremap  <Down>   <nop>
+inoremap  <Left>   <nop>
+inoremap  <Right>  <nop>
+inoremap  <BS>     <nop>
+noremap   <C-c>    <nop>
+noremap   <Up>     <nop>
+noremap   <Down>   <nop>
+noremap   <Left>   <nop>
+noremap   <Right>  <nop>
+"noremap   h <nop>
+"noremap   l <nop>
 
 tnoremap <C-j><C-j> <C-\><C-n>
 
