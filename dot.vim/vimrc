@@ -52,7 +52,7 @@ set ttimeout
 set ttimeoutlen=50
 set scrolloff=3                 " 3行残して画面スクロールする
 set sh=zsh
-" set lazyredraw
+set lazyredraw
 
 """"" MacVimのMetaキー有効化
 if has("gui_macvim")
@@ -96,9 +96,8 @@ noremap   <Up>     <nop>
 noremap   <Down>   <nop>
 noremap   <Left>   <nop>
 noremap   <Right>  <nop>
-noremap   h <nop>
-noremap   l <nop>
-
+"noremap   h <nop>
+"noremap   l <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
 
 

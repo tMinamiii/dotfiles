@@ -10,14 +10,14 @@ hook_add ='''
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#sources = {}
- '''
+'''
 
 [[plugins]]
 repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-hook_add ='''
+hook_add = '''
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#sources = {}
@@ -42,12 +42,13 @@ let g:webdevicons_enable_vimfiler = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 '''
+
 [[plugins]]
 repo = 'scrooloose/nerdtree'
-# nmap <F9> :NERDTreeToggle<CR>
-hook_add ='''
+hook_add = '''
 let g:NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
+"nmap <F9> :NERDTreeToggle<CR>
 '''
 
 [[plugins]]
@@ -93,16 +94,21 @@ hook_add = 'nmap <F8> :TagbarToggle<CR>'
 #######################
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
-depends = ['vim-airline-themes']
+depends = ['vim-fugitive', 'vim-airline-themes']
 hook_add = '''
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'powerlineish'
 let g:airline_exclude_preview = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_z = ''
 '''
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
+repo    = 'tpope/vim-fugitive'
+
 
 ####################
 ### カラーテーマ ###
