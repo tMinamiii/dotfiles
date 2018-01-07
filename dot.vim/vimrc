@@ -49,7 +49,7 @@ set laststatus=2
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮ ",nbsp:%,eol:↲ "不可視文字をUnicodeにする
 set ttimeout
-set ttimeoutlen=50
+set ttimeoutlen=10
 set scrolloff=3                 " 3行残して画面スクロールする
 set sh=zsh
 set lazyredraw
