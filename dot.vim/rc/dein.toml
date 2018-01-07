@@ -2,9 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/vimshell'
-
-[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
@@ -14,14 +11,6 @@ let g:deoplete#sources = {}
 
 [[plugins]]
 repo = 'tpope/vim-surround'
-
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = '''
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#sources = {}
-'''
 
 ################
 ### terminal ###
@@ -33,26 +22,16 @@ repo = 'jpalardy/vim-slime'
 #############
 ### Filer ###
 #############
+#[[plugins]]
+#repo = 'scrooloose/nerdtree'
+#hook_add = '''
+#let g:NERDTreeShowBookmarks=1
+#let NERDTreeShowHidden=1
+#"nmap <F9> :NERDTreeToggle<CR>
+#'''
 
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
-hook_add = '''
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_vimfiler = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-'''
-
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-let g:NERDTreeShowBookmarks=1
-let NERDTreeShowHidden=1
-"nmap <F9> :NERDTreeToggle<CR>
-'''
-
-[[plugins]]
-repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+#[[plugins]]
+#repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
@@ -70,6 +49,9 @@ on_cmd = ['Unite']
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
 on_source = ['unite.vim']
+
+[[plugins]]
+repo = 'Shougo/vimshell'
 
 #############
 ### GTAGS ###
@@ -92,18 +74,29 @@ hook_add = 'nmap <F8> :TagbarToggle<CR>'
 #######################
 ### vim status line ###
 #######################
+
 [[plugins]]
-repo    = 'vim-airline/vim-airline'
-depends = ['vim-fugitive', 'vim-airline-themes']
+repo = 'ryanoasis/vim-devicons'
 hook_add = '''
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'powerlineish'
-let g:airline_exclude_preview = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_section_z = '%L'
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_vimfiler = 1
+let g:webdevicons_enable_airline = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
 '''
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
+
+#[[plugins]]
+#repo    = 'vim-airline/vim-airline'
+#depends = ['vim-fugitive', 'vim-airline-themes']
+#hook_add = '''
+#let g:airline_powerline_fonts = 1
+#let g:airline_theme = 'powerlineish'
+#let g:airline_exclude_preview = 1
+#let g:airline#extensions#tabline#enabled = 1
+#'''
+
+#[[plugins]]
+#repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
 repo    = 'tpope/vim-fugitive'
@@ -115,22 +108,20 @@ repo    = 'tpope/vim-fugitive'
 [[plugins]]
 repo = 'naronA/dracula-vim'
 
-[[plugins]]
-repo = 'trevordmiller/nova-vim'
-
 ###########################
 ### vim内プログラム実行 ###
 ###########################
 # 非同期通信を可能にする
 # 'build'が指定されているのでインストール時に自動的に
 # 指定されたコマンドが実行され vimproc がコンパイルされる
-[[plugins]]
-repo = 'Shougo/vimproc.vim'
-build = 'make'
+#[[plugins]]
+#repo = 'Shougo/vimproc.vim'
+#build = 'make'
 
 ##################
 ### コード整理 ###
 ##################
+#http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 [[plugins]]
 repo = 'godlygeek/tabular'
 
