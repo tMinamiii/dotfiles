@@ -1,3 +1,17 @@
+##### initialize #####
+unlink ~/.zshrc
+unlink ~/.zshenv
+unlink ~/.fonts
+unlink ~/.vim
+unlink ~/.config/nvim
+unlink ~/.tmux.conf
+if [ `uname` = "Darwin" ]; then
+    unlink ~/Library/Fonts
+fi
+if uname -a | grep -sq "Ubuntu"; then
+    unlink ~/.xsessionrc
+fi
+
 ##### zsh setup #####
 if [ -e ~/.zsh ]; then
   mv ~/.zsh ~/dotzshbk
@@ -9,18 +23,11 @@ fi
 
 #ln -s ~/dotfiles/dot.zsh/zsh ~/.zsh
 ln -s ~/dotfiles/dot.zsh/zshrc ~/.zshrc
-
-##### keymap for thinkpad setup #####
-if [ `hostname` = "nch_ThinkPad" ]; then
-  ln -s ~/dotfiles/dot.Xmodmap/thinkpad_us_xmodmap ~/.Xmodmap
-  ln -s ~/dotfiles/dot.Xmodmap/hhkb_us_xmodmap ~/.hhkbXmodmap
-fi
+ln -s ~/dotfiles/dot.zsh/zshenv ~/.zshenv
 
 ##### font setup ######
 if [ `uname` = "Darwin" ]; then
-  #brew tap sanemat/font
-  #brew uninstall ricty && brew install ricty --vim-powerline --powerline
-  ln -s ~/Dropbox/Fonts/Ricty*.ttf ~/Library/Fonts
+  ln -s ~/Dropbox/Fonts/Cica*.ttf ~/Library/Fonts
   fc-cache -vf
 elif uname -a | grep -sq "Ubuntu"; then
   ln -s ~/Dropbox/Fonts ~/.fonts
