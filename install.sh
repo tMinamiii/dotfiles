@@ -21,10 +21,13 @@ if [ -e ~/.zshrc ]; then
   mv ~/.zshrc ~/dotzshrcbk
 fi
 
-#ln -s ~/dotfiles/dot.zsh/zsh ~/.zsh
 ln -s ~/dotfiles/dot.zsh/zshrc ~/.zshrc
 ln -s ~/dotfiles/dot.zsh/zshenv ~/.zshenv
 
+##### xkb setup #####
+if uname -a | grep -sq "Ubuntu"; then
+    ln -s ~/dotfiles/dot.xkb ~/.xkb
+fi
 ##### font setup ######
 if [ `uname` = "Darwin" ]; then
   ln -s ~/Dropbox/Fonts/Cica*.ttf ~/Library/Fonts
