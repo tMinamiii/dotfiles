@@ -88,8 +88,8 @@ alias pip2-upgrade='pip2 install --upgrade pip && pip2 list --outdated --format 
 alias build-neovim='git pull && make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
 alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
-alias activate-venv='source ./env/bin/activate'
-
+alias avenv='source ./env/bin/activate'
+alias dvenv='deactivate'
 if [ `uname` = "Darwin" ]; then
     # Mac OSX
     export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
