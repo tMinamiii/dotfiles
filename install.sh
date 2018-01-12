@@ -35,6 +35,9 @@ if [ `uname` = "Darwin" ]; then
 elif uname -a | grep -sq "Ubuntu"; then
   ln -s ~/Dropbox/Fonts ~/.fonts
   fc-cache -vf
+elif uname -a | grep -sq "Microsoft"; then
+  ln -s ~/Dropbox/Fonts ~/.fonts
+  fc-cache -vf
 fi
 
 
