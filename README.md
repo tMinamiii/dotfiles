@@ -8,6 +8,9 @@ Unix/Linux系の個人設定ファイルを管理します。
 
 ## install & uninstall
 
+`~/Dropbox/Fonts`ディレクトリにfontファイルが置いてあること前提で動作します。
+
+
 ``` bash
 sh install.sh
 
