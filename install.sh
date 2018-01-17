@@ -1,10 +1,20 @@
 ##### initialize #####
 unlink ~/.zshrc
 unlink ~/.zshenv
-unlink ~/.fonts
 unlink ~/.vim
 unlink ~/.config/nvim
+unlink ~/.xkb
 unlink ~/.tmux.conf
+if [ `uname` = "Darwin" ]; then
+	rm  ~/Library/Fonts/Ricty*.ttf
+elif [ `uname` = "Linux" ]; then
+	unlink ~/.fonts
+fi
+###### Xsession ######
+if uname -a | grep -sq "Ubuntu"; then
+    ln -s ~/dotfiles/dot.Xsession/xsessionrc ~/.xsessionrc
+fi
+
 if [ `uname` = "Darwin" ]; then
     unlink ~/Library/Fonts
 fi

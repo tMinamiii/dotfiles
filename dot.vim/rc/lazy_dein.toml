@@ -22,13 +22,13 @@ on_ft = ['toml']
 repo = 'https://github.com/mattn/emmet-vim'
 on_ft = ['html']
 
-[[plugins]]
-repo = 'plasticboy/vim-markdown'
-on_ft = ['markdown','mkd']
+#[[plugins]]
+#repo = 'plasticboy/vim-markdown'
+#on_ft = ['markdown','mkd']
 
-[[plugins]]
-repo = 'joker1007/vim-markdown-quote-syntax'
-on_ft = ['markdown','mkd']
+#[[plugins]]
+#repo = 'joker1007/vim-markdown-quote-syntax'
+#on_ft = ['markdown','mkd']
 
 [[plugins]]
 repo = 'kannokanno/previm'
