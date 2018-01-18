@@ -146,9 +146,14 @@ if dein#check_install()
 endif
 
 if has('nvim')
-    "let g:loaded_python_provider=1
-    let g:python_host_prog=$PYENV_ROOT.'/versions/2.7.14/bin/python'
-    let g:python3_host_prog=$PYENV_ROOT.'/versions/3.5.4/bin/python'
+    if has('win64')
+        let g:python_host_prog=$PYENV_ROOT.'/versions/2.7.14/bin/python'
+        let g:python3_host_prog=$PYENV_ROOT.'/versions/3.5.4/bin/python'
+    else
+        "let g:loaded_python_provider=1
+        let g:python_host_prog=$PYENV_ROOT.'/versions/2.7.14/bin/python'
+        let g:python3_host_prog=$PYENV_ROOT.'/versions/3.5.4/bin/python'
+    endif
 endif
 
 syntax on
