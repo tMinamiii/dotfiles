@@ -52,6 +52,8 @@ fi
 
 
 if uname -a | grep -sq "Ubuntu"; then
+  sudo apt install gconf2
+  gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
   gconftool-2 --get /apps/gnome-terminal/profiles/Default/font
   gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "Cica 12"
 fi
