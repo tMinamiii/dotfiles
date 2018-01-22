@@ -100,6 +100,13 @@ noremap   <Right>  <nop>
 "noremap   l <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
 
+""""" command """""
+command! W :w " よく押し間違えるので
+command! Pycheck exec Pycheck()
+function Pycheck()
+    :Isort
+    :Autopep8
+endfunction
 
 """"" gui font  """""
 if has('unix')
