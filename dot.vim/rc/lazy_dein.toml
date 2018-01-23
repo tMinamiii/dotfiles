@@ -67,22 +67,6 @@ repo = 'tyru/open-browser.vim'
 on_ft = ['markdown','mkd']
 
 ##############
-### Kotlin ###
-##############
-
-[[plugins]]
-repo = 'udalov/kotlin-vim'
-on_ft = ['kotlin']
-
-#############
-### Scala ###
-#############
-
-[[plugins]]
-repo = 'derekwyatt/vim-scala'
-on_ft = ['scala']
-
-##############
 ### Python ###
 ##############
 [[plugins]]

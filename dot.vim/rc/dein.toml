@@ -22,16 +22,6 @@ repo = 'jpalardy/vim-slime'
 #############
 ### Filer ###
 #############
-#[[plugins]]
-#repo = 'scrooloose/nerdtree'
-#hook_add = '''
-#let g:NERDTreeShowBookmarks=1
-#let NERDTreeShowHidden=1
-#"nmap <F9> :NERDTreeToggle<CR>
-#'''
-
-#[[plugins]]
-#repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
@@ -107,16 +97,6 @@ repo    = 'tpope/vim-fugitive'
 ####################
 [[plugins]]
 repo = 'naronA/dracula-vim'
-
-###########################
-### vim内プログラム実行 ###
-###########################
-# 非同期通信を可能にする
-# 'build'が指定されているのでインストール時に自動的に
-# 指定されたコマンドが実行され vimproc がコンパイルされる
-#[[plugins]]
-#repo = 'Shougo/vimproc.vim'
-#build = 'make'
 
 ##################
 ### コード整理 ###
