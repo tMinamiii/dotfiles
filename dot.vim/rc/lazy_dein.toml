@@ -66,6 +66,19 @@ on_ft = ['markdown','mkd']
 repo = 'tyru/open-browser.vim'
 on_ft = ['markdown','mkd']
 
+###########
+### PHP ###
+###########
+[[plugins]]
+repo = 'padawan-php/padawan.vim'
+on_ft = ['php']
+hook_add = '''
+let g:padawan#composer_command = "/usr/bin/composer"
+'''
+[[plugins]]
+repo = 'padawan-php/deoplete-padawan'
+on_ft = ['php']
+
 ##############
 ### Python ###
 ##############

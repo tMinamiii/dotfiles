@@ -81,6 +81,7 @@ export LC_ALL=en_US.UTF-8
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PATH:$PYENV_ROOT/shims
 export PATH=$PATH:$HOME/neovim/bin
+export PATH=$PATH:$HOME/.composer/vendor/bin
 export TERM=xterm-256color
 [[ $TMUX != "" ]] && export TERM="tmux-256color"
 # alias ssh-sakura='ssh -L 7144:localhost:7144 -L 18080:localhost:8080 root@sakura'
