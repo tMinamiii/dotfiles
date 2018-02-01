@@ -82,9 +82,11 @@ export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PATH:$PYENV_ROOT/shims
 export PATH=$PATH:$HOME/neovim/bin
 export PATH=$PATH:$HOME/.composer/vendor/bin
+export PATH=$HOME/.rbenv/bin:$PATH
+export PATH=$PYENV_ROOT/bin:$PATH
+export PATH=$HOME/.phpenv/bin:$PATH
 export TERM=xterm-256color
-[[ $TMUX != "" ]] && export TERM="tmux-256color"
-# alias ssh-sakura='ssh -L 7144:localhost:7144 -L 18080:localhost:8080 root@sakura'
+[[ $TMUX != "" ]] && export TERM="screen-256color"
 alias pip3-upgrade='pip3 install --upgrade pip && pip3 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip3 install --upgrade'
 alias pip2-upgrade='pip2 install --upgrade pip && pip2 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip2 install --upgrade'
 alias build-neovim='git pull && make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
@@ -92,53 +94,36 @@ alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias avenv='source ./env/bin/activate'
 alias dvenv='deactivate'
+export EDITOR="nvim"
 if [ `uname` = "Darwin" ]; then
     # Mac OSX
-    export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
+    # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
     export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
-    export GOROOT=/usr/local/opt/go/libexec
-    export GOPATH=$HOME/.go
-    export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
-    export JAVA_HOME=$(/usr/libexec/java_home)
-    export EDITOR="vim"
 elif uname -a | grep -sq "Ubuntu"; then
     # Ubuntu
     export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
     export VTE_VERSION="100" 
-    export PATH=$PYENV_ROOT/bin:$PATH
     export PATH=$HOME/bin:$PATH
-    export PATH=$HOME/.rbenv/bin:$PATH
-    if which rbenv > /dev/null; then
-        eval "$(rbenv init -)"
-    fi
 elif uname -a | grep -sq "Microsoft"; then
     # Windows Subsystem for Linux
     LS_COLORS=$LS_COLORS:'di=0;36:ow=0;36' ; export LS_COLORS
     zstyle ':completion:*' list-colors 'di=36' 'ow=36'
-    export PATH=$PYENV_ROOT/bin:$PATH
     export PATH=$HOME/bin:$PATH
-    export PATH=$HOME/.rbenv/bin:$PATH
     
-    if which rbenv > /dev/null; then
-        eval "$(rbenv init -)"
-    fi
-elif uname -a | grep -sq "ARCH"; then
-    export PATH=$HOME/bin:/usr/local/bin:$PATH
-    alias fullcharge='sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s ST 0 99 && sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s SP 0 99'
-    alias savebat='sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s ST 0 40 && sudo /usr/bin/perl /usr/bin/tpacpi-bat -v -s SP 0 80'
-     screenfetch
 elif uname -a | grep -sq "Linux"; then
-    export PATH=$PYENV_ROOT/bin:$PATH
     export PATH=$HOME/bin:$PATH
-    export PATH=$HOME/.rbenv/bin:$PATH
-    if which rbenv > /dev/null; then
-        eval "$(rbenv init -)"
-    fi
 fi
 
+if which rbenv > /dev/null; then
+    eval "$(rbenv init -)"
+fi
 
 if which pyenv > /dev/null; then
     eval "$(pyenv init -)"
+fi
+
+if which phpenv > /dev/null; then
+    eval "$(phpenv init -)"
 fi
 
 if [ -e $HOME/.sdkman/bin/sdkman-init.sh ]; then
