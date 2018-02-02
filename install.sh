@@ -3,23 +3,23 @@ unlink ~/.zshrc
 unlink ~/.zshenv
 unlink ~/.vim
 unlink ~/.config/nvim
-unlink ~/.xkb
 unlink ~/.tmux.conf
-if [ `uname` = "Darwin" ]; then
-	rm  ~/Library/Fonts/Ricty*.ttf
-elif [ `uname` = "Linux" ]; then
-	unlink ~/.fonts
-fi
-###### Xsession ######
-if uname -a | grep -sq "Ubuntu"; then
-    ln -s ~/dotfiles/dot.Xsession/xsessionrc ~/.xsessionrc
-fi
 
 if [ `uname` = "Darwin" ]; then
-    unlink ~/Library/Fonts
+    unlink  ~/Library/Fonts/Cica*.ttf
+else
+    unlink ~/.fonts
 fi
+
 if uname -a | grep -sq "Ubuntu"; then
+    unlink ~/.xprofile
     unlink ~/.xsessionrc
+    unlink ~/.xkb
+fi
+
+###### Xsession ######
+if uname -a | grep -sq "Ubuntu"; then
+    ln -s ~/dotfiles/Xsession/xsessionrc ~/.xsessionrc
 fi
 
 ##### zsh setup #####
@@ -31,12 +31,12 @@ if [ -e ~/.zshrc ]; then
   mv ~/.zshrc ~/dotzshrcbk
 fi
 
-ln -s ~/dotfiles/dot.zsh/zshrc ~/.zshrc
-ln -s ~/dotfiles/dot.zsh/zshenv ~/.zshenv
+ln -s ~/dotfiles/zsh/zshrc ~/.zshrc
+ln -s ~/dotfiles/zsh/zshenv ~/.zshenv
 
 ##### xkb setup #####
 if uname -a | grep -sq "Ubuntu"; then
-    ln -s ~/dotfiles/dot.xkb ~/.xkb
+    ln -s ~/dotfiles/xkb ~/.xkb
 fi
 ##### font setup ######
 if [ `uname` = "Darwin" ]; then
@@ -63,13 +63,18 @@ if [ ! -e ~/.config ]; then
     mkdir .config
 fi
 
-ln -s ~/dotfiles/dot.vim ~/.vim
-ln -s ~/dotfiles/dot.vim ~/.config/nvim
+ln -s ~/dotfiles/vim ~/.vim
+ln -s ~/dotfiles/vim ~/.config/nvim
 
 ###### Xsession ######
 if uname -a | grep -sq "Ubuntu"; then
-    ln -s ~/dotfiles/dot.Xsession/xsessionrc ~/.xsessionrc
+    ln -s ~/dotfiles/Xsession/xsessionrc ~/.xsessionrc
+fi
+
+###### xprofile for fcitx ######
+if uname -a | grep -sq "Ubuntu"; then
+    ln -s ~/dotfiles/xprofile/xprofile ~/.xprofile
 fi
 
 ###### tmux ######
-ln -s ~/dotfiles/dot.tmux/tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf

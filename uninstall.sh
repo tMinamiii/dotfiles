@@ -2,12 +2,17 @@ unlink ~/.zshrc
 unlink ~/.zshenv
 unlink ~/.vim
 unlink ~/.config/nvim
-unlink ~/.xkb
 unlink ~/.tmux.conf
 
 if [ `uname` = "Darwin" ]; then
-	rm  ~/Library/Fonts/Ricty*.ttf
-elif [ `uname` = "Linux" ]; then
-	unlink ~/.fonts
+    unlink  ~/Library/Fonts/Cica*.ttf
+else
+    unlink ~/.fonts
 fi
-fc-cache -vf
+
+if uname -a | grep -sq "Ubuntu"; then
+    unlink ~/.xprofile
+    unlink ~/.xsessionrc
+    unlink ~/.xkb
+fi
+
