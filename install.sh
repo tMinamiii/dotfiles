@@ -17,11 +17,6 @@ if uname -a | grep -sq "Ubuntu"; then
     unlink ~/.xkb
 fi
 
-###### Xsession ######
-if uname -a | grep -sq "Ubuntu"; then
-    ln -s ~/dotfiles/Xsession/xsessionrc ~/.xsessionrc
-fi
-
 ##### zsh setup #####
 if [ -e ~/.zsh ]; then
   mv ~/.zsh ~/dotzshbk
