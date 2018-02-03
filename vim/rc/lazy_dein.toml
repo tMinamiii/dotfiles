@@ -70,14 +70,13 @@ on_ft = ['markdown','mkd']
 ### PHP ###
 ###########
 [[plugins]]
-repo = 'padawan-php/padawan.vim'
+repo = 'lvht/phpcd.vim'
 on_ft = ['php']
+build = 'composer install'
 hook_add = '''
-let g:padawan#composer_command = "/usr/bin/composer"
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
 '''
-[[plugins]]
-repo = 'padawan-php/deoplete-padawan'
-on_ft = ['php']
 
 ##############
 ### Python ###
