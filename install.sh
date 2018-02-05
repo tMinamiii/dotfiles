@@ -4,8 +4,9 @@ unlink ~/.zshenv
 unlink ~/.vim
 unlink ~/.config/nvim
 unlink ~/.tmux.conf
+SETUP_GUI=`echo $* | grep -sq "\-\-gui"`
 
-if [ ! $1 = "--gui" ]; then
+if $SETUP_GUI; then
     if [ `uname` = "Darwin" ]; then
         unlink  ~/Library/Fonts/Cica*.ttf
     else
@@ -43,7 +44,7 @@ ln -s ~/dotfiles/vim ~/.config/nvim
 ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 
 ##### GUI setup #####
-if [  $1 = "--gui" ]; then
+if $SETUP_GUI; then
     ##### font setup ######
     if [ `uname` = "Darwin" ]; then
       ln -s ~/Dropbox/Fonts/Cica*.ttf ~/Library/Fonts
@@ -78,4 +79,3 @@ if [  $1 = "--gui" ]; then
         ln -s ~/dotfiles/xkb ~/.xkb
     fi
 fi
-
