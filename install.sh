@@ -4,9 +4,8 @@ unlink ~/.zshenv
 unlink ~/.vim
 unlink ~/.config/nvim
 unlink ~/.tmux.conf
-SETUP_GUI=`echo $* | grep -sq "\-\-gui"`
-
-if $SETUP_GUI; then
+ARGS=$*
+if `echo $ARGS | grep -sq "\-\-gui"`; then
     if [ `uname` = "Darwin" ]; then
         unlink  ~/Library/Fonts/Cica*.ttf
     else
@@ -44,7 +43,7 @@ ln -s ~/dotfiles/vim ~/.config/nvim
 ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
 
 ##### GUI setup #####
-if $SETUP_GUI; then
+if `echo $ARGS | grep -sq "\-\-gui"`; then
     ##### font setup ######
     if [ `uname` = "Darwin" ]; then
       ln -s ~/Dropbox/Fonts/Cica*.ttf ~/Library/Fonts
@@ -58,7 +57,7 @@ if $SETUP_GUI; then
     fi
 
     if uname -a | grep -sq "Ubuntu"; then
-      sudo apt install gconf2
+      sudo apt-get install gconf2
       gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
       gconftool-2 --get /apps/gnome-terminal/profiles/Default/font
       gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "Cica 12"
