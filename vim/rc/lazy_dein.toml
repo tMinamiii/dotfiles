@@ -78,6 +78,17 @@ let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
 '''
 
+############
+### Ruby ###
+############
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+on_ft = ['ruby']
+
+[[plugins]]
+repo = 'uplus/deoplete-solargraph'
+on_ft = ['ruby']
+
 ##############
 ### Python ###
 ##############
