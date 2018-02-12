@@ -13,7 +13,7 @@ if `echo $ARGS | grep -sq "\-\-gui"`; then
         unlink $HOME/.fonts
     fi
 
-    if uname -a | grep -sq "Ubuntu"; then
+    if cat /etc/os-release | grep -sq "Ubuntu"; then
         unlink $HOME/.xprofile
         unlink $HOME/.xsessionrc
         unlink $HOME/.xkb
@@ -22,11 +22,11 @@ fi
 
 ##### zsh setup #####
 if [ -e $HOME/.zsh ]; then
-  mv $HOME/.zsh $HOME/dotzshbk
+    mv $HOME/.zsh $HOME/dotzshbk
 fi
 
 if [ -e $HOME/.zshrc ]; then
-  mv $HOME/.zshrc $HOME/dotzshrcbk
+    mv $HOME/.zshrc $HOME/dotzshrcbk
 fi
 
 ln -s $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
@@ -48,35 +48,28 @@ ln -s $HOME/dotfiles/tmux $HOME/.tmux.d
 if `echo $ARGS | grep -sq "\-\-gui"`; then
     ##### font setup ######
     if [ `uname` = "Darwin" ]; then
-      ln -s $HOME/Dropbox/Fonts/Cica*.ttf $HOME/Library/Fonts
-      fc-cache -vf
-    elif uname -a | grep -sq "Ubuntu"; then
-      ln -s $HOME/Dropbox/Fonts $HOME/.fonts
-      fc-cache -vf
+        ln -s $HOME/Dropbox/Fonts/Cica*.ttf $HOME/Library/Fonts
+        fc-cache -vf
+    elif cat /etc/os-release | grep -sq "Ubuntu"; then
+        ln -s $HOME/Dropbox/Fonts $HOME/.fonts
+        fc-cache -vf
     elif uname -a | grep -sq "Microsoft"; then
-      ln -s $HOME/Dropbox/Fonts $HOME/.fonts
-      fc-cache -vf
+        ln -s $HOME/Dropbox/Fonts $HOME/.fonts
+        fc-cache -vf
     fi
 
-    if uname -a | grep -sq "Ubuntu"; then
-      sudo apt-get install gconf2
-      gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
-      gconftool-2 --get /apps/gnome-terminal/profiles/Default/font
-      gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "Cica 12"
-    fi
-
-    ###### Xsession ######
-    if uname -a | grep -sq "Ubuntu"; then
+    if cat /etc/os-release | grep -sq "Ubuntu"; then
+        sudo apt-get install gconf2
+        gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
+        gconftool-2 --get /apps/gnome-terminal/profiles/Default/font
+        gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "Cica 12"
+        ###### Xsession ######
         ln -s $HOME/dotfiles/Xsession/xsessionrc $HOME/.xsessionrc
-    fi
 
-    ###### xprofile for fcitx ######
-    if uname -a | grep -sq "Ubuntu"; then
+        ###### xprofile for fcitx ######
         ln -s $HOME/dotfiles/xprofile/xprofile $HOME/.xprofile
-    fi
 
-    ##### xkb setup #####
-    if uname -a | grep -sq "Ubuntu"; then
+        ##### xkb setup #####
         ln -s $HOME/dotfiles/xkb $HOME/.xkb
     fi
 fi
