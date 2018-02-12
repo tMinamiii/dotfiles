@@ -1,58 +1,60 @@
 ##### initialize #####
-unlink ~/.zshrc
-unlink ~/.zshenv
-unlink ~/.vim
-unlink ~/.config/nvim
-unlink ~/.tmux.conf
+unlink $HOME/.zshrc
+unlink $HOME/.zshenv
+unlink $HOME/.vim
+unlink $HOME/.config/nvim
+unlink $HOME/.tmux.conf
+unlink $HOME/.tmux.d
 ARGS=$*
 if `echo $ARGS | grep -sq "\-\-gui"`; then
     if [ `uname` = "Darwin" ]; then
-        unlink  ~/Library/Fonts/Cica*.ttf
+        unlink  $HOME/Library/Fonts/Cica*.ttf
     else
-        unlink ~/.fonts
+        unlink $HOME/.fonts
     fi
 
     if uname -a | grep -sq "Ubuntu"; then
-        unlink ~/.xprofile
-        unlink ~/.xsessionrc
-        unlink ~/.xkb
+        unlink $HOME/.xprofile
+        unlink $HOME/.xsessionrc
+        unlink $HOME/.xkb
     fi
 fi
 
 ##### zsh setup #####
-if [ -e ~/.zsh ]; then
-  mv ~/.zsh ~/dotzshbk
+if [ -e $HOME/.zsh ]; then
+  mv $HOME/.zsh $HOME/dotzshbk
 fi
 
-if [ -e ~/.zshrc ]; then
-  mv ~/.zshrc ~/dotzshrcbk
+if [ -e $HOME/.zshrc ]; then
+  mv $HOME/.zshrc $HOME/dotzshrcbk
 fi
 
-ln -s ~/dotfiles/zsh/zshrc ~/.zshrc
-ln -s ~/dotfiles/zsh/zshenv ~/.zshenv
+ln -s $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
+ln -s $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
 
 ###### vim setup ######
-if [ ! -e ~/.config ]; then
+if [ ! -e $HOME/.config ]; then
     mkdir .config
 fi
 
-ln -s ~/dotfiles/vim ~/.vim
-ln -s ~/dotfiles/vim ~/.config/nvim
+ln -s $HOME/dotfiles/vim $HOME/.vim
+ln -s $HOME/dotfiles/vim $HOME/.config/nvim
 
 ###### tmux ######
-ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
+ln -s $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+ln -s $HOME/dotfiles/tmux $HOME/.tmux.d
 
 ##### GUI setup #####
 if `echo $ARGS | grep -sq "\-\-gui"`; then
     ##### font setup ######
     if [ `uname` = "Darwin" ]; then
-      ln -s ~/Dropbox/Fonts/Cica*.ttf ~/Library/Fonts
+      ln -s $HOME/Dropbox/Fonts/Cica*.ttf $HOME/Library/Fonts
       fc-cache -vf
     elif uname -a | grep -sq "Ubuntu"; then
-      ln -s ~/Dropbox/Fonts ~/.fonts
+      ln -s $HOME/Dropbox/Fonts $HOME/.fonts
       fc-cache -vf
     elif uname -a | grep -sq "Microsoft"; then
-      ln -s ~/Dropbox/Fonts ~/.fonts
+      ln -s $HOME/Dropbox/Fonts $HOME/.fonts
       fc-cache -vf
     fi
 
@@ -65,16 +67,16 @@ if `echo $ARGS | grep -sq "\-\-gui"`; then
 
     ###### Xsession ######
     if uname -a | grep -sq "Ubuntu"; then
-        ln -s ~/dotfiles/Xsession/xsessionrc ~/.xsessionrc
+        ln -s $HOME/dotfiles/Xsession/xsessionrc $HOME/.xsessionrc
     fi
 
     ###### xprofile for fcitx ######
     if uname -a | grep -sq "Ubuntu"; then
-        ln -s ~/dotfiles/xprofile/xprofile ~/.xprofile
+        ln -s $HOME/dotfiles/xprofile/xprofile $HOME/.xprofile
     fi
 
     ##### xkb setup #####
     if uname -a | grep -sq "Ubuntu"; then
-        ln -s ~/dotfiles/xkb ~/.xkb
+        ln -s $HOME/dotfiles/xkb $HOME/.xkb
     fi
 fi

@@ -1,0 +1,9 @@
+# 'y'と'Enter'でcopy-pipe-and-cancelを使う
+bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+bind-key -T copy-mode-vi Enter send -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+
+# マウス選択でもcopy-pipe-and-cancel
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+
+# <prefix> pでクリップボードからペースト
+bind-key p run "preattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"

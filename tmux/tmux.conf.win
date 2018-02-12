@@ -1,0 +1,9 @@
+# 'y'と'Enter'でcopy-pipe-and-cancelを使う
+bind-key -T copy-mode-vi y send -X copy-pipe-and-cancel "win32yank -i"
+bind-key -T copy-mode-vi Enter send -X copy-pipe-and-cancel "win32yank -i"
+
+# マウス選択でもcopy-pipe-and-cancel
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "win32yank -i"
+
+# <prefix> pでクリップボードからペースト
+bind-key p run "win32yank -o | tmux load-buffer - && tmux paste-buffer"

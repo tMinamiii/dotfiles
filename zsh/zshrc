@@ -104,7 +104,7 @@ alias dvenv='deactivate'
 if [ `uname` = "Darwin" ]; then
     # Mac OSX
     # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
-    #export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
+    # export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
 elif uname -a | grep -sq "Ubuntu"; then
     # Ubuntu
     #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
