@@ -89,10 +89,9 @@ export PATH=$HOME/.ndenv/bin:$PATH
 export PATH=$HOME/neovim/bin:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
 export TERM=xterm-256color
+[[ $TMUX != "" ]] && export TERM="screen-256color"
 export EDITOR="nvim"
 export SHELL=/bin/zsh
-
-[[ $TMUX != "" ]] && export TERM="screen-256color"
 
 alias pip3-upgrade='pip3 install --upgrade pip && pip3 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip3 install --upgrade'
 alias pip2-upgrade='pip2 install --upgrade pip && pip2 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip2 install --upgrade'
