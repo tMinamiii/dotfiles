@@ -101,8 +101,8 @@ alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias avenv='source ./env/bin/activate'
 alias dvenv='deactivate'
-alias docker_rmi_cache="docker rmi `docker images | grep \<none\> | awk '{print $3}'`"
-alias docker_rm_exited="docker rm `docker -aq`"
+alias docker-rmi-cache='docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi'
+alias docker-rm-exited='docker -aq | xargs docker rm'
 if [ `uname` = "Darwin" ]; then
     # Mac OSX
     # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
