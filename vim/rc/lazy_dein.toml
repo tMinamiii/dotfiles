@@ -5,8 +5,8 @@
 repo = 'w0rp/ale'
 on_ft = ['php','python','python3']
 hook_add = '''
+" \   'php': ['hack', 'hackfmt', 'langserver', 'phan', 'php -l', 'phpmd', 'phpstan', 'phpcbf'],
 let g:ale_linters = {
-\   'php': ['hack', 'hackfmt', 'langserver', 'phan', 'php -l', 'phpmd', 'phpstan', 'phpcbf'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \}
@@ -31,6 +31,7 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
+let g:ale_php_phpcs_standard = 'PSR2'
 '''
 
 ############
@@ -80,11 +81,26 @@ on_ft = ['markdown','mkd']
 repo = 'autozimu/LanguageClient-neovim'
 on_ft = ['php', 'js', 'json']
 rev = 'next'
-build = 'bash install.sh'
+build = '''
+bash install.sh
+echo '{
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "felixfbecker/language-server": "*"
+    },
+    "scripts": {
+        "parse-stubs": "LanguageServer\\\\ComposerScripts::parseStubs"
+    }
+}' > composer.json
+composer install
+composer run-script parse-stubs
+'''
 hook_add = '''
 set hidden
-
+let g:phpls = expand('~/.cache/dein/repos/github.com/autozimu/LanguageClient-neovim/vendor/felixfbecker/language-server/bin/php-language-server.php')
 let g:LanguageClient_serverCommands = {
+    \ 'php': ['php', g:phpls],
     \ 'json': ['vscode-json-languageservice'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
@@ -96,12 +112,23 @@ nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 '''
 
-[[plugins]]
-repo = 'roxma/LanguageServer-php-neovim'
-build = 'composer install && composer run-script parse-stubs'
-on_ft = ['php']
-hook_add = '''
-'''
+#echo '{
+#    "minimum-stability": "dev",
+#    "prefer-stable": true,
+#    "require": {
+#        "felixfbecker/language-server": "*"
+#    },
+#    "scripts": {
+#        "parse-stubs": "LanguageServer\\\\ComposerScripts::parseStubs"
+#    }
+#}' > composer.json && \
+#composer install && composer run-script parse-stubs
+#[[plugins]]
+#repo = 'roxma/LanguageServer-php-neovim'
+#build = 'composer install && composer run-script parse-stubs'
+#on_ft = ['php']
+#hook_add = '''
+#'''
 
 ############
 ### Ruby ###

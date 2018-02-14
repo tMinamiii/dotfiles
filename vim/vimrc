@@ -168,4 +168,3 @@ color dracula
 "color nova 
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
-autocmd FileType php LanguageClientStart

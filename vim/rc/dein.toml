@@ -26,7 +26,7 @@ repo = 'jpalardy/vim-slime'
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
 hook_add = '''
-nmap <F9> :VimFilerExplorer<CR>
+nmap <F9> :VimFilerExplorer -winwidth=50 -no-quit<CR>
 '''
 
 # vimfiler に必要
