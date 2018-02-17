@@ -71,24 +71,20 @@ on_ft = ['php', 'javascript']
 rev = 'next'
 build = '''
 bash install.sh
-echo '{
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require": {
-        "felixfbecker/language-server": "*"
-    },
-    "scripts": {
-        "parse-stubs": "LanguageServer\\\\ComposerScripts::parseStubs"
-    }
-}' > composer.json
-composer install
-composer run-script parse-stubs
+
+""""" setup php language sever """""
+composer global config minimum-stability dev
+composer global require felixfbecker/language-server
+composer global run-script "LanguageServer\\ComposerScripts::parseStubs"
+
+""""" setup javascript language sever """""
+npm install -g javascript-typescript-langserver
+npm install -g vscode-json-languageservice
 '''
 hook_source = '''
 set hidden
-let g:phpls = expand('~/.cache/dein/repos/github.com/autozimu/LanguageClient-neovim/vendor/felixfbecker/language-server/bin/php-language-server.php')
 let g:LanguageClient_serverCommands = {
-    \ 'php': ['php', g:phpls],
+    \ 'php': ['php', 'php-language-server.php'],
     \ 'json': ['vscode-json-languageservice'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
