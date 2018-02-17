@@ -3,7 +3,7 @@
 ####################
 [[plugins]]
 repo = 'w0rp/ale'
-on_ft = ['php','python','python3']
+on_ft = ['javascript','php','python','python3']
 hook_add = '''
 " \   'php': ['hack', 'hackfmt', 'langserver', 'phan', 'php -l', 'phpmd', 'phpstan', 'phpcbf'],
 let g:ale_linters = {
@@ -65,21 +65,9 @@ on_ft = ['markdown','mkd']
 repo = 'tyru/open-browser.vim'
 on_ft = ['markdown','mkd']
 
-###########
-### PHP ###
-###########
-#[[plugins]]
-#repo = 'lvht/phpcd.vim'
-#on_ft = ['php']
-#build = 'composer install'
-#hook_add = '''
-#let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-#let g:deoplete#ignore_sources.php = ['omni']
-#'''
-
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php', 'js', 'json']
+on_ft = ['php', 'javascript']
 rev = 'next'
 build = '''
 bash install.sh
@@ -96,7 +84,7 @@ echo '{
 composer install
 composer run-script parse-stubs
 '''
-hook_add = '''
+hook_source = '''
 set hidden
 let g:phpls = expand('~/.cache/dein/repos/github.com/autozimu/LanguageClient-neovim/vendor/felixfbecker/language-server/bin/php-language-server.php')
 let g:LanguageClient_serverCommands = {
@@ -112,29 +100,50 @@ nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 '''
 
-#echo '{
-#    "minimum-stability": "dev",
-#    "prefer-stable": true,
-#    "require": {
-#        "felixfbecker/language-server": "*"
-#    },
-#    "scripts": {
-#        "parse-stubs": "LanguageServer\\\\ComposerScripts::parseStubs"
-#    }
-#}' > composer.json && \
-#composer install && composer run-script parse-stubs
+###########
+### PHP ###
+###########
 #[[plugins]]
-#repo = 'roxma/LanguageServer-php-neovim'
-#build = 'composer install && composer run-script parse-stubs'
+#repo = 'lvht/phpcd.vim'
 #on_ft = ['php']
+#build = 'composer install'
 #hook_add = '''
+#let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+#let g:deoplete#ignore_sources.php = ['omni']
 #'''
+
+##################
+### Javascript ###
+##################
+[[plugins]]
+repo = 'moll/vim-node'
+on_ft = ['javascript']
+hook_add = '''
+autocmd User Node
+  \ if &filetype == "javascript" |
+  \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
+  \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
+  \ endif
+'''
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = ['javascript']
+
+### syntax highlighting
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = ['javascript']
 
 ############
 ### Ruby ###
 ############
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
+on_ft = ['ruby']
+
+[[plugins]]
+repo = 'tpope/vim-rails'
 on_ft = ['ruby']
 
 [[plugins]]
