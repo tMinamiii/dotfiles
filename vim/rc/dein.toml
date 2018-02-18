@@ -7,6 +7,10 @@ hook_add ='''
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#omni#input_patterns = {}
 let g:deoplete#sources = {}
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.javascript = ['omni']
+let g:deoplete#ignore_sources.typescript = ['omni']
+let g:deoplete#ignore_sources.python = ['omni']
 '''
 
 [[plugins]]
