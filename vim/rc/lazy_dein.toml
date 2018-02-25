@@ -5,6 +5,8 @@
 repo = 'w0rp/ale'
 on_ft = ['typescript','javascript','php','python','python3']
 build = '''
+composer global config minimum-stability dev
+composer global config prefer-stable true
 composer global require squizlabs/php_codesniffer
 npm install -g eslint
 pip install autopep8 flake8 isort
@@ -81,7 +83,7 @@ bash install.sh
 composer global config minimum-stability dev
 composer global config prefer-stable true
 composer global require felixfbecker/language-server
-composer run-script --working-dir=$HOME/.phpenv/versions/$(phpenv version | awk {'print($1)'})/composer/vendor/felixfbecker/language-server parse-stubs
+composer global run-script --working-dir=$HOME/.phpenv/versions/$(phpenv version | awk {'print($1)'})/composer/vendor/felixfbecker/language-server parse-stubs
 
 ### setup javascript language sever ###
 npm install -g javascript-typescript-langserver
