@@ -79,9 +79,10 @@ bash install.sh
 
 ### setup php language sever ###
 composer global config minimum-stability dev
+composer global config prefer-stable true
 composer global require felixfbecker/language-server
 composer run-script --working-dir=$HOME/.phpenv/versions/$(phpenv version | awk {'print($1)'})/composer/vendor/felixfbecker/language-server parse-stubs
-# composer run-script --working-dir=$HOME/.composer/vendor/felixfbecker/language-server parse-stubs
+
 ### setup javascript language sever ###
 npm install -g javascript-typescript-langserver
 npm install -g vscode-json-languageservice
