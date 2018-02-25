@@ -77,19 +77,21 @@ rev = 'next'
 build = '''
 bash install.sh
 
-### setup php language sever """""
+### setup php language sever ###
 composer global config minimum-stability dev
 composer global require felixfbecker/language-server
-composer run-script parse-stubs
-
-### setup javascript language sever """""
+composer run-script --working-dir=$HOME/.phpenv/versions/$(phpenv version | awk {'print($1)'})/composer/vendor/felixfbecker/language-server parse-stubs
+# composer run-script --working-dir=$HOME/.composer/vendor/felixfbecker/language-server parse-stubs
+### setup javascript language sever ###
 npm install -g javascript-typescript-langserver
 npm install -g vscode-json-languageservice
 '''
 hook_source = '''
 set hidden
+let s:php_version = substitute(system("phpenv version | awk {'print($1)'}"), '\n\+$','','')
+let s:php_lang_server_path = expand("$HOME/.phpenv/versions/" . s:php_version . "/composer/vendor/bin/php-language-server.php")
 let g:LanguageClient_serverCommands = {
-    \ 'php': ['php', 'php-language-server.php'],
+    \ 'php': ['php', s:php_lang_server_path],
     \ 'json': ['vscode-json-languageservice'],
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'javascript': ['javascript-typescript-stdio'],
