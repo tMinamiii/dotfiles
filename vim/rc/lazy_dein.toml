@@ -77,12 +77,12 @@ rev = 'next'
 build = '''
 bash install.sh
 
-""""" setup php language sever """""
+### setup php language sever """""
 composer global config minimum-stability dev
 composer global require felixfbecker/language-server
-composer global run-script "LanguageServer\\ComposerScripts::parseStubs"
+composer run-script parse-stubs
 
-""""" setup javascript language sever """""
+### setup javascript language sever """""
 npm install -g javascript-typescript-langserver
 npm install -g vscode-json-languageservice
 '''
