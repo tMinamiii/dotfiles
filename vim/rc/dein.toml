@@ -30,7 +30,7 @@ repo = 'jpalardy/vim-slime'
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
 hook_add = '''
-nmap <F9> :VimFilerExplorer -winwidth=50 -no-quit<CR>
+nmap <F9> :VimFilerExplorer -winwidth=40 -no-quit<CR>
 '''
 
 # vimfiler に必要
@@ -95,6 +95,21 @@ let g:DevIconsEnableFoldersOpenClose = 1
 [[plugins]]
 repo    = 'tpope/vim-fugitive'
 
+[[plugins]]
+repo = 'dbakker/vim-projectroot'
+hook_add = '''
+function! <SID>AutoProjectRootCD()
+  try
+    if &ft != 'help'
+      ProjectRootCD
+    endif
+  catch
+    " Silently ignore invalid buffers
+  endtry
+endfunction
+
+autocmd BufEnter * call <SID>AutoProjectRootCD()
+'''
 
 ####################
 ### カラーテーマ ###

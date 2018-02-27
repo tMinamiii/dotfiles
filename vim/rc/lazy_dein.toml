@@ -157,7 +157,20 @@ repo = 'tpope/vim-rails'
 on_ft = ['ruby']
 
 [[plugins]]
+repo = 'hackhowtofaq/vim-solargraph'
+buld = '''
+gem install json rest-client solargraph
+'''
+on_ft = ['ruby']
+
+[[plugins]]
 repo = 'uplus/deoplete-solargraph'
+buld = '''
+gem install solargraph
+pip install solargraph-utils.py
+yard gems 
+yard config --gem-install-yri 
+'''
 on_ft = ['ruby']
 
 ##############
