@@ -91,22 +91,11 @@ export PATH=$HOME/.ndenv/shims:$PATH
 export PATH=$HOME/.jenv/bin:$PATH
 export PATH=$HOME/.jenv/shims:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
-export PATH=$PATH:$HOME/neovim/bin
 export GTAGSLABEL=pygments
 export TERM=xterm-256color
 [[ $TMUX != "" ]] && export TERM="screen-256color"
 export EDITOR="nvim"
 export SHELL=/bin/zsh
-
-init_phpls() {
-    if [ ! -e './composer.json' ]; then
-        echo "{}" > ./composer.json
-    fi
-    composer config minimum-stability dev
-    composer require felixfbecker/language-server
-    composer update
-    composer run-script --working-dir=vendor/felixfbecker/language-server parse-stubs
-}
 
 alias pip3-upgrade='pip3 install --upgrade pip && pip3 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip3 install --upgrade'
 alias pip2-upgrade='pip2 install --upgrade pip && pip2 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip2 install --upgrade'
@@ -117,14 +106,13 @@ alias avenv='source ./env/bin/activate'
 alias dvenv='deactivate'
 alias docker-rmi-cache='docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi'
 alias docker-rm-exited='docker -aq | xargs docker rm'
-alias phpls=init_phpls()
 
 if [ `uname` = "Darwin" ]; then
     # Mac OSX
     # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
     # export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
     export PATH="/usr/local/sbin:$PATH"
-    alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin brew"
+    alias brew="PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin brew"
 elif uname -a | grep -sq "Ubuntu"; then
     # Ubuntu
     #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
