@@ -3,39 +3,12 @@
 ####################
 [[plugins]]
 repo = 'w0rp/ale'
-on_ft = ['c', 'cpp', 'ruby', 'yaml', 'typescript', 'dockerfile', 
+on_ft = ['c', 'cpp', 'sql', 'ruby', 'yaml', 'sh', 'typescript', 'dockerfile', 
          'javascript', 'xml', 'vim', 'markdown', 'php','python','python3']
 build = '''
-# PHP
-composer global config minimum-stability dev
-composer global config prefer-stable true
-composer global require squizlabs/php_codesniffer
-npm install -g eslint \   # JS TS
-               swaglint \ # YAML
-               fixjson \  # JSON
-               write-good mdl # Markdown
-gem install rubocop reek  # Ruby
-pip install autopep8 flake8 isort \ # Python
-            cpplint \     # C/CPP
-            yamllint \    # YAML
-            vim-vint \    # VimScript
-            proselint     # Markdown
-
-if [ `uname` = "Darwin" ]; then
-    brew install llvm --with-clang 
-    ln -s /usr/local/opt/llvm/lib/libclang.dylib /usr/local/opt/llvm/lib/libclang.so
-    brew install clang-format flawfinder cppcheck \ # C/CPP
-                 hadolint # Dockerfile
-elif uname -a | grep -sq "Ubuntu"; then
-    # C/CPP
-    sudo apt-get install cppcheck llvm clang clang-format flawfinder cppcheck
-    # Dockerfile
-    wget -qO- https://get.haskellstack.org/ | sh
-    git clone https://github.com/hadolint/hadolint $HOME/repos/hadolint
-    cd $HOME/repos/hadlint
-    stack install
-    cd -
-fi
+cd $HOME/.vim/rc/
+sh ale-build.sh
+cd -
 '''
 hook_add = '''
 let g:ale_linters = {
