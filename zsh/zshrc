@@ -103,8 +103,8 @@ pip3_upgrade () {
     pip3 install --upgrade pip && pip3 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip3 install --upgrade
 }
 
-pip3_upgrade () {
-    pip2-upgrade=pip2 install --upgrade pip && pip2 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip2 install --upgrade
+pip2_upgrade () {
+    pip2 install --upgrade pip && pip2 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip2 install --upgrade
 }
 
 alias build-neovim='git pull && make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
@@ -112,9 +112,11 @@ alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias avenv='source ./env/bin/activate'
 alias dvenv='deactivate'
+
 docker_rmi_none () {
     docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
 }
+
 alias docker-rm-exited='docker -aq | xargs docker rm'
 
 if [ "$(uname)" = "Darwin" ]; then
