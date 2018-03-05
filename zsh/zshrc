@@ -93,21 +93,31 @@ export PATH=$HOME/.jenv/shims:$PATH
 export PATH=$HOME/.composer/vendor/bin:$PATH
 export GTAGSLABEL=pygments
 export TERM=xterm-256color
-[[ $TMUX != "" ]] && export TERM="screen-256color"
+if [ "$TMUX" != "" ]; then
+    export TERM="screen-256color"
+fi
 export EDITOR="nvim"
 export SHELL=/bin/zsh
 
-alias pip3-upgrade='pip3 install --upgrade pip && pip3 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip3 install --upgrade'
-alias pip2-upgrade='pip2 install --upgrade pip && pip2 list --outdated --format columns | awk '\''NR>2{print $1}'\'' | xargs pip2 install --upgrade'
+pip3_upgrade () {
+    pip3 install --upgrade pip && pip3 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip3 install --upgrade
+}
+
+pip3_upgrade () {
+    pip2-upgrade=pip2 install --upgrade pip && pip2 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip2 install --upgrade
+}
+
 alias build-neovim='git pull && make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
 alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias avenv='source ./env/bin/activate'
 alias dvenv='deactivate'
-alias docker-rmi-cache='docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi'
+docker_rmi_none () {
+    docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
+}
 alias docker-rm-exited='docker -aq | xargs docker rm'
 
-if [ `uname` = "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
     # Mac OSX
     # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
     # export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
@@ -142,7 +152,7 @@ fi
 
 if which phpenv > /dev/null; then
     eval "$(phpenv init -)"
-    export COMPOSER_HOME="$HOME/.phpenv/versions/$(phpenv version | awk {'print($1)'})/composer"
+    readonly COMPOSER_HOME="$HOME/.phpenv/versions/$(phpenv version | awk '{print($1)}')/composer"
 fi
 
 if which jenv > /dev/null; then

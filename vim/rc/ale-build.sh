@@ -18,7 +18,7 @@ npm install -g write-good mdl
 # SQL
 gem install sqlint
 
-if [ `uname` = "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
     # C/CPP
     brew install llvm --with-clang 
     if [ ! -e /usr/local/opt/llvm/lib/libclang.so ]; then
@@ -37,8 +37,8 @@ elif uname -a | grep -sq "Ubuntu"; then
     sudo apt-get install -y shellcheck
     # Dockerfile
     wget -qO- https://get.haskellstack.org/ | sh
-    git clone https://github.com/hadolint/hadolint $HOME/repos/hadolint
-    cd $HOME/repos/hadlint
+    git clone https://github.com/hadolint/hadolint "$HOME/repos/hadolint"
+    cd "$HOME/repos/hadlint" || exit
     stack install
-    cd -
+    cd - || exit
 fi

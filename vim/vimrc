@@ -1,7 +1,5 @@
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
+set encoding=utf-8
+scriptencoding utf-8
 " release autogroup in MyAutoCmd
 " augroup MyAutoCmd
 "  autocmd!
@@ -33,8 +31,8 @@ set textwidth=0                 " 自動的に改行が入るのを無効化
 set colorcolumn=80              " その代わり80文字目にラインを入れる
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
-let _curfile=expand("%:r")
-if _curfile == 'Makefile' || _curfile == 'makefile'
+let s:_curfile=expand('%:r')
+if s:_curfile ==# 'Makefile' || s:_curfile ==# 'makefile'
     set noexpandtab               " タブをタブとして扱う(スペースに展開しない)
 else
     set expandtab                   " タブをスペースにする
@@ -51,23 +49,23 @@ set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮ ",nbsp:%,eol:↲ "不可
 set ttimeout
 set ttimeoutlen=10
 set scrolloff=3                 " 3行残して画面スクロールする
-set sh=zsh
+set shell=zsh
 set lazyredraw
 
 """"" MacVimのMetaキー有効化
-if has("gui_macvim")
+if has('gui_macvim')
     set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
 endif
 
-if ! has("nvim")
+if ! has('nvim')
 " OptionキーをMetaキーとして使う。
-    let c = 'a'
-    while c <= 'z'
-        execute "set <M-" . c . ">=\e" . c
-        execute "imap \e" . c . " <M-" . c . ">"
-        execute "set <M-S-" . c . ">=\e" . toupper(c)
-        execute "imap \e" . toupper(c) . " <M-" . c . ">"
-        let c = nr2char(1+char2nr(c))
+    let s:c = 'a'
+    while s:c <=# 'z'
+        execute 'set <M-' . s:c . '>=\e' . s:c
+        execute 'imap \e' . s:c . ' <M-' . s:c . '>'
+        execute 'set <M-S-' . s:c . '>=\e' . toupper(s:c)
+        execute 'imap \e' . toupper(s:c) . ' <M-' . s:c . '>'
+        let s:c = nr2char(1+char2nr(s:c))
     endw
 endif
 """"" key remap
@@ -148,16 +146,10 @@ if dein#check_install()
 endif
 
 if has('nvim')
-    if has('win64')
-        let g:python_host_prog=glob($PYENV_ROOT.'/versions/2.7*/bin/python')
-        let g:python3_host_prog=glob($PYENV_ROOT.'/versions/3*/bin/python')
-    else
-        " globしてwildcardで使う
-        let g:python_host_prog=glob($PYENV_ROOT.'/versions/2.7*/bin/python')
-        let g:python3_host_prog=glob($PYENV_ROOT.'/versions/3*/bin/python')
-    endif
+    let g:python_host_prog=glob($PYENV_ROOT.'/versions/2.7*/bin/python')
+    let g:python3_host_prog=glob($PYENV_ROOT.'/versions/3*/bin/python')
 endif
-
+autocmd BufRead,BufNewFile *zshrc setfiletype sh
 syntax on
 color dracula
 "color nova 

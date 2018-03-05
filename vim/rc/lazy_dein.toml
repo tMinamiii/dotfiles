@@ -89,17 +89,9 @@ repo = 'autozimu/LanguageClient-neovim'
 on_ft = ['php', 'typescript', 'javascript']
 rev = 'next'
 build = '''
-bash install.sh
-
-### setup php language sever ###
-composer global config minimum-stability dev
-composer global config prefer-stable true
-composer global require felixfbecker/language-server
-composer global run-script --working-dir=$COMPOSER_HOME/vendor/felixfbecker/language-server parse-stubs
-
-### setup javascript language sever ###
-npm install -g javascript-typescript-langserver
-npm install -g vscode-json-languageservice
+cd $HOME/.vim/rc/
+sh language-server.sh
+cd -
 '''
 hook_source = '''
 set hidden
@@ -170,9 +162,7 @@ on_ft = ['ruby']
 
 [[plugins]]
 repo = 'hackhowtofaq/vim-solargraph'
-buld = '''
-gem install json rest-client solargraph
-'''
+buld = 'gem install json rest-client solargraph'
 on_ft = ['ruby']
 
 [[plugins]]
