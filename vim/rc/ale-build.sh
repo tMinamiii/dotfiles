@@ -2,6 +2,7 @@
 composer global config minimum-stability dev
 composer global config prefer-stable true
 composer global require squizlabs/php_codesniffer
+composer global require phpstan/phpstan
 # JS TS JSON
 npm install -g eslint fixjson
 # Ruby
