@@ -89,6 +89,7 @@ repo = 'autozimu/LanguageClient-neovim'
 on_ft = ['php', 'typescript', 'javascript']
 rev = 'next'
 build = '''
+bash install.sh
 cd $HOME/.vim/rc/
 sh language-server.sh
 cd -

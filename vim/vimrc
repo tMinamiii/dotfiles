@@ -37,7 +37,6 @@ if s:_curfile ==# 'Makefile' || s:_curfile ==# 'makefile'
 else
     set expandtab                   " タブをスペースにする
 endif
-set encoding=utf-8
 set ambiwidth=double
 set tabstop=4                   " タブを表示するときの幅
 set shiftwidth=4                " タブを挿入するときの幅

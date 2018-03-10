@@ -154,7 +154,9 @@ fi
 
 if which phpenv > /dev/null; then
     eval "$(phpenv init -)"
-    readonly COMPOSER_HOME="$HOME/.phpenv/versions/$(phpenv version | awk '{print($1)}')/composer"
+    CURRENT_COMPOSER_HOME="$HOME/.phpenv/versions/$(phpenv version | awk '{print($1)}')/composer"
+    export COMPOSER_HOME="$CURRENT_COMPOSER_HOME"
+    #"HOME/.phpenv/versions/7.1.13/composer"
 fi
 
 if which jenv > /dev/null; then
