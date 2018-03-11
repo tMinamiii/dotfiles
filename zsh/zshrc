@@ -107,6 +107,16 @@ pip2_upgrade () {
     pip2 install --upgrade pip && pip2 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip2 install --upgrade
 }
 
+install_php_dev () {
+    composer require --dev felixfbecker/language-server
+    composer run-script --working-dir="/vendor/felixfbecker/language-server" parse-stubs
+    composer require --dev phpunit/phpunit
+}
+
+install_js_dev () {
+    npm install --save-dev javascript-typescript-langserver vscode-json-languageservice
+}
+
 alias build-neovim='git pull && make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
 alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'

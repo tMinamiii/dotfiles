@@ -86,18 +86,19 @@ on_ft = ['markdown','mkd']
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php', 'scala', 'typescript', 'javascript']
+on_ft = ['php', 'json', 'typescript', 'javascript']
 rev = 'next'
 build = '''
 bash install.sh
 cd $HOME/.vim/rc/
-sh language-server.sh
+# sh language-server.sh
 cd -
 '''
 hook_source = '''
 set hidden
-let s:php_version = substitute(system("phpenv version | awk {'print($1)'}"), '\n\+$','','')
-let s:php_lang_server_path = expand("$COMPOSER_HOME/vendor/bin/php-language-server.php")
+"let s:php_version = substitute(system("phpenv version | awk {'print($1)'}"), '\n\+$','','')
+"let s:php_lang_server_path = expand("$COMPOSER_HOME/vendor/bin/php-language-server.php")
+let s:php_lang_server_path = "./vendor/bin/php-language-server.php"
 let g:LanguageClient_serverCommands = {
     \ 'php': ['php', s:php_lang_server_path],
     \ 'json': ['vscode-json-languageservice'],
@@ -115,14 +116,11 @@ nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 ###########
 ### PHP ###
 ###########
-#[[plugins]]
-#repo = 'lvht/phpcd.vim'
-#on_ft = ['php']
-#build = 'composer install'
-#hook_add = '''
-#let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-#let g:deoplete#ignore_sources.php = ['omni']
-#'''
+# [[plugins]]
+# repo = 'lvht/phpcd.vim'
+# on_ft = ['php']
+# build = 'composer install'
+# hook_add = ''
 
 ##################
 ### Javascript ###
