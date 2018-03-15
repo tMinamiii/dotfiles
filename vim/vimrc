@@ -38,8 +38,6 @@ else
     set expandtab                   " タブをスペースにする
 endif
 set ambiwidth=double
-set tabstop=4                   " タブを表示するときの幅
-set shiftwidth=4                " タブを挿入するときの幅
 set softtabstop=0
 set showtabline=2               " 常にタブラインを表示
 set laststatus=2
@@ -50,6 +48,14 @@ set ttimeoutlen=10
 set scrolloff=3                 " 3行残して画面スクロールする
 set shell=zsh
 set lazyredraw
+
+set tabstop=4                   " タブを表示するときの幅
+set shiftwidth=4                " タブを挿入するときの幅
+
+augroup indentsize
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+    autocmd FileType html       setlocal shiftwidth=2 tabstop=2j
+augroup END
 
 """"" MacVimのMetaキー有効化
 if has('gui_macvim')

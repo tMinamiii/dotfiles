@@ -98,13 +98,14 @@ hook_source = '''
 set hidden
 "let s:php_version = substitute(system("phpenv version | awk {'print($1)'}"), '\n\+$','','')
 "let s:php_lang_server_path = expand("$COMPOSER_HOME/vendor/bin/php-language-server.php")
-let s:php_lang_server_path = "./vendor/bin/php-language-server.php"
+
+let s:php_langserver = "./vendor/bin/php-language-server.php"
+let s:js_langserver = "./node_modules/javascript-typescript-langserver/lib/javascript-typescript-stdio"
 let g:LanguageClient_serverCommands = {
-    \ 'php': ['php', s:php_lang_server_path],
-    \ 'json': ['vscode-json-languageservice'],
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'php': ['php', s:php_langserver],
+    \ 'typescript': [s:js_langserver],
+    \ 'javascript': [s:js_langserver],
+    \ 'javascript.jsx': [s:js_langserver],
     \ }
 
 nnoremap <silent> <F10> :LanguageClientStart<CR>
@@ -142,6 +143,10 @@ on_ft = ['typescript', 'javascript']
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
 on_ft = ['typescript','javascript']
+
+[[plugins]]
+repo = 'mhartington/nvim-typescript'
+on_ft = ['typescript']
 
 ### syntax highlighting
 [[plugins]]
