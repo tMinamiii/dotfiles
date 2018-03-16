@@ -100,7 +100,7 @@ set hidden
 "let s:php_lang_server_path = expand("$COMPOSER_HOME/vendor/bin/php-language-server.php")
 
 let s:php_langserver = "./vendor/bin/php-language-server.php"
-let s:js_langserver = "./node_modules/javascript-typescript-langserver/lib/javascript-typescript-stdio"
+let s:js_langserver = "./node_modules/javascript-typescript-langserver/lib/javascript-typescript-stdio.js"
 let g:LanguageClient_serverCommands = {
     \ 'php': ['php', s:php_langserver],
     \ 'typescript': [s:js_langserver],
