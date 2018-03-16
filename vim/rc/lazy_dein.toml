@@ -146,12 +146,13 @@ on_ft = ['typescript','javascript']
 
 [[plugins]]
 repo = 'mhartington/nvim-typescript'
+build = 'npm i -g typescript'
 on_ft = ['typescript']
 
 ### syntax highlighting
 [[plugins]]
 repo = 'jelera/vim-javascript-syntax'
-on_ft = ['typescript','javascript']
+on_ft = ['javascript']
 
 ############
 ### Ruby ###
