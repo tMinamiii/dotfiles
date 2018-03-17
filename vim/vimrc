@@ -24,7 +24,6 @@ set backspace=0
 " set clipboard=unnamed
 set clipboard+=unnamedplus
 """"" [表示系]
-set list                        " 不可視文字の可視化
 set number                      " 行番号の表示
 set wrap                        " 長いテキストの折り返し
 set textwidth=0                 " 自動的に改行が入るのを無効化
@@ -42,6 +41,7 @@ set softtabstop=0
 set showtabline=2               " 常にタブラインを表示
 set laststatus=2
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
+set list                        " 不可視文字の可視化
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮ ",nbsp:%,eol:↲ "不可視文字をUnicodeにする
 set ttimeout
 set ttimeoutlen=10
@@ -59,6 +59,10 @@ augroup indentsize
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
 augroup END
 
+augroup filetypes
+    autocmd BufRead,BufNewFile *zshrc setfiletype sh
+    autocmd BufRead,BufNewFile *.mjs setfiletype javascript
+augroup END
 """"" MacVimのMetaキー有効化
 if has('gui_macvim')
     set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
@@ -156,9 +160,10 @@ if has('nvim')
     let g:python_host_prog=glob($PYENV_ROOT.'/versions/2.7*/bin/python')
     let g:python3_host_prog=glob($PYENV_ROOT.'/versions/3*/bin/python')
 endif
-autocmd BufRead,BufNewFile *zshrc setfiletype sh
 syntax on
 color dracula
 "color nova 
+"hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
