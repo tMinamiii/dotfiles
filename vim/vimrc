@@ -31,7 +31,7 @@ set colorcolumn=80              " その代わり80文字目にラインを入�
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
 let s:_curfile=expand('%:r')
-if s:_curfile ==# 'Makefile' || s:_curfile ==# 'makefile'
+if s:_curfile ==# 'config' ||s:_curfile ==# 'Makefile' || s:_curfile ==# 'makefile'
     set noexpandtab               " タブをタブとして扱う(スペースに展開しない)
 else
     set expandtab                   " タブをスペースにする
