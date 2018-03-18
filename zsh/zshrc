@@ -156,6 +156,12 @@ fi
 
 if which ndenv > /dev/null; then
     eval "$(ndenv init -)"
+    typescript_dev () {
+        npm i -g yarn npm@latest
+        yarn add --dev typescript tslint tslint-config-airbnb mocha assert fixjson \
+                        eslint eslint-config-airbnb eslint-config-google eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react \
+                        javascript-typescript-langserver vscode-json-languageservice @types/node
+    }
 fi
 
 if which pyenv > /dev/null; then
