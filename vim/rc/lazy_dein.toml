@@ -1,58 +1,3 @@
-[[plugins]]
-repo = 'neomake/neomake'
-on_ft = ['typescript']
-hook_source = '''
-call neomake#configure#automake('w')
-let g:neomake_typescript_enabled_makers = ['tsc']
-let g:neomake_typescript_tsc_maker = {        
-        \ 'exe' : 'tsc',
-        \ 'args': [
-            \ '--project', getcwd(), '--watch', 'false', '--pretty', 'false' 
-        \ ],
-        \ 'append_file': 0,
-        \ 'errorformat':
-            \ '%E%f %#(%l\,%c): error %m,' .
-            \ '%E%f %#(%l\,%c): %m,' .
-            \ '%Eerror %m,' .
-            \ '%C%\s%\+%m'
-        \ }
-'''
-
-####################
-### 文法チェック ###
-####################
-[[plugins]]
-repo = 'w0rp/ale'
-on_ft = ['c', 'cpp', 'sql', 'ruby', 'yaml', 'sh', 'typescript', 'dockerfile', 
-         'javascript', 'scala', 'xml', 'vim', 'markdown', 'php','python','python3']
-build = '''
-cd $HOME/.vim/rc/
-sh ale-build.sh
-cd -
-'''
-hook_add = '''
-let g:ale_linters = {
-\   'python': ['autopep8','flake8', 'isort'],
-\   'python3': ['autopep8','flake8', 'isort'],
-\   'typescript': ['prettier', 'tslint', 'tsserver', 'typecheck'],
-\}
-let g:ale_sign_error = '⨉'       " エラー行に表示するマーク
-let g:ale_sign_warning = '⚠'     " エラー行に表示するマーク
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
-let g:ale_sign_column_always = 0 " エラー表示の列を常時表示
-
-let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
-let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
-let g:ale_lint_on_text_changed = 'never' " 編集中のlintはしない
-
-" lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 0
-let g:ale_open_list = 0
-let g:ale_keep_list_window_open = 0
-let g:ale_php_phpcs_standard = 'PSR2'
-let g:ale_set_highlights = 0
-'''
 #############
 ### C/C++ ###
 #############
@@ -145,9 +90,9 @@ nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 # build = 'composer install'
 # hook_add = ''
 
-##################
-### Javascript ###
-##################
+#############################
+### Javascript/TypeScript ###
+#############################
 [[plugins]]
 repo = 'moll/vim-node'
 on_ft = ['javascript']
@@ -159,15 +104,15 @@ autocmd User Node
   \ endif
 '''
 
+# syntax highlighting
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
+on_ft = ['javascript']
+
 # jsdoc.vim generates JSDoc block comments based on a function signature.
 [[plugins]]
 repo = 'heavenshell/vim-jsdoc'
 on_ft = ['typescript', 'javascript']
-
-### syntax highlighting
-[[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-on_ft = ['javascript']
 
 # Syntax file and other settings for TypeScript.
 [[plugins]]
@@ -181,6 +126,27 @@ on_ft = ['typescript']
 repo = 'mhartington/nvim-typescript'
 build = 'npm i -g typescript'
 on_ft = ['typescript']
+
+# Build Typescript automatically on save
+[[plugins]]
+repo = 'neomake/neomake'
+on_ft = ['typescript']
+hook_source = '''
+call neomake#configure#automake('w')
+let g:neomake_typescript_enabled_makers = ['tsc']
+let g:neomake_typescript_tsc_maker = {        
+        \ 'exe' : 'tsc',
+        \ 'args': [
+            \ '--project', getcwd(), '--watch', 'false', '--pretty', 'false' 
+        \ ],
+        \ 'append_file': 0,
+        \ 'errorformat':
+            \ '%E%f %#(%l\,%c): error %m,' .
+            \ '%E%f %#(%l\,%c): %m,' .
+            \ '%Eerror %m,' .
+            \ '%C%\s%\+%m'
+        \ }
+'''
 
 
 ############
@@ -209,12 +175,12 @@ yard config --gem-install-yri
 '''
 on_ft = ['ruby']
 
-
 #############
 ### Scala ###
 #############
 [[plugins]]
 repo = 'derekwyatt/vim-scala'
+on_ft = ['scala']
 
 ##############
 ### Python ###
