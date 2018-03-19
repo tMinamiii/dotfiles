@@ -160,11 +160,9 @@ let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_set_highlights = 0
 '''
-
 ##################
 ### コード整理 ###
 ##################
 #http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 [[plugins]]
 repo = 'godlygeek/tabular'
-

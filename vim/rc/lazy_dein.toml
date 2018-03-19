@@ -1,3 +1,45 @@
+####################
+### Auto Compile ###
+####################
+[[plugins]]
+repo = 'neomake/neomake'
+on_event = ['VimEnter']
+hook_post_source = '''
+call neomake#configure#automake('w')
+let g:neomake_angular_enabled_makers = ['']
+let g:neomake_c_enabled_makers = ['']
+let g:neomake_cpp_enabled_makers = ['']
+let g:neomake_css_enabled_makers = ['']
+let g:neomake_go_enabled_makers = ['']
+let g:neomake_html_enabled_makers = ['']
+let g:neomake_markdown_enabled_makers = ['']
+let g:neomake_node_enabled_makers = ['']
+let g:neomake_sh_enabled_makers = ['']
+let g:neomake_toml_enabled_makers = ['']
+let g:neomake_php_enabled_makers = ['']
+let g:neomake_python_enabled_makers = ['']
+let g:neomake_ruby_enabled_makers = ['']
+let g:neomake_sql_enabled_makers = ['']
+let g:neomake_java_enabled_makers = ['']
+let g:neomake_javascript_enabled_makers = ['']
+let g:neomake_json_enabled_makers = ['']
+let g:neomake_jsx_enabled_makers = ['']
+let g:neomake_zsh_enabled_makers = ['']
+let g:neomake_typescript_enabled_makers = ['tsc']
+let g:neomake_typescript_tsc_maker = {
+    \ 'exe' : 'tsc',
+    \ 'args': [
+        \ '--project', getcwd(), '--watch', 'false', '--pretty', 'false'
+    \ ],
+    \ 'append_file': 0,
+    \ 'errorformat':
+        \ '%E%f %#(%l\,%c): error %m,' .
+        \ '%E%f %#(%l\,%c): %m,' .
+        \ '%Eerror %m,' .
+        \ '%C%\s%\+%m'
+    \ }
+'''
+
 #############
 ### C/C++ ###
 #############
@@ -8,6 +50,7 @@ on_ft = ['c', 'cpp']
 [[plugins]]
 repo = 'zchee/deoplete-clang'
 on_ft = ['c', 'cpp', 'cmake']
+depends = ['deoplete.nvim']
 hook_source = '''
 if has('unix')
     let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.so'
@@ -18,7 +61,6 @@ if has('mac')
     let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
 endif
 '''
-depends = ['deoplete.nvim']
 
 ############
 ### TOML ###
@@ -127,28 +169,6 @@ repo = 'mhartington/nvim-typescript'
 build = 'npm i -g typescript'
 on_ft = ['typescript']
 
-# Build Typescript automatically on save
-[[plugins]]
-repo = 'neomake/neomake'
-on_ft = ['typescript']
-hook_source = '''
-call neomake#configure#automake('w')
-let g:neomake_typescript_enabled_makers = ['tsc']
-let g:neomake_typescript_tsc_maker = {
-    \ 'exe' : 'tsc',
-    \ 'args': [
-        \ '--project', getcwd(), '--watch', 'false', '--pretty', 'false'
-    \ ],
-    \ 'append_file': 0,
-    \ 'errorformat':
-        \ '%E%f %#(%l\,%c): error %m,' .
-        \ '%E%f %#(%l\,%c): %m,' .
-        \ '%Eerror %m,' .
-        \ '%C%\s%\+%m'
-    \ }
-'''
-
-
 ############
 ### Ruby ###
 ############
@@ -160,20 +180,20 @@ on_ft = ['ruby']
 repo = 'tpope/vim-rails'
 on_ft = ['ruby']
 
-[[plugins]]
-repo = 'hackhowtofaq/vim-solargraph'
-buld = 'gem install json rest-client solargraph'
-on_ft = ['ruby']
-
-[[plugins]]
-repo = 'uplus/deoplete-solargraph'
-buld = '''
-gem install solargraph
-pip install solargraph-utils.py
-yard gems 
-yard config --gem-install-yri 
-'''
-on_ft = ['ruby']
+# [[plugins]]
+# repo = 'hackhowtofaq/vim-solargraph'
+# buld = 'gem install json rest-client solargraph'
+# on_ft = ['ruby']
+# 
+# [[plugins]]
+# repo = 'uplus/deoplete-solargraph'
+# buld = '''
+# gem install solargraph
+# pip install solargraph-utils.py
+# yard gems 
+# yard config --gem-install-yri 
+# '''
+# on_ft = ['ruby']
 
 #############
 ### Scala ###
@@ -245,5 +265,3 @@ if jedi#init_python()
   augroup END
 endif
 '''
-
-
