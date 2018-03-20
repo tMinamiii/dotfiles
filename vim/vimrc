@@ -168,6 +168,6 @@ syntax on
 color dracula
 "color nova 
 "hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=237
+hi IndentGuidesEven ctermbg=234
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
