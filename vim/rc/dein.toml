@@ -142,6 +142,7 @@ let g:ale_linters = {
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'typescript': ['prettier', 'tslint', 'tsserver', 'typecheck'],
+\   'javascript': ['eslint','prettier'],
 \}
 let g:ale_sign_error = '⨉'       " エラー行に表示するマーク
 let g:ale_sign_warning = '⚠'     " エラー行に表示するマーク
