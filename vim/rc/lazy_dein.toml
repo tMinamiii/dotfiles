@@ -63,11 +63,8 @@ cd -
 '''
 hook_add = '''
 set hidden
-"let s:php_version = substitute(system("phpenv version | awk {'print($1)'}"), '\n\+$','','')
-"let s:php_lang_server_path = expand("$COMPOSER_HOME/vendor/bin/php-language-server.php")
-
 let s:php_langserver = "./vendor/bin/php-language-server.php"
-let s:js_langserver = "./node_modules/javascript-typescript-langserver/lib/language-server-stdio.js"
+let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
 let g:LanguageClient_serverCommands = {
     \ 'php': ['php', s:php_langserver],
     \ 'typescript': [s:js_langserver],
@@ -81,6 +78,7 @@ nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 '''
 
+#    \ 'typescript': [s:js_langserver],
 ###########
 ### PHP ###
 ###########
