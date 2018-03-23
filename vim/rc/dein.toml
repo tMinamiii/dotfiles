@@ -57,6 +57,15 @@ on_source = ['unite.vim']
 [[plugins]]
 repo = 'Shougo/vimshell'
 
+[[plugins]]
+repo = 'scrooloose/nerdtree.git'
+hook_add = '''
+nmap <F7> :NERDTreeToggle<CR>
+'''
+
+[[plugins]]
+repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+
 #############
 ### GTAGS ###
 #############
@@ -84,6 +93,7 @@ repo = 'ryanoasis/vim-devicons'
 hook_add = '''
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_vimfiler = 1
+let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_airline = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
