@@ -40,7 +40,7 @@ repo = 'jpalardy/vim-slime'
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
 hook_add = '''
-nmap <F9> :VimFilerExplorer -winwidth=40 -no-quit<CR>
+nmap <F7> :VimFilerExplorer -winwidth=40 -no-quit<CR>
 '''
 
 # vimfiler に必要
@@ -60,7 +60,7 @@ repo = 'Shougo/vimshell'
 [[plugins]]
 repo = 'scrooloose/nerdtree.git'
 hook_add = '''
-nmap <F7> :NERDTreeToggle<CR>
+nmap <F9> :NERDTreeToggle<CR>
 '''
 
 [[plugins]]
@@ -169,7 +169,7 @@ let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_standard = 'PSR2'
-let g:ale_set_highlights = 0
+let g:ale_set_highlights = 1
 '''
 ##################
 ### コード整理 ###
