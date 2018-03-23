@@ -49,7 +49,7 @@ set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 " set lazyredraw
 set noimdisable
-set iminsert=2
+set iminsert=0
 
 
 augroup autoreload
