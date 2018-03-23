@@ -45,9 +45,12 @@ set list                        " 不可視文字の可視化
 set listchars=tab:▸\ ,trail:-,eol:¬,extends:❯,precedes:❮ ",nbsp:%,eol:↲ "不可視文字をUnicodeにする
 set ttimeout
 set ttimeoutlen=10
-set scrolloff=3                 " 3行残して画面スクロールする
+set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
-set lazyredraw
+" set lazyredraw
+set noimdisable
+set iminsert=2
+
 
 augroup autoreload
     set autoread
