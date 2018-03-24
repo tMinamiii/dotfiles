@@ -25,7 +25,7 @@ set backspace=0
 set clipboard+=unnamedplus
 """"" [表示系]
 set number                      " 行番号の表示
-set wrap                        " 長いテキストの折り返し
+" set wrap                        " 長いテキストの折り返し
 set textwidth=0                 " 自動的に改行が入るのを無効化
 set colorcolumn=80              " その代わり80文字目にラインを入れる
 set t_vb=
@@ -175,4 +175,9 @@ hi IndentGuidesEven ctermbg=234
 hi ALEWarning guibg=green ctermbg=green ctermfg=white cterm=underline
 hi ALEError guibg=red ctermbg=red ctermfg=white cterm=underline
 " ファイルタイププラグインおよびインデントを有効化
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
 filetype plugin indent on

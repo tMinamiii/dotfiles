@@ -100,15 +100,15 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 '''
 
-# [[plugins]]
-# repo    = 'vim-airline/vim-airline'
-# depends = ['vim-fugitive', 'vim-airline-themes']
-# hook_add = '''
-# let g:airline_powerline_fonts = 1
-# let g:airline_theme = 'powerlineish'
-# let g:airline_exclude_preview = 1
-# let g:airline#extensions#tabline#enabled = 1
-# '''
+[[plugins]]
+repo    = 'vim-airline/vim-airline'
+depends = ['vim-fugitive', 'vim-airline-themes']
+hook_add = '''
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'powerlineish'
+let g:airline_exclude_preview = 1
+let g:airline#extensions#tabline#enabled = 1
+'''
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
@@ -120,13 +120,13 @@ repo    = 'tpope/vim-fugitive'
 repo = 'dbakker/vim-projectroot'
 hook_add = '''
 function! <SID>AutoProjectRootCD()
-  try
-    if &ft != 'help'
-      ProjectRootCD
+    try
+        if &ft != 'help'
+        ProjectRootCD
     endif
-  catch
-    " Silently ignore invalid buffers
-  endtry
+    catch
+        " Silently ignore invalid buffers
+    endtry
 endfunction
 
 autocmd BufEnter * call <SID>AutoProjectRootCD()
