@@ -30,12 +30,7 @@ set textwidth=0                 " 自動的に改行が入るのを無効化
 set colorcolumn=80              " その代わり80文字目にラインを入れる
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
-let s:_curfile=expand('%:r')
-if s:_curfile ==# 'config' ||s:_curfile ==# 'Makefile' || s:_curfile ==# 'makefile'
-    set noexpandtab               " タブをタブとして扱う(スペースに展開しない)
-else
-    set expandtab                   " タブをスペースにする
-endif
+
 set ambiwidth=double
 set softtabstop=0
 set showtabline=2               " 常にタブラインを表示
@@ -47,14 +42,19 @@ set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
+set expandtab                   " タブをスペースにする
 " set lazyredraw
 " set noimdisable
 " set iminsert=0
 
-
 augroup autoreload
     set autoread
     autocmd FocusLost,FocusGained,CursorMoved,CursorMovedI,CursorHold,CursorHoldI  * silent! checktime
+augroup END
+
+augroup filetypes
+    autocmd BufRead,BufNewFile *zshrc setfiletype sh
+    autocmd BufRead,BufNewFile *.mjs setfiletype javascript
 augroup END
 
 augroup indentsize
@@ -64,12 +64,10 @@ augroup indentsize
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
+    autocmd FileType makefile setlocal noexpandtab
+    autocmd FileType gitconfig setlocal noexpandtab
 augroup END
 
-augroup filetypes
-    autocmd BufRead,BufNewFile *zshrc setfiletype sh
-    autocmd BufRead,BufNewFile *.mjs setfiletype javascript
-augroup END
 """"" MacVimのMetaキー有効化
 if has('gui_macvim')
     set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
