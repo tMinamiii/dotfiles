@@ -11,6 +11,7 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/deoplete.nvim'
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#file#enable_buffer_path = 1
 " let g:deoplete#omni#input_patterns = {}
 " let g:deoplete#sources = {}
 " let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
@@ -75,9 +76,9 @@ repo = '5t111111/alt-gtags.vim'
 hook_add = '''
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
-nnoremap <C-g> :AltGtags<CR>
-nnoremap <C-h> :AltGtags -r<CR>
-nnoremap <C-k> :AltGtags -s<CR>
+nnoremap <Leader>g :AltGtags<CR>
+nnoremap <Leader>h :AltGtags -r<CR>
+nnoremap <Leader>k :AltGtags -s<CR>
 '''
 
 [[plugins]]
@@ -99,15 +100,15 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 '''
 
-[[plugins]]
-repo    = 'vim-airline/vim-airline'
-depends = ['vim-fugitive', 'vim-airline-themes']
-hook_add = '''
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'powerlineish'
-let g:airline_exclude_preview = 1
-let g:airline#extensions#tabline#enabled = 1
-'''
+# [[plugins]]
+# repo    = 'vim-airline/vim-airline'
+# depends = ['vim-fugitive', 'vim-airline-themes']
+# hook_add = '''
+# let g:airline_powerline_fonts = 1
+# let g:airline_theme = 'powerlineish'
+# let g:airline_exclude_preview = 1
+# let g:airline#extensions#tabline#enabled = 1
+# '''
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
