@@ -4,7 +4,7 @@ unlink ~/.vim
 unlink ~/.config/nvim
 unlink ~/.tmux.conf
 
-if [ `uname` = "Darwin" ]; then
+if uname | grep -sq "Darwin"; then
     unlink  ~/Library/Fonts/Cica*.ttf
 else
     unlink ~/.fonts
