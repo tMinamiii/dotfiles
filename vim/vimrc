@@ -46,6 +46,7 @@ set expandtab                   " タブをスペースにする
 " set lazyredraw
 " set noimdisable
 " set iminsert=0
+" set imsearch=0
 
 augroup autoreload
     set autoread
@@ -68,10 +69,6 @@ augroup indentsize
     autocmd FileType gitconfig setlocal noexpandtab
 augroup END
 
-""""" MacVimのMetaキー有効化
-if has('gui_macvim')
-    set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
-endif
 
 if ! has('nvim')
 " OptionキーをMetaキーとして使う。
@@ -117,12 +114,24 @@ tnoremap <C-j><C-j> <C-\><C-n>
 """"" command """""
 command! W :w " よく押し間違えるので
 
-""""" gui font  """""
-if has('unix')
-    set guifont=Cica\ 16
+if has('gui_vimr')
+    set termguicolors
 endif
-if has('mac') 
-    set guifont=Cica:h18
+
+""""" MacVimのMetaキー有効化
+if has('gui_macvim')
+    set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
+
+    if has('mac')
+        set guifont=Cica:h16
+    endif
+endif
+
+""""" gui font  """""
+if has('gui_running')
+    if has('unix')
+        set guifont=Cica\ 16
+    endif
 endif
 
 """""" dein (load plugins)"""""
