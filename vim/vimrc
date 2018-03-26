@@ -114,6 +114,8 @@ tnoremap <C-j><C-j> <C-\><C-n>
 """"" command """""
 command! W :w " よく押し間違えるので
 
+set termguicolors
+
 if has('gui_vimr')
     set termguicolors
 endif
@@ -129,7 +131,7 @@ endif
 
 """"" gui font  """""
 if has('gui_running')
-    if has('unix')
+    if has('linux')
         set guifont=Cica\ 16
     endif
 endif
