@@ -42,7 +42,7 @@ set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
-" set lazyredraw
+set lazyredraw
 " set noimdisable
 " set iminsert=0
 " set imsearch=0
@@ -180,9 +180,9 @@ endif
 syntax on
 color dracula
 "color nova 
-hi IndentGuidesOdd  ctermbg=236
-hi IndentGuidesEven ctermbg=234
-hi ALEWarning guibg=green ctermbg=green ctermfg=white cterm=underline
-hi ALEError guibg=red ctermbg=red ctermfg=white cterm=underline
+hi IndentGuidesOdd guibg=236 ctermbg=236
+hi IndentGuidesEven guibg=234 ctermbg=234
+hi ALEWarning guibg=green guifg=white gui=underline ctermbg=green ctermfg=white cterm=underline
+hi ALEError guibg=red guifg=white gui=underline ctermbg=red ctermfg=white cterm=underline
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
