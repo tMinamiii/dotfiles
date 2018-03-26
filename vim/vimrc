@@ -27,7 +27,7 @@ set clipboard+=unnamedplus
 set number                      " 行番号の表示
 set nowrap                      " 長いテキストの折り返し
 set textwidth=0                 " 自動的に改行が入るのを無効化
-set colorcolumn=80              " その代わり80文字目にラインを入れる
+set colorcolumn=120              " その代わり80文字目にラインを入れる
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
 
@@ -42,7 +42,6 @@ set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
-set expandtab                   " タブをスペースにする
 " set lazyredraw
 " set noimdisable
 " set iminsert=0
@@ -59,12 +58,14 @@ augroup filetypes
 augroup END
 
 augroup indentsize
+    set expandtab                   " タブをスペースにする
     set tabstop=4
     set shiftwidth=4
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
+    autocmd FileType nerdtree setlocal shiftwidth=0 tabstop=10
     autocmd FileType makefile setlocal noexpandtab
     autocmd FileType gitconfig setlocal noexpandtab
 augroup END
