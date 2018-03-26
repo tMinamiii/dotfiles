@@ -43,6 +43,7 @@ set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 set lazyredraw
+set termguicolors
 " set noimdisable
 " set iminsert=0
 " set imsearch=0
@@ -114,12 +115,6 @@ tnoremap <C-j><C-j> <C-\><C-n>
 
 """"" command """""
 command! W :w " よく押し間違えるので
-
-set termguicolors
-
-if has('gui_vimr')
-    set termguicolors
-endif
 
 """"" MacVimのMetaキー有効化
 if has('gui_macvim')
