@@ -94,27 +94,27 @@ export PATH=$HOME/.composer/vendor/bin:$PATH
 export GTAGSLABEL=pygments
 export TERM=xterm-256color
 if [ "$TMUX" != "" ]; then
-    export TERM="screen-256color"
+  export TERM="screen-256color"
 fi
 export EDITOR="nvim"
 export SHELL=/bin/zsh
 
 pip3_upgrade () {
-    pip3 install --upgrade pip && pip3 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip3 install --upgrade
+  pip3 install --upgrade pip && pip3 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip3 install --upgrade
 }
 
 pip2_upgrade () {
-    pip2 install --upgrade pip && pip2 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip2 install --upgrade
+  pip2 install --upgrade pip && pip2 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip2 install --upgrade
 }
 
 install_php_dev () {
-    composer require --dev felixfbecker/language-server
-    composer run-script --working-dir="/vendor/felixfbecker/language-server" parse-stubs
-    composer require --dev phpunit/phpunit
+  composer require --dev felixfbecker/language-server
+  composer run-script --working-dir="/vendor/felixfbecker/language-server" parse-stubs
+  composer require --dev phpunit/phpunit
 }
 
 install_js_dev () {
-    npm install --save-dev javascript-typescript-langserver vscode-json-languageservice
+  npm install --save-dev javascript-typescript-langserver vscode-json-languageservice
 }
 
 alias build-neovim='git pull && make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
@@ -124,64 +124,64 @@ alias avenv='source ./env/bin/activate'
 alias dvenv='deactivate'
 
 docker_rmi_none () {
-    docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
+  docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
 }
 
 alias docker-rm-exited='docker -aq | xargs docker rm'
 
 if [ "$(uname)" = "Darwin" ]; then
-    # Mac OSX
-    # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
-    # export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
-    export PATH="/usr/local/sbin:$PATH"
-    # alias brew="PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin brew"
+  # Mac OSX
+  # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
+  # export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
+  export PATH="/usr/local/sbin:$PATH"
+  # alias brew="PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin brew"
 elif uname -a | grep -sq "Ubuntu"; then
-    # Ubuntu
-    #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-    export VTE_VERSION="100" 
-    export PATH=$HOME/bin:$PATH
+  # Ubuntu
+  #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+  export VTE_VERSION="100" 
+  export PATH=$HOME/bin:$PATH
 elif uname -a | grep -sq "Microsoft"; then
-    # Windows Subsystem for Linux
-    LS_COLORS=$LS_COLORS:'di=0;36:ow=0;36' ; export LS_COLORS
-    zstyle ':completion:*' list-colors 'di=36' 'ow=36'
-    export PATH=$HOME/bin:$PATH
-    
+  # Windows Subsystem for Linux
+  LS_COLORS=$LS_COLORS:'di=0;36:ow=0;36' ; export LS_COLORS
+  zstyle ':completion:*' list-colors 'di=36' 'ow=36'
+  export PATH=$HOME/bin:$PATH
+
 elif uname -a | grep -sq "Linux"; then
-    export PATH=$HOME/bin:$PATH
+  export PATH=$HOME/bin:$PATH
 fi
 
 if which rbenv > /dev/null; then
-    eval "$(rbenv init -)"
+  eval "$(rbenv init -)"
 fi
 
 if which ndenv > /dev/null; then
-    eval "$(ndenv init -)"
-    typescript_dev () {
-        yarn add --dev typescript tslint tslint-config-airbnb mocha assert fixjson \
-                        eslint eslint-config-airbnb eslint-config-google eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react \
-                        javascript-typescript-langserver vscode-json-languageservice @types/node
-        wget https://gist.githubusercontent.com/naronA/04cdf6f4926d34cb9923950a900f23e9/raw/8670668a639c368e8eba0a013b52d54f1e176440/tslint.json
-        wget https://gist.githubusercontent.com/naronA/7417aa87863a4d424304273e4f574dab/raw/4029316ac7f055628ddc39290855219c5d4e1526/tsconfig.json
-        wget https://gist.githubusercontent.com/naronA/2549a48dbdf3eaa0c31ce6ec4fc36b99/raw/09e095a469bcd572dfe5ebf7d31e2b262efa2500/.eslintrc.json
-        mkdir .vscode && cd .vscode || exit
-        wget https://gist.githubusercontent.com/naronA/4bf7e88eb2ac42fd71119632186f8180/raw/092317eb8fe353d16b2a5f4128a622c8476df9e2/tasks.json
-        cd - || exit
-    }
+  eval "$(ndenv init -)"
+  typescript_dev () {
+    yarn add --dev typescript tslint tslint-config-airbnb mocha assert fixjson \
+      eslint eslint-config-airbnb eslint-config-google eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react \
+      javascript-typescript-langserver vscode-json-languageservice @types/node
+    wget https://gist.githubusercontent.com/naronA/04cdf6f4926d34cb9923950a900f23e9/raw/8670668a639c368e8eba0a013b52d54f1e176440/tslint.json
+    wget https://gist.githubusercontent.com/naronA/7417aa87863a4d424304273e4f574dab/raw/4029316ac7f055628ddc39290855219c5d4e1526/tsconfig.json
+    wget https://gist.githubusercontent.com/naronA/2549a48dbdf3eaa0c31ce6ec4fc36b99/raw/09e095a469bcd572dfe5ebf7d31e2b262efa2500/.eslintrc.json
+    mkdir .vscode && cd .vscode || exit
+    wget https://gist.githubusercontent.com/naronA/4bf7e88eb2ac42fd71119632186f8180/raw/092317eb8fe353d16b2a5f4128a622c8476df9e2/tasks.json
+    cd - || exit
+  }
 fi
 
 if which pyenv > /dev/null; then
-    eval "$(pyenv init -)"
+  eval "$(pyenv init -)"
 fi
 
 if which phpenv > /dev/null; then
-    eval "$(phpenv init -)"
-    CURRENT_COMPOSER_HOME="$HOME/.phpenv/versions/$(phpenv version | awk '{print($1)}')/composer"
-    export COMPOSER_HOME="$CURRENT_COMPOSER_HOME"
-    #"HOME/.phpenv/versions/7.1.13/composer"
+  eval "$(phpenv init -)"
+  CURRENT_COMPOSER_HOME="$HOME/.phpenv/versions/$(phpenv version | awk '{print($1)}')/composer"
+  export COMPOSER_HOME="$CURRENT_COMPOSER_HOME"
+  #"HOME/.phpenv/versions/7.1.13/composer"
 fi
 
 if which jenv > /dev/null; then
-    eval "$(jenv init -)"
+  eval "$(jenv init -)"
 fi
 
 export PATH="/usr/local/opt/sbt@0.13/bin:$PATH"

@@ -5,14 +5,14 @@ unlink ~/.config/nvim
 unlink ~/.tmux.conf
 
 if uname | grep -sq "Darwin"; then
-    unlink  ~/Library/Fonts/Cica*.ttf
+  unlink  ~/Library/Fonts/Cica*.ttf
 else
-    unlink ~/.fonts
+  unlink ~/.fonts
 fi
 
 if uname -a | grep -sq "Ubuntu"; then
-    unlink ~/.xprofile
-    unlink ~/.xsessionrc
-    unlink ~/.xkb
+  unlink ~/.xprofile
+  unlink ~/.xsessionrc
+  unlink ~/.xkb
 fi
 
