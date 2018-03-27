@@ -62,6 +62,7 @@ augroup indentsize
     set expandtab                   " タブをスペースにする
     set tabstop=4
     set shiftwidth=4
+    autocmd FileType sh setlocal shiftwidth=2 tabstop=2
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2
@@ -116,10 +117,9 @@ tnoremap <C-j><C-j> <C-\><C-n>
 """"" command """""
 command! W :w " よく押し間違えるので
 
-""""" MacVimのMetaキー有効化
 if has('gui_macvim')
+    """"" MacVimのMetaキー有効化
     set macmeta " enables option as meta key in macvim. Needed for auto-pairs mappings <M-e> etc.
-
     if has('mac')
         set guifont=Cica:h16
     endif
@@ -127,7 +127,7 @@ endif
 
 """"" gui font  """""
 if has('gui_running')
-    if has('linux')
+    if has('unix') && !has('mac')
         set guifont=Cica\ 16
     endif
 endif
@@ -172,6 +172,7 @@ if has('nvim')
     let g:python_host_prog=glob($PYENV_ROOT.'/versions/2.7*/bin/python')
     let g:python3_host_prog=glob($PYENV_ROOT.'/versions/3*/bin/python')
 endif
+
 syntax on
 color dracula
 "color nova 
