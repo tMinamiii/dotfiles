@@ -70,9 +70,16 @@ nmap <F9> :NERDTreeToggle<CR>
 [[plugins]]
 repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-#############
-### GTAGS ###
-#############
+###################
+### CTAGS/GTAGS ###
+###################
+
+[[plugins]]
+repo = 'jsfaint/gen_tags.vim'
+hook_add = '''
+let g:gen_tags#ctags_auto_gen = 1
+let g:gen_tags#gtags_auto_gen = 1
+'''
 
 [[plugins]]
 repo = '5t111111/alt-gtags.vim'
@@ -87,6 +94,14 @@ nnoremap <Leader>k :AltGtags -s<CR>
 [[plugins]]
 repo = 'majutsushi/tagbar'
 hook_add = 'nmap <F8> :TagbarToggle<CR>'
+
+##################
+### コード整理 ###
+##################
+
+# http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+[[plugins]]
+repo = 'godlygeek/tabular'
 
 #######################
 ### vim status line ###
@@ -138,12 +153,14 @@ autocmd BufEnter * call <SID>AutoProjectRootCD()
 ####################
 ### カラーテーマ ###
 ####################
+
 [[plugins]]
 repo = 'naronA/dracula-vim'
 
 ####################
 ### 文法チェック ###
 ####################
+
 [[plugins]]
 repo = 'w0rp/ale'
 build = '''
@@ -175,9 +192,4 @@ let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_set_highlights = 1
 '''
-##################
-### コード整理 ###
-##################
-#http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
-[[plugins]]
-repo = 'godlygeek/tabular'
+

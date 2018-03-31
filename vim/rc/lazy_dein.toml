@@ -1,6 +1,7 @@
 #############
 ### C/C++ ###
 #############
+
 [[plugins]]
 repo = 'justmao945/vim-clang'
 on_ft = ['c', 'cpp']
@@ -31,6 +32,7 @@ on_ft = ['toml']
 #######################
 ### HTML / Markdown ###
 #######################
+
 [[plugins]]
 repo = 'https://github.com/mattn/emmet-vim'
 on_ft = ['html']
@@ -95,6 +97,7 @@ autocmd FileType javascript :call s:langserver_keymap()
 #############################
 ### Javascript/TypeScript ###
 #############################
+
 [[plugins]]
 repo = 'moll/vim-node'
 on_ft = ['javascript']
@@ -141,6 +144,7 @@ autocmd FileType typescript :call s:typescript_keymap()
 ############
 ### Ruby ###
 ############
+
 [[plugins]]
 repo = 'vim-ruby/vim-ruby'
 on_ft = ['ruby']
@@ -174,6 +178,7 @@ on_ft = ['scala']
 ##############
 ### Python ###
 ##############
+
 [[plugins]]
 repo = 'fisadev/vim-isort'
 on_ft = ['python', 'python3', 'djangohtml']
@@ -236,6 +241,7 @@ endif
 ####################
 ### Auto Compile ###
 ####################
+
 [[plugins]]
 repo = 'neomake/neomake'
 on_event = ['VimEnter']
