@@ -54,6 +54,7 @@ augroup autoreload
 augroup END
 
 augroup filetypes
+    autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile
     autocmd BufRead,BufNewFile *zshrc setfiletype sh
     autocmd BufRead,BufNewFile *.mjs setfiletype javascript
 augroup END
