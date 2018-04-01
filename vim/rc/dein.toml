@@ -65,6 +65,8 @@ repo = 'Shougo/vimshell'
 repo = 'scrooloose/nerdtree.git'
 hook_add = '''
 nmap <F9> :NERDTreeToggle<CR>
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
 '''
 
 [[plugins]]
