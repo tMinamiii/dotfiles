@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 ARGS=$*
 cd "$HOME" || exit
 

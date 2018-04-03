@@ -6,6 +6,9 @@ if [ ! -e ~/repos ]; then
     mkdir ~/repos
 fi
 
+PY3_VERSION=3.6.4
+PY2_VERSION=2.7.14
+
 # after zsh and zshrc settings
 # install python build tools
 if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
@@ -31,6 +34,7 @@ elif uname -a | grep -sq "Darwin"; then
 fi
 
 curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+git clone git://github.com/yyuu/pyenv-update.git ~/.pyenv/plugins/pyenv-update
 
 pyenv install $PY3_VERSION
 pyenv install $PY2_VERSION
@@ -41,7 +45,6 @@ pip install ipython autopep8 pygments flake8 isort numpy scipy
 
 # install jupyter
 pip install jupyter jupyterthemes jupyter_contrib_nbextensions
-rehash
 
 ## setup jupyter extension dir
 jupyter contrib nbextension install --user

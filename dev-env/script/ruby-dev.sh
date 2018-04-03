@@ -24,7 +24,7 @@ cd ~/.rbenv && src/configure && make -C src
 mkdir -p $HOME/.rbenv/plugins
 git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
 git clone https://github.com/rkh/rbenv-update.git "$HOME/.rbenv/plugins/rbenv-update"
-rehash
+
 rbenv install 2.1.4
 rbenv local 2.1.4
 rbenv rehash
