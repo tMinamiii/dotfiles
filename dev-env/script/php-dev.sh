@@ -4,6 +4,12 @@
 . $HOME/.zshrc
 cd $HOME
 
+PHP72_VERSION=7.2.2
+PHP71_VERSION=7.1.9
+PHP70_VERSION=7.0.27
+PHP56_VERSION=5.6.33
+PHP55_VERSION=5.5.38
+
 # mkdir
 if [ ! -e ~/repos ]; then
     mkdir ~/repos

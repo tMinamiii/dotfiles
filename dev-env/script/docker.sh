@@ -1,8 +1,8 @@
 #!/bin/sh
 # install docker ce
-. $HOME/.zshrc
-cd $HOME
-if cat /etc/os-release | grep -sq "Ubuntu"; then
+. ../../zsh/zshrc
+cd "$HOME" || exit
+if /etc/os-release | grep -sq "Ubuntu"; then
     sudo apt-get install -y \
         apt-transport-https \
         ca-certificates \
