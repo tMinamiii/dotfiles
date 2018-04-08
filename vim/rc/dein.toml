@@ -15,7 +15,7 @@ repo = 'Shougo/deoplete.nvim'
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#num_processes = 0
+" let g:deoplete#num_processes = 0
 
 " let g:deoplete#omni#input_patterns = {}
 " let g:deoplete#sources = {}
@@ -168,9 +168,9 @@ repo = 'naronA/dracula-vim'
 [[plugins]]
 repo = 'w0rp/ale'
 build = '''
-cd $HOME/.vim/rc/
-sh ale-build.sh
-cd -
+# cd $HOME/.vim/rc/
+# sh ale-build.sh
+# cd -
 '''
 hook_add = '''
 let g:ale_linters = {
