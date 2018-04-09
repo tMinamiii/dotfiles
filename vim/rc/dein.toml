@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'Chiel92/vim-autoformat'
+
+[[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]

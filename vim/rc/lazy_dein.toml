@@ -129,6 +129,12 @@ let g:typescript_compiler_options = ''
 repo = 'leafgarland/typescript-vim'
 on_ft = ['typescript']
 
+[[plugins]]
+repo = 'ruanyl/vim-sort-imports'
+on_ft = ['typescript']
+hook_add = '''
+'''
+
 # nvim-typescript provides standard IDE-like features such 
 # as auto-completion, viewing of documentation and type-signatures, 
 # go to definition, and reference finding.
