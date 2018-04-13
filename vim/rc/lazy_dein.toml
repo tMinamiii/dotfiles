@@ -1,7 +1,7 @@
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
 # on_ft = ['php', 'javascript', 'typescript']
-on_ft = ['php']
+on_ft = ['php', 'typescript']
 rev = 'next'
 build = '''
 bash install.sh
@@ -15,7 +15,7 @@ let s:php_langserver = "./vendor/bin/php-language-server.php"
 let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
 let g:LanguageClient_serverCommands = {
     \ 'php': ['php', s:php_langserver],
-"     \ 'typescript': [s:js_langserver],
+    \ 'typescript': [s:js_langserver],
 "     \ 'javascript': [s:js_langserver],
 "     \ 'javascript.jsx': [s:js_langserver],
     \ }
@@ -29,7 +29,7 @@ endfunction
 
 autocmd FileType php :call s:langserver_keymap()
 " autocmd FileType javascript :call s:langserver_keymap()
-" autocmd FileType typescript :call s:langserver_keymap()
+autocmd FileType typescript :call s:langserver_keymap()
 '''
 
 #############
@@ -168,20 +168,20 @@ hook_add = '''
 # nvim-typescript provides standard IDE-like features such 
 # as auto-completion, viewing of documentation and type-signatures, 
 # go to definition, and reference finding.
-
-[[plugins]]
-repo = 'mhartington/nvim-typescript'
-build = 'npm i -g typescript'
-on_ft = ['typescript']
-hook_add = '''
-function! s:ts_keymap()
-    nnoremap <buffer><silent> K :TSDoc<CR>
-    nnoremap <buffer><silent> gd :TSDef<CR>
-    nnoremap <buffer><silent> <F2> :TSRename<CR>
-    nnoremap <buffer><silent> <C-h> :TSRefs<CR>
-endfunction
-autocmd FileType typescript :call s:ts_keymap()
-'''
+# 
+# [[plugins]]
+# repo = 'mhartington/nvim-typescript'
+# build = 'npm i -g typescript'
+# on_ft = ['typescript']
+# hook_add = '''
+# function! s:ts_keymap()
+#     nnoremap <buffer><silent> K :TSDoc<CR>
+#     nnoremap <buffer><silent> gd :TSDef<CR>
+#     nnoremap <buffer><silent> <F2> :TSRename<CR>
+#     nnoremap <buffer><silent> <C-h> :TSRefs<CR>
+# endfunction
+# autocmd FileType typescript :call s:ts_keymap()
+# '''
 
 ############
 ### Ruby ###
