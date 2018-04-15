@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 ARGS=$*
 cd "$HOME" || exit
@@ -9,7 +9,7 @@ if [ ! -e "$HOME/repos" ]; then
 fi
 
 # Install zsh
-if /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
+if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
   sudo apt-get update 
   sudo apt-get install -y zsh
 elif uname -a | grep -sq "Darwin"; then
@@ -18,12 +18,12 @@ elif uname -a | grep -sq "Darwin"; then
 fi
 
 ## Install oh-my-zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
-git clone https://github.com/dracula/zsh.git "$HOME/repos/dracula-zsh"
+git clone https://github.com/robbyrussell/oh-my-zsh "$HOME/.oh-my-zsh"
+git clone https://github.com/dracula/zsh "$HOME/repos/dracula-zsh"
 ln -s "$HOME/repos/dracula-zsh/dracula.zsh-theme" "$HOME/.oh-my-zsh/themes/dracula.zsh-theme"
 
 # Install Common tools
-if /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
+if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
   sudo apt-get update 
   sudo apt-get install -y curl \
     tree \
@@ -48,8 +48,9 @@ elif uname -a | grep -sq "Darwin"; then
   xcode-select --install
 fi
 
+git clone https://github.com/riywo/anyenv ~/.anyenv
 # Install dotfiles
-git clone https://github.com/naronA/dotfiles "$HOME/dotfiles"
+git clone https://github.com/naronA/dotfiles dotfiles
 if echo "$ARGS" | grep -sq "\\-\\-gui"; then
   zsh "$HOME/dotfiles/install.sh" --gui
 else
@@ -72,7 +73,7 @@ fi
 
 ## tensorflow modules
 if echo "$ARGS" | grep -sq "\\-\\-tensorflow"; then
-  if /etc/os-release | grep -sq "Ubuntu"; then
+  if cat /etc/os-release | grep -sq "Ubuntu"; then
     sudo apt-get update 
     sudo apt-get install -y libibverbs-dev \
       librdmacm-dev \

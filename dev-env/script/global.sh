@@ -1,7 +1,7 @@
 #!/bin/zsh
-. $HOME/.zshrc
 ## global
 cd $HOME
+. $HOME/.zshrc
 if uname -a | grep -sq "Microsoft"; then
     sudo apt-get install -y flex gperf libtool-bin texinfo libncurses5-dev
     wget http://tamacom.com/global/global-6.6.1.tar.gz

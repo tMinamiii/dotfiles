@@ -1,7 +1,9 @@
 #!/bin/zsh
 
-. $HOME/.zshrc
 cd $HOME
+. "$HOME/.zshrc"
+RUBY_VERSION=2.4.4
+
 if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
     sudo apt-get install -y autoconf \
         bison \
@@ -18,19 +20,7 @@ elif uname -a | grep -sq "Darwin"; then
     brew install openssl libyaml libffi
 fi
 
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-cd ~/.rbenv && src/configure && make -C src
-~/.rbenv/bin/rbenv init
-mkdir -p $HOME/.rbenv/plugins
-git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
-git clone https://github.com/rkh/rbenv-update.git "$HOME/.rbenv/plugins/rbenv-update"
-
-rbenv install 2.1.4
-rbenv local 2.1.4
-rbenv rehash
-gem install bundler
-
-rbenv install 2.3.6
-rbenv global 2.3.6
+rbenv install $RUBY_VERSION
+rbenv global $RUBY_VERSION
 rbenv rehash
 gem install bundler

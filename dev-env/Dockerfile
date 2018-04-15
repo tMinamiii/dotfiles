@@ -15,13 +15,14 @@ RUN groupadd -g 1000 "$USERNAME" && \
     echo "$USERNAME:$PASS" | chpasswd && \
     echo "$USERNAME    ALL=(ALL)      NOPASSWD:ALL" >> /etc/sudoers
 
-USER $USERNAME
-WORKDIR /home/naronA
+COPY script /home/naronA/script
+RUN chown -R "$USERNAME:$GROUP" /home/naronA/script
 
-ADD ./script.tar.gz $HOME
+USER $USERNAME
 WORKDIR /home/naronA/script
 
 RUN ["/bin/zsh", "./initial-setup.sh", "--cui"]
+RUN ["/bin/zsh", "./anyenvs.sh"]
 RUN ["/bin/zsh", "./apache2.sh"]
 RUN ["/bin/zsh", "./php-dev.sh"]
 RUN ["/bin/zsh", "./ruby-dev.sh"]

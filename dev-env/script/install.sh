@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/zsh
 
 ARGS=$*
 #### SETUP ####
 zsh initial-setup.sh "$ARGS"
+zsh anyenvs.sh
 zsh apache2.sh
 zsh php-dev.sh
 zsh python-dev.sh

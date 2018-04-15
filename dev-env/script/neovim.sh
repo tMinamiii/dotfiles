@@ -1,6 +1,6 @@
 #!/bin/zsh
-. $HOME/.zshrc
 cd $HOME
+. "$HOME/.zshrc"
 
 # mkdir
 if [ ! -e ~/repos ]; then

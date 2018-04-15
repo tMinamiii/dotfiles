@@ -1,21 +1,18 @@
 #!/bin/zsh
 
-. ./config.sh
-. $HOME/.zshrc
 cd $HOME
-
-PHP72_VERSION=7.2.2
-PHP71_VERSION=7.1.9
-PHP70_VERSION=7.0.27
-PHP56_VERSION=5.6.33
-PHP55_VERSION=5.5.38
-
+. "$HOME/.zshrc"
+PHP_VERSION=7.1.15
+APACHE_DIR="$HOME/apache2"
 # mkdir
 if [ ! -e ~/repos ]; then
     mkdir ~/repos
 fi
 if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
     # php debian ubuntu
+    #
+    sudo apt-get install flex
+    sudo apt-get install bison
     sudo apt-get -y install \
         libbz2-dev \
         build-essential \
@@ -53,14 +50,9 @@ elif uname -a | grep -sq "Darwin"; then
 fi
 
 # setup phpenv
-PHALCON_DIR="$HOME/repos/cphalcon"
-PHPENV_ROOT="$HOME/.phpenv"
-curl -L http://git.io/phpenv-installer | bash
-git clone https://github.com/ngyuki/phpenv-composer $PHPENV_ROOT/plugins/phpenv-composer
-git clone https://github.com/phalcon/cphalcon $PHALCON_DIR
-git clone https://github.com/msgpack/msgpack-php $HOME/repos/msgpack-php
-DEFINITIONS_PATH="$PHPENV_ROOT/plugins/php-build/share/php-build/definitions/"
 
+PHALCON_DIR="$HOME/repos/cphalcon"
+DEFINITIONS_PATH="$PHPENV_ROOT/plugins/php-build/share/php-build/definitions/"
 if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
     find $DEFINITIONS_PATH -type f -print | \
         xargs -I{} sh -c "grep -qs with_apxs2 {} || sed -i '1i\with_apxs2 "$APACHE_DIR/bin/apxs"' {}"
@@ -75,8 +67,8 @@ phpenv_install_with_phalcon(){
     phpenv install $1
     PHPENV_VERSION_ROOT="$PHPENV_ROOT/versions/$1"
     cd $PHALCON_DIR/build
-    ./install --phpize $PHPENV_VERSION_ROOT/bin/phpize \
-        --php-config $PHPENV_VERSION_ROOT/bin/php-config
+    ./install --phpize "$PHPENV_VERSION_ROOT/bin/phpize" \
+        --php-config "$PHPENV_VERSION_ROOT/bin/php-config"
     echo "extension=phalcon.so" > $PHPENV_VERSION_ROOT/etc/conf.d/phalcon.ini
     cd $HOME
 }
@@ -96,17 +88,11 @@ install_msgpack(){
     cd $HOME
 }
 
-#phpenv_install_with_phalcon $PHP72_VERSION
-#install_msgpack $PHP72_VERSION
-phpenv_install_with_phalcon $PHP71_VERSION
-install_msgpack $PHP71_VERSION
-#phpenv_install_with_phalcon $PHP70_VERSION
-#install_msgpack $PHP70_VERSION
-#phpenv_install_with_phalcon $PHP56_VERSION
-#install_msgpack $PHP56_VERSION
-#phpenv_install_with_phalcon $PHP55_VERSION
-#install_msgpack $PHP56_VERSION
-phpenv global $PHP71_VERSION
+git clone https://github.com/phalcon/cphalcon $PHALCON_DIR
+git clone https://github.com/msgpack/msgpack-php $HOME/repos/msgpack-php
+phpenv_install_with_phalcon $PHP_VERSION
+install_msgpack $PHP_VERSION
+phpenv global $PHP_VERSION
 phpenv rehash
 
 ## setup phalcon-devtool

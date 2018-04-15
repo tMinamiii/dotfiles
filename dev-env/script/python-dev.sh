@@ -1,13 +1,12 @@
 #!/bin/zsh
-. ./config.sh
-. $HOME/.zshrc
+
 cd $HOME
+. "$HOME/.zshrc"
+PY3_VERSION=3.6.5
+PY2_VERSION=2.7.14
 if [ ! -e ~/repos ]; then
     mkdir ~/repos
 fi
-
-PY3_VERSION=3.6.4
-PY2_VERSION=2.7.14
 
 # after zsh and zshrc settings
 # install python build tools
@@ -33,25 +32,28 @@ elif uname -a | grep -sq "Darwin"; then
     brew instawll -y mecab
 fi
 
-curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
-git clone git://github.com/yyuu/pyenv-update.git ~/.pyenv/plugins/pyenv-update
+# curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+# git clone git://github.com/yyuu/pyenv-update.git ~/.pyenv/plugins/pyenv-update
 
 pyenv install $PY3_VERSION
 pyenv install $PY2_VERSION
 pyenv global $PY3_VERSION $PY2_VERSION
 pyenv rehash
 
-pip install ipython autopep8 pygments flake8 isort numpy scipy
+pip3 install --upgrade pip
+pip2 install --upgrade pip
+pip3 install neovim ipython numpy scipy flake8 autopep8 pep8 jedi jupyter pylint pyflakes Pygments isort
+pip2 install neovim jedi
 
 # install jupyter
-pip install jupyter jupyterthemes jupyter_contrib_nbextensions
+pip3 install jupyter jupyterthemes jupyter_contrib_nbextensions
 
 ## setup jupyter extension dir
 jupyter contrib nbextension install --user
-if [ ! -e $(jupyter --data-dir)/nbextensions ]; then
-    mkdir -p $(jupyter --data-dir)/nbextensions
+if [ ! -e "$(jupyter --data-dir)/nbextensions" ]; then
+    mkdir -p "$(jupyter --data-dir)/nbextensions"
 fi
-cd $(jupyter --data-dir)/nbextensions
+cd "$(jupyter --data-dir)/nbextensions"
 ## jupter vim binding
 git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
 jupyter nbextension enable vim_binding/vim_binding
