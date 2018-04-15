@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'Shougo/denite.nvim'
+
+[[plugins]]
 repo = 'Chiel92/vim-autoformat'
 
 [[plugins]]
@@ -6,9 +9,7 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
-hook_add = '''
-let g:indent_guides_enable_on_vim_startup = 1
-'''
+hook_add = 'let g:indent_guides_enable_on_vim_startup = 1'
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
@@ -18,7 +19,6 @@ repo = 'Shougo/deoplete.nvim'
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
-" let g:deoplete#num_processes = 0
 
 " let g:deoplete#omni#input_patterns = {}
 " let g:deoplete#sources = {}
@@ -48,9 +48,7 @@ repo = 'jpalardy/vim-slime'
 
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
-hook_add = '''
-nmap <F7> :VimFilerExplorer -winwidth=40 -no-quit<CR>
-'''
+hook_add = 'nmap <F7> :VimFilerExplorer -winwidth=40 -no-quit<CR>'
 
 # vimfiler に必要
 [[plugins]]
@@ -125,6 +123,10 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 '''
 
+####################
+### vim air line ###
+####################
+
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
 depends = ['vim-fugitive', 'vim-airline-themes']
@@ -170,11 +172,6 @@ repo = 'naronA/dracula-vim'
 
 [[plugins]]
 repo = 'w0rp/ale'
-build = '''
-# cd $HOME/.vim/rc/
-# sh ale-build.sh
-# cd -
-'''
 hook_add = '''
 let g:ale_linters = {
 \   'python': ['autopep8','flake8', 'isort'],
@@ -199,4 +196,3 @@ let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_set_highlights = 1
 '''
-
