@@ -68,6 +68,7 @@ augroup indentsize
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
+    autocmd FileType go setlocal shiftwidth=2 tabstop=2 noexpandtab
     autocmd FileType nerdtree setlocal shiftwidth=0 tabstop=10
     autocmd FileType makefile setlocal noexpandtab
     autocmd FileType gitconfig setlocal noexpandtab

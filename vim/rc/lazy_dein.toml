@@ -183,6 +183,13 @@ hook_add = '''
 # autocmd FileType typescript :call s:ts_keymap()
 # '''
 
+##########
+### GO ###
+##########
+
+[[plugins]]
+repo = 'zchee/nvim-go'
+
 ############
 ### Ruby ###
 ############
