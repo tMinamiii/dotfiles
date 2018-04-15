@@ -172,7 +172,7 @@ endif
 
 if has('nvim')
     let g:python_host_prog=glob($PYENV_ROOT.'/versions/2.7*/bin/python')
-    let g:python3_host_prog=glob($PYENV_ROOT.'/versions/3*/bin/python')
+    let g:python3_host_prog=glob($PYENV_ROOT.'/versions/3.6*/bin/python')
 endif
 
 syntax on

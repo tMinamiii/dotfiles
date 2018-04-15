@@ -189,6 +189,10 @@ hook_add = '''
 
 [[plugins]]
 repo = 'zchee/nvim-go'
+build = '''
+make
+go get -u github.com/constabulary/gb/...
+'''
 
 ############
 ### Ruby ###
