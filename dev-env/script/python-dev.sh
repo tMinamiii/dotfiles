@@ -10,26 +10,28 @@ fi
 
 # after zsh and zshrc settings
 # install python build tools
-if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
-    sudo apt-get install -y libssl-dev \
-        libbz2-dev \
-        libreadline-dev \
-        libsqlite3-dev \
-        # mecab modules
-    sudo apt-get install -y make \
-        xz-utils \
-        file \
-        mecab \
-        libmecab-dev \
-        mecab-ipadic \
-        mecab-ipadic-utf8
+if [ -e /etc/os-release ]; then
+    if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
+        sudo apt-get install -y libssl-dev \
+            libbz2-dev \
+            libreadline-dev \
+            libsqlite3-dev \
+            # mecab modules
+        sudo apt-get install -y make \
+            xz-utils \
+            file \
+            mecab \
+            libmecab-dev \
+            mecab-ipadic \
+            mecab-ipadic-utf8
 
-    # scrapy modules
-    sudo apt-get install -y libxml2-dev \
-        libxslt1-dev \
-        libffi-dev
+        # scrapy modules
+        sudo apt-get install -y libxml2-dev \
+            libxslt1-dev \
+            libffi-dev
+    fi
 elif uname -a | grep -sq "Darwin"; then
-    brew instawll -y mecab
+    brew install -y mecab
 fi
 
 # curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
@@ -55,7 +57,9 @@ if [ ! -e "$(jupyter --data-dir)/nbextensions" ]; then
 fi
 cd "$(jupyter --data-dir)/nbextensions"
 ## jupter vim binding
-git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
+if [ ! -e "$(jupyter --data-dir)/nbextensions/vim_binding" ]; then
+    git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
+fi
 jupyter nbextension enable vim_binding/vim_binding
 ## jupyter autopep8
 jupyter nbextension install https://github.com/kenkoooo/jupyter-autopep8/archive/master.zip --user

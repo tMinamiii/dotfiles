@@ -3,12 +3,14 @@ cd $HOME
 . "$HOME/.zshrc"
 
 # mkdir
-if [ ! -e ~/repos ]; then
-    mkdir ~/repos
+if [ ! -e $HOME/repos ]; then
+    mkdir $HOME/repos
 fi
 
-if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
-    sudo apt-get install -y neovim
+if [ -e /etc/os-release ]; then
+    if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
+        sudo apt-get install -y neovim
+    fi
 elif uname -a | grep -sq "Darwin"; then
     brew install -y neovim
 fi
