@@ -39,7 +39,7 @@ elif uname -a | grep -sq "Ubuntu"; then
   # Dockerfile
   wget -qO- https://get.haskellstack.org/ | sh
   git clone https://github.com/hadolint/hadolint "$HOME/repos/hadolint"
-  cd "$HOME/repos/hadlint" || exit
+  cd "$HOME/repos/hadolint" || exit
   stack install
   cd - || exit
 fi
