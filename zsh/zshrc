@@ -133,6 +133,10 @@ php_dev () {
     composer global require "squizlabs/php_codesniffer=*"
   fi
 
+  if ! composer global info | grep -sq friendsofphp/php-cs-fixer; then
+    composer global require "friendsofphp/php-cs-fixer"
+  fi
+
   if ! composer info | grep -sq felixfbecker/language-server; then
     composer config minimum-stability dev
     composer require --dev felixfbecker/language-server
