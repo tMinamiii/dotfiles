@@ -46,12 +46,12 @@ on_ft = ['c', 'cpp', 'cmake']
 depends = ['deoplete.nvim']
 hook_source = '''
 if has('unix')
-    let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.so'
-    let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
-endif
-if has('mac') 
-    let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.so'
-    let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
+    let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang-4.0.so'
+    let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-4.0/include/clang'
+    if has('mac') 
+        let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.so'
+        let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
+    endif
 endif
 '''
 
