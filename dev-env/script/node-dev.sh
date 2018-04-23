@@ -1,4 +1,8 @@
 #!/bin/zsh
+
+set -eu
+set -o pipefail
+
 cd $HOME
 . "$HOME/.zshrc"
 
