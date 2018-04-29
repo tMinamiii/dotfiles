@@ -1,4 +1,7 @@
-#!/bin/zsh
+!/bin/zsh
+
+set -eu
+set -o pipefail
 
 ARGS=$*
 cd "$HOME" || exit

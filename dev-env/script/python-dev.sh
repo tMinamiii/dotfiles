@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -eu
+set -o pipefail
 cd $HOME
 . "$HOME/.zshrc"
 PY3_VERSION=3.6.5

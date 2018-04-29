@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -eu
+set -o pipefail
 cd $HOME
 . "$HOME/.zshrc"
 RUBY_VERSION=2.4.4

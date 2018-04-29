@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+set -eu
+set -o pipefail
+
 cd $HOME
 . "$HOME/.zshrc"
 PHP_VERSION=7.1.16
