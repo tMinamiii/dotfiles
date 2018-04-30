@@ -67,10 +67,9 @@ augroup indentsize
     autocmd FileType sh setlocal shiftwidth=2 tabstop=2
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
-    autocmd FileType json setlocal shiftwidth=2 tabstop=2
+    autocmd FileType json setlocal shiftwidth=2 tabstop=2 conceallevel=0
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
     autocmd FileType go setlocal shiftwidth=2 tabstop=2 noexpandtab
-    autocmd FileType nerdtree setlocal shiftwidth=0 tabstop=10
     autocmd FileType makefile setlocal noexpandtab
     autocmd FileType gitconfig setlocal noexpandtab
 augroup END
@@ -181,7 +180,7 @@ color dracula
 "color nova 
 " hi! Normal ctermbg=NONE guibg=NONE
 " hi! NonText ctermbg=NONE guibg=NONE
-" hi IndentGuidesOdd guibg=236 ctermbg=236
+hi IndentGuidesOdd guibg=236 ctermbg=236
 hi IndentGuidesEven guibg=236 ctermbg=236
 hi ALEWarning guibg=green guifg=white gui=underline ctermbg=green ctermfg=white cterm=underline
 hi ALEError guibg=red guifg=white gui=underline ctermbg=red ctermfg=white cterm=underline
