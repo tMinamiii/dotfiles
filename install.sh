@@ -63,6 +63,8 @@ if echo "$ARGS" | grep -sq "\\-\\-gui"; then
   if grep -sq "Ubuntu" /etc/os-release; then
     sudo apt-get install gconf2
     gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
+    UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
+    gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "Cica 13"
     gconftool-2 --get /apps/gnome-terminal/profiles/Default/font
     gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "Cica 12"
     ###### Xsession ######

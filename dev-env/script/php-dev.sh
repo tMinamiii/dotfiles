@@ -130,7 +130,7 @@ if [ ! -e /usr/local/bin/phalcon ]; then
     if [ -e /etc/os-release ]; then
         if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
             sudo ln -s $(pwd)/phalcon.php /usr/local/bin/phalcon
-            sudo chown -R naronA:naronA /usr/local/bin/phalcon
+            sudo chown -R narona:narona /usr/local/bin/phalcon
         fi
     elif uname -a | grep -sq "Darwin"; then
         ln -s $(pwd)/phalcon.php /usr/local/bin/phalcon

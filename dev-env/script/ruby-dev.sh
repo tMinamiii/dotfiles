@@ -15,11 +15,11 @@ if [ -e /etc/os-release ]; then
             libyaml-dev \
             libreadline-dev \
             zlib1g-dev \
-            libncurses-dev \
+            libncurses5-dev \
             libffi-dev \
-            libgdbm3 \
             libgdbm-dev
     fi
+# libgdbm \
 elif uname -a | grep -sq "Darwin"; then
     brew install openssl libyaml libffi
 fi
