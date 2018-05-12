@@ -182,7 +182,7 @@ color dracula
 " hi! NonText ctermbg=NONE guibg=NONE
 hi IndentGuidesOdd guibg=236 ctermbg=236
 hi IndentGuidesEven guibg=236 ctermbg=236
-hi ALEWarning guibg=green guifg=white gui=underline ctermbg=green ctermfg=white cterm=underline
-hi ALEError guibg=red guifg=white gui=underline ctermbg=red ctermfg=white cterm=underline
+hi ALEWarning guibg=green guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
+hi ALEError guibg=red guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
