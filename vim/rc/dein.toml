@@ -26,7 +26,8 @@ repo = 'Shougo/deoplete.nvim'
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
-
+let g:deoplete#min_pattern_length = 1
+let g:deoplete#refresh_always = v:true
 " let g:deoplete#omni#input_patterns = {}
 " let g:deoplete#sources = {}
 " let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
