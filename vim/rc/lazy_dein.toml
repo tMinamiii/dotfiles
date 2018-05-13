@@ -12,16 +12,12 @@ bash install.sh
 hook_add = '''
 set hidden
 let g:LanguageClient_loggingLevel = 'DEBUG'
-let g:LanguageClient_selectionUI = 'location-list'
-let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsEnable = 0
 let s:php_langserver = "./vendor/bin/php-language-server.php"
 let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
 let g:LanguageClient_serverCommands = {
     \ 'php': ['php', s:php_langserver],
     \ 'typescript': [s:js_langserver],
-"     \ 'javascript': [s:js_langserver],
-"     \ 'javascript.jsx': [s:js_langserver],
     \ }
 
 function! s:langserver_keymap()
@@ -32,7 +28,6 @@ function! s:langserver_keymap()
 endfunction
 
 autocmd FileType php :call s:langserver_keymap()
-" autocmd FileType javascript :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
 '''
 
