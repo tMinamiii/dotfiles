@@ -11,6 +11,10 @@ bash install.sh
 '''
 hook_add = '''
 set hidden
+let g:LanguageClient_loggingLevel = 'DEBUG'
+let g:LanguageClient_selectionUI = 'location-list'
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_diagnosticsEnable = 0
 let s:php_langserver = "./vendor/bin/php-language-server.php"
 let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
 let g:LanguageClient_serverCommands = {
