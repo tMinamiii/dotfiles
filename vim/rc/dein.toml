@@ -88,13 +88,13 @@ repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 ### CTAGS/GTAGS ###
 ###################
 
-[[plugins]]
-repo = 'jsfaint/gen_tags.vim'
-hook_add = '''
-let g:gen_tags#ctags_auto_gen = 1
-let g:gen_tags#gtags_auto_gen = 1
-'''
-
+# [[plugins]]
+# repo = 'jsfaint/gen_tags.vim'
+# hook_add = '''
+# let g:gen_tags#ctags_auto_gen = 1
+# let g:gen_tags#gtags_auto_gen = 1
+# '''
+# 
 [[plugins]]
 repo = '5t111111/alt-gtags.vim'
 hook_add = '''
