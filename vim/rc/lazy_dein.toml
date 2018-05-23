@@ -126,6 +126,7 @@ build = 'composer install'
 hook_add = '''
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
+let g:phpcd_autoload_path = './vendor/autoload.php'
 silent! nnoremap <silent> <unique> <buffer> gd
     \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
 silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
