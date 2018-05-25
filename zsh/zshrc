@@ -189,6 +189,7 @@ alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias avenv='source ./env/bin/activate'
 alias dvenv='deactivate'
+alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
 
 alias docker-rm-exited='docker -aq | xargs docker rm'
 
