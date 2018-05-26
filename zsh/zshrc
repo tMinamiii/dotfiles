@@ -193,6 +193,10 @@ alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/
 
 alias docker-rm-exited='docker -aq | xargs docker rm'
 
+npm_freeze() {
+  npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
+}
+
 if [ "$(uname)" = "Darwin" ]; then
   # Mac OSX
   # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
