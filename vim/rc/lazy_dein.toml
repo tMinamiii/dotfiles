@@ -88,24 +88,24 @@ on_ft = ['markdown','mkd']
 ### PHP ###
 ###########
 
-[[plugins]]
-repo = 'stephpy/vim-php-cs-fixer'
-build = 'composer global require friendsofphp/php-cs-fixer'
-on_ft = ['php']
-hook_add = '''
-let g:php_cs_fixer_level = "symfony"                   " options: --level (default:symfony)
-let g:php_cs_fixer_config = "default"                  " options: --config
-
-" If you use php-cs-fixer version 2.x
-let g:php_cs_fixer_rules = "@PSR2"                " options: --rules (default:@PSR2)
-let g:php_cs_fixer_php_path = "php"               " Path to PHP
-let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0
-nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
-nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
-autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
-'''
+# [[plugins]]
+# repo = 'stephpy/vim-php-cs-fixer'
+# build = 'composer global require friendsofphp/php-cs-fixer'
+# on_ft = ['php']
+# hook_add = '''
+# let g:php_cs_fixer_level = "symfony"                   " options: --level (default:symfony)
+# let g:php_cs_fixer_config = "default"                  " options: --config
+# 
+# " If you use php-cs-fixer version 2.x
+# let g:php_cs_fixer_rules = "@PSR2"                " options: --rules (default:@PSR2)
+# let g:php_cs_fixer_php_path = "php"               " Path to PHP
+# let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+# let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+# let g:php_cs_fixer_verbose = 0
+# nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+# nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+# autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
+# '''
 
 [[plugins]]
 repo = 'jwalton512/vim-blade'
@@ -126,6 +126,7 @@ repo = 'beanworks/vim-phpfmt'
 on_ft = ['php']
 hook_add = '''
 let g:phpfmt_standard = 'PSR2'
+let g:phpfmt_autosave = 0
 '''
 
 # [[plugins]]
