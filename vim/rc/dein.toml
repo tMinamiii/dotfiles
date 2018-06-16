@@ -164,7 +164,7 @@ repo = 'naronA/dracula-vim'
 repo = 'w0rp/ale'
 hook_add = '''
 let g:ale_linters = {
-\   'php': ['phpcs'],
+\   'php': ['phpcs', 'php'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'typescript': ['prettier', 'tslint', 'tsserver', 'typecheck'],
