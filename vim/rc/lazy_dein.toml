@@ -1,21 +1,22 @@
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php']
-# on_ft = ['php']
+on_ft = ['php','ruby']
 rev = 'next'
 build = '''
 bash install.sh
 '''
 hook_add = '''
 set hidden
-let g:LanguageClient_diagnosticsEnable = 0
 let s:php_langserver = "./vendor/bin/php-language-server.php"
 let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
+let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
+
 let g:LanguageClient_serverCommands = {
     \ 'php': ['php', s:php_langserver],
     \ }
+let g:LanguageClient_diagnosticsEnable = 0
 
-"   \ 'typescript': [s:js_langserver],
+"    \ 'ruby': ['tcp://127.0.0.1:7658'],
 function! s:langserver_keymap()
     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
     nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
@@ -24,6 +25,7 @@ function! s:langserver_keymap()
 endfunction
 
 autocmd FileType php :call s:langserver_keymap()
+"autocmd FileType ruby :call s:langserver_keymap()
 " autocmd FileType php :LanguageClientStart
 " autocmd FileType php typescript :call s:langserver_keymap()
 " autocmd FileType php typescript :LanguageClientStart
@@ -248,14 +250,14 @@ on_ft = ['ruby']
 # repo = 'hackhowtofaq/vim-solargraph'
 # buld = 'gem install json rest-client solargraph'
 # on_ft = ['ruby']
-# 
+
 # [[plugins]]
 # repo = 'uplus/deoplete-solargraph'
 # buld = '''
 # gem install solargraph
 # pip install solargraph-utils.py
-# yard gems 
-# yard config --gem-install-yri 
+# yard gems
+# yard config --gem-install-yri
 # '''
 # on_ft = ['ruby']
 
@@ -284,9 +286,9 @@ repo = 'davidhalter/jedi-vim'
 on_ft = ['python','python3','djangohtml']
 hook_add = '''
 " jediにvimの設定を任せると'completeopt+=preview'するので 自動設定機能をOFFにし手動で設定を行う
-" let g:jedi#auto_vim_configuration = 0 
+" let g:jedi#auto_vim_configuration = 0
 " let g:jedi#auto_initialization = 0
-" let g:jedi#smart_auto_mappings = 0 
+" let g:jedi#smart_auto_mappings = 0
 let g:jedi#completions_enabled = 0
 " 補完の最初の項目が選択された状態だと使いにくいためオフにする
 " let g:jedi#popup_select_first = 0
