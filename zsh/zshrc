@@ -165,6 +165,17 @@ node_dev () {
   npm i -g npm-check-updates tern neovim npm yarn
 }
 
+js_dev () {
+  wget https://gist.githubusercontent.com/tk-minami/5ce6d8b8f3e69298d2bf1cf02142916d/raw/20150db151c7b162636564bcae4d8d3f2ce4f43c/package.json
+  wget https://gist.githubusercontent.com/tk-minami/5ce6d8b8f3e69298d2bf1cf02142916d/raw/20150db151c7b162636564bcae4d8d3f2ce4f43c/.eslintrc.json
+
+  yarn add --dev fixjson \
+    eslint eslint-config-airbnb eslint-config-google eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react \
+    javascript-typescript-langserver vscode-json-languageservice  \
+    mocha assert nyc \
+    import-sort-cli import-sort-parser-babylon import-sort-style-eslint 
+}
+
 ts_dev () {
   wget https://gist.githubusercontent.com/tk-minami/5ce6d8b8f3e69298d2bf1cf02142916d/raw/20150db151c7b162636564bcae4d8d3f2ce4f43c/package.json
   wget https://gist.githubusercontent.com/tk-minami/5ce6d8b8f3e69298d2bf1cf02142916d/raw/20150db151c7b162636564bcae4d8d3f2ce4f43c/.eslintrc.json
