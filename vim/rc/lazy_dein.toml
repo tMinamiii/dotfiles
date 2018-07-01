@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php','typescript']
+on_ft = ['php', 'javascript', 'typescript']
 rev = 'next'
 build = '''
 bash install.sh
@@ -14,6 +14,7 @@ let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'php': ['php', s:php_langserver],
     \ 'typescript': [s:js_langserver],
+    \ 'javascript': [s:js_langserver],
     \ }
 
 "    \ 'ruby': ['tcp://127.0.0.1:7658'],
@@ -27,6 +28,7 @@ endfunction
 
 autocmd FileType php :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
+autocmd FileType javascript :call s:langserver_keymap()
 " autocmd FileType php typescript :call s:langserver_keymap()
 '''
 
@@ -152,23 +154,23 @@ let g:phpfmt_autosave = 0
 ### Javascript/TypeScript ###
 #############################
 
-[[plugins]]
-repo = 'ternjs/tern_for_vim'
-on_ft = ['javascript']
-build = 'npm i tern'
-hook_add = '''
-function! s:js_keymap()
-    nnoremap <buffer><silent> K :TernDoc<CR>
-    nnoremap <buffer><silent> gd :TernDef<CR>
-    nnoremap <buffer><silent> <F2> :TernRename<CR>
-    nnoremap <buffer><silent> <C-h> :TernRefs<CR>
-endfunction
-autocmd FileType javascript :call s:js_keymap()
-'''
-[[plugins]]
-repo = 'carlitux/deoplete-ternjs'
-on_ft = ['javascript']
-build = 'npm i -g tern'
+# [[plugins]]
+# repo = 'ternjs/tern_for_vim'
+# on_ft = ['javascript']
+# build = 'npm i tern'
+# hook_add = '''
+# function! s:js_keymap()
+#     nnoremap <buffer><silent> K :TernDoc<CR>
+#     nnoremap <buffer><silent> gd :TernDef<CR>
+#     nnoremap <buffer><silent> <F2> :TernRename<CR>
+#     nnoremap <buffer><silent> <C-h> :TernRefs<CR>
+# endfunction
+# autocmd FileType javascript :call s:js_keymap()
+# '''
+# [[plugins]]
+# repo = 'carlitux/deoplete-ternjs'
+# on_ft = ['javascript']
+# build = 'npm i -g tern'
 
 [[plugins]]
 repo = 'moll/vim-node'
