@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php','ruby']
+on_ft = ['php','typescript']
 rev = 'next'
 build = '''
 bash install.sh
@@ -9,14 +9,15 @@ hook_add = '''
 set hidden
 let s:php_langserver = "./vendor/bin/php-language-server.php"
 let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
-let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
 
+let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'php': ['php', s:php_langserver],
+    \ 'typescript': [s:js_langserver],
     \ }
-let g:LanguageClient_diagnosticsEnable = 0
 
 "    \ 'ruby': ['tcp://127.0.0.1:7658'],
+
 function! s:langserver_keymap()
     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
     nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
@@ -25,10 +26,8 @@ function! s:langserver_keymap()
 endfunction
 
 autocmd FileType php :call s:langserver_keymap()
-"autocmd FileType ruby :call s:langserver_keymap()
-" autocmd FileType php :LanguageClientStart
+autocmd FileType typescript :call s:langserver_keymap()
 " autocmd FileType php typescript :call s:langserver_keymap()
-" autocmd FileType php typescript :LanguageClientStart
 '''
 
 #############
@@ -209,19 +208,19 @@ hook_add = '''
 # nvim-typescript provides standard IDE-like features such 
 # as auto-completion, viewing of documentation and type-signatures, 
 # go to definition, and reference finding.
-[[plugins]]
-repo = 'mhartington/nvim-typescript'
-build = 'npm i -g typescript'
-on_ft = ['typescript']
-hook_add = '''
-function! s:ts_keymap()
-    nnoremap <buffer><silent> K :TSDoc<CR>
-    nnoremap <buffer><silent> gd :TSDef<CR>
-    nnoremap <buffer><silent> <F2> :TSRename<CR>
-    nnoremap <buffer><silent> <C-h> :TSRefs<CR>
-endfunction
-autocmd FileType typescript :call s:ts_keymap()
-'''
+# [[plugins]]
+# repo = 'mhartington/nvim-typescript'
+# build = 'npm i -g typescript'
+# on_ft = ['typescript']
+# hook_add = '''
+# function! s:ts_keymap()
+#     nnoremap <buffer><silent> K :TSDoc<CR>
+#     nnoremap <buffer><silent> gd :TSDef<CR>
+#     nnoremap <buffer><silent> <F2> :TSRename<CR>
+#     nnoremap <buffer><silent> <C-h> :TSRefs<CR>
+# endfunction
+# autocmd FileType typescript :call s:ts_keymap()
+# '''
 
 ##########
 ### GO ###

@@ -184,5 +184,6 @@ hi IndentGuidesOdd guibg=236 ctermbg=236
 hi IndentGuidesEven guibg=236 ctermbg=236
 hi ALEWarning guibg=green guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
 hi ALEError guibg=red guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
+hi CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
