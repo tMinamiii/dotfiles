@@ -194,7 +194,7 @@ alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias avenv='source ./env/bin/activate'
 alias dvenv='deactivate'
 alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
-
+alias mac-phpenv-install='LDFLAGS="-L/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/system" phpenv install'
 alias docker-rm-exited='docker -aq | xargs docker rm'
 
 npm_freeze() {
