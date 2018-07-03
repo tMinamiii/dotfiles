@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php', 'javascript', 'typescript']
+on_ft = ['javascript', 'typescript']
 rev = 'next'
 build = '''
 bash install.sh
@@ -12,7 +12,7 @@ let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
 
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
-    \ 'php': ['php', s:php_langserver],
+"    \ 'php': ['php', s:php_langserver],
     \ 'typescript': [s:js_langserver],
     \ 'javascript': [s:js_langserver],
     \ }
@@ -26,7 +26,7 @@ function! s:langserver_keymap()
     nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 endfunction
 
-autocmd FileType php :call s:langserver_keymap()
+"autocmd FileType php :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
 autocmd FileType javascript :call s:langserver_keymap()
 " autocmd FileType php typescript :call s:langserver_keymap()
@@ -132,23 +132,23 @@ let g:phpfmt_standard = 'PSR2'
 let g:phpfmt_autosave = 0
 '''
 
-# [[plugins]]
-# repo = 'lvht/phpcd.vim'
-# on_ft = ['php']
-# build = 'composer install'
-# hook_add = '''
-# let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-# let g:deoplete#ignore_sources.php = ['omni']
-# let g:phpcd_autoload_path = './vendor/autoload.php'
-# silent! nnoremap <silent> <unique> <buffer> gd
-#     \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
-# silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
-#     \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
-# silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
-#     \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
-# silent! nnoremap <silent> <unique> <buffer> <C-t>
-#     \ :<C-u>call phpcd#JumpBack()<CR>
-# '''
+[[plugins]]
+repo = 'lvht/phpcd.vim'
+on_ft = ['php']
+build = 'composer install'
+hook_add = '''
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
+let g:phpcd_autoload_path = './vendor/autoload.php'
+silent! nnoremap <silent> <unique> <buffer> gd
+    \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
+silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
+    \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
+silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
+    \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
+silent! nnoremap <silent> <unique> <buffer> <C-t>
+    \ :<C-u>call phpcd#JumpBack()<CR>
+'''
 
 #############################
 ### Javascript/TypeScript ###
