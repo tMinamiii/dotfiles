@@ -140,14 +140,18 @@ hook_add = '''
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
 let g:phpcd_autoload_path = './vendor/autoload.php'
-silent! nnoremap <silent> <unique> <buffer> gd
-    \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
-silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
-    \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
-silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
-    \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
-silent! nnoremap <silent> <unique> <buffer> <C-t>
-    \ :<C-u>call phpcd#JumpBack()<CR>
+
+function! s:phpcd_keymap()
+    silent! nnoremap <silent> <unique> <buffer> gd
+        \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
+    silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
+        \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
+    silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
+        \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
+    silent! nnoremap <silent> <unique> <buffer> <C-t>
+        \ :<C-u>call phpcd#JumpBack()<CR>
+endfunction
+autocmd FileType php :call s:phpcd_keymap()
 '''
 
 #############################
