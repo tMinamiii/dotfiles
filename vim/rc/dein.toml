@@ -1,5 +1,19 @@
 [[plugins]]
-repo = 'Chiel92/vim-autoformat'
+repo = 'sbdchd/neoformat'
+hook_add = '''
+let g:neoformat_enabled_blade = ['html-beautify']
+
+let g:neoformat_php_phpcsfixer2 = {
+            \ 'exe': 'php-cs-fixer',
+            \ 'args': ['fix', '-q', '--rules=@PSR2,-@PSR1'],
+            \ 'replace': 1,
+            \ }
+
+let g:neoformat_enabled_php = ['phpcsfixer2']
+
+'''
+
+# repo = 'Chiel92/vim-autoformat'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
@@ -11,12 +25,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 '''
-
-# [[plugins]]
-# repo = 'Yggdroot/indentLine'
-# hook_add = '''
-# let g:indentLine_char = '⎸'
-# '''
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
@@ -129,6 +137,7 @@ let g:webdevicons_enable_nerdtree = 1
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*vue$'] = ''
 '''
 
 [[plugins]]
