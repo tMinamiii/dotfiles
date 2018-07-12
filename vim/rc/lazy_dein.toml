@@ -177,9 +177,9 @@ repo = 'pangloss/vim-javascript'
 on_ft = ['javascript', 'javascript.jsx']
 # repo = 'jelera/vim-javascript-syntax'
 
-[[plugins]]
-repo = 'mxw/vim-jsx'
-on_ft = ['javascript', 'javascript.jsx']
+# [[plugins]]
+# repo = 'mxw/vim-jsx'
+# on_ft = ['javascript', 'javascript.jsx']
 
 # jsdoc.vim generates JSDoc block comments based on a function signature.
 [[plugins]]
