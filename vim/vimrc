@@ -67,6 +67,7 @@ augroup indentsize
     autocmd FileType vue syntax sync fromstart
     autocmd FileType sh setlocal shiftwidth=2 tabstop=2
     autocmd FileType vue setlocal shiftwidth=2 tabstop=2
+    autocmd FileType blade setlocal shiftwidth=2 tabstop=2
     " autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2 conceallevel=0
