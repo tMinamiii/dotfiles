@@ -1,6 +1,6 @@
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['javascript', 'typescript']
+on_ft = ['vue', 'javascript', 'typescript']
 rev = 'next'
 build = '''
 bash install.sh
@@ -14,6 +14,7 @@ let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
 "    \ 'php': ['php', s:php_langserver],
     \ 'typescript': [s:js_langserver],
+    \ 'vue': ['vls'],
     \ 'javascript': [s:js_langserver],
     \ }
 
@@ -29,6 +30,7 @@ endfunction
 "autocmd FileType php :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
 autocmd FileType javascript :call s:langserver_keymap()
+autocmd FileType vue :call s:langserver_keymap()
 " autocmd FileType php typescript :call s:langserver_keymap()
 '''
 
@@ -139,24 +141,6 @@ autocmd FileType php :call s:phpcd_keymap()
 ### Javascript/TypeScript ###
 #############################
 
-# [[plugins]]
-# repo = 'ternjs/tern_for_vim'
-# on_ft = ['javascript']
-# build = 'npm i tern'
-# hook_add = '''
-# function! s:js_keymap()
-#     nnoremap <buffer><silent> K :TernDoc<CR>
-#     nnoremap <buffer><silent> gd :TernDef<CR>
-#     nnoremap <buffer><silent> <F2> :TernRename<CR>
-#     nnoremap <buffer><silent> <C-h> :TernRefs<CR>
-# endfunction
-# autocmd FileType javascript :call s:js_keymap()
-# '''
-# [[plugins]]
-# repo = 'carlitux/deoplete-ternjs'
-# on_ft = ['javascript']
-# build = 'npm i -g tern'
-
 [[plugins]]
 repo = 'posva/vim-vue'
 on_ft = ['vue']
@@ -173,13 +157,13 @@ autocmd User Node
 '''
 # syntax highlighting
 [[plugins]]
-repo = 'pangloss/vim-javascript'
+repo = 'jelera/vim-javascript-syntax'
+# repo = 'pangloss/vim-javascript'
 on_ft = ['javascript', 'javascript.jsx']
-# repo = 'jelera/vim-javascript-syntax'
 
 # [[plugins]]
-# repo = 'mxw/vim-jsx'
-# on_ft = ['javascript', 'javascript.jsx']
+repo = 'mxw/vim-jsx'
+on_ft = ['javascript', 'javascript.jsx']
 
 # jsdoc.vim generates JSDoc block comments based on a function signature.
 [[plugins]]
@@ -198,8 +182,6 @@ on_ft = ['typescript']
 [[plugins]]
 repo = 'ruanyl/vim-sort-imports'
 on_ft = ['typescript']
-hook_add = '''
-'''
 
 ##########
 ### GO ###
@@ -311,13 +293,13 @@ hook_add='let g:autopep8_disable_show_diff = 1'
 # endif
 # '''
 
-# [[plugins]]
-# repo = 'prettier/vim-prettier'
-# build = 'npm install'
-# on_ft = ['javascript', 'vue', 'typescript', 'css', 'less', 'scss']
-# hook_add = '''
-# let g:prettier#autoformat = 1
-# let g:prettier#quickfix_enabled = 0
-# let g:prettier#exec_cmd_async = 1
-# autocmd BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
-# '''
+[[plugins]]
+repo = 'prettier/vim-prettier'
+build = 'npm install'
+on_ft = ['javascript', 'vue', 'typescript', 'css', 'less', 'scss']
+hook_add = '''
+let g:prettier#autoformat = 1
+let g:prettier#quickfix_enabled = 0
+let g:prettier#exec_cmd_async = 1
+autocmd BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
+'''
