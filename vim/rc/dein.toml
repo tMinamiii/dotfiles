@@ -1,21 +1,4 @@
 [[plugins]]
-repo = 'sbdchd/neoformat'
-hook_add = '''
-let g:neoformat_enabled_blade = ['html-beautify']
-
-let g:neoformat_php_phpcsfixer2 = {
-            \ 'exe': 'php-cs-fixer',
-            \ 'args': ['fix', '-q', '--rules=@PSR2,-@PSR1'],
-            \ 'replace': 1,
-            \ }
-
-let g:neoformat_enabled_php = ['phpcsfixer2']
-
-'''
-
-# repo = 'Chiel92/vim-autoformat'
-
-[[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
@@ -199,6 +182,10 @@ let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_use_global = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_set_highlights = 1
+let g:ale_fixers = {}
+let g:ale_fixers.javascript = ['eslint']
+let g:ale_fixers.typescript = ['tslint']
+let g:ale_fixers.vue = ['eslint']
 '''
 
 #################
