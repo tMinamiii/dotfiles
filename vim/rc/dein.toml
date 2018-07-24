@@ -184,6 +184,7 @@ let g:ale_php_phpcs_use_global = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_set_highlights = 1
 let g:ale_fixers = {}
+let g:ale_fixers.php = ['php_cs_fixer']
 let g:ale_fixers.javascript = ['eslint']
 let g:ale_fixers.typescript = ['tslint']
 let g:ale_fixers.vue = ['eslint']
