@@ -161,7 +161,7 @@ let g:ale_linters = {
 \   'php': ['phpcs', 'php'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
-\   'typescript': ['prettier', 'tslint', 'tsserver', 'typecheck'],
+\   'typescript': ['tslint', 'tsserver'],
 \   'javascript': ['eslint','prettier'],
 \   'ruby': ['ruby'],
 \}
