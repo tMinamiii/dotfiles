@@ -83,7 +83,23 @@ let g:nvim_typescript#javascript_support = 1
 let g:nvim_typescript#vue_support = 1
 let g:nvim_typescript#type_info_on_hold = 1
 let g:nvim_typescript#max_completion_detail = 3
-let g:nvim_typescript#default_signs = {}
+let g:nvim_typescript#default_signs =
+      \ get(g:, 'nvim_typescript#default_signs', [
+      \{
+      \  'TSinformation': {
+      \   'texthl': 'SpellBad',
+      \   'signText': '•',
+      \   'signTexthl': 'NeomakeInfoSign'
+      \   }
+      \},
+      \{
+      \  'TShint': {
+      \   'texthl': 'SpellBad',
+      \   'signText': '?',
+      \   'signTexthl': 'NeomakeInfoSign'
+      \   }
+      \}
+      \])
 function! s:ts_keymap()
     nnoremap <buffer><silent> K :TSDoc<CR>
     nnoremap <buffer><silent> gd :TSDef<CR>
@@ -140,11 +156,8 @@ on_ft = ['typescript']
 ##########
 
 [[plugins]]
-repo = 'zchee/nvim-go'
-build = '''
-make
-go get -u github.com/constabulary/gb/...
-'''
+repo = 'zchee/deoplete-go'
+build = '''make '''
 
 ##############
 ### Python ###
