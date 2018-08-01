@@ -1,13 +1,13 @@
-[[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
-[[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-hook_add = '''
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-'''
+#[[plugins]]
+#repo = 'editorconfig/editorconfig-vim'
+#
+#[[plugins]]
+#repo = 'nathanaelkane/vim-indent-guides'
+#hook_add = '''
+#let g:indent_guides_enable_on_vim_startup = 1
+#let g:indent_guides_guide_size = 1
+#let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+#'''
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
@@ -16,9 +16,9 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/deoplete.nvim'
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#min_pattern_length = 1
+let g:deoplete#min_pattern_length = 2
 let g:deoplete#refresh_always = v:true
+let g:deoplete#file#enable_buffer_path = 1
 " let g:deoplete#omni#input_patterns = {}
 " let g:deoplete#sources = {}
 " let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
@@ -188,6 +188,7 @@ let g:ale_fixers.php = ['php_cs_fixer']
 let g:ale_fixers.javascript = ['eslint']
 let g:ale_fixers.typescript = ['tslint']
 let g:ale_fixers.vue = ['eslint']
+let g:ale_fixers.json = ['fixjson']
 '''
 
 #################
