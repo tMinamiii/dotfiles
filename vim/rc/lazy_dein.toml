@@ -1,113 +1,40 @@
-#######################
-### HTML / Markdown ###
-#######################
-
-[[plugins]]
-repo = 'https://github.com/mattn/emmet-vim'
-on_ft = ['html']
-
-[[plugins]]
-repo = 'plasticboy/vim-markdown'
-on_ft = ['markdown','mkd']
-
-#[[plugins]]
-#repo = 'joker1007/vim-markdown-quote-syntax'
-#on_ft = ['markdown','mkd']
-
-# [[plugins]]
-# repo = 'kannokanno/previm'
-# on_ft = ['markdown','mkd']
-#
-# [[plugins]]
-# repo = 'tyru/open-browser.vim'
-# on_ft = ['markdown','mkd']
-
 ###########
-### PHP ###
+### LSP ###
 ###########
-
 [[plugins]]
-repo = 'jwalton512/vim-blade'
-on_ft = ['blade']
+repo = 'autozimu/LanguageClient-neovim'
+on_ft = ['php', 'vue', 'typescript', 'javascript']
+rev = 'next'
+build = 'bash install.sh'
 hook_add = '''
-" Define some single Blade directives. This variable is used for highlighting only.
-let g:blade_custom_directives = ['datetime', 'javascript']
+set hidden
+let s:php_langserver = "vendor/felixfbecker/language-server/bin/php-language-server.php"
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_serverCommands = {
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'php': ['php', s:php_langserver],
+    \ 'vue': ['vls'],
+    \ }
 
-" Define pairs of Blade directives. This variable is used for highlighting and indentation.
-let g:blade_custom_directives_pairs = {
-      \   'markdown': 'endmarkdown',
-      \   'cache': 'endcache',
-      \ }
-'''
+"    \ 'ruby': ['tcp://127.0.0.1:7658'],
 
-[[plugins]]
-repo = 'beanworks/vim-phpfmt'
-on_ft = ['php']
-hook_add = '''
-let g:phpfmt_standard = 'PSR2'
-let g:phpfmt_autosave = 0
-'''
-
-[[plugins]]
-repo = 'lvht/phpcd.vim'
-on_ft = ['php']
-build = 'composer install'
-hook_add = '''
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
-let g:phpcd_autoload_path = './vendor/autoload.php'
-
-function! s:phpcd_keymap()
-    silent! nnoremap <silent> <unique> <buffer> gd
-        \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
-    silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
-        \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
-    silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
-        \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
-    silent! nnoremap <silent> <unique> <buffer> <C-t>
-        \ :<C-u>call phpcd#JumpBack()<CR>
+function! s:langserver_keymap()
+    nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
+    nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <buffer><silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 endfunction
-autocmd FileType php :call s:phpcd_keymap()
+
+autocmd FileType php :call s:langserver_keymap()
+autocmd FileType typescript :call s:langserver_keymap()
+autocmd FileType javascript :call s:langserver_keymap()
+autocmd FileType vue :call s:langserver_keymap()
 '''
 
 #############################
 ### Javascript/TypeScript ###
 #############################
-
-[[plugins]]
-repo = 'mhartington/nvim-typescript'
-build = 'bash install.sh'
-on_ft = ['vue', 'javascript', 'typescript']
-hook_add = '''
-let g:nvim_typescript#javascript_support = 1
-let g:nvim_typescript#vue_support = 1
-let g:nvim_typescript#type_info_on_hold = 1
-let g:nvim_typescript#max_completion_detail = 3
-let g:nvim_typescript#default_signs =
-      \ get(g:, 'nvim_typescript#default_signs', [
-      \{
-      \  'TSinformation': {
-      \   'texthl': 'SpellBad',
-      \   'signText': '•',
-      \   'signTexthl': 'NeomakeInfoSign'
-      \   }
-      \},
-      \{
-      \  'TShint': {
-      \   'texthl': 'SpellBad',
-      \   'signText': '?',
-      \   'signTexthl': 'NeomakeInfoSign'
-      \   }
-      \}
-      \])
-function! s:ts_keymap()
-    nnoremap <buffer><silent> K :TSDoc<CR>
-    nnoremap <buffer><silent> gd :TSDef<CR>
-    nnoremap <buffer><silent> <F2> :TSRename<CR>
-    nnoremap <buffer><silent> <C-h> :TSRefs<CR>
-endfunction
-autocmd FileType typescript :call s:ts_keymap()
-'''
 
 [[plugins]]
 repo = 'posva/vim-vue'
@@ -150,6 +77,54 @@ on_ft = ['typescript']
 [[plugins]]
 repo = 'ruanyl/vim-sort-imports'
 on_ft = ['typescript']
+
+###########
+### PHP ###
+###########
+
+[[plugins]]
+repo = 'jwalton512/vim-blade'
+on_ft = ['blade']
+hook_add = '''
+" Define some single Blade directives. This variable is used for highlighting only.
+let g:blade_custom_directives = ['datetime', 'javascript']
+
+" Define pairs of Blade directives. This variable is used for highlighting and indentation.
+let g:blade_custom_directives_pairs = {
+      \   'markdown': 'endmarkdown',
+      \   'cache': 'endcache',
+      \ }
+'''
+
+[[plugins]]
+repo = 'beanworks/vim-phpfmt'
+on_ft = ['php']
+hook_add = '''
+let g:phpfmt_standard = 'PSR2'
+let g:phpfmt_autosave = 0
+'''
+
+# [[plugins]]
+# repo = 'lvht/phpcd.vim'
+# on_ft = ['php']
+# build = 'composer install'
+# hook_add = '''
+# let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+# let g:deoplete#ignore_sources.php = ['omni']
+# let g:phpcd_autoload_path = './vendor/autoload.php'
+#
+# function! s:phpcd_keymap()
+#     silent! nnoremap <silent> <unique> <buffer> gd
+#         \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
+#     silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
+#         \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
+#     silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
+#         \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
+#     silent! nnoremap <silent> <unique> <buffer> <C-t>
+#         \ :<C-u>call phpcd#JumpBack()<CR>
+# endfunction
+# autocmd FileType php :call s:phpcd_keymap()
+# '''
 
 ##########
 ### GO ###
@@ -203,6 +178,30 @@ on_ft = ['python', 'python3']
 repo = 'tell-k/vim-autopep8'
 on_ft = ['python', 'python3']
 hook_add='let g:autopep8_disable_show_diff = 1'
+
+#######################
+### HTML / Markdown ###
+#######################
+
+[[plugins]]
+repo = 'https://github.com/mattn/emmet-vim'
+on_ft = ['html']
+
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown','mkd']
+
+#[[plugins]]
+#repo = 'joker1007/vim-markdown-quote-syntax'
+#on_ft = ['markdown','mkd']
+
+# [[plugins]]
+# repo = 'kannokanno/previm'
+# on_ft = ['markdown','mkd']
+#
+# [[plugins]]
+# repo = 'tyru/open-browser.vim'
+# on_ft = ['markdown','mkd']
 
 ############
 ### Ruby ###
@@ -288,7 +287,6 @@ on_ft = ['toml']
 #   augroup END
 # endif
 # '''
-
 # [[plugins]]
 # repo = 'prettier/vim-prettier'
 # build = 'npm install'
@@ -298,40 +296,6 @@ on_ft = ['toml']
 # let g:prettier#quickfix_enabled = 0
 # let g:prettier#exec_cmd_async = 1
 # autocmd BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
-# '''
-# [[plugins]]
-# repo = 'autozimu/LanguageClient-neovim'
-# on_ft = ['vue', 'javascript', 'typescript']
-# rev = 'next'
-# build = '''
-# bash install.sh
-# '''
-# hook_add = '''
-# set hidden
-# let s:php_langserver = "./vendor/bin/php-language-server.php"
-# let s:js_langserver = "./node_modules/.bin/javascript-typescript-stdio"
-#
-# let g:LanguageClient_diagnosticsEnable = 0
-# let g:LanguageClient_serverCommands = {
-#     \ 'typescript': [s:js_langserver],
-#     \ 'javascript': [s:js_langserver],
-#     \ 'vue': ['vls'],
-#     \ }
-#
-# "    \ 'php': ['php', s:php_langserver],
-# "    \ 'ruby': ['tcp://127.0.0.1:7658'],
-#
-# function! s:langserver_keymap()
-#     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
-#     nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
-#     nnoremap <buffer><silent> gd :call LanguageClient_textDocument_definition()<CR>
-#     nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-# endfunction
-#
-# "autocmd FileType php :call s:langserver_keymap()
-# autocmd FileType typescript :call s:langserver_keymap()
-# autocmd FileType javascript :call s:langserver_keymap()
-# autocmd FileType vue :call s:langserver_keymap()
 # '''
 
 # [[plugins]]
@@ -351,4 +315,38 @@ on_ft = ['toml']
 # [[plugins]]
 # repo = 'carlitux/deoplete-ternjs'
 # on_ft = ['javascript']
+# [[plugins]]
+# repo = 'mhartington/nvim-typescript'
+# build = 'bash install.sh'
+# on_ft = ['javascript', 'typescript']
+# hook_add = '''
+# let g:nvim_typescript#javascript_support = 1
+# let g:nvim_typescript#type_info_on_hold = 1
+# let g:nvim_typescript#max_completion_detail = 3
+# let g:nvim_typescript#default_signs =
+#       \ get(g:, 'nvim_typescript#default_signs', [
+#       \{
+#       \  'TSinformation': {
+#       \   'texthl': 'SpellBad',
+#       \   'signText': '•',
+#       \   'signTexthl': 'NeomakeInfoSign'
+#       \   }
+#       \},
+#       \{
+#       \  'TShint': {
+#       \   'texthl': 'SpellBad',
+#       \   'signText': '?',
+#       \   'signTexthl': 'NeomakeInfoSign'
+#       \   }
+#       \}
+#       \])
+# function! s:ts_keymap()
+#     nnoremap <buffer><silent> K :TSDoc<CR>
+#     nnoremap <buffer><silent> gd :TSDef<CR>
+#     nnoremap <buffer><silent> <F2> :TSRename<CR>
+#     nnoremap <buffer><silent> <C-h> :TSRefs<CR>
+# endfunction
+# autocmd FileType typescript :call s:ts_keymap()
+# '''
+
 

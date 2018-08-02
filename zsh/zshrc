@@ -38,7 +38,7 @@ ZSH_THEME="dracula"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true" 
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
@@ -173,7 +173,7 @@ js_dev () {
     eslint eslint-config-airbnb eslint-config-google eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react \
     javascript-typescript-langserver vscode-json-languageservice  \
     mocha assert nyc \
-    import-sort-cli import-sort-parser-babylon import-sort-style-eslint 
+    import-sort-cli import-sort-parser-babylon import-sort-style-eslint
 }
 
 ts_dev () {
@@ -221,7 +221,7 @@ if [ "$(uname)" = "Darwin" ]; then
 elif uname -a | grep -sq "Ubuntu"; then
   # Ubuntu
   #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-  export VTE_VERSION="100" 
+  export VTE_VERSION="100"
   export PATH=$HOME/bin:$PATH
 elif uname -a | grep -sq "Microsoft"; then
   # Windows Subsystem for Linux
