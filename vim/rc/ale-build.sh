@@ -2,9 +2,11 @@
 composer global config minimum-stability dev
 composer global config prefer-stable true
 composer global require squizlabs/php_codesniffer
+composer global require friendsofphp/php-cs-fixer
 composer global require phpstan/phpstan
 # JS TS JSON
-npm install -g eslint fixjson tslint
+# eslint tslint
+npm install fixjson
 # Ruby
 gem install rubocop reek
 # Python
@@ -21,7 +23,7 @@ gem install sqlint
 
 if [ "$(uname)" = "Darwin" ]; then
   # C/CPP
-  brew install llvm --with-clang 
+  brew install llvm --with-clang
   if [ ! -e /usr/local/opt/llvm/lib/libclang.so ]; then
     ln -s /usr/local/opt/llvm/lib/libclang.dylib /usr/local/opt/llvm/lib/libclang.so
   fi

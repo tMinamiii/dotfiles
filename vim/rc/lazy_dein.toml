@@ -17,8 +17,6 @@ let g:LanguageClient_serverCommands = {
     \ 'vue': ['vls'],
     \ }
 
-"    \ 'ruby': ['tcp://127.0.0.1:7658'],
-
 function! s:langserver_keymap()
     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
     nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
@@ -35,6 +33,25 @@ autocmd FileType vue :call s:langserver_keymap()
 #############################
 ### Javascript/TypeScript ###
 #############################
+
+# Syntax file and other settings for TypeScript.
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = ['typescript']
+
+# jsdoc.vim generates JSDoc block comments based on a function signature.
+[[plugins]]
+repo = 'heavenshell/vim-jsdoc'
+on_ft = ['typescript', 'javascript', 'javascript.jsx']
+hook_add = '''
+let g:typescript_compiler_binary = ''
+let g:typescript_compiler_options = ''
+'''
+
+[[plugins]]
+repo = 'ruanyl/vim-sort-imports'
+on_ft = ['javascript', 'typescript']
+
 
 [[plugins]]
 repo = 'posva/vim-vue'
@@ -59,24 +76,6 @@ on_ft = ['javascript', 'javascript.jsx']
 # [[plugins]]
 repo = 'mxw/vim-jsx'
 on_ft = ['javascript', 'javascript.jsx']
-
-# jsdoc.vim generates JSDoc block comments based on a function signature.
-[[plugins]]
-repo = 'heavenshell/vim-jsdoc'
-on_ft = ['typescript', 'javascript', 'javascript.jsx']
-hook_add = '''
-let g:typescript_compiler_binary = ''
-let g:typescript_compiler_options = ''
-'''
-
-# Syntax file and other settings for TypeScript.
-[[plugins]]
-repo = 'leafgarland/typescript-vim'
-on_ft = ['typescript']
-
-[[plugins]]
-repo = 'ruanyl/vim-sort-imports'
-on_ft = ['typescript']
 
 ###########
 ### PHP ###
@@ -132,6 +131,7 @@ let g:phpfmt_autosave = 0
 
 [[plugins]]
 repo = 'zchee/deoplete-go'
+on_ft = ['go']
 build = '''make '''
 
 ##############
