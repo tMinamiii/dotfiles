@@ -161,7 +161,7 @@ let g:ale_linters = {
 \   'php': ['phpcs', 'php'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
-\   'typescript': ['tslint', 'tsserver'],
+\   'typescript': ['tslint', 'tsserver', 'prettier', 'typecheck'],
 \   'javascript': ['eslint','prettier'],
 \   'ruby': ['ruby'],
 \}
@@ -183,12 +183,13 @@ let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_use_global = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_set_highlights = 1
-let g:ale_fixers = {}
-let g:ale_fixers.php = ['php_cs_fixer']
-let g:ale_fixers.javascript = ['eslint']
-let g:ale_fixers.typescript = ['tslint']
-let g:ale_fixers.vue = ['eslint']
-let g:ale_fixers.json = ['fixjson']
+let g:ale_fixers = {
+    \ 'php': ['php_cs_fixer'],
+    \ 'javascript': ['eslint'],
+    \ 'typescript': ['tslint'],
+    \ 'vue': ['eslint'],
+    \ 'json': ['fixjson'],
+    \ }
 '''
 
 #################
