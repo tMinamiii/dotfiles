@@ -31,6 +31,33 @@ let g:deoplete#file#enable_buffer_path = 1
 " let g:deoplete#ignore_sources.php = ['omni']
 '''
 
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+hook_add = '''
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
 #[[plugins]]
 #repo = 'tpope/vim-surround'
 
@@ -46,24 +73,6 @@ let g:deoplete#file#enable_buffer_path = 1
 #############
 
 [[plugins]]
-repo = 'Shougo/vimfiler.vim'
-hook_add = 'nmap <F7> :VimFilerExplorer -winwidth=40 -no-quit<CR>'
-
-# vimfiler に必要
-[[plugins]]
-repo   = 'Shougo/unite.vim'
-depends = ['neomru.vim', 'vimfiler.vim', 'vimshell']
-on_cmd = ['Unite']
-
-# unite.vim を読み込んだら一緒に読み込む
-[[plugins]]
-repo      = 'Shougo/neomru.vim'
-on_source = ['unite.vim']
-
-[[plugins]]
-repo = 'Shougo/vimshell'
-
-[[plugins]]
 repo = 'Shougo/denite.nvim'
 
 [[plugins]]
@@ -75,6 +84,24 @@ let g:NERDTreeWinSize = 40
 
 [[plugins]]
 repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+# [[plugins]]
+# repo = 'Shougo/vimfiler.vim'
+# hook_add = 'nmap <F7> :VimFilerExplorer -winwidth=40 -no-quit<CR>'
+#
+# # vimfiler に必要
+# [[plugins]]
+# repo   = 'Shougo/unite.vim'
+# depends = ['neomru.vim', 'vimfiler.vim', 'vimshell']
+# on_cmd = ['Unite']
+#
+# # unite.vim を読み込んだら一緒に読み込む
+# [[plugins]]
+# repo      = 'Shougo/neomru.vim'
+# on_source = ['unite.vim']
+#
+# [[plugins]]
+# repo = 'Shougo/vimshell'
 
 ###################
 ### CTAGS/GTAGS ###

@@ -207,6 +207,8 @@ alias dvenv='deactivate'
 alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
 alias mac-phpenv-install='LDFLAGS="-L/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/system" phpenv install'
 alias docker-rm-exited='docker -aq | xargs docker rm'
+alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
+alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 
 npm_freeze() {
   npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
