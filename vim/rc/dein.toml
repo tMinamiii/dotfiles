@@ -31,33 +31,6 @@ let g:deoplete#file#enable_buffer_path = 1
 " let g:deoplete#ignore_sources.php = ['omni']
 '''
 
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-hook_add = '''
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-'''
-
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
 #[[plugins]]
 #repo = 'tpope/vim-surround'
 
