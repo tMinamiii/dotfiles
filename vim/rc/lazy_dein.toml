@@ -42,7 +42,7 @@ on_ft = ['yaml']
 ###########
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php', 'vue', 'typescript', 'javascript']
+on_ft = ['php', 'vue', 'typescript', 'javascript', 'javascript.jsx']
 rev = 'next'
 build = 'bash install.sh'
 hook_add = '''
@@ -52,6 +52,7 @@ let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'php': ['php', s:php_langserver],
     \ 'vue': ['vls'],
     \ }
@@ -66,6 +67,7 @@ endfunction
 autocmd FileType php :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
 autocmd FileType javascript :call s:langserver_keymap()
+autocmd FileType javascript.jsx :call s:langserver_keymap()
 autocmd FileType vue :call s:langserver_keymap()
 '''
 
