@@ -38,7 +38,7 @@ repo = 'Shougo/neosnippet-snippets'
 ###########
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php', 'vue', 'typescript', 'javascript', 'javascript.jsx']
+on_ft = ['php', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
 rev = 'next'
 build = 'bash install.sh'
 hook_add = '''
@@ -49,6 +49,7 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'ruby': ['solargraph', 'stdio'],
     \ 'php': ['php', s:php_langserver],
     \ 'vue': ['vls'],
     \ }
@@ -60,6 +61,7 @@ function! s:langserver_keymap()
     nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 endfunction
 
+autocmd FileType ruby :call s:langserver_keymap()
 autocmd FileType php :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
 autocmd FileType javascript :call s:langserver_keymap()
@@ -158,7 +160,7 @@ build = '''make '''
 
 [[plugins]]
 repo = 'fisadev/vim-isort'
-on_ft = ['python', 'python3', 'djangohtml']
+on_ft = ['python', 'python3', 'djangohtml', 'ipynb']
 hook_add = '''
 let g:vim_isort_map = '<C-i>'
 let g:vim_isort_python_version = 'python3'
@@ -166,7 +168,7 @@ let g:vim_isort_python_version = 'python3'
 
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
-on_ft = ['python','python3','djangohtml']
+on_ft = ['python','python3','djangohtml', 'ipynb']
 hook_add = '''
 " jediにvimの設定を任せると'completeopt+=preview'するので 自動設定機能をOFFにし手動で設定を行う
 " let g:jedi#auto_vim_configuration = 0
@@ -186,15 +188,15 @@ let g:jedi#usages_command = '<C-h>'
 
 [[plugins]]
 repo = 'zchee/deoplete-jedi'
-on_ft = ['python', 'python3']
+on_ft = ['python', 'python3', 'ipynb']
 
 [[plugins]]
 repo = 'jmcantrell/vim-virtualenv'
-on_ft = ['python', 'python3']
+on_ft = ['python', 'python3', 'ipynb']
 
 [[plugins]]
 repo = 'tell-k/vim-autopep8'
-on_ft = ['python', 'python3']
+on_ft = ['python', 'python3', 'ipynb']
 hook_add='let g:autopep8_disable_show_diff = 1'
 
 #######################
@@ -232,21 +234,6 @@ on_ft = ['ruby']
 [[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = ['ruby']
-
-# [[plugins]]
-# repo = 'hackhowtofaq/vim-solargraph'
-# buld = 'gem install json rest-client solargraph'
-# on_ft = ['ruby']
-
-# [[plugins]]
-# repo = 'uplus/deoplete-solargraph'
-# buld = '''
-# gem install solargraph
-# pip install solargraph-utils.py
-# yard gems
-# yard config --gem-install-yri
-# '''
-# on_ft = ['ruby']
 
 #############
 ### Scala ###
@@ -297,6 +284,7 @@ endif
 #   augroup END
 # endif
 # '''
+
 # [[plugins]]
 # repo = 'prettier/vim-prettier'
 # build = 'npm install'

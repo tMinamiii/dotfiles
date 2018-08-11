@@ -1,4 +1,17 @@
 [[plugins]]
+repo = 'szymonmaszke/vimpyter'
+on_ft = ['ipynb']
+hook_add = '''
+autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
+autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
+autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
+'''
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+hook_add = 'vnoremap <silent> <Enter> :EasyAlign<cr>'
+
+[[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
@@ -47,6 +60,10 @@ repo = 'stephpy/vim-yaml'
 
 [[plugins]] # j,kによる移動を爆速に
 repo = 'rhysd/accelerated-jk'
+hook_add = '''
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+'''
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -239,8 +256,8 @@ let g:ale_linters = {
 \   'php': ['phpcs', 'php'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
-\   'typescript': ['tslint', 'tsserver', 'prettier', 'typecheck'],
-\   'javascript': ['eslint','prettier'],
+\   'typescript': ['tslint', 'tsserver'],
+\   'javascript': ['eslint'],
 \   'ruby': ['ruby'],
 \}
 let g:ale_sign_error = '⨉'       " エラー行に表示するマーク
