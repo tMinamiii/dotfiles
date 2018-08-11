@@ -33,10 +33,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 on_i = 1
 repo = 'Shougo/neosnippet-snippets'
 
-[[plugins]]
-repo = 'stephpy/vim-yaml'
-on_ft = ['yaml']
-
 ###########
 ### LSP ###
 ###########
@@ -75,11 +71,6 @@ autocmd FileType vue :call s:langserver_keymap()
 ### Javascript/TypeScript ###
 #############################
 
-# Syntax file and other settings for TypeScript.
-[[plugins]]
-repo = 'leafgarland/typescript-vim'
-on_ft = ['typescript']
-
 # jsdoc.vim generates JSDoc block comments based on a function signature.
 [[plugins]]
 repo = 'heavenshell/vim-jsdoc'
@@ -93,11 +84,6 @@ let g:typescript_compiler_options = ''
 repo = 'ruanyl/vim-sort-imports'
 on_ft = ['javascript', 'typescript']
 
-
-[[plugins]]
-repo = 'posva/vim-vue'
-on_ft = ['vue']
-
 [[plugins]]
 repo = 'moll/vim-node'
 on_ft = ['javascript']
@@ -108,15 +94,6 @@ autocmd User Node
   \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
   \ endif
 '''
-# syntax highlighting
-[[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-# repo = 'pangloss/vim-javascript'
-on_ft = ['javascript', 'javascript.jsx']
-
-# [[plugins]]
-repo = 'mxw/vim-jsx'
-on_ft = ['javascript', 'javascript.jsx']
 
 ###########
 ### PHP ###
@@ -301,14 +278,6 @@ if has('unix')
     endif
 endif
 '''
-
-############
-### TOML ###
-############
-
-[[plugins]]
-repo = 'cespare/vim-toml'
-on_ft = ['toml']
 
 # [[plugins]]
 # repo = 'lambdalisue/vim-pyenv'

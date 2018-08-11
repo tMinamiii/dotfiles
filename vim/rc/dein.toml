@@ -1,13 +1,53 @@
-#[[plugins]]
-#repo = 'editorconfig/editorconfig-vim'
-#
-#[[plugins]]
-#repo = 'nathanaelkane/vim-indent-guides'
-#hook_add = '''
-#let g:indent_guides_enable_on_vim_startup = 1
-#let g:indent_guides_guide_size = 1
-#let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-#'''
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=237 ctermbg=237
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=238 ctermbg=238
+" let g:indent_guides_guide_size = 1
+'''
+############################
+##### Syntax Highlight #####
+############################
+
+### java script ###
+[[plugins]]
+repo = 'othree/yajs.vim'
+# repo = 'jelera/vim-javascript-syntax'
+# repo = 'pangloss/vim-javascript'
+
+### TypeScript. ###
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+
+### Vue ###
+[[plugins]]
+repo = 'posva/vim-vue'
+
+### JSX ###
+[[plugins]]
+repo = 'mxw/vim-jsx'
+
+### TOML ###
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+### yaml ###
+[[plugins]]
+repo = 'stephpy/vim-yaml'
+
+#################
+##### Mics ######
+#################
+
+[[plugins]] # j,kによる移動を爆速に
+repo = 'rhysd/accelerated-jk'
+
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 
