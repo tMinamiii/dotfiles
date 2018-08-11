@@ -2,7 +2,6 @@
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets']
 on_i = 1
-# on_ft = ['toml', 'c', 'cpp', 'yaml', 'html', 'markdown', 'python', 'blade', 'go', 'php', 'vue', 'typescript', 'javascript']
 hook_source = '''
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
@@ -31,6 +30,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 '''
 
 [[plugins]]
+on_i = 1
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
