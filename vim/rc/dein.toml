@@ -252,6 +252,7 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'go': ['gofmt', 'goimports', 'golint'],
 \   'ruby': ['ruby'],
+\   'vue': ['eslint', 'vls'],
 \}
 let g:ale_sign_error = '⨉'       " エラー行に表示するマーク
 let g:ale_sign_warning = '⚠'     " エラー行に表示するマーク
