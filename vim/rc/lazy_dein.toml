@@ -1,6 +1,10 @@
-###############################
-### Neosnippet for deoplete ###
-###############################
+##################
+### Neosnippet ###
+##################
+
+[[plugins]]
+on_i = 1
+repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
@@ -32,10 +36,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 "  set conceallevel=2 concealcursor=niv
 "endif
 '''
-
-[[plugins]]
-on_i = 1
-repo = 'Shougo/neosnippet-snippets'
 
 ###########
 ### LSP ###

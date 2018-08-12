@@ -53,15 +53,18 @@ hook_add = 'vnoremap <silent> <Enter> :EasyAlign<cr>'
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-hook_add = '''
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=237 ctermbg=237
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=238 ctermbg=238
-" let g:indent_guides_guide_size = 1
-'''
+repo = 'Yggdroot/indentLine'
+
+# [[plugins]]
+# repo = 'nathanaelkane/vim-indent-guides'
+# hook_add = '''
+# let g:indent_guides_enable_on_vim_startup = 1
+# let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+# let g:indent_guides_auto_colors = 0
+# autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=237 ctermbg=237
+# autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=238 ctermbg=238
+# " let g:indent_guides_guide_size = 1
+# '''
 
 [[plugins]] # j,kによる移動を爆速に
 repo = 'rhysd/accelerated-jk'
@@ -412,4 +415,3 @@ let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 '''
-
