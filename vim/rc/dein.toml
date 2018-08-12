@@ -250,6 +250,7 @@ let g:ale_linters = {
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'typescript': ['tslint', 'tsserver'],
 \   'javascript': ['eslint'],
+\   'go': ['gofmt', 'goimports', 'golint'],
 \   'ruby': ['ruby'],
 \}
 let g:ale_sign_error = '⨉'       " エラー行に表示するマーク
@@ -276,6 +277,7 @@ let g:ale_fixers = {
     \ 'typescript': ['tslint'],
     \ 'vue': ['eslint'],
     \ 'json': ['fixjson'],
+    \ 'go': ['golint'],
     \ }
 '''
 

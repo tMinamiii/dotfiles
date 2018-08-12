@@ -155,6 +155,14 @@ let g:phpfmt_autosave = 0
 ##########
 
 [[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+hook_add = '''
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+'''
+
+[[plugins]]
 repo = 'zchee/deoplete-go'
 on_ft = ['go']
 build = '''make '''

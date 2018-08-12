@@ -31,14 +31,13 @@ set colorcolumn=80              " その代わり80文字目にラインを入�
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
 
-
 set ambiwidth=double
 set softtabstop=0
 set showtabline=2               " 常にタブラインを表示
 set laststatus=2
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
 set list                        " 不可視文字の可視化
-set listchars=tab:▸\ ,trail:￭,extends:❯,precedes:❮ ",nbsp:%,eol:￭¬↲ "不可視文字をUnicodeにする
+set listchars=tab:\|\ ,trail:￭,extends:❯,precedes:❮ ",nbsp:%,eol:￭¬↲ "不可視文字をUnicodeにする
 set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
@@ -74,7 +73,7 @@ augroup indentsize
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2 conceallevel=0
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
-    autocmd FileType go setlocal shiftwidth=2 tabstop=2 noexpandtab
+    autocmd FileType go setlocal shiftwidth=4 tabstop=4 noexpandtab
     autocmd FileType makefile setlocal noexpandtab
     autocmd FileType gitconfig setlocal noexpandtab
 augroup END
