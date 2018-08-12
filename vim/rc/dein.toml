@@ -181,7 +181,6 @@ call denite#custom#map('insert', '<C-W>', '<denite:move_up_path>', 'noremap')
 
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
-on_source = ['denite.vim']
 
 ################
 ### terminal ###
