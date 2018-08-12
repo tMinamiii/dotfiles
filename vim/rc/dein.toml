@@ -1,3 +1,7 @@
+###############
+### Jupyter ###
+###############
+
 [[plugins]]
 repo = 'szymonmaszke/vimpyter'
 on_ft = ['ipynb']
@@ -7,26 +11,9 @@ autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
 autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
 '''
 
-[[plugins]]
-repo = 'junegunn/vim-easy-align'
-hook_add = 'vnoremap <silent> <Enter> :EasyAlign<cr>'
-
-[[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
-[[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-hook_add = '''
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=237 ctermbg=237
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=238 ctermbg=238
-" let g:indent_guides_guide_size = 1
-'''
-############################
-##### Syntax Highlight #####
-############################
+########################
+### Syntax Highlight ###
+########################
 
 ### java script ###
 [[plugins]]
@@ -54,9 +41,27 @@ repo = 'cespare/vim-toml'
 [[plugins]]
 repo = 'stephpy/vim-yaml'
 
-#################
-##### Mics ######
-#################
+#############
+### Mics ####
+#############
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+hook_add = 'vnoremap <silent> <Enter> :EasyAlign<cr>'
+
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=237 ctermbg=237
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=238 ctermbg=238
+" let g:indent_guides_guide_size = 1
+'''
 
 [[plugins]] # j,kによる移動を爆速に
 repo = 'rhysd/accelerated-jk'
@@ -66,7 +71,52 @@ nmap k <Plug>(accelerated_jk_gk)
 '''
 
 [[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*vue$'] = ''
+'''
+
+[[plugins]]
+repo = 'dbakker/vim-projectroot'
+hook_add = '''
+function! <SID>AutoProjectRootCD()
+    try
+        if &ft != 'help'
+        ProjectRootCD
+    endif
+    catch
+        " Silently ignore invalid buffers
+    endtry
+endfunction
+
+autocmd BufEnter * call <SID>AutoProjectRootCD()
+'''
+
+# http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+[[plugins]]
+repo = 'godlygeek/tabular'
+
+###########
+### Git ###
+###########
+
+[[plugins]]
+repo    = 'tpope/vim-fugitive'
+
+[[plugins]]
 repo = 'airblade/vim-gitgutter'
+
+###################
+### Dark Powers ###
+###################
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
@@ -89,20 +139,6 @@ let g:deoplete#file#enable_buffer_path = 1
 " let g:deoplete#ignore_sources.cpp = ['omni']
 " let g:deoplete#ignore_sources.php = ['omni']
 '''
-
-[[plugins]]
-repo = 'tpope/vim-surround'
-
-################
-### terminal ###
-################
-# tmuxやscreen経由で別ペインに転送する
-#[[plugins]]
-#repo = 'jpalardy/vim-slime'
-
-#############
-### Filer ###
-#############
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
@@ -144,6 +180,21 @@ call denite#custom#map('insert', '<C-W>', '<denite:move_up_path>', 'noremap')
 '''
 
 [[plugins]]
+repo      = 'Shougo/neomru.vim'
+on_source = ['denite.vim']
+
+################
+### terminal ###
+################
+# tmuxやscreen経由で別ペインに転送する
+#[[plugins]]
+#repo = 'jpalardy/vim-slime'
+
+#############
+### Filer ###
+#############
+
+[[plugins]]
 repo = 'scrooloose/nerdtree.git'
 hook_add = '''
 nmap <F9> :NERDTreeToggle<CR>
@@ -152,24 +203,6 @@ let g:NERDTreeWinSize = 40
 
 [[plugins]]
 repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-# [[plugins]]
-# repo = 'Shougo/vimfiler.vim'
-# hook_add = 'nmap <F7> :VimFilerExplorer -winwidth=40 -no-quit<CR>'
-#
-# # vimfiler に必要
-# [[plugins]]
-# repo   = 'Shougo/unite.vim'
-# depends = ['neomru.vim', 'vimfiler.vim', 'vimshell']
-# on_cmd = ['Unite']
-#
-# # unite.vim を読み込んだら一緒に読み込む
-# [[plugins]]
-# repo      = 'Shougo/neomru.vim'
-# on_source = ['unite.vim']
-#
-# [[plugins]]
-# repo = 'Shougo/vimshell'
 
 ###################
 ### CTAGS/GTAGS ###
@@ -181,7 +214,6 @@ repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 # let g:gen_tags#ctags_auto_gen = 1
 # let g:gen_tags#gtags_auto_gen = 1
 # '''
-#
 [[plugins]]
 repo = '5t111111/alt-gtags.vim'
 hook_add = '''
@@ -195,48 +227,6 @@ nnoremap <Leader>k :AltGtags -s<CR>
 [[plugins]]
 repo = 'majutsushi/tagbar'
 hook_add = 'nmap <F8> :TagbarToggle<CR>'
-
-##################
-### コード整理 ###
-##################
-
-# http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
-[[plugins]]
-repo = 'godlygeek/tabular'
-
-#######################
-### vim status line ###
-#######################
-
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
-hook_add = '''
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['.*vue$'] = ''
-'''
-
-[[plugins]]
-repo    = 'tpope/vim-fugitive'
-
-[[plugins]]
-repo = 'dbakker/vim-projectroot'
-hook_add = '''
-function! <SID>AutoProjectRootCD()
-    try
-        if &ft != 'help'
-        ProjectRootCD
-    endif
-    catch
-        " Silently ignore invalid buffers
-    endtry
-endfunction
-
-autocmd BufEnter * call <SID>AutoProjectRootCD()
-'''
 
 ####################
 ### カラーテーマ ###
