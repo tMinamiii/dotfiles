@@ -17,8 +17,8 @@ autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
 
 ### java script ###
 [[plugins]]
-#repo = 'othree/yajs.vim'
-repo = 'jelera/vim-javascript-syntax'
+repo = 'othree/yajs.vim'
+# repo = 'jelera/vim-javascript-syntax'
 # repo = 'pangloss/vim-javascript'
 
 ### TypeScript. ###
@@ -28,6 +28,9 @@ repo = 'leafgarland/typescript-vim'
 ### Vue ###
 [[plugins]]
 repo = 'posva/vim-vue'
+hook_add = '''
+let g:vue_disable_pre_processors=1
+'''
 
 ### JSX ###
 [[plugins]]

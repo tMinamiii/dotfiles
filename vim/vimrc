@@ -42,7 +42,7 @@ set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
-set lazyredraw
+" set lazyredraw
 " set termguicolors
 " set noimdisable
 " set iminsert=0
@@ -64,7 +64,6 @@ set expandtab                   " タブをスペースにする
 set tabstop=4
 set shiftwidth=4
 augroup indentsize
-    autocmd FileType vue syntax sync fromstart
     autocmd FileType sh setlocal shiftwidth=2 tabstop=2
     autocmd FileType vue setlocal shiftwidth=2 tabstop=2
     autocmd FileType blade setlocal shiftwidth=2 tabstop=2
@@ -77,7 +76,6 @@ augroup indentsize
     autocmd FileType makefile setlocal noexpandtab
     autocmd FileType gitconfig setlocal noexpandtab
 augroup END
-
 
 if ! has('nvim')
 " OptionキーをMetaキーとして使う。
