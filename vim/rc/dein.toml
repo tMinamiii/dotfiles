@@ -17,9 +17,8 @@ autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
 
 ### java script ###
 [[plugins]]
-repo = 'othree/yajs.vim'
-# repo = 'jelera/vim-javascript-syntax'
-# repo = 'pangloss/vim-javascript'
+# repo = 'othree/yajs.vim'
+repo = 'jelera/vim-javascript-syntax'
 
 ### TypeScript. ###
 [[plugins]]
@@ -57,6 +56,9 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'
+hook_add = '''
+let g:indentLine_fileTypeExluce=['help', 'nerdtree']
+'''
 
 # [[plugins]]
 # repo = 'nathanaelkane/vim-indent-guides'

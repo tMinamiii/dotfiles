@@ -43,7 +43,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['php', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
+on_ft = ['vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
 rev = 'next'
 build = 'bash install.sh'
 hook_add = '''
@@ -55,7 +55,7 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'ruby': ['solargraph', 'stdio'],
-    \ 'php': ['php', s:php_langserver],
+"   \ 'php': ['php', s:php_langserver],
     \ 'vue': ['vls'],
     \ }
 
@@ -67,7 +67,7 @@ function! s:langserver_keymap()
 endfunction
 
 autocmd FileType ruby :call s:langserver_keymap()
-autocmd FileType php :call s:langserver_keymap()
+" autocmd FileType php :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
 autocmd FileType javascript :call s:langserver_keymap()
 autocmd FileType javascript.jsx :call s:langserver_keymap()
@@ -128,27 +128,27 @@ let g:phpfmt_standard = 'PSR2'
 let g:phpfmt_autosave = 0
 '''
 
-# [[plugins]]
-# repo = 'lvht/phpcd.vim'
-# on_ft = ['php']
-# build = 'composer install'
-# hook_add = '''
-# let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-# let g:deoplete#ignore_sources.php = ['omni']
-# let g:phpcd_autoload_path = './vendor/autoload.php'
-#
-# function! s:phpcd_keymap()
-#     silent! nnoremap <silent> <unique> <buffer> gd
-#         \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
-#     silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
-#         \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
-#     silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
-#         \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
-#     silent! nnoremap <silent> <unique> <buffer> <C-t>
-#         \ :<C-u>call phpcd#JumpBack()<CR>
-# endfunction
-# autocmd FileType php :call s:phpcd_keymap()
-# '''
+[[plugins]]
+repo = 'lvht/phpcd.vim'
+on_ft = ['php']
+build = 'composer install'
+hook_add = '''
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
+let g:phpcd_autoload_path = './vendor/autoload.php'
+
+function! s:phpcd_keymap()
+    silent! nnoremap <silent> <unique> <buffer> gd
+        \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
+    silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
+        \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
+    silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
+        \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
+    silent! nnoremap <silent> <unique> <buffer> <C-t>
+        \ :<C-u>call phpcd#JumpBack()<CR>
+endfunction
+autocmd FileType php :call s:phpcd_keymap()
+'''
 
 ##########
 ### GO ###
