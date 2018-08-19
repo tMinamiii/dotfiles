@@ -64,8 +64,8 @@ autocmd Filetype ipynb nmap <silent><Leader>n :VimpyterStartNteract<CR>
 
 ### java script ###
 [[plugins]]
-# repo = 'othree/yajs.vim'
-repo = 'jelera/vim-javascript-syntax'
+repo = 'othree/yajs.vim'
+# repo = 'jelera/vim-javascript-syntax'
 
 ### TypeScript. ###
 [[plugins]]
@@ -253,6 +253,7 @@ repo = 'scrooloose/nerdtree.git'
 hook_add = '''
 nmap <F9> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize = 40
+let g:NERDTreeLimitedSyntax = 1
 '''
 
 [[plugins]]
