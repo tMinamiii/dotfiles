@@ -48,36 +48,6 @@ set shell=zsh
 " set iminsert=0
 " set imsearch=0
 
-augroup autoreload
-    set autoread
-    autocmd FocusLost,FocusGained,CursorMoved,CursorMovedI,CursorHold,CursorHoldI  * silent! checktime
-augroup END
-
-augroup filetypes
-    autocmd BufEnter * :syntax sync fromstart
-    autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile
-    autocmd BufRead,BufNewFile *zshrc setfiletype sh
-    autocmd BufRead,BufNewFile *.mjs setfiletype javascript
-    autocmd BufWritePre * :%s/\s\+$//ge
-augroup END
-
-set expandtab                   " タブをスペースにする
-set tabstop=4
-set shiftwidth=4
-augroup indentsize
-    autocmd FileType sh setlocal shiftwidth=2 tabstop=2
-    autocmd FileType vue setlocal shiftwidth=2 tabstop=2
-    autocmd FileType blade setlocal shiftwidth=2 tabstop=2
-    autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
-    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-    autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
-    autocmd FileType json setlocal shiftwidth=2 tabstop=2 conceallevel=0
-    autocmd FileType html setlocal shiftwidth=2 tabstop=2
-    autocmd FileType go setlocal shiftwidth=4 tabstop=4 noexpandtab
-    autocmd FileType makefile setlocal noexpandtab
-    autocmd FileType gitconfig setlocal noexpandtab
-augroup END
-
 if ! has('nvim')
 " OptionキーをMetaキーとして使う。
     let s:c = 'a'
@@ -182,7 +152,37 @@ syntax on
 color dracula
 " hi! Normal ctermbg=NONE guibg=NONE
 " hi! NonText ctermbg=NONE guibg=NONE
-"
+
+augroup autoreload
+    set autoread
+    autocmd FocusLost,FocusGained,CursorMoved,CursorMovedI,CursorHold,CursorHoldI  * silent! checktime
+augroup END
+
+augroup filetypes
+    autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile
+    autocmd BufRead,BufNewFile *zshrc setfiletype sh
+    autocmd BufRead,BufNewFile *.mjs setfiletype javascript
+    autocmd BufWritePre * :%s/\s\+$//ge
+augroup END
+
+set expandtab                   " タブをスペースにする
+set tabstop=4
+set shiftwidth=4
+augroup indentsize
+    autocmd FileType sh setlocal shiftwidth=2 tabstop=2
+    autocmd FileType vue setlocal shiftwidth=2 tabstop=2
+    autocmd FileType blade setlocal shiftwidth=2 tabstop=2
+    autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+    autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
+    autocmd FileType json setlocal shiftwidth=2 tabstop=2 conceallevel=0
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2
+    autocmd FileType go setlocal shiftwidth=4 tabstop=4 noexpandtab
+    autocmd FileType makefile setlocal noexpandtab
+    autocmd FileType gitconfig setlocal noexpandtab
+    autocmd FileType vue :syntax sync fromstart
+augroup END
+
 hi ALEWarning guibg=green guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
 hi ALEError guibg=red guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
 hi CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
