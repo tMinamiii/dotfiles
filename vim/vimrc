@@ -59,7 +59,7 @@ nnoremap <silent> <M-p> :bp<CR>
 nnoremap <silent> <M-n> :bn<CR>
 nnoremap <silent> <M-d> :bd<CR>
 nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnexts<CR>
+nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 

@@ -328,6 +328,8 @@ repo = 'naronA/dracula-vim'
 #################
 ### lightline ###
 #################
+[[plugins]]
+repo = 'mgee/lightline-bufferline'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -338,6 +340,7 @@ let g:lightline = {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
       \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
+      \ 'tabline': {'left': [['buffers']], 'right': [['close']]},
       \ 'component_function': {
       \   'fugitive': 'LightlineFugitive',
       \   'filename': 'LightlineFilename',
@@ -349,9 +352,11 @@ let g:lightline = {
       \ },
       \ 'component_expand': {
       \   'syntastic': 'SyntasticStatuslineFlag',
+      \   'buffers': 'lightline#bufferline#buffers',
       \ },
       \ 'component_type': {
       \   'syntastic': 'error',
+      \   'buffers': 'tabsel',
       \ },
       \ 'subseparator': { 'left': '|', 'right': '|' }
       \ }
