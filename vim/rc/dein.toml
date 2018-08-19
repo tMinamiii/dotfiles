@@ -104,7 +104,9 @@ repo = 'editorconfig/editorconfig-vim'
 [[plugins]]
 repo = 'Yggdroot/indentLine'
 hook_add = '''
+let g:indentLine_showFirstIndentLevel=1
 let g:indentLine_fileTypeExluce=['help', 'nerdtree']
+let g:indentLine_color_term = 238
 '''
 
 # [[plugins]]
@@ -133,6 +135,8 @@ repo = 'ryanoasis/vim-devicons'
 hook_add = '''
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_enable_defx = 1
+let g:webdevicons_enable_denite = 1
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
@@ -177,6 +181,35 @@ repo = 'airblade/vim-gitgutter'
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
+repo = 'Shougo/defx.nvim'
+hook_add = '''
+function! s:defx_my_settings() abort
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> h
+  \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+  \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> j
+  \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+  \ line('.') == 1 ? 'G' : 'k'
+endfunction
+autocmd FileType defx call s:defx_my_settings()
+'''
+
+[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
@@ -203,11 +236,12 @@ nmap <C-c> [denite]
 
 "現在開いているファイルのディレクトリ下のファイル一覧。
 nnoremap <silent> [denite]f :<C-u>DeniteBufferDir
-      \ -direction=topleft -cursor-wrap=true file file:new<CR>
+      \ -direction=topleft -cursor-wrap=true file_rec<CR>
+      " \ -direction=topleft -cursor-wrap=true file file:new<CR>
 "バッファ一覧
 nnoremap <silent> [denite]b :<C-u>Denite -direction=topleft -cursor-wrap=true buffer<CR>
 "レジスタ一覧
-nnoremap <silent> [denite]r :<C-u>Denite -direction=topleft -cursor-wrap=true -buffer-name=register register<CR>
+"nnoremap <silent> [denite]r :<C-u>Denite -direction=topleft -cursor-wrap=true -buffer-name=register register<CR>
 "最近使用したファイル一覧
 nnoremap <silent> [denite]m :<C-u>Denite -direction=topleft -cursor-wrap=true file_mru<CR>
 "ブックマーク一覧

@@ -1,9 +1,5 @@
 set encoding=utf-8
 scriptencoding utf-8
-" release autogroup in MyAutoCmd
-" augroup MyAutoCmd
-"  autocmd!
-" augroup END
 
 """"" [検索系]
 set ignorecase                  " 大文字小文字を区別しない
@@ -42,11 +38,8 @@ set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
-" set lazyredraw
-" set termguicolors
-" set noimdisable
-" set iminsert=0
-" set imsearch=0
+set termguicolors
+set lazyredraw
 
 if ! has('nvim')
 " OptionキーをMetaキーとして使う。
@@ -59,6 +52,7 @@ if ! has('nvim')
         let s:c = nr2char(1+char2nr(s:c))
     endw
 endif
+
 """"" key remap
 nnoremap <silent> <ESC><ESC> :noh<CR>
 nnoremap <silent> <M-p> :bp<CR>
@@ -178,13 +172,16 @@ augroup indentsize
     autocmd FileType json setlocal shiftwidth=2 tabstop=2 conceallevel=0
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
     autocmd FileType go setlocal shiftwidth=4 tabstop=4 noexpandtab
+    autocmd FileType vim setlocal shiftwidth=4 tabstop=4 noexpandtab
     autocmd FileType makefile setlocal noexpandtab
     autocmd FileType gitconfig setlocal noexpandtab
     autocmd FileType vue :syntax sync fromstart
 augroup END
 
+hi SpecialKey ctermfg=239 ctermbg=NONE
 hi ALEWarning guibg=green guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
 hi ALEError guibg=red guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
 hi CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
+
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
