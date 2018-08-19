@@ -58,6 +58,11 @@ nnoremap <silent> <ESC><ESC> :noh<CR>
 nnoremap <silent> <M-p> :bp<CR>
 nnoremap <silent> <M-n> :bn<CR>
 nnoremap <silent> <M-d> :bd<CR>
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnexts<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
 " バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
