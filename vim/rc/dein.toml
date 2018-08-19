@@ -75,7 +75,7 @@ repo = 'leafgarland/typescript-vim'
 [[plugins]]
 repo = 'posva/vim-vue'
 hook_add = '''
-let g:vue_disable_pre_processors=1
+" let g:vue_disable_pre_processors=1
 '''
 
 ### JSX ###
