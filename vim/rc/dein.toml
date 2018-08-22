@@ -328,8 +328,8 @@ repo = 'naronA/dracula-vim'
 #################
 ### lightline ###
 #################
-[[plugins]]
-repo = 'mgee/lightline-bufferline'
+# [[plugins]]
+# repo = 'mgee/lightline-bufferline'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
