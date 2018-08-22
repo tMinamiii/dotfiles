@@ -225,19 +225,6 @@ on_ft = ['python', 'python3', 'ipynb']
 repo = 'jmcantrell/vim-virtualenv'
 on_ft = ['python', 'python3', 'ipynb']
 
-# [[plugins]]
-# repo = 'fisadev/vim-isort'
-# on_ft = ['python', 'python3', 'djangohtml', 'ipynb']
-# hook_add = '''
-# let g:vim_isort_map = '<C-i>'
-# let g:vim_isort_python_version = 'python3'
-# '''
-
-# [[plugins]]
-# repo = 'tell-k/vim-autopep8'
-# on_ft = ['python', 'python3', 'ipynb']
-# hook_add='let g:autopep8_disable_show_diff = 1'
-
 #######################
 ### HTML / Markdown ###
 #######################
@@ -385,3 +372,15 @@ endif
 # endfunction
 # autocmd FileType typescript :call s:ts_keymap()
 # '''
+# [[plugins]]
+# repo = 'fisadev/vim-isort'
+# on_ft = ['python', 'python3', 'djangohtml', 'ipynb']
+# hook_add = '''
+# let g:vim_isort_map = '<C-i>'
+# let g:vim_isort_python_version = 'python3'
+# '''
+
+# [[plugins]]
+# repo = 'tell-k/vim-autopep8'
+# on_ft = ['python', 'python3', 'ipynb']
+# hook_add='let g:autopep8_disable_show_diff = 1'
