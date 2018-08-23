@@ -262,6 +262,7 @@ call denite#custom#var('file_rec/git', 'command',
     \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
 let ignore=&wildignore . ',*.pyc,.git,.hg,.svn,node_modules,vendor'
+let ignore=&wildignore . ',.idea,.php_cs_cache,*.pyc,.git,.hg,.svn,node_modules,vendor'
 call denite#custom#var('file_rec', 'command', ['scantree.py', '--ignore', ignore])
 
 call denite#custom#map('insert', '<C-N>', '<denite:move_to_next_line>', 'noremap')
