@@ -2,7 +2,18 @@
 ### マルチカーソル ###
 ######################
 [[plugins]]
-repo = 'terryma/vim-multiple-cursors'
+repo = 'osyo-manga/vim-over'
+hook_add = '''
+nnoremap <silent> <C-c><C-o> :OverCommandLine<CR>
+'''
+
+[[plugins]]
+repo = 'terryma/vim-expand-region'
+hook_add = '''
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+'''
+#repo = 'terryma/vim-multiple-cursors'
 
 ####################
 ### 文法チェック ###
