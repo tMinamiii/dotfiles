@@ -53,6 +53,8 @@ let g:ale_fixers = {
     \ 'php': ['php_cs_fixer'],
     \ 'javascript': ['eslint'],
     \ 'typescript': ['tslint'],
+    \ 'sh': ['shfmt'],
+    \ 'bash': ['shfmt'],
     \ 'vue': ['eslint'],
     \ 'json': ['fixjson'],
     \ 'python': ['autopep8', 'isort'],
