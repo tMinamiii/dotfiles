@@ -41,6 +41,8 @@ set shell=zsh
 set termguicolors
 set lazyredraw
 
+let mapleader = "\<Space>"
+
 if ! has('nvim')
 " OptionキーをMetaキーとして使う。
     let s:c = 'a'
