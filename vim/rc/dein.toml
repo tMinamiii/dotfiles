@@ -4,7 +4,7 @@
 [[plugins]]
 repo = 'osyo-manga/vim-over'
 hook_add = '''
-nnoremap <silent> <C-c>o :OverCommandLine<CR>
+nnoremap <silent> <C-s>o :OverCommandLine<CR>
 '''
 
 [[plugins]]
