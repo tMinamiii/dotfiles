@@ -233,7 +233,7 @@ let g:deoplete#file#enable_buffer_path = 1
 repo = 'Shougo/denite.nvim'
 hook_add = '''
 nnoremap [denite] <Nop>
-nmap <C-c> [denite]
+nmap <Leader> [denite]
 
 "現在開いているファイルのディレクトリ下のファイル一覧。
 " nnoremap <silent> [denite]f :<C-u>DeniteBufferDir -direction=topleft -cursor-wrap=true file file:new<CR>
@@ -282,8 +282,8 @@ repo      = 'Shougo/neomru.vim'
 repo = 'scrooloose/nerdtree.git'
 hook_add = '''
 nmap <F9> :NERDTreeToggle<CR>
-nmap <silent><Leader>n :NERDTreeToggle<CR>
-nmap <silent><Leader>f :NERDTreeFind<CR>
+nmap <silent><C-c>n :NERDTreeToggle<CR>
+nmap <silent><C-c>f :NERDTreeFind<CR>
 let g:NERDTreeWinSize = 38
 let g:NERDTreeLimitedSyntax = 1
 '''
