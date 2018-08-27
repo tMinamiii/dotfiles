@@ -245,7 +245,7 @@ elif uname -a | grep -sq "Linux"; then
 fi
 
 if which anyenv > /dev/null; then
-  eval "$(anyenv init -)"
+  eval "$(anyenv init - --no-rehash)"
 fi
 
 eval "$(hub alias -s)"
