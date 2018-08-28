@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ##### initialize #####
 unlink "$HOME/.zshrc"
 unlink "$HOME/.zshenv"

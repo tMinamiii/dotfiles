@@ -9,6 +9,8 @@ composer global require phpstan/phpstan
 npm install fixjson
 # Ruby
 gem install rubocop reek
+gem install solargraph
+
 # Python
 pip install autopep8 flake8 isort
 # YAML
@@ -20,6 +22,9 @@ pip install proselint
 npm install -g write-good mdl
 # SQL
 gem install sqlint
+
+# bash
+npm i -g bash-language-server vue-language-server javascript-typescript-langserver
 
 if [ "$(uname)" = "Darwin" ]; then
   # C/CPP

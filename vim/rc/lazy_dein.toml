@@ -43,7 +43,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
+on_ft = ['sh', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
 rev = 'next'
 build = 'bash install.sh'
 hook_add = '''
@@ -54,10 +54,12 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'bash': ['npx', 'bash-language-server', 'start'],
+    \ 'sh': ['npx', 'bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
-"   \ 'php': ['php', s:php_langserver],
     \ 'vue': ['vls'],
     \ }
+"   \ 'php': ['php', s:php_langserver],
 
 function! s:langserver_keymap()
     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
@@ -66,8 +68,10 @@ function! s:langserver_keymap()
     nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 endfunction
 
-autocmd FileType ruby :call s:langserver_keymap()
 " autocmd FileType php :call s:langserver_keymap()
+autocmd FileType ruby :call s:langserver_keymap()
+autocmd FileType bash :call s:langserver_keymap()
+autocmd FileType sh :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
 autocmd FileType javascript :call s:langserver_keymap()
 autocmd FileType javascript.jsx :call s:langserver_keymap()
