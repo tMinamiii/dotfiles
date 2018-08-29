@@ -229,7 +229,7 @@ let g:deoplete#file#enable_buffer_path = 1
 " let g:deoplete#ignore_sources.python = ['omni']
 " let g:deoplete#ignore_sources.c = ['omni']
 " let g:deoplete#ignore_sources.cpp = ['omni']
-" let g:deoplete#ignore_sources.php = ['omni']
+" let g:deoplete#ignore_sources.php = ['phpcd', 'omni']
 '''
 
 [[plugins]]
