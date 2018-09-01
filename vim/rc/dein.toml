@@ -5,6 +5,9 @@ repo = 'cohama/lexima.vim'
 ### マルチカーソル ###
 ######################
 [[plugins]]
+repo = 'terryma/vim-multiple-cursors'
+
+[[plugins]]
 repo = 'osyo-manga/vim-over'
 hook_add = '''
 nnoremap <silent> <Leader>o :OverCommandLine<CR>
@@ -220,16 +223,16 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#min_pattern_length = 2
 let g:deoplete#refresh_always = v:true
 let g:deoplete#file#enable_buffer_path = 1
-" let g:deoplete#omni#input_patterns = {}
-" let g:deoplete#sources = {}
-" let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = [ 'omni']
 " let g:deoplete#ignore_sources._ = ['omni','buffer']
 " let g:deoplete#ignore_sources.javascript = ['omni']
 " let g:deoplete#ignore_sources.typescript = ['omni']
 " let g:deoplete#ignore_sources.python = ['omni']
 " let g:deoplete#ignore_sources.c = ['omni']
 " let g:deoplete#ignore_sources.cpp = ['omni']
-" let g:deoplete#ignore_sources.php = ['phpcd', 'omni']
+" let g:deoplete#omni#input_patterns = {}
+" let g:deoplete#sources = {}
 '''
 
 [[plugins]]
