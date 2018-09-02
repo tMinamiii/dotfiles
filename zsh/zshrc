@@ -248,7 +248,9 @@ if which anyenv > /dev/null; then
   eval "$(anyenv init - --no-rehash)"
 fi
 
-eval "$(hub alias -s)"
+if which hub > /dev/null; then
+  eval "$(hub alias -s)"
+fi
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
