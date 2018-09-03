@@ -43,7 +43,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['sh', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
+on_ft = ['sh', 'bash', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
 rev = 'next'
 build = 'bash install.sh'
 hook_add = '''
@@ -57,7 +57,7 @@ let g:LanguageClient_serverCommands = {
     \ 'bash': ['npx', 'bash-language-server', 'start'],
     \ 'sh': ['npx', 'bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
-    \ 'vue': ['vls'],
+"   \ 'vue': ['vls'],
     \ }
 "   \ 'php': ['php', s:php_langserver],
 
@@ -75,7 +75,7 @@ autocmd FileType sh :call s:langserver_keymap()
 autocmd FileType typescript :call s:langserver_keymap()
 autocmd FileType javascript :call s:langserver_keymap()
 autocmd FileType javascript.jsx :call s:langserver_keymap()
-autocmd FileType vue :call s:langserver_keymap()
+" autocmd FileType vue :call s:langserver_keymap()
 '''
 
 #############################
