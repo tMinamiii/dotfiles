@@ -226,6 +226,7 @@ let g:deoplete#refresh_always = v:true
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = [ 'phpcd','omni']
+let g:deoplete#ignore_sources.vue = [ 'vls','omni']
 " let g:deoplete#ignore_sources._ = ['omni','buffer']
 " let g:deoplete#ignore_sources.javascript = ['omni']
 " let g:deoplete#ignore_sources.typescript = ['omni']
