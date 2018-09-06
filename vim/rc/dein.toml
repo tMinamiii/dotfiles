@@ -1,5 +1,10 @@
-[[plugins]]
-repo = 'cohama/lexima.vim'
+[[plugins]] # j,kによる移動を爆速に
+repo = 'rhysd/accelerated-jk'
+hook_add = '''
+let g:accelerated_jk_enable_deceleration = 1
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+'''
 
 ######################
 ### マルチカーソル ###
@@ -89,8 +94,8 @@ autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
 
 ### java script ###
 [[plugins]]
-repo = 'othree/yajs.vim'
-# repo = 'jelera/vim-javascript-syntax'
+# repo = 'othree/yajs.vim'
+repo = 'jelera/vim-javascript-syntax'
 
 ### TypeScript. ###
 [[plugins]]
