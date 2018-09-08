@@ -15,6 +15,15 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=238 ctermbg=238
 " let g:indent_guides_guide_size = 1
 '''
 
+[[plugins]] # j,kによる移動を爆速に
+repo = 'rhysd/accelerated-jk'
+hook_add = '''
+let g:accelerated_jk_enable_deceleration = 1
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+'''
+
+
 # [[plugins]]
 # repo = 'cohama/lexima.vim'
 

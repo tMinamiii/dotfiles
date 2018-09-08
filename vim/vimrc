@@ -11,7 +11,7 @@ set hlsearch                    " 検索マッチテキストをハイライト
 set hidden                      " バッファを閉じる代わりに隠す（Undo履歴を残すため）
 set switchbuf=useopen           " 新しく開く代わりにすでに開いてあるバッファを開く
 set showmatch                   " 対応する括弧などをハイライト表示する
-set matchtime=3                 " 対応括弧のハイライト表示を3秒にする
+set matchtime=1                 " 対応括弧のハイライト表示を3秒にする
 set nowritebackup               " Backupを無効化
 set nobackup                    " Backupを無効化
 set noswapfile                  " swapを無効化
@@ -26,6 +26,8 @@ set textwidth=0                 " 自動的に改行が入るのを無効化
 set colorcolumn=80              " その代わり80文字目にラインを入れる
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
+set display=lastline
+set pumheight=15
 
 set ambiwidth=double
 set softtabstop=0
@@ -39,7 +41,8 @@ set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 set termguicolors
-set lazyredraw
+set iminsert=0
+" set lazyredraw
 
 let mapleader = "\<Space>"
 
@@ -150,9 +153,8 @@ if has('nvim')
 endif
 
 syntax on
-color dracula
-" hi! Normal ctermbg=NONE guibg=NONE
-" hi! NonText ctermbg=NONE guibg=NONE
+" colorscheme dracula
+colorscheme spring-night
 
 augroup autoreload
     set autoread

@@ -1,11 +1,3 @@
-[[plugins]] # j,kによる移動を爆速に
-repo = 'rhysd/accelerated-jk'
-hook_add = '''
-let g:accelerated_jk_enable_deceleration = 1
-nmap j <Plug>(accelerated_jk_gj)
-nmap k <Plug>(accelerated_jk_gk)
-'''
-
 ######################
 ### マルチカーソル ###
 ######################
@@ -39,6 +31,7 @@ let g:ale_linters = {
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'typescript': ['tslint', 'tsserver'],
 \   'javascript': ['eslint'],
+\   'javascript.jsx': ['eslint'],
 \   'go': ['gofmt', 'goimports', 'golint'],
 \   'ruby': ['ruby'],
 \   'vue': ['eslint', 'vls'],
@@ -64,6 +57,7 @@ let g:ale_set_highlights = 1
 let g:ale_fixers = {
     \ 'php': ['php_cs_fixer'],
     \ 'javascript': ['eslint'],
+    \ 'javascript.jsx': ['eslint'],
     \ 'typescript': ['tslint'],
     \ 'sh': ['shfmt'],
     \ 'bash': ['shfmt'],
@@ -94,8 +88,8 @@ autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
 
 ### java script ###
 [[plugins]]
-# repo = 'othree/yajs.vim'
-repo = 'jelera/vim-javascript-syntax'
+repo = 'othree/yajs.vim'
+# repo = 'jelera/vim-javascript-syntax'
 
 ### TypeScript. ###
 [[plugins]]
@@ -308,8 +302,12 @@ repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 ### カラーテーマ ###
 ####################
 
+# repo = 'naronA/dracula-vim'
 [[plugins]]
-repo = 'naronA/dracula-vim'
+repo = 'rhysd/vim-color-spring-night'
+hook_add = '''
+let g:spring_night_high_contrast = 0
+'''
 
 ##################
 ### Statusline ###

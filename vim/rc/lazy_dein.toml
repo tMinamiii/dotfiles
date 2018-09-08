@@ -89,13 +89,13 @@ on_ft = ['typescript', 'javascript', 'javascript.jsx']
 hook_add = '''
 let g:typescript_compiler_binary = ''
 let g:typescript_compiler_options = ''
-autocmd FileType javascript :call s:jsdoc_keymap()
-autocmd FileType typescript :call s:jsdoc_keymap()
-function! s:jsdoc_keymap()
-    inoremap <buffer><silent> <C-P> <Esc>:JsDoc<CR>i
-    nnoremap <buffer><silent> <C-P> :JsDoc<CR>
-    vnoremap <buffer><silent> <C-P> :JsDoc<CR>
-endfunction
+" autocmd FileType javascript :call s:jsdoc_keymap()
+" autocmd FileType typescript :call s:jsdoc_keymap()
+" function! s:jsdoc_keymap()
+"     inoremap <buffer><silent> <C-P> <Esc>:JsDoc<CR>i
+"     nnoremap <buffer><silent> <C-P> :JsDoc<CR>
+"     vnoremap <buffer><silent> <C-P> :JsDoc<CR>
+" endfunction
 '''
 
 [[plugins]]
@@ -151,11 +151,11 @@ repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
 on_ft = ['php']
 hook_add = '''
 autocmd FileType php :call s:phpdoc_keymap()
-function! s:phpdoc_keymap()
-    inoremap <buffer><silent> <C-P> <Esc>:call PhpDocSingle()<CR>i
-    nnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
-    vnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
-endfunction
+" function! s:phpdoc_keymap()
+"     inoremap <buffer><silent> <C-P> <Esc>:call PhpDocSingle()<CR>i
+"     nnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
+"     vnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
+" endfunction
 '''
 
 [[plugins]]
