@@ -150,7 +150,7 @@ let g:phpfmt_autosave = 0
 repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
 on_ft = ['php']
 hook_add = '''
-autocmd FileType php :call s:phpdoc_keymap()
+" autocmd FileType php :call s:phpdoc_keymap()
 " function! s:phpdoc_keymap()
 "     inoremap <buffer><silent> <C-P> <Esc>:call PhpDocSingle()<CR>i
 "     nnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
