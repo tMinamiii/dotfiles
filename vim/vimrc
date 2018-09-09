@@ -194,6 +194,6 @@ hi ALEError guibg=red guifg=white gui=underline ctermbg=NONE  ctermfg=white cter
 hi CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
-
+hi MatchParen guifg=208 gui=bold
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
