@@ -163,8 +163,6 @@ repo = 'lvht/phpcd.vim'
 on_ft = ['php']
 build = 'composer install'
 hook_add = '''
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
 let g:phpcd_autoload_path = './vendor/autoload.php'
 
 function! s:phpcd_keymap()
