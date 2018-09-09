@@ -59,7 +59,8 @@ let g:LanguageClient_serverCommands = {
     \ 'ruby': ['solargraph', 'stdio'],
     \ 'vue': ['vls'],
     \ }
-"   \ 'php': ['php', s:php_langserver],
+"    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+"    \ 'php': ['php', s:php_langserver],
 
 function! s:langserver_keymap()
     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
@@ -69,6 +70,7 @@ function! s:langserver_keymap()
 endfunction
 
 " autocmd FileType php :call s:langserver_keymap()
+" autocmd FileType rust :call s:langserver_keymap()
 autocmd FileType ruby :call s:langserver_keymap()
 autocmd FileType bash :call s:langserver_keymap()
 autocmd FileType sh :call s:langserver_keymap()
@@ -177,6 +179,20 @@ function! s:phpcd_keymap()
 endfunction
 autocmd FileType php :call s:phpcd_keymap()
 '''
+
+############
+### RUST ###
+############
+[[plugins]]
+repo = 'sebastianmarkow/deoplete-rust'
+on_ft = ['rust']
+
+# [[plugins]]
+# repo = 'rust-lang/rust.vim'
+# on_ft = 'rust'
+# hook_source = '''
+# let g:rustfmt_autosave = 1
+# '''
 
 ##########
 ### GO ###
