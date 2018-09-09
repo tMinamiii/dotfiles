@@ -45,7 +45,10 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 repo = 'autozimu/LanguageClient-neovim'
 on_ft = ['sh', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
 rev = 'next'
-build = 'bash install.sh'
+build = '''
+bash install.sh
+chmod +x bin/languageclient
+'''
 hook_add = '''
 set hidden
 let s:php_langserver = "vendor/felixfbecker/language-server/bin/php-language-server.php"
@@ -58,9 +61,9 @@ let g:LanguageClient_serverCommands = {
     \ 'sh': ['npx', 'bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
     \ 'vue': ['vls'],
-    \ }
-"    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
 "    \ 'php': ['php', s:php_langserver],
+"    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ }
 
 function! s:langserver_keymap()
     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
@@ -71,13 +74,7 @@ endfunction
 
 " autocmd FileType php :call s:langserver_keymap()
 " autocmd FileType rust :call s:langserver_keymap()
-autocmd FileType ruby :call s:langserver_keymap()
-autocmd FileType bash :call s:langserver_keymap()
-autocmd FileType sh :call s:langserver_keymap()
-autocmd FileType typescript :call s:langserver_keymap()
-autocmd FileType javascript :call s:langserver_keymap()
-autocmd FileType javascript.jsx :call s:langserver_keymap()
-autocmd FileType vue :call s:langserver_keymap()
+autocmd FileType sh,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:langserver_keymap()
 '''
 
 #############################
@@ -166,7 +163,8 @@ on_ft = ['php']
 build = 'composer install'
 hook_add = '''
 let g:phpcd_autoload_path = './vendor/autoload.php'
-
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
 function! s:phpcd_keymap()
     silent! nnoremap <silent> <unique> <buffer> gd
         \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
@@ -187,12 +185,12 @@ autocmd FileType php :call s:phpcd_keymap()
 repo = 'sebastianmarkow/deoplete-rust'
 on_ft = ['rust']
 
-# [[plugins]]
-# repo = 'rust-lang/rust.vim'
-# on_ft = 'rust'
-# hook_source = '''
-# let g:rustfmt_autosave = 1
-# '''
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = 'rust'
+hook_source = '''
+let g:rustfmt_autosave = 1
+'''
 
 ##########
 ### GO ###

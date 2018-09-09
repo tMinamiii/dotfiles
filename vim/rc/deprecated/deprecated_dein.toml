@@ -1,10 +1,4 @@
 [[plugins]]
-repo = 'othree/yajs.vim'
-
-[[plugins]]
-repo = 'terryma/vim-multiple-cursors'
-
-[[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
 let g:indent_guides_enable_on_vim_startup = 1
@@ -22,10 +16,6 @@ let g:accelerated_jk_enable_deceleration = 1
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 '''
-
-
-# [[plugins]]
-# repo = 'cohama/lexima.vim'
 
 ################
 ### terminal ###

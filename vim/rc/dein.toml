@@ -1,3 +1,12 @@
+############
+### 括弧 ###
+############
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
 ######################
 ### マルチカーソル ###
 ######################
@@ -135,9 +144,6 @@ let g:indentLine_color_gui = '#676767'
 '''
 
 [[plugins]]
-repo = 'tpope/vim-surround'
-
-[[plugins]]
 repo = 'ryanoasis/vim-devicons'
 hook_add = '''
 let g:webdevicons_enable = 1
@@ -220,9 +226,7 @@ autocmd FileType defx call s:defx_my_settings()
 repo = 'Shougo/deoplete.nvim'
 hook_add ='''
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#min_pattern_length = 2
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
+let g:deoplete#min_pattern_length = 1
 '''
 
 [[plugins]]
