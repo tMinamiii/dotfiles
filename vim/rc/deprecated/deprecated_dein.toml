@@ -1,4 +1,24 @@
 [[plugins]]
+repo = 'junegunn/fzf'
+build = '''
+bash install --all
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+hook_add = '''
+let g:fzf_layout = { 'up': '~40%' }
+nnoremap [fzf] <Nop>
+nmap <Leader> [fzf]
+nnoremap <silent> [fzf]f :FZF<CR>
+nnoremap <silent> [fzf]b :Buffers<CR>
+nnoremap <silent> [fzf]g :GFiles<CR>
+nnoremap <silent> [fzf]x :Commands<CR>
+nnoremap <silent> [fzf]a :Ag<CR>
+'''
+
+
+[[plugins]]
 repo = 'thinca/vim-quickrun'
 hook_add = '''
 let g:quickrun_config = {
