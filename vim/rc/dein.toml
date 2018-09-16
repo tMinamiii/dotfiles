@@ -125,6 +125,13 @@ repo = 'stephpy/vim-yaml'
 #############
 
 [[plugins]]
+repo = 'simeji/winresizer'
+hook_add = '''
+let g:winresizer_vert_resize = 1
+let g:winresizer_horiz_resize = 1
+'''
+
+[[plugins]]
 repo = 'junegunn/vim-easy-align'
 hook_add = 'vnoremap <silent> <Enter> :EasyAlign<cr>'
 
@@ -242,7 +249,6 @@ nnoremap <silent> [fzf]b :Buffers<CR>
 nnoremap <silent> [fzf]g :GFiles<CR>
 nnoremap <silent> [fzf]x :Commands<CR>
 nnoremap <silent> [fzf]a :Ag<CR>
-nnoremap <silent> [fzf]r :FZMru<CR>
 '''
 
 [[plugins]]
