@@ -1,3 +1,64 @@
+[[plugins]]
+repo      = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+depends = ['neomru.vim']
+on_event = 'BufRead'
+build = '''
+curl https://sh.rustup.rs -sSf | sh
+cargo install ripgrep
+'''
+hook_add = '''
+nnoremap [denite] <Nop>
+nmap <Leader> [denite]
+let ignore=&wildignore . ',.idea,.php_cs_cache,*.pyc,.git,.hg,.svn,node_modules,vendor,mock,laradock,dbsample,docs,public'
+
+" nnoremap <silent> [denite]p :<C-u>Denite -direction=topleft -auto-preview -vertical-preview -cursor-wrap=true grep<CR>
+nnoremap <silent> [denite]p :<C-u>Denite -direction=topleft -auto-preview -vertical-preview -cursor-wrap=true grep<CR>
+
+""""" Current Directory """""
+nnoremap <silent> [denite]f :<C-u>Denite -direction=topleft -auto-highlight -auto-preview -vertical-preview -cursor-wrap=true file_rec<CR>
+
+""""" Buffer """""
+nnoremap <silent> [denite]b :<C-u>Denite -direction=topleft -auto-preview -vertical-preview -cursor-wrap=true buffer<CR>
+
+""""" Register """""
+nnoremap <silent> [denite]r :<C-u>Denite -direction=topleft -cursor-wrap=true -buffer-name=register register<CR>
+
+""""" MRU """""
+nnoremap <silent> [denite]m :<C-u>Denite -direction=topleft -cursor-wrap=true file_mru<CR>
+
+""""" Bookmark """""
+nnoremap <silent> [denite]c :<C-u>Denite -direction=topleft -cursor-wrap=true bookmark<CR>
+
+""""" Add Bookmark """""
+nnoremap <silent> [denite]a :<C-u>DeniteBookmarkAdd<CR>
+
+".git以下のディレクトリ検索
+nnoremap <silent> [denite]k :<C-u>Denite -direction=topleft -cursor-wrap=true
+    \ -path=`substitute(finddir('.git', './;'), '.git', '', 'g')`
+    \ file_rec/git<CR>
+'''
+hook_post_source =
+'''
+call denite#custom#map('insert', '<C-N>', '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-P>', '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('insert', '<C-W>', '<denite:move_up_path>', 'noremap')
+
+" call denite#custom#var('file_rec',   'command', ['scantree.py', '--ignore', ignore])
+
+call denite#custom#var('file_rec/git', 'command', ['git', 'ls-files', '-co',    '--exclude-standard'])
+call denite#custom#var('file_rec',     'command', ['rg',  '--files',  '--glob', '!.git'])
+call denite#custom#var('grep',         'command', ['rg'])
+
+call denite#custom#source('file',     'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
+call denite#custom#source('buffer',   'matchers', ['matcher_regexp'])
+call denite#custom#source('file_mru', 'matchers', ['matcher_regexp'])
+call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+
+'''
+
 ##################
 ### Neosnippet ###
 ##################
@@ -51,18 +112,17 @@ chmod +x bin/languageclient
 '''
 hook_add = '''
 set hidden
-let s:php_langserver = "vendor/felixfbecker/language-server/bin/php-language-server.php"
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'typescript':     ['javascript-typescript-stdio'],
+    \ 'javascript':     ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'bash': ['npx', 'bash-language-server', 'start'],
-    \ 'sh': ['npx', 'bash-language-server', 'start'],
+    \ 'sh':   ['npx', 'bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
-    \ 'vue': ['vls'],
-"    \ 'php': ['php', s:php_langserver],
-"    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    \ 'vue':  ['vls'],
+"   \ 'php':  ['php', './vendor/bin/php-language-server.php'],
+"   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ }
 
 function! s:langserver_keymap()
@@ -165,6 +225,7 @@ hook_add = '''
 let g:phpcd_autoload_path = './vendor/autoload.php'
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
+
 function! s:phpcd_keymap()
     silent! nnoremap <silent> <unique> <buffer> gd
         \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
