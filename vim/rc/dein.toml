@@ -259,6 +259,9 @@ repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 # repo = 'naronA/dracula-vim'
 [[plugins]]
 repo = 'rhysd/vim-color-spring-night'
+hook_add = '''
+let g:spring_night_kill_italic = 1
+'''
 
 ##################
 ### Statusline ###
