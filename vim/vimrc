@@ -95,7 +95,11 @@ noremap   <Right>  <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
 
 """"" command """""
-command! W :w " よく押し間違えるので
+" よく押し間違えるので
+command! Q :q
+command! W :w
+command! Wq :wq
+command! WQ :wq
 
 if has('gui_macvim')
     """"" MacVimのMetaキー有効化
@@ -189,12 +193,12 @@ augroup indentsize
     autocmd FileType vue :syntax sync fromstart
 augroup END
 
-hi SpecialKey ctermfg=239 ctermbg=NONE
-hi ALEWarning guibg=green guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
-hi ALEError guibg=red guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
-hi CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
+hi! SpecialKey ctermfg=239 ctermbg=NONE
+hi! ALEWarning guibg=green guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
+hi! ALEError guibg=red guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
+hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
-hi MatchParen guifg=208 gui=bold
+hi! MatchParen guifg=208 gui=bold
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
