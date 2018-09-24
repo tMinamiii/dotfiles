@@ -39,7 +39,9 @@ vmap <C-v> <Plug>(expand_region_shrink)
 [[plugins]]
 repo = 'w0rp/ale'
 hook_add = '''
-nmap <silent><Leader>/ :ALEFix<CR>
+nmap <silent> <Leader>/ :ALEFix<CR>
+nmap <silent> <leader>aj :ALENext<CR>
+nmap <silent> <leader>ak :ALEPrevious<CR>
 let g:ale_linters = {
 \   'go': ['gofmt', 'goimports', 'golint'],
 \   'javascript': ['eslint'],
