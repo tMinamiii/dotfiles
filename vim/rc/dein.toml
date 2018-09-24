@@ -41,18 +41,18 @@ repo = 'w0rp/ale'
 hook_add = '''
 nmap <silent><Leader>/ :ALEFix<CR>
 let g:ale_linters = {
+\   'go': ['gofmt', 'goimports', 'golint'],
+\   'javascript': ['eslint'],
+\   'javascript.jsx': ['eslint'],
 \   'php': ['phpcs', 'php', 'php_cs_fixer'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
-\   'typescript': ['tslint', 'tsserver'],
-\   'javascript': ['eslint'],
-\   'javascript.jsx': ['eslint'],
-\   'go': ['gofmt', 'goimports', 'golint'],
 \   'ruby': ['ruby'],
+\   'typescript': ['tslint', 'tsserver'],
 \   'vue': ['eslint', 'vls'],
 \}
-let g:ale_sign_error = '⨉'       " エラー行に表示するマーク
-let g:ale_sign_warning = '⚠'     " エラー行に表示するマーク
+let g:ale_sign_error = ''       " エラー行に表示するマーク
+let g:ale_sign_warning = ''     " エラー行に表示するマーク
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
 let g:ale_sign_column_always = 0 " エラー表示の列を常時表示
 let g:ale_completion_enabled = 0
@@ -70,17 +70,17 @@ let g:ale_php_phpcs_use_global = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
-    \ 'php': ['php_cs_fixer'],
+    \ 'bash': ['shfmt'],
+    \ 'go': ['golint'],
     \ 'javascript': ['eslint'],
     \ 'javascript.jsx': ['eslint'],
-    \ 'typescript': ['tslint'],
-    \ 'sh': ['shfmt'],
-    \ 'bash': ['shfmt'],
-    \ 'vue': ['eslint'],
     \ 'json': ['fixjson'],
+    \ 'php': ['php_cs_fixer'],
     \ 'python': ['autopep8', 'isort'],
     \ 'python3': ['autopep8', 'isort'],
-    \ 'go': ['golint'],
+    \ 'sh': ['shfmt'],
+    \ 'typescript': ['tslint'],
+    \ 'vue': ['eslint'],
     \ }
 '''
 
