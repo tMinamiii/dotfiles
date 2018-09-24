@@ -51,7 +51,7 @@ let g:ale_linters = {
 \   'typescript': ['tslint', 'tsserver'],
 \   'vue': ['eslint', 'vls'],
 \}
-let g:ale_sign_error = ''       " エラー行に表示するマーク
+let g:ale_sign_error = ''       " エラー行に表示するマーク
 let g:ale_sign_warning = ''     " エラー行に表示するマーク
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
 let g:ale_sign_column_always = 0 " エラー表示の列を常時表示
