@@ -12,7 +12,7 @@ cargo install ripgrep
 hook_add = '''
 nnoremap [denite] <Nop>
 nmap <Leader> [denite]
-let ignore=&wildignore . ',.idea,.php_cs_cache,*.pyc,.git,.hg,.svn,node_modules,vendor,mock,laradock,dbsample,docs,public'
+" let ignore=&wildignore . ',.idea,.php_cs_cache,*.pyc,.git,.hg,.svn,node_modules,vendor,mock,laradock,dbsample,docs,public'
 
 """ Grep """
 " nnoremap <silent> [denite]p :<C-u>Denite -direction=topleft -auto-preview -vertical-preview -cursor-wrap=true grep<CR>
