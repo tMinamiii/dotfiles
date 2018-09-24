@@ -70,7 +70,6 @@ let g:ale_fixers = {
     \ 'typescript': ['tslint'],
     \ 'sh': ['shfmt'],
     \ 'bash': ['shfmt'],
-    \ 'vim': ['shfmt'],
     \ 'vue': ['eslint'],
     \ 'json': ['fixjson'],
     \ 'python': ['autopep8', 'isort'],
