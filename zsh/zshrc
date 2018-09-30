@@ -93,6 +93,8 @@ export GOBIN=$GOPATH/bin
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
 
 if [ "$TMUX" != "" ]; then
   export TERM="screen-256color"
@@ -209,7 +211,7 @@ docker_rmi_none () {
   docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
 }
 
-alias build-neovim='git pull && make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
+alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
 alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias avenv='source ./env/bin/activate'
@@ -252,6 +254,7 @@ fi
 if which hub > /dev/null; then
   eval "$(hub alias -s)"
 fi
+
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
