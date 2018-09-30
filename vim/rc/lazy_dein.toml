@@ -69,8 +69,8 @@ nnoremap <silent> [denite]p :<C-u>Denite
 "#########################
 nnoremap <silent> [denite]f :<C-u>Denite
     \ -direction=topleft
-    \ -auto-preview
-    \ -vertical-preview
+"    \ -auto-preview
+"    \ -vertical-preview
     \ -cursor-wrap=true file_rec<CR>
 
 "    \ -auto-highlight
