@@ -87,6 +87,7 @@ let g:ale_fixers = {
     \ 'sh': ['shfmt'],
     \ 'typescript': ['prettier'],
     \ 'vue': ['prettier'],
+    \ 'yaml': ['prettier'],
     \ }
 '''
 
