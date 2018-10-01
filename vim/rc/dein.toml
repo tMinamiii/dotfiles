@@ -73,6 +73,7 @@ let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_use_global = 1
 let g:ale_php_phpcs_standard = 'PSR2'
+let g:ale_javascript_eslint_options = '--cache'
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
     \ 'bash': ['shfmt'],
@@ -245,6 +246,44 @@ nmap <silent><Leader>n :NERDTreeToggle<CR>
 nmap <silent><Leader>h :NERDTreeFind<CR>
 let g:NERDTreeWinSize = 43
 let g:NERDTreeLimitedSyntax = 1
+'''
+
+[[plugins]]
+repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+hook_add = '''
+let g:NERDTreeLimitedSyntax = 1
+let g:NERDTreeSyntaxEnabledExtensions = [
+  \ 'bmp',
+  \ 'c',
+  \ 'coffee',
+  \ 'cpp',
+  \ 'css',
+  \ 'erb',
+  \ 'go',
+  \ 'hs',
+  \ 'html',
+  \ 'java',
+  \ 'jpg',
+  \ 'js',
+  \ 'json',
+  \ 'jsx',
+  \ 'less',
+  \ 'lua',
+  \ 'markdown',
+  \ 'md',
+  \ 'php',
+  \ 'png',
+  \ 'pl',
+  \ 'py',
+  \ 'rb',
+  \ 'rs',
+  \ 'scala',
+  \ 'scss',
+  \ 'sh',
+  \ 'sql',
+  \ 'vim',
+  \ 'vue',
+\]
 '''
 
 ####################
