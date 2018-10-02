@@ -44,14 +44,15 @@ nmap <silent> <leader>jj :ALENext<CR>
 nmap <silent> <leader>kk :ALEPrevious<CR>
 let g:ale_linters = {
 \   'go': ['gofmt', 'goimports', 'golint'],
-\   'javascript': ['eslint', 'prettier'],
-\   'javascript.jsx': ['eslint', 'prettier'],
+\   'javascript': ['eslint'],
+\   'javascript.jsx': ['eslint'],
 \   'php': ['phpcs', 'php', 'php_cs_fixer'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'ruby': ['ruby'],
-\   'typescript': ['tslint', 'tsserver', 'prettier'],
-\   'vue': ['eslint', 'vls', 'prettier'],
+\   'typescript': ['tslint', 'tsserver'],
+\   'vue': ['eslint', 'vls'],
+\   'yaml': ['prettier'],
 \}
 
 let g:ale_sign_error = ''       " エラー行に表示するマーク
@@ -87,7 +88,7 @@ let g:ale_fixers = {
     \ 'python3': ['autopep8', 'isort'],
     \ 'sh': ['shfmt'],
     \ 'typescript': ['prettier'],
-    \ 'vue': ['eslint'],
+    \ 'vue': ['eslint', 'prettier'],
     \ 'yaml': ['prettier'],
     \ }
 '''
