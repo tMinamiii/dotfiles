@@ -51,8 +51,9 @@ let g:ale_linters = {
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'ruby': ['ruby'],
 \   'typescript': ['tslint', 'tsserver'],
-\   'vue': ['eslint', 'vls', 'prettier'],
+\   'vue': ['eslint', 'vls'],
 \}
+
 let g:ale_sign_error = ''       " エラー行に表示するマーク
 let g:ale_sign_warning = ''     " エラー行に表示するマーク
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット

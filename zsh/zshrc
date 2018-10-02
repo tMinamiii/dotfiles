@@ -13,7 +13,8 @@ ZSH_THEME="dracula"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # alias mvim="~/.vim/mvim.sh"
-
+autoload -U compinit
+compinit -C
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -263,3 +264,4 @@ fi
 [[ -f /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
