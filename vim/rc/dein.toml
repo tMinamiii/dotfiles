@@ -44,20 +44,20 @@ nmap <silent> <leader>jj :ALENext<CR>
 nmap <silent> <leader>kk :ALEPrevious<CR>
 let g:ale_linters = {
 \   'go': ['gofmt', 'goimports', 'golint'],
-\   'javascript': ['eslint'],
-\   'javascript.jsx': ['eslint'],
+\   'javascript': ['eslint', 'prettier'],
+\   'javascript.jsx': ['eslint', 'prettier'],
 \   'php': ['phpcs', 'php', 'php_cs_fixer'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'ruby': ['ruby'],
-\   'typescript': ['tslint', 'tsserver'],
-\   'vue': ['eslint', 'vls'],
+\   'typescript': ['tslint', 'tsserver', 'prettier'],
+\   'vue': ['eslint', 'vls', 'prettier'],
 \}
 
 let g:ale_sign_error = ''       " エラー行に表示するマーク
 let g:ale_sign_warning = ''     " エラー行に表示するマーク
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
-let g:ale_sign_column_always = 0  " エラー表示の列を常時表示
+let g:ale_sign_column_always = 0 " エラー表示の列を常時表示
 let g:ale_completion_enabled = 0
 
 let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
@@ -87,7 +87,7 @@ let g:ale_fixers = {
     \ 'python3': ['autopep8', 'isort'],
     \ 'sh': ['shfmt'],
     \ 'typescript': ['prettier'],
-    \ 'vue': ['prettier'],
+    \ 'vue': ['eslint'],
     \ 'yaml': ['prettier'],
     \ }
 '''
