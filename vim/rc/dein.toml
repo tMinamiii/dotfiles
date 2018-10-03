@@ -88,7 +88,7 @@ let g:ale_fixers = {
     \ 'python3': ['autopep8', 'isort'],
     \ 'sh': ['shfmt'],
     \ 'typescript': ['prettier'],
-    \ 'vue': ['eslint', 'prettier'],
+    \ 'vue': ['eslint'],
     \ 'yaml': ['prettier'],
     \ }
 '''

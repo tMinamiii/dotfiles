@@ -3,6 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 # export DEFAULT_USER="naronA"
 # Set name of the theme to load.
 
+skip_global_compinit=1
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
@@ -13,8 +14,7 @@ ZSH_THEME="dracula"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # alias mvim="~/.vim/mvim.sh"
-autoload -U compinit
-compinit -C
+#
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -249,7 +249,9 @@ elif uname -a | grep -sq "Linux"; then
 fi
 
 if which anyenv > /dev/null; then
-  eval "$(anyenv init - --no-rehash)"
+  # eval "$(anyenv init - --no-rehash)"
+  # eval "$(anyenv init - --no-rehash)"
+  eval "$(anyenv lazyload)"
 fi
 
 if which hub > /dev/null; then
