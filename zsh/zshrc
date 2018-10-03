@@ -250,7 +250,6 @@ fi
 
 if which anyenv > /dev/null; then
   # eval "$(anyenv init - --no-rehash)"
-  # eval "$(anyenv init - --no-rehash)"
   eval "$(anyenv lazyload)"
 fi
 

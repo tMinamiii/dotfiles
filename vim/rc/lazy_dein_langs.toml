@@ -12,6 +12,7 @@ chmod +x bin/languageclient
 '''
 hook_add = '''
 set hidden
+let g:LanguageClient_windowLogMessageLevel = 'Error'
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'typescript':     ['javascript-typescript-stdio', '||', 'npx', 'javascript-typescript-stdio'],
