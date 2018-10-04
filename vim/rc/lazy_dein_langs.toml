@@ -13,15 +13,16 @@ chmod +x bin/languageclient
 hook_add = '''
 set hidden
 let g:LanguageClient_windowLogMessageLevel = 'Error'
+"  ALEでコントロールする
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
-    \ 'typescript':     ['javascript-typescript-stdio', '||', 'npx', 'javascript-typescript-stdio'],
-    \ 'javascript':     ['javascript-typescript-stdio', '||', 'npx', 'javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio', '||', 'npx', 'javascript-typescript-stdio'],
-    \ 'bash': ['bash-language-server', 'start', '||', 'npx', 'bash-language-server', 'start'],
-    \ 'sh':   ['bash-language-server', 'start', '||', 'npx', 'bash-language-server', 'start'],
+    \ 'typescript':     ['npx', 'javascript-typescript-stdio'],
+    \ 'javascript':     ['npx', 'javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['npx', 'javascript-typescript-stdio'],
+    \ 'bash': ['npx', 'bash-language-server', 'start'],
+    \ 'sh':   ['npx', 'bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
-    \ 'vue':  ['vls', '||', 'npx', 'vls'],
+    \ 'vue':  ['npx', 'vls'],
 "   \ 'php':  ['php', './vendor/bin/php-language-server.php'],
 "   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ }
