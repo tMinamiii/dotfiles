@@ -62,6 +62,7 @@ nnoremap <silent> [denite]p :<C-u>Denite
     \ -direction=topleft
     \ -auto-preview
     \ -vertical-preview
+    \ -highlight-mode-insert=Search
     \ -cursor-wrap=true grep<CR>
 
 "#########################
@@ -69,11 +70,20 @@ nnoremap <silent> [denite]p :<C-u>Denite
 "#########################
 nnoremap <silent> [denite]f :<C-u>Denite
     \ -direction=topleft
-"    \ -auto-preview
-"    \ -vertical-preview
+    \ -highlight-mode-insert=Search
     \ -cursor-wrap=true file_rec<CR>
 
-"    \ -auto-highlight
+"##################
+"### References ###
+"##################
+nnoremap <silent> [denite]r :<C-u>Denite
+    \ -direction=topleft
+    \ -auto-preview
+    \ -vertical-preview
+    \ -auto-highlight
+    \ -highlight-mode-insert=Search
+    \ -cursor-wrap=true references<CR>
+
 
 "##############
 "### Buffer ###
@@ -87,7 +97,7 @@ nnoremap <silent> [denite]b :<C-u>Denite
 "################
 "### Register ###
 "################
-nnoremap <silent> [denite]r :<C-u>Denite
+nnoremap <silent> [denite]R :<C-u>Denite
     \ -direction=topleft
     \ -cursor-wrap=true
     \ -buffer-name=register register<CR>

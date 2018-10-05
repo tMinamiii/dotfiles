@@ -249,8 +249,12 @@ elif uname -a | grep -sq "Linux"; then
 fi
 
 if which anyenv > /dev/null; then
-  # eval "$(anyenv init - --no-rehash)"
-  eval "$(anyenv lazyload)"
+
+    if [ "$(uname)" = "Darwin" ]; then
+        eval "$(anyenv lazyload)"
+    else
+        eval "$(anyenv init - )"
+    fi
 fi
 
 if which hub > /dev/null; then
