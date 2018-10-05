@@ -94,6 +94,7 @@ noremap   <Right>  <nop>
 "noremap   l <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
 
+inoremap  <C-l> <DEL>
 """"" command """""
 " よく押し間違えるので
 command! Q :q
