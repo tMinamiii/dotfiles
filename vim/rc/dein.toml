@@ -1,6 +1,6 @@
-###################
-###  scratchpad ###
-###################
+##################
+### scratchpad ###
+##################
 [[plugins]]
 repo = 'metakirby5/codi.vim'
 
@@ -143,18 +143,18 @@ let g:indentLine_color_gui = '#676767'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 hook_add = '''
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-let g:webdevicons_enable_defx = 1
-let g:webdevicons_enable_denite = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
 let g:NERDTreeExtensionHighlightColor = {}
 let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
+let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_defx = 1
+let g:webdevicons_enable_denite = 1
+let g:webdevicons_enable_nerdtree = 1
 '''
 
 [[plugins]]
