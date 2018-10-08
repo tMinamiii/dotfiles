@@ -42,7 +42,7 @@ set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 set termguicolors
-set iminsert=0
+set iminsert=0 imsearch=0
 " set lazyredraw
 
 let mapleader = "\<Space>"
