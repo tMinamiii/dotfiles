@@ -4,7 +4,8 @@
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['sh', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
+depends = ['deoplete.nvim']
+on_ft = ['go', 'sh', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
 rev = 'next'
 build = '''
 bash install.sh
@@ -23,22 +24,22 @@ let g:LanguageClient_serverCommands = {
     \ 'sh':   ['npx', 'bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
     \ 'vue':  ['npx', 'vls'],
+    \ 'go':   ['go-langserver'],
 "   \ 'php':  ['php', './vendor/bin/php-language-server.php'],
 "   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-"   \ 'go':   [$GOPATH.'/bin/go-langserver'],
     \ }
 
+nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
 function! s:langserver_keymap()
-    nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
     nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
     nnoremap <buffer><silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <buffer><silent> <C-]> :call LanguageClient_textDocument_definition()<CR>
     nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-    nnoremap <buffer><silent> gh :call LanguageClient_textDocument_references()<CR>
+    nnoremap <buffer><silent> ge :call LanguageClient_textDocument_references()<CR>
 endfunction
 
 " autocmd FileType php :call s:langserver_keymap()
 " autocmd FileType rust :call s:langserver_keymap()
-" autocmd FileType go :call s:langserver_keymap()
 autocmd FileType sh,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:langserver_keymap()
 '''
 
@@ -50,14 +51,31 @@ autocmd FileType sh,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:l
 repo = 'fatih/vim-go'
 on_ft = ['go']
 hook_add = '''
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+
+function! s:vim_go_keymap()
+    nnoremap <buffer><silent> ge :GoReferrers<CR>
+    nnoremap <buffer><silent> <F2> :GoRename<CR>
+endfunction
+
+autocmd FileType go :call s:vim_go_keymap()
 '''
 
 [[plugins]]
 repo = 'zchee/deoplete-go'
+depends = ['deoplete.nvim']
 on_ft = ['go']
 build = '''make '''
+hook_add = '''
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#package_dot = 1
+let g:deoplete#sources#go#pointer = 1
+" let g:deoplete#sources#go#builtin_objects = 1
+" let g:deoplete#sources#go#source_importer = 1
+'''
 
 
 #############################
@@ -142,6 +160,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'lvht/phpcd.vim'
+depends = ['deoplete.nvim']
 on_ft = ['php']
 build = 'composer install'
 hook_add = '''
@@ -167,6 +186,7 @@ autocmd FileType php :call s:phpcd_keymap()
 ############
 [[plugins]]
 repo = 'sebastianmarkow/deoplete-rust'
+depends = ['deoplete.nvim']
 on_ft = ['rust']
 
 [[plugins]]
@@ -202,6 +222,7 @@ let g:jedi#usages_command = '<C-h>'
 
 [[plugins]]
 repo = 'zchee/deoplete-jedi'
+depends = ['deoplete.nvim']
 on_ft = ['python', 'python3', 'ipynb']
 
 [[plugins]]

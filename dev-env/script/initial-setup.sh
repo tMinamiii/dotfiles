@@ -15,7 +15,7 @@ fi
 #
 if [ -e /etc/os-release ]; then
     if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
-        sudo apt-get update 
+        sudo apt-get update
         sudo apt-get install -y zsh
     fi
 elif uname -a | grep -sq "Darwin"; then
@@ -33,10 +33,15 @@ if [ ! -e "$HOME/repos/dracula-zsh" ]; then
 fi
 ln -s "$HOME/repos/dracula-zsh/dracula.zsh-theme" "$HOME/.oh-my-zsh/themes/dracula.zsh-theme"
 
+# Install FZF
+git clone https://github.com/junegunn/fzf.git $HOME/.oh-my-zsh/custom/plugins/fzf
+${HOME}/.oh-my-zsh/custom/plugins/fzf/install --bin
+git clone https://github.com/Treri/fzf-zsh.git ${HOME}/.oh-my-zsh/custom/plugins/fzf-zsh
+
 # Install Common tools
 if [ -e /etc/os-release ]; then
     if cat /etc/os-release | grep -sq "Ubuntu" || uname -a | grep -sq "Microsoft"; then
-        sudo apt-get update 
+        sudo apt-get update
         sudo apt-get install -y curl \
             tree \
             wget \
@@ -92,7 +97,7 @@ fi
 if echo "$ARGS" | grep -sq "\\-\\-tensorflow"; then
     if [ -e /etc/os-release ]; then
         if cat /etc/os-release | grep -sq "Ubuntu"; then
-            sudo apt-get update 
+            sudo apt-get update
             sudo apt-get install -y libibverbs-dev \
                 librdmacm-dev \
                 libcupti-dev \
