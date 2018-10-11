@@ -12,14 +12,14 @@ set hlsearch                    " 検索マッチテキストをハイライト
 set hidden                      " バッファを閉じる代わりに隠す（Undo履歴を残すため）
 set switchbuf=useopen           " 新しく開く代わりにすでに開いてあるバッファを開く
 set showmatch                   " 対応する括弧などをハイライト表示する
-set matchtime=1                 " 対応括弧のハイライト表示を3秒にする
+set matchtime=2                 " 対応括弧のハイライト表示を3秒にする
 set nowritebackup               " Backupを無効化
 set nobackup                    " Backupを無効化
 set noswapfile                  " swapを無効化
 set backspace=0
 " set backspace=indent,eol,start  " バックスペースでなんでも消せるようにする
-" set clipboard=unnamed
 set clipboard+=unnamedplus
+
 """"" [表示系]
 set number                      " 行番号の表示
 set nowrap                      " 長いテキストの折り返し
@@ -157,8 +157,9 @@ if dein#check_install()
 endif
 
 if has('nvim')
-    let g:python_host_prog=glob($PYENV_ROOT.'/versions/2.7*/bin/python')
-    let g:python3_host_prog=glob($PYENV_ROOT.'/versions/3.6*/bin/python')
+	" 最新のpythonをhostにする
+    let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
+    let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3.6*/bin/python')))[-1]
 endif
 
 syntax on
