@@ -238,7 +238,7 @@ on_ft = ['python', 'python3', 'ipynb']
 #######################
 
 [[plugins]]
-repo = 'https://github.com/mattn/emmet-vim'
+repo = 'mattn/emmet-vim'
 on_ft = ['html']
 
 [[plugins]]
