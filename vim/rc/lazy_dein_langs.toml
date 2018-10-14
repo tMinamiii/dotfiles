@@ -59,9 +59,13 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 
+let g:go_term_height = 15
+let g:go_term_mode = "on | belowright split"
+let g:go_term_enabled = 0
 function! s:vim_go_keymap()
     nnoremap <buffer><silent> ge :GoReferrers<CR>
     nnoremap <buffer><silent> <F2> :GoRename<CR>
+    nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
 endfunction
 
 autocmd FileType go :call s:vim_go_keymap()
