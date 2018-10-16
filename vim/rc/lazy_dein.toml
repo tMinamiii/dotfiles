@@ -46,10 +46,6 @@ repo      = 'Shougo/neomru.vim'
 repo = 'Shougo/denite.nvim'
 depends = ['neomru.vim']
 on_event = 'BufRead'
-build = '''
-curl https://sh.rustup.rs -sSf | sh
-cargo install ripgrep
-'''
 hook_add = '''
 nnoremap [denite] <Nop>
 nmap <Leader> [denite]
