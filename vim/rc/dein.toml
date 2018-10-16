@@ -66,6 +66,7 @@ let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_use_global = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_javascript_eslint_options = '--cache'
+let g:ale_php_cs_fixer_options = '--rules=@PSR1,@PSR2'
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
     \ 'bash': ['shfmt'],
