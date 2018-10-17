@@ -54,7 +54,7 @@ let g:ale_completion_enabled = 0
 
 let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
 let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
-let g:ale_fix_on_save = 1        " ファイルを保存したときにfix実行
+let g:ale_fix_on_save = 0        " ファイルを保存したときにfix実行
 let g:ale_lint_delay = 50
 let g:ale_lint_on_text_changed = 'always' " or never
 
@@ -241,46 +241,8 @@ hook_add = '''
 nmap <F9> :NERDTreeToggle<CR>
 nmap <silent><Leader>n :NERDTreeToggle<CR>
 nmap <silent><Leader>h :NERDTreeFind<CR>
-let g:NERDTreeWinSize = 43
+let g:NERDTreeWinSize = 40
 let g:NERDTreeLimitedSyntax = 1
-'''
-
-[[plugins]]
-repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
-hook_add = '''
-let g:NERDTreeLimitedSyntax = 1
-let g:NERDTreeSyntaxEnabledExtensions = [
-  \ 'bmp',
-  \ 'c',
-  \ 'coffee',
-  \ 'cpp',
-  \ 'css',
-  \ 'erb',
-  \ 'go',
-  \ 'hs',
-  \ 'html',
-  \ 'java',
-  \ 'jpg',
-  \ 'js',
-  \ 'json',
-  \ 'jsx',
-  \ 'less',
-  \ 'lua',
-  \ 'markdown',
-  \ 'md',
-  \ 'php',
-  \ 'png',
-  \ 'pl',
-  \ 'py',
-  \ 'rb',
-  \ 'rs',
-  \ 'scala',
-  \ 'scss',
-  \ 'sh',
-  \ 'sql',
-  \ 'vim',
-  \ 'vue',
-\]
 '''
 
 ####################

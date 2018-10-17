@@ -1,3 +1,41 @@
+[[plugins]]
+repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+hook_add = '''
+let g:NERDTreeLimitedSyntax = 1
+let g:NERDTreeSyntaxEnabledExtensions = [
+  \ 'bmp',
+  \ 'c',
+  \ 'coffee',
+  \ 'cpp',
+  \ 'css',
+  \ 'erb',
+  \ 'go',
+  \ 'hs',
+  \ 'html',
+  \ 'java',
+  \ 'jpg',
+  \ 'js',
+  \ 'json',
+  \ 'jsx',
+  \ 'less',
+  \ 'lua',
+  \ 'markdown',
+  \ 'md',
+  \ 'php',
+  \ 'png',
+  \ 'pl',
+  \ 'py',
+  \ 'rb',
+  \ 'rs',
+  \ 'scala',
+  \ 'scss',
+  \ 'sh',
+  \ 'sql',
+  \ 'vim',
+  \ 'vue',
+\]
+'''
+
 ###############
 ### Jupyter ###
 ###############
