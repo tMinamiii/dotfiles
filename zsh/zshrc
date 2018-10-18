@@ -42,14 +42,13 @@ export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
 export PHPENV_ROOT="$HOME/.anyenv/envs/phpenv"
 export GTAGSLABEL=pygments
 export TERM=xterm-256color
-export GOPATH="$HOME/.go"
-export GOPATH="$HOME/gowork:$GOPATH"
-export GOBIN=$GOPATH/bin
+export GOPATH="$HOME/go"
+export GOBIN="$HOME/go/bin"
 export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$GOBIN"
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 export PATH="$HOME/.anyenv/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -128,7 +127,7 @@ go_dev () {
   go get -u github.com/constabulary/gb/...
   go get -u golang.org/x/lint/golint
   go get -u golang.org/x/tools/cmd/goimports
-  go get -u github.com/nsf/gocode
+  go get -u github.com/mdempsky/gocode
   go get -u github.com/jstemmer/gotags
 }
 
