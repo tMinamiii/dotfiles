@@ -54,7 +54,7 @@ export PATH="$HOME/.anyenv/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
-
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 if [ "$TMUX" != "" ]; then
   export TERM="screen-256color"
 fi
