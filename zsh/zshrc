@@ -44,17 +44,19 @@ export GTAGSLABEL=pygments
 export TERM=xterm-256color
 export GOPATH="$HOME/go"
 export GOBIN="$HOME/go/bin"
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
-export PATH="$PATH:$GOBIN"
-export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-export PATH="$HOME/.anyenv/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
+PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+PATH="$PATH:$GOBIN"
+PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+PATH="$HOME/.anyenv/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/.cargo/bin:$PATH"
+PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
+
 if [ "$TMUX" != "" ]; then
   export TERM="screen-256color"
 fi
@@ -189,21 +191,21 @@ if [ "$(uname)" = "Darwin" ]; then
   # Mac OSX
   # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
   # export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
-  export PATH="/usr/local/sbin:$PATH"
+  PATH="/usr/local/sbin:$PATH"
   # alias brew="PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin brew"
 elif uname -a | grep -sq "Ubuntu"; then
   # Ubuntu
   #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
   export VTE_VERSION="100"
-  export PATH=$HOME/bin:$PATH
+  PATH=$HOME/bin:$PATH
 elif uname -a | grep -sq "Microsoft"; then
   # Windows Subsystem for Linux
   LS_COLORS=$LS_COLORS:'di=0;36:ow=0;36' ; export LS_COLORS
   zstyle ':completion:*' list-colors 'di=36' 'ow=36'
-  export PATH=$HOME/bin:$PATH
+  PATH=$HOME/bin:$PATH
 
 elif uname -a | grep -sq "Linux"; then
-  export PATH=$HOME/bin:$PATH
+  PATH=$HOME/bin:$PATH
 fi
 
 if which anyenv > /dev/null; then
@@ -218,6 +220,7 @@ if which hub > /dev/null; then
   eval "$(hub alias -s)"
 fi
 
+export PATH=$PATH
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
