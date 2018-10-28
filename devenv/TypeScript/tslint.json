@@ -1,0 +1,25 @@
+{
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "rules": {
+    "no-console": false,
+    "no-unused-variable": [true, { "ignore-pattern": "^_" }]
+  },
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2018",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "strictNullChecks": true,
+    "rootDir": ".",
+    "paths": {
+      "*": ["src", "types/*"]
+    },
+    "baseUrl": ".",
+    "strict": true,
+    "lib": ["es2018", "dom"]
+  }
+}
