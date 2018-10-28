@@ -242,10 +242,6 @@ on_ft = ['python', 'python3', 'ipynb']
 #######################
 
 [[plugins]]
-repo = 'mattn/emmet-vim'
-on_ft = ['html']
-
-[[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown','mkd']
 hook_add = '''
