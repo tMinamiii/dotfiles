@@ -1,3 +1,19 @@
+# call lexima#add_rule({'char': '<TAB>', 'at': '\%#)', 'leave': 1})
+# call lexima#add_rule({'char': '<TAB>', 'at': '\%#"', 'leave': 1})
+# call lexima#add_rule({'char': '<TAB>', 'at': "\%#'", 'leave': 1})
+# call lexima#add_rule({'char': '<TAB>', 'at': '\%#]', 'leave': 1})
+# call lexima#add_rule({'char': '<TAB>', 'at': '\%#}', 'leave': 1})
+
+# call lexima#add_rule({"at" : '\%#',   "char" : '"', "input_after" : '"'})
+# call lexima#add_rule({"at" : '\%#',   "char" : '"', "input" : '"', "syntax" : "String"})
+# call lexima#add_rule({"at" : '"\%#"', "char" : '"', "input" : '<Right>'})
+# call lexima#add_rule({"at" : '"\%#"', "char" : '"', "input" : '<Right>', "syntax" : "String"})
+#
+# call lexima#add_rule({"at" : "\%#",   "char" : "'", "input_after" : "'"})
+# call lexima#add_rule({"at" : "\%#",   "char" : "'", "input" : "'", "syntax" : "String"})
+# call lexima#add_rule({"at" : "'\%#'", "char" : "'", "input" : '<Right>'})
+# call lexima#add_rule({"at" : "'\%#'", "char" : "'", "input" : '<Right>', "syntax" : "String"})
+
 [[plugins]]
 repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 hook_add = '''

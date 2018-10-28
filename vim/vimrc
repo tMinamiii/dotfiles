@@ -1,7 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 set completeopt+=noselect
-set virtualedit=block
+" set virtualedit=block
 
 """"" [検索系]
 set ignorecase                  " 大文字小文字を区別しない

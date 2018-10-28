@@ -160,20 +160,20 @@ hook_add = '''
 let g:lexima_ctrlh_as_backspace = 1
 '''
 hook_post_source = '''
-call lexima#add_rule({'char': '<TAB>', 'at': '\%#)', 'leave': 1})
-call lexima#add_rule({'char': '<TAB>', 'at': '\%#"', 'leave': 1})
-call lexima#add_rule({'char': '<TAB>', 'at': "\%#'", 'leave': 1})
-call lexima#add_rule({'char': '<TAB>', 'at': '\%#]', 'leave': 1})
-call lexima#add_rule({'char': '<TAB>', 'at': '\%#}', 'leave': 1})
+" ただし、以下の場合は補完しない
+" |) の場合は補完しない
+call lexima#add_rule({'char': '(', 'input': '(', 'at': '\%#)'})
+call lexima#add_rule({'char': '{', 'input': '{', 'at': '\%#}'})
+call lexima#add_rule({'char': '[', 'input': '[', 'at': '\%#]'})
 
-" call lexima#add_rule({"at" : '\%#',   "char" : '"', "input_after" : '"'})
-" call lexima#add_rule({"at" : '\%#',   "char" : '"', "input" : '"', "syntax" : "String"})
-" call lexima#add_rule({"at" : '"\%#"', "char" : '"', "input" : '<Right>'})
-" call lexima#add_rule({"at" : '"\%#"', "char" : '"', "input" : '<Right>', "syntax" : "String"})
-"
-" call lexima#add_rule({"at" : "\%#",   "char" : "'", "input_after" : "'"})
-" call lexima#add_rule({"at" : "\%#",   "char" : "'", "input" : "'", "syntax" : "String"})
-" call lexima#add_rule({"at" : "'\%#'", "char" : "'", "input" : '<Right>'})
-" call lexima#add_rule({"at" : "'\%#'", "char" : "'", "input" : '<Right>', "syntax" : "String"})
+" コメント内では補完しない
+call lexima#add_rule({'char': '(', 'input': '(', 'syntax' : 'Comment'})
+call lexima#add_rule({'char': '{', 'input': '{', 'syntax' : 'Comment'})
+call lexima#add_rule({'char': '[', 'input': '[', 'syntax' : 'Comment'})
+
+" 文字列内では補完しない
+call lexima#add_rule({'char': '(', 'input': '(', 'syntax' : 'String'})
+call lexima#add_rule({'char': '{', 'input': '{', 'syntax' : 'String'})
+call lexima#add_rule({'char': '[', 'input': '[', 'syntax' : 'String'})
 '''
 
