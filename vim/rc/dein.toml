@@ -88,6 +88,9 @@ let g:ale_fixers = {
 ########################
 ### Syntax Highlight ###
 ########################
+### pug ###
+[[plugins]]
+repo = 'digitaltoad/vim-pug'
 
 ### java script ###
 [[plugins]]

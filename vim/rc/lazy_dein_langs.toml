@@ -23,7 +23,7 @@ let g:LanguageClient_serverCommands = {
     \ 'bash': ['npx', 'bash-language-server', 'start'],
     \ 'sh':   ['npx', 'bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
-    \ 'vue':  ['npx', 'vls'],
+    \ 'vue':  ['vls'],
 "   \ 'php':  ['php', './vendor/bin/php-language-server.php'],
 "   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ }
