@@ -166,9 +166,9 @@ let g:lexima_ctrlh_as_backspace = 1
 hook_post_source = '''
 " ただし、以下の場合は補完しない
 " |) の場合は補完しない
-call lexima#add_rule({'char': '(', 'input': '(', 'at': '\%#)'})
-call lexima#add_rule({'char': '{', 'input': '{', 'at': '\%#}'})
-call lexima#add_rule({'char': '[', 'input': '[', 'at': '\%#]'})
+" call lexima#add_rule({'char': '(', 'input': '(', 'at': '\%#)'})
+" call lexima#add_rule({'char': '{', 'input': '{', 'at': '\%#}'})
+" call lexima#add_rule({'char': '[', 'input': '[', 'at': '\%#]'})
 
 " コメント内では補完しない
 call lexima#add_rule({'char': '(', 'input': '(', 'syntax' : 'Comment'})
