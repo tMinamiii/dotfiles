@@ -56,10 +56,12 @@ PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
 PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
+export ONI_NEOVIM_PATH="/home/linuxbrew/.linuxbrew/bin/nvim"
 
 if [ "$TMUX" != "" ]; then
   export TERM="screen-256color"
 fi
+
 export EDITOR="nvim"
 export SHELL=/bin/zsh
 
@@ -228,9 +230,9 @@ fi
 export PATH=$PATH
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+[[ -f "$HOME/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh" ]] && . "$HOME/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh"
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/narona/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+[[ -f "$HOME/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && . "$HOME/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f "$HOME/.fzf.zsh" ]] && . "$HOME/.fzf.zsh"
