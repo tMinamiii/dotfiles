@@ -7,6 +7,30 @@ repo = 'andymass/vim-matchup'
 [[plugins]]
 repo = 'machakann/vim-highlightedyank'
 
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+hook_add = '''
+let g:quickrun_config = {
+\     '_' : {
+\         'runner' : 'vimproc',
+\         'runner/vimproc/updatetime' : 40,
+\         'outputter' : 'error',
+\         'outputter/error/success' : 'buffer',
+\         'outputter/error/error'   : 'quickfix',
+\         'outputter/buffer/split' : ':botright 12sp',
+\     }
+\ }
+
+" 実行時に前回の表示内容をクローズ&保存してから実行
+let g:quickrun_no_default_key_mappings = 1
+" "nmap <Leader><C-r> :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+nmap <Leader><C-r> :QuickRun -mode n<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/vimproc'
+build = 'make'
+
 ##################
 ### scratchpad ###
 ##################
@@ -95,11 +119,11 @@ let g:ale_fixers = {
     \ }
 
 augroup aleconfigs
-    autocmd BufRead,BufNewFile *.go,*.ts,*.vue let ale_fix_on_save=1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.vue let ale_lint_on_text_changed='always'
-	autocmd BufRead,BufNewFile *.go,*.ts,*.vue let ale_lint_on_enter = 1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.vue let ale_lint_on_save = 1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.vue let ale_lint_delay = 50
+    autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_fix_on_save=1
+	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_lint_on_text_changed='always'
+	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_lint_on_enter = 1
+	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_lint_on_save = 1
+	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_lint_delay = 50
 augroup END
 '''
 
