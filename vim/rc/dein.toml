@@ -292,7 +292,7 @@ nmap <silent><Leader>n :NERDTreeToggle<CR>
 nmap <silent><Leader>h :NERDTreeFind<CR>
 let g:NERDTreeWinSize = 40
 let g:NERDTreeLimitedSyntax = 1
-let g:NERDTreeQuitOnOpen = 1
+" let g:NERDTreeQuitOnOpen = 1
 '''
 
 ####################

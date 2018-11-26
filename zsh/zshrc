@@ -56,7 +56,13 @@ PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
 PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
-export ONI_NEOVIM_PATH="/home/linuxbrew/.linuxbrew/bin/nvim"
+
+if [ "$(uname)" = "Darwin" ]; then
+    export ONI_NEOVIM_PATH="/usr/local/bin/nvim"
+    # export ONI_NEOVIM_PATH="/usr/local/Cellar/neovim/0.3.1/bin/nvim"
+else
+    export ONI_NEOVIM_PATH="/home/linuxbrew/.linuxbrew/bin/nvim"
+fi
 
 if [ "$TMUX" != "" ]; then
   export TERM="screen-256color"
@@ -236,3 +242,6 @@ export PATH=$PATH
 [[ -f "$HOME/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && . "$HOME/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
 
 [[ -f "$HOME/.fzf.zsh" ]] && . "$HOME/.fzf.zsh"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
