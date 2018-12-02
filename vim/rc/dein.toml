@@ -99,11 +99,11 @@ let g:ale_fixers = {
     \ }
 
 augroup aleconfigs
-    autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_fix_on_save=1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_lint_on_text_changed='always'
-	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_lint_on_enter = 1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_lint_on_save = 1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.py let ale_lint_delay = 50
+    autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.js,*.py let ale_fix_on_save=1
+	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.js,*.py let ale_lint_on_text_changed='always'
+	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.js,*.py let ale_lint_on_enter = 1
+	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.js,*.py let ale_lint_on_save = 1
+	autocmd BufRead,BufNewFile *.go,*.ts,*.vue,*.js,*.py let ale_lint_delay = 50
 augroup END
 '''
 
