@@ -26,6 +26,7 @@ plugins=(
     fzf-zsh
     zsh-autosuggestions
 )
+bindkey '^[' autosuggest-accept
 
 . "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
