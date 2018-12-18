@@ -46,7 +46,10 @@ set termguicolors
 " set iminsert=0
 " set imsearch=0
 " set lazyredraw
-
+"
+let g:vn_font = 'Cica'
+let g:vn_font_size = 15
+let g:vn_line_height = '1.0'
 let mapleader = "\<Space>"
 
 if ! has('nvim')

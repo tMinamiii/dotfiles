@@ -49,7 +49,7 @@ nmap <silent> <leader>kk :ALEPrevious<CR>
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'php': ['phpcs', 'php', 'php_cs_fixer'],
-\   'go' : ['gometalinter', '--concurrency=8'],
+\   'go' : ['gometalinter'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'ruby': ['ruby'],
@@ -58,6 +58,8 @@ let g:ale_linters = {
 \   'zsh': ['shellcheck'],
 \   'yaml': ['prettier'],
 \}
+
+let g:ale_go_gometalinter_options = '--concurrency=8 --fast --enable=staticcheck --enable=gosimple --enable=unused'
 
 let g:ale_sign_error = ''       " エラー行に表示するマーク
 let g:ale_sign_warning = ''     " エラー行に表示するマーク
@@ -229,30 +231,67 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
+nmap <F9> :Defx -split=vertical -winwidth=45 -toggle <CR>
+nmap <silent><Leader>n :Defx -split=vertical -winwidth=45 -toggle <CR>
+nmap <silent><Leader>h :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
+autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('open')
+  \ defx#do_action('drop')
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> l
+  \ defx#do_action('drop')
+  nnoremap <silent><buffer><expr> E
+  \ defx#do_action('drop', 'vsplit')
+  nnoremap <silent><buffer><expr> P
+  \ defx#do_action('drop', 'pedit')
   nnoremap <silent><buffer><expr> K
   \ defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N
   \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M
+  \ defx#do_action('new_multiple_files')
   nnoremap <silent><buffer><expr> d
   \ defx#do_action('remove')
   nnoremap <silent><buffer><expr> r
   \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x
+  \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> .
+  \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ;
+  \ defx#do_action('repeat')
   nnoremap <silent><buffer><expr> h
   \ defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> ~
   \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
   nnoremap <silent><buffer><expr> <Space>
   \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
   nnoremap <silent><buffer><expr> j
   \ line('.') == line('$') ? 'gg' : 'j'
   nnoremap <silent><buffer><expr> k
   \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l>
+  \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd
+  \ defx#do_action('change_vim_cwd')
 endfunction
-autocmd FileType defx call s:defx_my_settings()
 '''
 
 [[plugins]]
@@ -266,16 +305,16 @@ let g:deoplete#min_pattern_length = 1
 ### Filer ###
 #############
 
-[[plugins]]
-repo = 'scrooloose/nerdtree.git'
-hook_add = '''
-nmap <F9> :NERDTreeToggle<CR>
-nmap <silent><Leader>n :NERDTreeToggle<CR>
-nmap <silent><Leader>h :NERDTreeFind<CR>
-let g:NERDTreeWinSize = 40
-let g:NERDTreeLimitedSyntax = 1
-" let g:NERDTreeQuitOnOpen = 1
-'''
+# [[plugins]]
+# repo = 'scrooloose/nerdtree.git'
+# hook_add = '''
+# nmap <F9> :NERDTreeToggle<CR>
+# nmap <silent><Leader>n :NERDTreeToggle<CR>
+# nmap <silent><Leader>h :NERDTreeFind<CR>
+# let g:NERDTreeWinSize = 40
+# let g:NERDTreeLimitedSyntax = 1
+# " let g:NERDTreeQuitOnOpen = 1
+# '''
 
 ####################
 ### カラーテーマ ###

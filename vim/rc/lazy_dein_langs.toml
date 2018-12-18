@@ -5,7 +5,7 @@
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
 depends = ['deoplete.nvim']
-on_ft = ['sh', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
+on_ft = ['sh', 'go', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
 rev = 'next'
 build = '''
 bash install.sh
@@ -20,6 +20,7 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript':     ['npx', 'javascript-typescript-stdio'],
     \ 'javascript':     ['npx', 'javascript-typescript-stdio'],
     \ 'javascript.jsx': ['npx', 'javascript-typescript-stdio'],
+    \ 'go': ['bingo', '-mode', 'stdio'],
     \ 'bash': ['bash-language-server', 'start'],
     \ 'sh':   ['bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
@@ -39,7 +40,7 @@ endfunction
 
 " autocmd FileType php :call s:langserver_keymap()
 " autocmd FileType rust :call s:langserver_keymap()
-autocmd FileType sh,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:langserver_keymap()
+autocmd FileType sh,go,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:langserver_keymap()
 '''
 
 ##########
@@ -64,27 +65,27 @@ let g:go_term_height = 15
 let g:go_term_mode = "on | belowright split"
 let g:go_term_enabled = 0
 function! s:vim_go_keymap()
-    nnoremap <buffer><silent> ge :GoReferrers<CR>
-    nnoremap <buffer><silent> <F2> :GoRename<CR>
+    " nnoremap <buffer><silent> ge :GoReferrers<CR>
+    " nnoremap <buffer><silent> <F2> :GoRename<CR>
     nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
 endfunction
 
 autocmd FileType go :call s:vim_go_keymap()
 '''
 
-[[plugins]]
-repo = 'zchee/deoplete-go'
-depends = ['deoplete.nvim']
-on_ft = ['go']
-build = '''make '''
-hook_add = '''
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-" let g:deoplete#sources#go#package_dot = 1
-" let g:deoplete#sources#go#pointer = 1
-" let g:deoplete#sources#go#builtin_objects = 1
-" let g:deoplete#sources#go#source_importer = 1
-'''
+# [[plugins]]
+# repo = 'zchee/deoplete-go'
+# depends = ['deoplete.nvim']
+# on_ft = ['go']
+# build = '''make '''
+# hook_add = '''
+# let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+# let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+# " let g:deoplete#sources#go#package_dot = 1
+# " let g:deoplete#sources#go#pointer = 1
+# " let g:deoplete#sources#go#builtin_objects = 1
+# " let g:deoplete#sources#go#source_importer = 1
+# '''
 
 
 #############################
