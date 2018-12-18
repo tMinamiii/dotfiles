@@ -13,6 +13,11 @@ chmod +x bin/languageclient
 '''
 hook_add = '''
 set hidden
+
+let g:LanguageClient_rootMarkers = {
+        \ 'go': ['.git', 'go.mod'],
+        \ }
+
 let g:LanguageClient_windowLogMessageLevel = 'Error'
 "  ALEでコントロールする
 let g:LanguageClient_diagnosticsEnable = 0
@@ -20,7 +25,7 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript':     ['npx', 'javascript-typescript-stdio'],
     \ 'javascript':     ['npx', 'javascript-typescript-stdio'],
     \ 'javascript.jsx': ['npx', 'javascript-typescript-stdio'],
-    \ 'go': ['bingo', '-mode', 'stdio'],
+    \ 'go': ['bingo', '--mode', 'stdio', '--pprof', ':6060'],
     \ 'bash': ['bash-language-server', 'start'],
     \ 'sh':   ['bash-language-server', 'start'],
     \ 'ruby': ['solargraph', 'stdio'],
