@@ -42,6 +42,7 @@ set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
+set cursorline
 
 if ! exists('$TMUX')
 	set termguicolors
@@ -214,9 +215,11 @@ if ! exists('veonim')
 	hi! Normal ctermbg=NONE guibg=NONE
 	hi! NonText ctermbg=NONE guibg=NONE
 endif
+
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 " hi! ALEWarning guibg=#99FFCC guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
 " hi! ALEError guibg=#FF5555 guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
+hi! CursorLine guibg=NONE guifg=NONE ctermfg=NONE ctermbg=NONE cterm=underline gui=underline
 hi! ALEWarning guibg=NONE guifg=#99FFCC gui=underline ctermbg=NONE ctermfg=white cterm=underline
 hi! ALEError guibg=NONE guifg=#FF5555 gui=underline ctermbg=NONE  ctermfg=white cterm=underline
 hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
