@@ -305,8 +305,8 @@ let g:deoplete#min_pattern_length = 1
 ### Filer ###
 #############
 
-# [[plugins]]
-# repo = 'scrooloose/nerdtree.git'
+[[plugins]]
+repo = 'scrooloose/nerdtree.git'
 # hook_add = '''
 # nmap <F9> :NERDTreeToggle<CR>
 # nmap <silent><Leader>n :NERDTreeToggle<CR>

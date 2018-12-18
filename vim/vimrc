@@ -47,9 +47,13 @@ set termguicolors
 " set imsearch=0
 " set lazyredraw
 "
-let g:vn_font = 'Cica'
-let g:vn_font_size = 15
-let g:vn_line_height = '1.0'
+if exists('veonim')
+	"config lol
+	let g:vn_font = 'Cica'
+	let g:vn_font_size = 15
+	let g:vn_line_height = '1.0'
+endif
+
 let mapleader = "\<Space>"
 
 if ! has('nvim')
@@ -202,15 +206,17 @@ augroup indentsize
     autocmd FileType vue :syntax sync fromstart
 augroup END
 
+if ! exists('veonim')
+	hi! Normal ctermbg=NONE guibg=NONE
+	hi! NonText ctermbg=NONE guibg=NONE
+endif
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 " hi! ALEWarning guibg=#99FFCC guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
 " hi! ALEError guibg=#FF5555 guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
 hi! ALEWarning guibg=NONE guifg=#99FFCC gui=underline ctermbg=NONE ctermfg=white cterm=underline
 hi! ALEError guibg=NONE guifg=#FF5555 gui=underline ctermbg=NONE  ctermfg=white cterm=underline
 hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
-hi! Normal ctermbg=NONE guibg=NONE
-hi! NonText ctermbg=NONE guibg=NONE
 hi! MatchParen guifg=208 gui=bold
-highlight HighlightedyankRegion cterm=reverse gui=reverse
+hi! HighlightedyankRegion cterm=reverse gui=reverse
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
