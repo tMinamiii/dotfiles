@@ -43,6 +43,10 @@ set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 set termguicolors
+
+if ! exists('$TMUX')
+	set termguicolors
+endif
 " set iminsert=0
 " set imsearch=0
 " set lazyredraw
