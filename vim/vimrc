@@ -45,7 +45,7 @@ set shell=zsh
 set cursorline
 
 if  exists('$TMUX')
-	set termguicolors=0
+	set notermguicolors
 else
 	set termguicolors
 endif
@@ -222,8 +222,8 @@ hi! SpecialKey ctermfg=239 ctermbg=NONE
 " hi! ALEWarning guibg=#99FFCC guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
 " hi! ALEError guibg=#FF5555 guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
 hi! CursorLine guibg=NONE guifg=NONE ctermfg=NONE ctermbg=NONE cterm=underline gui=underline
-hi! ALEWarning guibg=NONE guifg=#99FFCC gui=underline ctermbg=NONE ctermfg=white cterm=underline
-hi! ALEError guibg=NONE guifg=#FF5555 gui=underline ctermbg=NONE  ctermfg=white cterm=underline
+hi! ALEWarning guibg=NONE guifg=#99FFCC gui=underline ctermbg=NONE ctermfg=119 cterm=underline
+hi! ALEError guibg=NONE guifg=#FF5555 gui=underline ctermbg=NONE  ctermfg=207 cterm=underline
 hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
 hi! MatchParen guifg=208 gui=bold
 hi! HighlightedyankRegion cterm=reverse gui=reverse
