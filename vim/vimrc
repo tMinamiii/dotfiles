@@ -224,6 +224,8 @@ hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! CursorLine guibg=NONE guifg=NONE ctermfg=NONE ctermbg=NONE cterm=underline gui=underline
 hi! ALEWarning guibg=NONE guifg=#99FFCC gui=underline ctermbg=NONE ctermfg=119 cterm=underline
 hi! ALEError guibg=NONE guifg=#FF5555 gui=underline ctermbg=NONE  ctermfg=207 cterm=underline
+hi! ALEErrorSign ctermbg=red ctermfg=NONE guibg=#DD0000 guifg=NONE
+hi! ALEWarningSign ctermbg=yellow ctermfg=NONE guibg=#DDAA00 guifg=NONE
 hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
 hi! MatchParen guifg=208 gui=bold
 hi! HighlightedyankRegion cterm=reverse gui=reverse

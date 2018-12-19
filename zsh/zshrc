@@ -193,7 +193,8 @@ docker_rmi_none () {
   docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
 }
 
-alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
+# alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
+alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=/usr/local" CMAKE_BUILD_TYPE=Release && sudo make install'
 alias neovim='~/neovim/bin/nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
