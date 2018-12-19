@@ -44,7 +44,9 @@ set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 set cursorline
 
-if ! exists('$TMUX')
+if  exists('$TMUX')
+	set termguicolors=0
+else
 	set termguicolors
 endif
 
