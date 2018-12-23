@@ -49,7 +49,8 @@ nmap <silent> <leader>kk :ALEPrevious<CR>
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'php': ['phpcs', 'php', 'php_cs_fixer'],
-\   'go' : ['gometalinter'],
+\   'go': ['golangci-lint'],
+" \   'go' : ['gometalinter'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'ruby': ['ruby'],
@@ -60,6 +61,7 @@ let g:ale_linters = {
 \}
 
 let g:ale_go_gometalinter_options = '--concurrency=8 --fast --enable=staticcheck --enable=gosimple --enable=unused'
+let g:ale_go_golangci_lint_options = '--fast'
 
 " let g:ale_sign_error = ''       " エラー行に表示するマーク
 " let g:ale_sign_warning = ''     " エラー行に表示するマーク
@@ -317,6 +319,7 @@ hook_add = '''
 nmap <F9> :NERDTreeToggle<CR>
 nmap <silent><Leader>n :NERDTreeToggle<CR>
 nmap <silent><Leader>h :NERDTreeFind<CR>
+let g:NERDTreeMapActivateNode = "l"
 let g:NERDTreeWinSize = 40
 let g:NERDTreeLimitedSyntax = 1
 '''
