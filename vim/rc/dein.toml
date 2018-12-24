@@ -84,7 +84,7 @@ let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_javascript_eslint_options = '--cache'
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_php_cs_fixer_options = '--rules=@PSR1,@PSR2'
-let g:ale_go_golangci_lint_options = '--fast --enable=staticcheck --enable=gosimple --enable=unused'
+let g:ale_go_golangci_lint_options = '--concurrency=20 --fast --enable=staticcheck --enable=gosimple --enable=unused'
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
     \ 'bash': ['shfmt'],

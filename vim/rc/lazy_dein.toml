@@ -178,6 +178,9 @@ call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 [[plugins]]
 repo = 'mattn/emmet-vim'
 on_i = 1
+hook_add = '''
+let g:user_emmet_leader_key='<Space>'
+'''
 
 [[plugins]]
 repo = 'tpope/vim-surround'
