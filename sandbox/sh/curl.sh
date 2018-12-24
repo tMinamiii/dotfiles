@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ## Create Auth Cookie
 ## 認証情報をcookie.txtに出力する
 curl -c cookie.txt localhost:28080/Controller.php -d "act=mg_login" -d "login_id=admin" -d "login_pass=passpass"

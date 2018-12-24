@@ -1,0 +1,47 @@
+root: true
+env:
+  browser: true
+  node: true
+  es6: true
+parserOptions:
+  parser: babel-eslint
+  ecmaVersion: 2017
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+extends:
+  - standard
+  - prettier
+  - plugin:vue/recommended
+plugins:
+  - vue
+  - prettier
+  - standard
+rules:
+  prettier/prettier: error
+  # importの後は空行
+  import/newline-after-import:
+    - error
+    - count: 1
+  indent:
+    - error
+    - 2
+  no-console: off
+  no-underscore-dangle: off
+  max-line-length:
+    - true
+    - 120
+  # standardだけどsemicolonを使う
+  semi:
+    - error
+    - always
+  semi-spacing:
+    - error
+    - after: true
+      before: false
+  semi-style:
+    - error
+    - last
+  no-extra-semi: error
+  no-unexpected-multiline: error
+  no-unreachable: error
