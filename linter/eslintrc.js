@@ -20,12 +20,12 @@ module.exports = {
   plugins: [
     'vue',
     'prettier',
-    'import'
+    // 'import'
   ],
   rules: {
     // 'dot-notation': 0, // ドット記法以外（ブランケット記法）を許可
+    // 'import/newline-after-import': [ 2, { count: 1 }, ],
     'prettier/prettier': 2,
-    'import/newline-after-import': [ 2, { count: 1 }, ],
     'accessor-pairs': 2,
     'block-spacing': 2,
     'brace-style': 2,
