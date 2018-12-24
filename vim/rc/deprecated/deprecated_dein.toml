@@ -1,3 +1,6 @@
+" \   'go' : ['gometalinter'],
+" "let g:ale_go_gometalinter_options = '--fast --enable=staticcheck --enable=gosimple --enable=unused'
+
 [[plugins]]
 repo = 'junegunn/fzf'
 build = '''
