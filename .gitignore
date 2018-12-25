@@ -1,6 +1,7 @@
 # Package files #
 #################
 dot.vim/bundle
+node_modules
 
 # OS generated files #
 ######################

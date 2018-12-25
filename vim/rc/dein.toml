@@ -152,6 +152,9 @@ repo = 'cespare/vim-toml'
 [[plugins]]
 repo = 'stephpy/vim-yaml'
 
+[[plugins]]
+repo = 'cakebaker/scss-syntax.vim'
+
 #############
 ### Mics ####
 #############

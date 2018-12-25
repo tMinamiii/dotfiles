@@ -1,17 +1,12 @@
 {
-  "name": "nuxt",
+  "name": "dotfiles",
   "version": "1.0.0",
-  "description": "My wicked Nuxt.js project",
+  "description": "dotfiles",
   "author": "tminami",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "fixlint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "fixlint": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
   },
   "husky": {
     "hooks": {
@@ -19,17 +14,13 @@
     }
   },
   "lint-staged": {
-    "*.js": ["eslint --ext .js --fix --ignore-path .eslintignore .", "git add"],
-    "*.vue": [
-      "eslint --ext .vue --fix --ignore-path .eslintignore .",
+    "*.js": [
+      "eslint --ext .js --fix --ignore-path .eslintignore .",
       "git add"
     ]
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.0.0",
-    "@nuxtjs/bulma": "^1.2.0",
-    "cross-env": "^5.2.0",
-    "nuxt": "^2.0.0"
+    "cross-env": "^5.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
@@ -41,7 +32,6 @@
     "lint-staged": "^8.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-vue": "^4.0.0",
-    "nodemon": "^1.11.0",
     "prettier": "1.14.3"
   }
 }
