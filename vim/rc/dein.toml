@@ -84,21 +84,26 @@ let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_javascript_eslint_options = '--cache'
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_php_cs_fixer_options = '--rules=@PSR1,@PSR2'
-let g:ale_go_golangci_lint_options = '--concurrency=20 --fast --enable=staticcheck --enable=gosimple --enable=unused'
+
+if has('mac')
+    let g:ale_go_golangci_lint_options = '--fast'
+else
+    let g:ale_go_golangci_lint_options = '--concurrency=20 --fast --enable=staticcheck --enable=gosimple --enable=unused'
+endif
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
     \ 'bash': ['shfmt'],
 "   \ 'go': ['gofmt'],
     \ 'go': ['gofmt', 'goimports'],
-    \ 'javascript': ['eslint'],
-    \ 'javascript.jsx': ['eslint'],
+    \ 'javascript': ['eslint', 'prettier'],
+    \ 'javascript.jsx': ['eslint', 'prettier'],
     \ 'json': ['prettier'],
     \ 'php': ['php_cs_fixer'],
     \ 'python': ['autopep8', 'isort'],
     \ 'python3': ['autopep8', 'isort'],
     \ 'sh': ['shfmt'],
     \ 'typescript': ['tslint', 'prettier'],
-    \ 'vue': ['eslint', 'prettier'],
+    \ 'vue': ['eslint'],
     \ 'yaml': ['prettier'],
     \ }
 
