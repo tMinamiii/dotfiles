@@ -46,8 +46,12 @@ hook_add = '''
 nmap <silent> <Leader>/ :ALEFix<CR>
 nmap <silent> <leader>jj :ALENext<CR>
 nmap <silent> <leader>kk :ALEPrevious<CR>
+" let g:ale_linter_alias = { 'vue': ['vue', 'javascript'] }
+" let g:ale_fixer_alias = { 'vue': ['vue', 'javascript'] }
+
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\   'javascript.jsx': ['eslint'],
 \   'php': ['phpcs', 'php', 'php_cs_fixer'],
 \   'go': ['golangci-lint'],
 \   'python': ['autopep8','flake8', 'isort'],
@@ -90,13 +94,14 @@ if has('mac')
 else
     let g:ale_go_golangci_lint_options = '--concurrency=20 --fast --enable=staticcheck --enable=gosimple --enable=unused'
 endif
+
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
     \ 'bash': ['shfmt'],
 "   \ 'go': ['gofmt'],
     \ 'go': ['gofmt', 'goimports'],
-    \ 'javascript': ['eslint', 'prettier'],
-    \ 'javascript.jsx': ['eslint', 'prettier'],
+    \ 'javascript': ['eslint'],
+    \ 'javascript.jsx': ['eslint'],
     \ 'json': ['prettier'],
     \ 'php': ['php_cs_fixer'],
     \ 'python': ['autopep8', 'isort'],

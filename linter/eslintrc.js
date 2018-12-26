@@ -15,11 +15,12 @@ module.exports = {
       jsx: true
     }
   },
-  extends: ['eslint:recommended', 'plugin:vue/recommended', 'plugin:prettier/recommended'],
+  extends: ['eslint:recommended', 'plugin:vue/recommended', 'plugin:prettier/recommended', 'standard'],
   plugins: ['vue', 'import', 'prettier'],
   rules: {
     // 'dot-notation': 'off',      // ドット記法以外（ブランケット記法）を許可
-    // 'indent': ['error', 2], //フォーマットが壊れる要調査 コメントして無視する
+    'prettier/prettier': 'off', // フォーマットが壊れる要調査 0にして無視する
+    'indent': ['error', 2],
     'vue/component-name-in-template-casing': 'off',
     'vue/html-closing-bracket-newline': 'off',
     'vue/max-attributes-per-line': [
@@ -27,12 +28,11 @@ module.exports = {
       {
         singleline: 4,
         multiline: {
-          max: 4,
+          max: 1,
           allowFirstLine: true
         }
       }
     ],
-    'prettier/prettier': 'off', //フォーマットが壊れる要調査 0にして無視する
     'import/newline-after-import': [
       'error',
       {
@@ -60,6 +60,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-extra-semi': 'error',
+    'no-spaced-func': 'error',
     'no-underscore-dangle': 'off',
     'no-unexpected-multiline': 'error',
     'no-unreachable': 'error',
@@ -78,7 +79,7 @@ module.exports = {
       }
     ],
     'semi-style': ['error', 'last'],
-    'space-before-function-paren': 'off',
+    'space-before-function-paren': ['error', 'never'],
     'space-infix-ops': [
       'error',
       {
