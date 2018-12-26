@@ -21,12 +21,21 @@ module.exports = {
     // 'dot-notation': 'off',      // ドット記法以外（ブランケット記法）を許可
     'prettier/prettier': 'off', // フォーマットが壊れる要調査 0にして無視する
     'indent': ['error', 2],
+    'max-len': ['error', {
+      code: 120,
+      tabWidth: 2,
+      ignoreTrailingComments: true,
+      ignoreUrls: true,
+      ignoreStrings: true,
+      ignoreTemplateLiterals: true,
+      ignoreRegExpLiterals: true
+    }],
     'vue/component-name-in-template-casing': 'off',
     'vue/html-closing-bracket-newline': 'off',
     'vue/max-attributes-per-line': [
       'error',
       {
-        singleline: 4,
+        singleline: 2,
         multiline: {
           max: 1,
           allowFirstLine: true
@@ -53,7 +62,6 @@ module.exports = {
     'handle-callback-err': 'error',
     'key-spacing': 'error',
     'keyword-spacing': 'error',
-    'max-line-length': [true, 100],
     'new-cap': 'error',
     'new-parens': 'error',
     'no-array-constructor': 'error',
