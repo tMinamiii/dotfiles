@@ -1,8 +1,8 @@
 [[plugins]]
 repo = 'deris/vim-shot-f'
 
-[[plugins]]
-repo = 'andymass/vim-matchup'
+# [[plugins]]
+# repo = 'andymass/vim-matchup'
 
 [[plugins]]
 repo = 'machakann/vim-highlightedyank'
