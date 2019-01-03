@@ -92,7 +92,8 @@ let g:ale_php_cs_fixer_options = '--rules=@PSR1,@PSR2'
 if has('mac')
     let g:ale_go_golangci_lint_options = '--fast'
 else
-    let g:ale_go_golangci_lint_options = '--concurrency=20 --fast --enable=staticcheck --enable=gosimple --enable=unused'
+    " let g:ale_go_golangci_lint_options = '--concurrency=20 --fast --enable=staticcheck --enable=gosimple --enable=unused'
+    let g:ale_go_golangci_lint_options = '--fast'
 endif
 
 let g:ale_set_highlights = 1
