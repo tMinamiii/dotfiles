@@ -46,14 +46,12 @@ hook_add = '''
 nmap <silent> <Leader>/ :ALEFix<CR>
 nmap <silent> <leader>jj :ALENext<CR>
 nmap <silent> <leader>kk :ALEPrevious<CR>
-" let g:ale_linter_alias = { 'vue': ['vue', 'javascript'] }
-" let g:ale_fixer_alias = { 'vue': ['vue', 'javascript'] }
 
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'javascript.jsx': ['eslint'],
 \   'php': ['phpcs', 'php', 'php_cs_fixer'],
-\   'go': ['golangci-lint'],
+\   'go': ['golint', 'govet', 'golangci-lint'],
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'ruby': ['ruby'],
@@ -74,9 +72,9 @@ let g:ale_virtualtext_cursor = 1
 
 let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
 let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
-let g:ale_fix_on_save = 0        " ファイルを保存したときにfix実行
+let g:ale_fix_on_save = 1        " ファイルを保存したときにfix実行
 let g:ale_lint_delay = 50
-let g:ale_lint_on_text_changed = 'always' " or never
+let g:ale_lint_on_text_changed = 'always' " always or never
 
 " lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
 let g:ale_set_loclist = 0
@@ -88,7 +86,16 @@ let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_javascript_eslint_options = '--cache'
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_php_cs_fixer_options = '--rules=@PSR1,@PSR2'
-let g:ale_go_golangci_lint_options = '--fast'
+let g:ale_go_golangci_lint_options = '
+\ --fast
+\ -D=typecheck
+\ -D=gochecknoglobals
+\ -E=gosimple
+\ -E=staticcheck
+" \ -E=unused
+" \ -E=unparam
+\ -E=lll
+\'
 
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
@@ -106,13 +113,13 @@ let g:ale_fixers = {
     \ 'yaml': ['prettier'],
     \ }
 
-augroup aleconfigs
-    autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_fix_on_save=1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_on_text_changed='always'
-	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_on_enter = 1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_on_save = 1
-	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_delay = 50
-augroup END
+" augroup aleconfigs
+"   autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_fix_on_save=1
+" 	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_on_text_changed='always'
+" 	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_on_enter = 1
+" 	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_on_save = 1
+" 	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_delay = 50
+" augroup END
 '''
 
 ########################
