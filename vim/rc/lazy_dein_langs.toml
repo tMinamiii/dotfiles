@@ -2,52 +2,52 @@
 ### LSP ###
 ###########
 
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-depends = ['deoplete.nvim']
-on_ft = ['sh', 'go', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
-rev = 'next'
-build = '''
-bash install.sh
-chmod +x bin/languageclient
-'''
-hook_add = '''
-set hidden
-
-let g:LanguageClient_rootMarkers = {
-        \ 'go': ['.git', 'go.mod'],
-        \ }
-
-let g:LanguageClient_windowLogMessageLevel = 'Error'
-"  ALEでコントロールする
-let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_serverCommands = {
-    \ 'typescript':     ['npx', 'javascript-typescript-stdio'],
-    \ 'javascript':     ['npx', 'javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['npx', 'javascript-typescript-stdio'],
-    \ 'go': ['bingo', '--mode', 'stdio', '--pprof', ':6060'],
-    \ 'bash': ['bash-language-server', 'start'],
-    \ 'sh':   ['bash-language-server', 'start'],
-    \ 'css':  ['css-languageserver', '--stdio'],
-    \ 'ruby': ['solargraph', 'stdio'],
-    \ 'vue':  ['vls'],
-"   \ 'php':  ['php', './vendor/bin/php-language-server.php'],
-"   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    \ }
-
-function! s:langserver_keymap()
-    nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
-    nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <buffer><silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <buffer><silent> <C-]> :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-    nnoremap <buffer><silent> ge :call LanguageClient_textDocument_references()<CR>
-endfunction
-
-" autocmd FileType php :call s:langserver_keymap()
-" autocmd FileType rust :call s:langserver_keymap()
-autocmd FileType css,sh,go,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:langserver_keymap()
-'''
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# depends = ['deoplete.nvim']
+# on_ft = ['sh', 'go', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
+# rev = 'next'
+# build = '''
+# bash install.sh
+# chmod +x bin/languageclient
+# '''
+# hook_add = '''
+# set hidden
+#
+# let g:LanguageClient_rootMarkers = {
+#         \ 'go': ['.git', 'go.mod'],
+#         \ }
+#
+# let g:LanguageClient_windowLogMessageLevel = 'Error'
+# "  ALEでコントロールする
+# let g:LanguageClient_diagnosticsEnable = 0
+# let g:LanguageClient_serverCommands = {
+#     \ 'typescript':     ['npx', 'javascript-typescript-stdio'],
+#     \ 'javascript':     ['npx', 'javascript-typescript-stdio'],
+#     \ 'javascript.jsx': ['npx', 'javascript-typescript-stdio'],
+#     \ 'go': ['bingo', '--mode', 'stdio', '--pprof', ':6060'],
+#     \ 'bash': ['bash-language-server', 'start'],
+#     \ 'sh':   ['bash-language-server', 'start'],
+#     \ 'css':  ['css-languageserver', '--stdio'],
+#     \ 'ruby': ['solargraph', 'stdio'],
+#     \ 'vue':  ['vls'],
+# "   \ 'php':  ['php', './vendor/bin/php-language-server.php'],
+# "   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+#     \ }
+#
+# function! s:langserver_keymap()
+#     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
+#     nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
+#     nnoremap <buffer><silent> gd :call LanguageClient_textDocument_definition()<CR>
+#     nnoremap <buffer><silent> <C-]> :call LanguageClient_textDocument_definition()<CR>
+#     nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+#     nnoremap <buffer><silent> ge :call LanguageClient_textDocument_references()<CR>
+# endfunction
+#
+# " autocmd FileType php :call s:langserver_keymap()
+# " autocmd FileType rust :call s:langserver_keymap()
+# autocmd FileType css,sh,go,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:langserver_keymap()
+# '''
 
 ##########
 ### GO ###
@@ -103,42 +103,50 @@ autocmd FileType go :call s:vim_go_keymap()
 #############################
 
 # jsdoc.vim generates JSDoc block comments based on a function signature.
-[[plugins]]
-repo = 'heavenshell/vim-jsdoc'
-on_ft = ['typescript', 'javascript', 'javascript.jsx']
-hook_add = '''
-let g:typescript_compiler_binary = ''
-let g:typescript_compiler_options = ''
-" autocmd FileType javascript :call s:jsdoc_keymap()
-" autocmd FileType typescript :call s:jsdoc_keymap()
-" function! s:jsdoc_keymap()
-"     inoremap <buffer><silent> <C-P> <Esc>:JsDoc<CR>i
-"     nnoremap <buffer><silent> <C-P> :JsDoc<CR>
-"     vnoremap <buffer><silent> <C-P> :JsDoc<CR>
-" endfunction
-'''
+# [[plugins]]
+# repo = 'heavenshell/vim-jsdoc'
+# on_ft = ['typescript', 'javascript', 'javascript.jsx']
+# hook_add = '''
+# let g:typescript_compiler_binary = ''
+# let g:typescript_compiler_options = ''
+# " autocmd FileType javascript :call s:jsdoc_keymap()
+# " autocmd FileType typescript :call s:jsdoc_keymap()
+# " function! s:jsdoc_keymap()
+# "     inoremap <buffer><silent> <C-P> <Esc>:JsDoc<CR>i
+# "     nnoremap <buffer><silent> <C-P> :JsDoc<CR>
+# "     vnoremap <buffer><silent> <C-P> :JsDoc<CR>
+# " endfunction
+# '''
+
+# [[plugins]]
+# repo = 'ruanyl/vim-sort-imports'
+# on_ft = ['javascript', 'typescript']
+
+# [[plugins]]
+# repo = 'moll/vim-node'
+# on_ft = ['javascript']
+# hook_add = '''
+# autocmd User Node
+#   \ if &filetype == "javascript" || &filetype == "javascript" |
+#   \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
+#   \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
+#   \ endif
+# '''
+
+# [[plugins]]
+# repo = 'elzr/vim-json'
+# on_ft = ['json']
+# hook_add = '''
+# let g:vim_json_syntax_conceal = 0
+# '''
+
+###########
+### CSV ###
+###########
 
 [[plugins]]
-repo = 'ruanyl/vim-sort-imports'
-on_ft = ['javascript', 'typescript']
-
-[[plugins]]
-repo = 'moll/vim-node'
-on_ft = ['javascript']
-hook_add = '''
-autocmd User Node
-  \ if &filetype == "javascript" || &filetype == "javascript" |
-  \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
-  \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
-  \ endif
-'''
-
-[[plugins]]
-repo = 'elzr/vim-json'
-on_ft = ['json']
-hook_add = '''
-let g:vim_json_syntax_conceal = 0
-'''
+repo = 'mechatroner/rainbow_csv'
+on_ft = ['csv']
 
 ###########
 ### PHP ###
@@ -158,88 +166,88 @@ let g:blade_custom_directives_pairs = {
       \ }
 '''
 
-[[plugins]]
-repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
-on_ft = ['php']
-hook_add = '''
-" autocmd FileType php :call s:phpdoc_keymap()
-" function! s:phpdoc_keymap()
-"     inoremap <buffer><silent> <C-P> <Esc>:call PhpDocSingle()<CR>i
-"     nnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
-"     vnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
-" endfunction
-'''
+# [[plugins]]
+# repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
+# on_ft = ['php']
+# hook_add = '''
+# " autocmd FileType php :call s:phpdoc_keymap()
+# " function! s:phpdoc_keymap()
+# "     inoremap <buffer><silent> <C-P> <Esc>:call PhpDocSingle()<CR>i
+# "     nnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
+# "     vnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
+# " endfunction
+# '''
 
-[[plugins]]
-repo = 'lvht/phpcd.vim'
-depends = ['deoplete.nvim']
-on_ft = ['php']
-build = 'composer install'
-hook_add = '''
-let g:phpcd_autoload_path = './vendor/autoload.php'
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
-
-function! s:phpcd_keymap()
-    silent! nnoremap <silent> <unique> <buffer> gd
-        \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
-    silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
-        \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
-    silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
-        \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
-    silent! nnoremap <silent> <unique> <buffer> <C-t>
-        \ :<C-u>call phpcd#JumpBack()<CR>
-endfunction
-autocmd FileType php :call s:phpcd_keymap()
-'''
+# [[plugins]]
+# repo = 'lvht/phpcd.vim'
+# depends = ['deoplete.nvim']
+# on_ft = ['php']
+# build = 'composer install'
+# hook_add = '''
+# let g:phpcd_autoload_path = './vendor/autoload.php'
+# let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+# let g:deoplete#ignore_sources.php = ['omni']
+#
+# function! s:phpcd_keymap()
+#     silent! nnoremap <silent> <unique> <buffer> gd
+#         \ :<C-u>call phpcd#JumpToDefinition('normal')<CR>
+#     silent! nnoremap <silent> <unique> <buffer> <C-W><C-]>
+#         \ :<C-u>call phpcd#JumpToDefinition('split')<CR>
+#     silent! nnoremap <silent> <unique> <buffer> <C-W><C-\>
+#         \ :<C-u>call phpcd#JumpToDefinition('vsplit')<CR>
+#     silent! nnoremap <silent> <unique> <buffer> <C-t>
+#         \ :<C-u>call phpcd#JumpBack()<CR>
+# endfunction
+# autocmd FileType php :call s:phpcd_keymap()
+# '''
 
 ############
 ### RUST ###
 ############
-[[plugins]]
-repo = 'sebastianmarkow/deoplete-rust'
-depends = ['deoplete.nvim']
-on_ft = ['rust']
-
-[[plugins]]
-repo = 'rust-lang/rust.vim'
-on_ft = 'rust'
-hook_source = '''
-let g:rustfmt_autosave = 1
-'''
+# [[plugins]]
+# repo = 'sebastianmarkow/deoplete-rust'
+# depends = ['deoplete.nvim']
+# on_ft = ['rust']
+#
+# [[plugins]]
+# repo = 'rust-lang/rust.vim'
+# on_ft = 'rust'
+# hook_source = '''
+# let g:rustfmt_autosave = 1
+#'''
 
 ##############
 ### Python ###
 ##############
 
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = ['python','python3','djangohtml', 'ipynb']
-hook_add = '''
-" jediにvimの設定を任せると'completeopt+=preview'するので 自動設定機能をOFFにし手動で設定を行う
-" let g:jedi#auto_vim_configuration = 0
-" let g:jedi#auto_initialization = 0
-" let g:jedi#smart_auto_mappings = 0
-let g:jedi#completions_enabled = 0
-" 補完の最初の項目が選択された状態だと使いにくいためオフにする
-" let g:jedi#popup_select_first = 0
-" let g:jedi#popup_on_dot = 1
-" let g:jedi#completions_command = '<C-d>'
-
-let g:jedi#documentation_command = 'K'
-let g:jedi#rename_command = '<F2>'
-let g:jedi#goto_command = 'gd'
-let g:jedi#usages_command = '<C-h>'
-'''
-
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-depends = ['deoplete.nvim']
-on_ft = ['python', 'python3', 'ipynb']
-
-[[plugins]]
-repo = 'jmcantrell/vim-virtualenv'
-on_ft = ['python', 'python3', 'ipynb']
+# [[plugins]]
+# repo = 'davidhalter/jedi-vim'
+# on_ft = ['python','python3','djangohtml', 'ipynb']
+# hook_add = '''
+# " jediにvimの設定を任せると'completeopt+=preview'するので 自動設定機能をOFFにし手動で設定を行う
+# " let g:jedi#auto_vim_configuration = 0
+# " let g:jedi#auto_initialization = 0
+# " let g:jedi#smart_auto_mappings = 0
+# let g:jedi#completions_enabled = 0
+# " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+# " let g:jedi#popup_select_first = 0
+# " let g:jedi#popup_on_dot = 1
+# " let g:jedi#completions_command = '<C-d>'
+#
+# let g:jedi#documentation_command = 'K'
+# let g:jedi#rename_command = '<F2>'
+# let g:jedi#goto_command = 'gd'
+# let g:jedi#usages_command = '<C-h>'
+# '''
+#
+# [[plugins]]
+# repo = 'zchee/deoplete-jedi'
+# depends = ['deoplete.nvim']
+# on_ft = ['python', 'python3', 'ipynb']
+#
+# [[plugins]]
+# repo = 'jmcantrell/vim-virtualenv'
+# on_ft = ['python', 'python3', 'ipynb']
 
 #######################
 ### HTML / Markdown ###
@@ -257,13 +265,13 @@ let g:vim_markdown_folding_disabled = 1
 ### Ruby ###
 ############
 
-[[plugins]]
-repo = 'vim-ruby/vim-ruby'
-on_ft = ['ruby']
-
-[[plugins]]
-repo = 'tpope/vim-rails'
-on_ft = ['ruby']
+# [[plugins]]
+# repo = 'vim-ruby/vim-ruby'
+# on_ft = ['ruby']
+#
+# [[plugins]]
+# repo = 'tpope/vim-rails'
+# on_ft = ['ruby']
 
 #############
 ### Scala ###
@@ -277,30 +285,23 @@ on_ft = ['scala']
 ### C/C++ ###
 #############
 
-[[plugins]]
-repo = 'justmao945/vim-clang'
-on_ft = ['c', 'cpp']
+# [[plugins]]
+# repo = 'justmao945/vim-clang'
+# on_ft = ['c', 'cpp']
+#
+# [[plugins]]
+# repo = 'zchee/deoplete-clang'
+# on_ft = ['c', 'cpp', 'cmake']
+# depends = ['deoplete.nvim']
+# hook_source = '''
+# if has('unix')
+#     let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang-4.0.so'
+#     let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-4.0/include/clang'
+#     if has('mac')
+#         let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.so'
+#         let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
+#     endif
+# endif
+# '''
 
-[[plugins]]
-repo = 'zchee/deoplete-clang'
-on_ft = ['c', 'cpp', 'cmake']
-depends = ['deoplete.nvim']
-hook_source = '''
-if has('unix')
-    let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang-4.0.so'
-    let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-4.0/include/clang'
-    if has('mac')
-        let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.so'
-        let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
-    endif
-endif
-'''
-
-###########
-### CSV ###
-###########
-
-[[plugins]]
-repo = 'mechatroner/rainbow_csv'
-on_ft = ['csv']
 

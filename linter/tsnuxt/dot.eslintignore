@@ -1,0 +1,21 @@
+assets/js/config.js
+system/**/*.js
+learning
+# nuxt componentでエラーになってしまうためignoreしておく
+
+vendor
+node_modules
+yarn-error.log
+**/.DS_Store
+**/dist
+**/.dist
+
+# logs
+npm-debug.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
