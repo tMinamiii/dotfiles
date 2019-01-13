@@ -65,6 +65,7 @@ nmap <Leader><C-r> :QuickRun -mode n<CR>
 ##############
 ### Denite ###
 ##############
+
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
 
@@ -175,6 +176,7 @@ call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 ############
 ### 括弧 ###
 ############
+
 [[plugins]]
 repo = 'mattn/emmet-vim'
 on_i = 1

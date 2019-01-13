@@ -1,0 +1,34 @@
+{
+  "coc.preferences.autoTrigger": "always",
+  "coc.preferences.triggerAfterInsertEnter": false,
+  "coc.preferences.minTriggerInputLength": 1,
+  "coc.preferences.timeout": 2000,
+  "coc.preferences.noselect": true,
+  "coc.preferences.formatOnType": false,
+  "coc.preferences.jumpCommand": "edit",
+  "coc.preferences.diagnostic.enable": false,
+  "coc.preferences.diagnostic.signOffset": 1000,
+  "coc.preferences.diagnostic.errorSign": ">>",
+  "coc.preferences.diagnostic.warningSign": "⚠",
+  "coc.preferences.diagnostic.infoSign": ">>",
+  "languageserver": {
+    "golang": {
+      "command": "bingo",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "useGlobalCache": true
+      }
+    },
+    "phplang": {
+      "command": "php",
+      "args": ["vendor/felixfbecker/language-server/bin/php-language-server.php"],
+      "filetypes": ["php"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  }
+}
