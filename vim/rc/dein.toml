@@ -175,12 +175,13 @@ let g:ale_linters = {
 \   'python': ['autopep8','flake8', 'isort'],
 \   'python3': ['autopep8','flake8', 'isort'],
 \   'ruby': ['ruby'],
-\   'typescript': ['tslint', 'tsserver'],
+\   'typescript': ['eslint', 'tsserver'],
 \   'vue': ['eslint', 'vls'],
 \   'zsh': ['shellcheck'],
 \   'yaml': ['prettier'],
 \}
 
+"\   'typescript': ['tslint', 'tsserver'],
 " let g:ale_sign_error = ''       " エラー行に表示するマーク
 " let g:ale_sign_warning = ''     " エラー行に表示するマーク
 let g:ale_sign_error = 'E>'       " エラー行に表示するマーク
@@ -212,10 +213,10 @@ let g:ale_go_golangci_lint_options = '
 \ -D=gochecknoglobals
 \ -E=gosimple
 \ -E=staticcheck
-" \ -E=unused
-" \ -E=unparam
 \ -E=lll
 \'
+" \ -E=unparam
+" \ -E=unused
 
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
@@ -228,11 +229,12 @@ let g:ale_fixers = {
     \ 'python': ['autopep8', 'isort'],
     \ 'python3': ['autopep8', 'isort'],
     \ 'sh': ['shfmt'],
-    \ 'typescript': ['tslint', 'prettier'],
+    \ 'typescript': ['eslint'],
     \ 'vue': ['eslint'],
     \ 'yaml': ['prettier'],
     \ }
 
+" \ 'typescript': ['tslint', 'prettier'],
 " augroup aleconfigs
 "   autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_fix_on_save=1
 " 	autocmd BufRead,BufNewFile *.go,*.ts,*.js,*.py,*.php,*.sh,*.json,*.vue let ale_lint_on_text_changed='always'

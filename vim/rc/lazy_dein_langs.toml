@@ -102,6 +102,11 @@ autocmd FileType go :call s:vim_go_keymap()
 ### Javascript/TypeScript ###
 #############################
 
+[[plugins]]
+repo = 'ruanyl/vim-sort-imports'
+on_ft = ['javascript', 'typescript']
+
+
 # jsdoc.vim generates JSDoc block comments based on a function signature.
 # [[plugins]]
 # repo = 'heavenshell/vim-jsdoc'
@@ -117,10 +122,6 @@ autocmd FileType go :call s:vim_go_keymap()
 # "     vnoremap <buffer><silent> <C-P> :JsDoc<CR>
 # " endfunction
 # '''
-
-# [[plugins]]
-# repo = 'ruanyl/vim-sort-imports'
-# on_ft = ['javascript', 'typescript']
 
 # [[plugins]]
 # repo = 'moll/vim-node'
