@@ -112,6 +112,7 @@ nnoremap <silent> <space>s  :<C-u>Denite coc-service<cr>
 " Show links of current buffer
 nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr>
 '''
+
 ###################
 ### Dark Powers ###
 ###################
@@ -279,6 +280,15 @@ repo = 'stephpy/vim-yaml'
 
 [[plugins]]
 repo = 'cakebaker/scss-syntax.vim'
+
+### JSON ###
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = ['json']
+hook_add = '''
+let g:vim_json_syntax_conceal = 0
+'''
+
 
 #############
 ### Mics ####
