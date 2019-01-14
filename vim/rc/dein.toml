@@ -331,28 +331,33 @@ let g:indentLine_color_gui = '#676767'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 hook_add = '''
+if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX')
+    let g:webdevicons_enable = 0
+    let g:webdevicons_enable_nerdtree = 0
+    let g:webdevicons_enable_defx = 0
+    let g:webdevicons_enable_vimfiler = 0
+    let g:webdevicons_enable_denite = 0
+else
+    let g:webdevicons_enable = 1
+    let g:webdevicons_enable_defx = 1
+    let g:webdevicons_enable_vimfiler = 1
+    let g:webdevicons_enable_denite = 1
+    let g:webdevicons_enable_nerdtree = 1
+endif
+
 let g:NERDTreeExtensionHighlightColor = {}
 let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
 let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
-
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
-
-let g:webdevicons_enable = 0
-let g:webdevicons_enable_defx = 0
-let g:webdevicons_enable_vimfiler = 0
-let g:webdevicons_enable_denite = 0
-if exists('$TMUX')
-    let g:webdevicons_enable_nerdtree = 0
-else
-    let g:webdevicons_enable_nerdtree = 0
-endif
 '''
 
 [[plugins]]
