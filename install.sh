@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -Ceu
 ##### initialize #####
 unlink "$HOME/.zshrc"
 unlink "$HOME/.zshenv"
