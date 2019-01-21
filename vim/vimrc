@@ -222,6 +222,7 @@ augroup indentsize
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
     autocmd FileType go setlocal shiftwidth=4 tabstop=4 noexpandtab
     autocmd FileType vim setlocal shiftwidth=4 tabstop=4 noexpandtab
+    autocmd FileType python setlocal shiftwidth=4 tabstop=4
     autocmd FileType makefile setlocal noexpandtab
     autocmd FileType gitconfig setlocal noexpandtab
     autocmd FileType vue :syntax sync fromstart
