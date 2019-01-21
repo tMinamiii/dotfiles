@@ -110,8 +110,8 @@ let g:ale_go_golangci_lint_options = '
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
     \ 'bash': ['shfmt'],
-    " \ 'go': ['gofmt', 'goimports'],
-    \ 'go': ['gofmt'],
+    \ 'go': ['gofmt', 'goimports'],
+    " \ 'go': ['gofmt'],
     \ 'javascript': ['eslint'],
     \ 'javascript.jsx': ['eslint'],
     \ 'json': ['prettier'],
