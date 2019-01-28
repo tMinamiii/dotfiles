@@ -98,57 +98,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr>
 '''
 
-###########
-### LSP ###
-###########
-
-# [[plugins]]
-# repo = 'autozimu/LanguageClient-neovim'
-# depends = ['deoplete.nvim']
-# on_ft = ['sh', 'go', 'bash', 'vue', 'typescript', 'javascript', 'javascript.jsx', 'ruby']
-# rev = 'next'
-# build = '''
-# bash install.sh
-# chmod +x bin/languageclient
-# '''
-# hook_add = '''
-# set hidden
-#
-# let g:LanguageClient_rootMarkers = {
-#         \ 'go': ['.git', 'go.mod'],
-#         \ }
-#
-# let g:LanguageClient_windowLogMessageLevel = 'Error'
-# "  ALEでコントロールする
-# let g:LanguageClient_diagnosticsEnable = 0
-# let g:LanguageClient_serverCommands = {
-#     \ 'typescript':     ['npx', 'javascript-typescript-stdio'],
-#     \ 'javascript':     ['npx', 'javascript-typescript-stdio'],
-#     \ 'javascript.jsx': ['npx', 'javascript-typescript-stdio'],
-#     \ 'go': ['bingo', '--mode', 'stdio', '--pprof', ':6060'],
-#     \ 'bash': ['bash-language-server', 'start'],
-#     \ 'sh':   ['bash-language-server', 'start'],
-#     \ 'css':  ['css-languageserver', '--stdio'],
-#     \ 'ruby': ['solargraph', 'stdio'],
-#     \ 'vue':  ['vls'],
-# "   \ 'php':  ['php', './vendor/bin/php-language-server.php'],
-# "   \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-#     \ }
-#
-# function! s:langserver_keymap()
-#     nnoremap <buffer><silent> <F10> :LanguageClientStart<CR>
-#     nnoremap <buffer><silent> K :call LanguageClient_textDocument_hover()<CR>
-#     nnoremap <buffer><silent> gd :call LanguageClient_textDocument_definition()<CR>
-#     nnoremap <buffer><silent> <C-]> :call LanguageClient_textDocument_definition()<CR>
-#     nnoremap <buffer><silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-#     nnoremap <buffer><silent> ge :call LanguageClient_textDocument_references()<CR>
-# endfunction
-#
-# " autocmd FileType php :call s:langserver_keymap()
-# " autocmd FileType rust :call s:langserver_keymap()
-# autocmd FileType css,sh,go,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:langserver_keymap()
-# '''
-
 ##########
 ### GO ###
 ##########
@@ -183,21 +132,6 @@ endfunction
 autocmd FileType go :call s:vim_go_keymap()
 '''
 
-# [[plugins]]
-# repo = 'zchee/deoplete-go'
-# depends = ['deoplete.nvim']
-# on_ft = ['go']
-# build = '''make '''
-# hook_add = '''
-# let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-# let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-# " let g:deoplete#sources#go#package_dot = 1
-# " let g:deoplete#sources#go#pointer = 1
-# " let g:deoplete#sources#go#builtin_objects = 1
-# " let g:deoplete#sources#go#source_importer = 1
-# '''
-
-
 #############################
 ### Javascript/TypeScript ###
 #############################
@@ -221,17 +155,6 @@ on_ft = ['javascript', 'typescript']
 # "     nnoremap <buffer><silent> <C-P> :JsDoc<CR>
 # "     vnoremap <buffer><silent> <C-P> :JsDoc<CR>
 # " endfunction
-# '''
-
-# [[plugins]]
-# repo = 'moll/vim-node'
-# on_ft = ['javascript']
-# hook_add = '''
-# autocmd User Node
-#   \ if &filetype == "javascript" || &filetype == "javascript" |
-#   \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
-#   \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
-#   \ endif
 # '''
 
 ###########
@@ -309,39 +232,6 @@ let g:blade_custom_directives_pairs = {
 # hook_source = '''
 # let g:rustfmt_autosave = 1
 #'''
-
-##############
-### Python ###
-##############
-
-# [[plugins]]
-# repo = 'davidhalter/jedi-vim'
-# on_ft = ['python','python3','djangohtml', 'ipynb']
-# hook_add = '''
-# " jediにvimの設定を任せると'completeopt+=preview'するので 自動設定機能をOFFにし手動で設定を行う
-# " let g:jedi#auto_vim_configuration = 0
-# " let g:jedi#auto_initialization = 0
-# " let g:jedi#smart_auto_mappings = 0
-# let g:jedi#completions_enabled = 0
-# " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-# " let g:jedi#popup_select_first = 0
-# " let g:jedi#popup_on_dot = 1
-# " let g:jedi#completions_command = '<C-d>'
-#
-# let g:jedi#documentation_command = 'K'
-# let g:jedi#rename_command = '<F2>'
-# let g:jedi#goto_command = 'gd'
-# let g:jedi#usages_command = '<C-h>'
-# '''
-#
-# [[plugins]]
-# repo = 'zchee/deoplete-jedi'
-# depends = ['deoplete.nvim']
-# on_ft = ['python', 'python3', 'ipynb']
-#
-# [[plugins]]
-# repo = 'jmcantrell/vim-virtualenv'
-# on_ft = ['python', 'python3', 'ipynb']
 
 #######################
 ### HTML / Markdown ###
