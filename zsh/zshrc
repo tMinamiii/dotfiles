@@ -52,25 +52,21 @@ export TERM=xterm-256color
 export GOPATH="$HOME/go"
 export GOBIN="$HOME/go/bin"
 
-LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
-PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+if uname -a | grep -sq "Ubuntu"; then
+    LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+    export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+    PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+    PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+    PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+fi
+
 PATH="$PATH:$GOBIN"
-PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 PATH="$HOME/.anyenv/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
 PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 
-if [ "$(uname)" = "Darwin" ]; then
-    export ONI_NEOVIM_PATH="/usr/local/bin/nvim"
-    # export ONI_NEOVIM_PATH="/usr/local/Cellar/neovim/0.3.1/bin/nvim"
-else
-    export ONI_NEOVIM_PATH="/home/linuxbrew/.linuxbrew/bin/nvim"
-    # export ONI_NEOVIM_PATH="$HOME/neovim/bin/nvim"
-fi
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 
 if [ "$TMUX" != "" ]; then
   export TERM="screen-256color"
