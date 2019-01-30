@@ -46,13 +46,17 @@ export ARCHFLAGS="-arch x86_64"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+export EDITOR="nvim"
+export SHELL=/bin/zsh
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
 export PHPENV_ROOT="$HOME/.anyenv/envs/phpenv"
 export GTAGSLABEL=pygments
-export TERM=xterm-256color
 export GOPATH="$HOME/go"
 export GOBIN="$HOME/go/bin"
-
+export TERM=xterm-256color
+if [ "$TMUX" != "" ]; then
+  export TERM="screen-256color"
+fi
 if uname -a | grep -sq "Ubuntu"; then
     LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
     export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
@@ -65,16 +69,9 @@ PATH="$PATH:$GOBIN"
 PATH="$HOME/.anyenv/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
-PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
+# PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
 
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
-
-if [ "$TMUX" != "" ]; then
-  export TERM="screen-256color"
-fi
-
-export EDITOR="nvim"
-export SHELL=/bin/zsh
 
 pip3_upgrade () {
   pip3 install --upgrade pip && pip3 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip3 install --upgrade
@@ -107,23 +104,16 @@ npm_freeze() {
 }
 
 if [ "$(uname)" = "Darwin" ]; then
-  # Mac OSX
-  # export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.0.13/lib/pkgconfig
-  # export PATH="/usr/local/wine/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin"
-  PATH="/usr/local/sbin:$PATH"
-  # alias brew="PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin brew"
+    # Mac OSX
+    # PATH="/usr/local/sbin:$PATH"
+    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 elif uname -a | grep -sq "Ubuntu"; then
-  # Ubuntu
-  #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-  export VTE_VERSION="100"
-  PATH=$HOME/bin:$PATH
-elif uname -a | grep -sq "Microsoft"; then
-  # Windows Subsystem for Linux
-  LS_COLORS=$LS_COLORS:'di=0;36:ow=0;36' ; export LS_COLORS
-  zstyle ':completion:*' list-colors 'di=36' 'ow=36'
-  PATH=$HOME/bin:$PATH
+    # Ubuntu
+    #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+    export VTE_VERSION="100"
+    PATH=$HOME/bin:$PATH
 elif uname -a | grep -sq "Linux"; then
-  PATH=$HOME/bin:$PATH
+    PATH=$HOME/bin:$PATH
 fi
 
 if command -v anyenv > /dev/null; then
@@ -131,7 +121,7 @@ if command -v anyenv > /dev/null; then
 fi
 
 if command -v hub > /dev/null; then
-  eval "$(hub alias -s)"
+    eval "$(hub alias -s)"
 fi
 
 if command -v direnv > /dev/null; then
@@ -147,8 +137,6 @@ export PATH=$PATH
 [[ -f "$HOME/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh" ]] && . "$HOME/.npm/_npx/26788/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh"
 
 [[ -f "$HOME/.fzf.zsh" ]] && . "$HOME/.fzf.zsh"
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
