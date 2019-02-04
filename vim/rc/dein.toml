@@ -101,9 +101,9 @@ let g:ale_go_golangci_lint_options = '
 \ -D=gochecknoglobals
 \ -E=gosimple
 \ -E=staticcheck
-\ -E=lll
 \'
 
+" "\ -E=lll
 " \ -E=unparam
 " \ -E=unused
 " \ 'go': ['gofmt'],
