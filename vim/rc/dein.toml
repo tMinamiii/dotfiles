@@ -264,6 +264,8 @@ repo = 'godlygeek/tabular'
 ###########
 ### Git ###
 ###########
+[[plugins]]
+repo = 'cohama/agit.vim'
 
 [[plugins]]
 repo    = 'tpope/vim-fugitive'
