@@ -277,16 +277,16 @@ repo = 'airblade/vim-gitgutter'
 ### Filer ###
 #############
 
-[[plugins]]
-repo = 'scrooloose/nerdtree.git'
-hook_add = '''
-nmap <F9> :NERDTreeToggle<CR>
-nmap <silent><Leader>n :NERDTreeToggle<CR>
-nmap <silent><Leader>h :NERDTreeFind<CR>
-let g:NERDTreeMapActivateNode = "l"
-let g:NERDTreeWinSize = 40
-let g:NERDTreeLimitedSyntax = 1
-'''
+# [[plugins]]
+# repo = 'scrooloose/nerdtree.git'
+# hook_add = '''
+# nmap <F9> :NERDTreeToggle<CR>
+# nmap <silent><Leader>n :NERDTreeToggle<CR>
+# nmap <silent><Leader>h :NERDTreeFind<CR>
+# let g:NERDTreeMapActivateNode = "l"
+# let g:NERDTreeWinSize = 40
+# let g:NERDTreeLimitedSyntax = 1
+# '''
 
 ####################
 ### カラーテーマ ###
@@ -448,15 +448,17 @@ autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('open_tree')
+  \ defx#do_action('drop')
   nnoremap <silent><buffer><expr> c
   \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m
   \ defx#do_action('move')
   nnoremap <silent><buffer><expr> p
   \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> o
+  \ defx#do_action('open')
   nnoremap <silent><buffer><expr> l
-  \ defx#do_action('open_tree')
+  \ defx#do_action('open_or_close_tree', 'drop')
   nnoremap <silent><buffer><expr> E
   \ defx#do_action('drop', 'vsplit')
   nnoremap <silent><buffer><expr> P
@@ -481,10 +483,8 @@ function! s:defx_my_settings() abort
   \ defx#do_action('toggle_ignored_files')
   nnoremap <silent><buffer><expr> ;
   \ defx#do_action('repeat')
-  " nnoremap <silent><buffer><expr> h
-  " \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('close_tree')
+  nnoremap <silent><buffer><expr> <C-h>
+  \ defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> ~
   \ defx#do_action('cd')
   nnoremap <silent><buffer><expr> q
