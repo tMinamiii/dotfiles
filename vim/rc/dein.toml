@@ -267,8 +267,7 @@ repo = 'godlygeek/tabular'
 [[plugins]]
 repo = 'rhysd/git-messenger.vim'
 hook_add = '''
-nmap <Leader>cm <Plug>(git-messenger)
-nmap <Leader>cM <Plug>(git-messenger-into-popup)
+nmap <Leader>gm <Plug>(git-messenger)
 '''
 
 [[plugins]]
