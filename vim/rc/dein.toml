@@ -265,6 +265,13 @@ repo = 'godlygeek/tabular'
 ### Git ###
 ###########
 [[plugins]]
+repo = 'rhysd/git-messenger.vim'
+hook_add = '''
+nmap <Leader>cm <Plug>(git-messenger)
+nmap <Leader>cM <Plug>(git-messenger-into-popup)
+'''
+
+[[plugins]]
 repo = 'cohama/agit.vim'
 
 [[plugins]]
