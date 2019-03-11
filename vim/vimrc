@@ -119,7 +119,7 @@ inoremap  <Up>     <nop>
 inoremap  <Down>   <nop>
 inoremap  <Left>   <nop>
 inoremap  <Right>  <nop>
-inoremap  <BS>     <nop>
+" inoremap  <BS>     <nop>
 noremap   <C-c>    <nop>
 noremap   <Up>     <nop>
 noremap   <Down>   <nop>
