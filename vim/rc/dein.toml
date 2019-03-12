@@ -203,8 +203,10 @@ repo = 'editorconfig/editorconfig-vim'
 [[plugins]]
 repo = 'Yggdroot/indentLine'
 hook_add = '''
-let g:indentLine_showFirstIndentLevel=1
-let g:indentLine_fileTypeExluce=['help', 'nerdtree']
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
+let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'defx', 'terminal']
+let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
 let g:indentLine_color_term = 238
 let g:indentLine_color_gui = '#676767'
 '''
@@ -444,9 +446,8 @@ let g:vimshell_force_overwrite_statusline = 0
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
-nmap <F9> :Defx -split=vertical -winwidth=45 -toggle <CR>
-nmap <silent><Leader>n :Defx -split=vertical -winwidth=45 -toggle -columns=filename:type<CR>
-nmap <silent><Leader>h :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
+nmap <silent><Leader>n :Defx -split=vertical -winwidth=45 -toggle<CR> :IndentLinesDisable<CR>
+nmap <silent><Leader>h :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
   " Define mappings
@@ -479,8 +480,8 @@ function! s:defx_my_settings() abort
 endfunction
 
 call defx#custom#column('filename', {
-      \ 'directory_icon': '',
-      \ 'opened_icon': '',
+      \ 'directory_icon': '+ ',
+      \ 'opened_icon': '- ',
       \ 'root_icon': '',
       \ })
 '''
