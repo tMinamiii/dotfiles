@@ -62,26 +62,24 @@ endif
 " set imsearch=0
 " set lazyredraw
 "
-if exists('veonim')
-	"config lol
-	let g:vn_font = 'Cica'
-	let g:vn_font_size = 15
-	let g:vn_line_height = '1.0'
-endif
+
+let g:vn_font = 'Cica'
+let g:vn_font_size = 17
+let g:vn_line_height = '1.3'
 
 let mapleader = "\<Space>"
 
-if ! has('nvim')
-" OptionキーをMetaキーとして使う。
-    let s:c = 'a'
-    while s:c <=# 'z'
-        execute 'set <M-' . s:c . '>=\e' . s:c
-        execute 'imap \e' . s:c . ' <M-' . s:c . '>'
-        execute 'set <M-S-' . s:c . '>=\e' . toupper(s:c)
-        execute 'imap \e' . toupper(s:c) . ' <M-' . s:c . '>'
-        let s:c = nr2char(1+char2nr(s:c))
-    endw
-endif
+" if ! has('nvim')
+" " OptionキーをMetaキーとして使う。
+"     let s:c = 'a'
+"     while s:c <=# 'z'
+"         execute 'set <M-' . s:c . '>=\e' . s:c
+"         execute 'imap \e' . s:c . ' <M-' . s:c . '>'
+"         execute 'set <M-S-' . s:c . '>=\e' . toupper(s:c)
+"         execute 'imap \e' . toupper(s:c) . ' <M-' . s:c . '>'
+"         let s:c = nr2char(1+char2nr(s:c))
+"     endw
+" endif
 
 "---------------------------------------------------------------------------"
 " Commands \ Modes | Normal | Insert | Command | Visual | Select | Operator |
