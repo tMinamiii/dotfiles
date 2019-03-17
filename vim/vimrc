@@ -2,7 +2,7 @@ set encoding=utf-8
 scriptencoding utf-8
 set completeopt+=noselect
 " set virtualedit=block
-
+"
 """"" [検索系]
 set ignorecase                  " 大文字小文字を区別しない
 set smartcase                   " 検索文字に大文字がある場合は大文字小文字を区別
@@ -48,6 +48,9 @@ set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 set cursorline
+
+" set wildoptions=pum
+" set pumblend=10
 
 if exists('$TMUX')
 	set notermguicolors
