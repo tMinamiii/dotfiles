@@ -17,9 +17,9 @@
       "filetypes": ["go"],
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"]
     },
-    "phplang": {
-      "command": "php",
-      "args": ["vendor/felixfbecker/language-server/bin/php-language-server.php"],
+    "intelephense": {
+      "command": "node",
+      "args": ["node_modules/intelephense/lib/intelephense.js", "--stdio"],
       "filetypes": ["php"]
     },
     "bash": {
