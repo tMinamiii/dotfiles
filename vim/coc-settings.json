@@ -11,6 +11,7 @@
   "coc.preferences.diagnostic.errorSign": ">>",
   "coc.preferences.diagnostic.warningSign": "⚠",
   "coc.preferences.diagnostic.infoSign": ">>",
+  "pyls.trace.server":"verbose",
   "languageserver": {
     "golang": {
       "command": "bingo",

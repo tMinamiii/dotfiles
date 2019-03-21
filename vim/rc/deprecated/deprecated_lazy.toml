@@ -268,4 +268,29 @@ let g:phpfmt_autosave = 0
 # autocmd FileType css,sh,go,bash,vue,typescript,javascript,javascript.jsx,ruby :call s:langserver_keymap()
 # '''
 
+#[[plugins]]
+#repo = 'cohama/lexima.vim'
+#on_i = 1
+#hook_add = '''
+#let g:lexima_ctrlh_as_backspace = 1
+#'''
+#hook_post_source = '''
+#" ただし、以下の場合は補完しない
+#" コメント内では補完しない
+#call lexima#add_rule({'char': '(', 'input': '(', 'syntax' : 'Comment'})
+#call lexima#add_rule({'char': '{', 'input': '{', 'syntax' : 'Comment'})
+#call lexima#add_rule({'char': '[', 'input': '[', 'syntax' : 'Comment'})
+#
+#" 文字列内では補完しない
+#call lexima#add_rule({'char': '(', 'input': '(', 'syntax' : 'String'})
+#call lexima#add_rule({'char': '{', 'input': '{', 'syntax' : 'String'})
+#call lexima#add_rule({'char': '[', 'input': '[', 'syntax' : 'String'})
+#
+# " |) の場合は補完しない
+# " call lexima#add_rule({'char': '(', 'input': '(', 'at': '\%#)'})
+# " call lexima#add_rule({'char': '{', 'input': '{', 'at': '\%#}'})
+# " call lexima#add_rule({'char': '[', 'input': '[', 'at': '\%#]'})
+#
+#
+# '''
 
