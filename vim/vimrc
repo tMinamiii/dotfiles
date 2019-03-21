@@ -131,6 +131,8 @@ noremap   <Right>  <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
 
 inoremap  <C-l> <DEL>
+nnoremap  <C-k> {
+nnoremap  <C-j> }
 """"" command """""
 " よく押し間違えるので
 command! Q :q
