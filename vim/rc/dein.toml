@@ -57,8 +57,8 @@ let g:ale_linters = {
 \   'javascript.jsx': ['eslint'],
 \   'php': ['phpcs', 'php', 'php_cs_fixer'],
 \   'go': ['golint', 'govet', 'golangci-lint'],
-\   'python': ['pycodestyle', 'flake8', 'isort'],
-\   'python3': ['pycodestyle','flake8', 'isort'],
+\   'python': ['pycodestyle', 'mypy', 'flake8', 'isort'],
+\   'python3': ['pycodestyle', 'mypy', 'flake8', 'isort'],
 \   'ruby': ['ruby'],
 \   'typescript': ['eslint', 'tsserver'],
 \   'vue': ['eslint', 'vls'],
@@ -93,6 +93,7 @@ let g:ale_keep_list_window_open = 0
 let g:ale_php_phpcs_use_global = 1
 let g:ale_php_phpcs_standard = 'PSR2'
 let g:ale_javascript_eslint_options = '--cache'
+let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_php_cs_fixer_options = '--rules=@PSR1,@PSR2'
 let g:ale_go_golangci_lint_options = '
@@ -446,7 +447,7 @@ let g:vimshell_force_overwrite_statusline = 0
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
-nmap <silent><Leader>n :Defx -split=vertical -winwidth=45 -toggle<CR> :IndentLinesDisable<CR>
+nmap <silent><Leader>n :Defx -split=vertical -winwidth=40 -toggle<CR> :IndentLinesDisable<CR>
 nmap <silent><Leader>h :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
@@ -476,7 +477,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> j      line('.') == line('$') ? 'gg' : 'j'
   nnoremap <silent><buffer><expr> k      line('.') == 1 ? 'G' : 'k'
   nnoremap <silent><buffer><expr> <C-h>  defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> R  defx#do_action('redraw')
   nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
   nnoremap <silent><buffer><expr> <C-t>  defx#do_action('toggle_select') . 'j'
 endfunction
@@ -487,6 +488,9 @@ call defx#custom#column('filename', {
       \ 'root_icon': '',
       \ })
 '''
+
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
 
 # [[plugins]]
 # repo='kristijanhusak/defx-icons'
