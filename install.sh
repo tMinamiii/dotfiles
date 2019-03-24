@@ -1,6 +1,11 @@
 #!/bin/bash
 
 set -Ceu
+
+if [ ! -e "$HOME/.config" ]; then
+  mkdir .config
+fi
+
 ##### initialize #####
 if [ -e "$HOME/.zshrc" ]; then
   unlink "$HOME/.zshrc"
@@ -50,9 +55,6 @@ ln -s "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
 ln -s "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
 
 ###### vim setup ######
-if [ ! -e "$HOME/.config" ]; then
-  mkdir .config
-fi
 
 ln -s "$HOME/dotfiles/vim" "$HOME/.vim"
 ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
