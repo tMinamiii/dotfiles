@@ -3,7 +3,7 @@
 set -Ceu
 
 if [ ! -e "$HOME/.config" ]; then
-  mkdir .config
+  mkdir "$HOME/.config"
 fi
 
 ##### initialize #####
