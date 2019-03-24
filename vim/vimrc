@@ -36,7 +36,6 @@ set novisualbell                " 前時代的スクリーンベルを無効化
 set display=lastline
 set pumheight=15
 
-set ambiwidth=double
 set softtabstop=0
 set showtabline=2               " 常にタブラインを表示
 set laststatus=2
@@ -53,9 +52,14 @@ set cursorline
 " set pumblend=10
 
 if exists('$TMUX')
+	set ambiwidth=double
 	set notermguicolors
+elseif $TERM_PROGRAM ==? 'hyper'
+	set notermguicolors
+	set ambiwidth=single
 else
 	set termguicolors
+    set ambiwidth=double
 endif
 
 " set iminsert=0

@@ -482,11 +482,19 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> <C-t>  defx#do_action('toggle_select') . 'j'
 endfunction
 
-call defx#custom#column('filename', {
-      \ 'directory_icon': '+ ',
-      \ 'opened_icon': '- ',
-      \ 'root_icon': '',
-      \ })
+if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX')
+    call defx#custom#column('filename', {
+          \ 'directory_icon': '+',
+          \ 'opened_icon': '-',
+          \ 'root_icon': '@',
+          \ })
+else
+    call defx#custom#column('filename', {
+          \ 'directory_icon': '+ ',
+          \ 'opened_icon': '- ',
+          \ 'root_icon': '',
+          \ })
+endif
 '''
 
 [[plugins]]
