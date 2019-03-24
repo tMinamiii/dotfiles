@@ -2,12 +2,24 @@
 
 set -Ceu
 ##### initialize #####
-unlink "$HOME/.zshrc"
-unlink "$HOME/.zshenv"
-unlink "$HOME/.vim"
-unlink "$HOME/.config/nvim"
-unlink "$HOME/.tmux.conf"
-unlink "$HOME/.tmux.d"
+if [ -e "$HOME/.zshrc" ]; then
+  unlink "$HOME/.zshrc"
+fi
+if [ -e "$HOME/.zshenv" ]; then
+  unlink "$HOME/.zshenv"
+fi
+if [ -e "$HOME/.vim" ]; then
+  unlink "$HOME/.vim"
+fi
+if [ -e "$HOME/.config/nvim" ]; then
+  unlink "$HOME/.config/nvim"
+fi
+if [ -e "$HOME/.tmux.conf" ]; then
+  unlink "$HOME/.tmux.conf"
+fi
+if [ -e "$HOME/.tmux.d" ]; then
+  unlink "$HOME/.tmux.d"
+fi
 
 ARGS=$*
 
