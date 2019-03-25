@@ -7,6 +7,8 @@ repo = 'neoclide/coc.nvim'
 # on_path = ['.*']
 build = 'yarn install'
 hook_add = '''
+
+let g:coc_global_extensions = ['coc-json', 'coc-vetur', 'coc-html', 'coc-pyls', 'coc-tsserver', 'coc-css', 'coc-eslint', 'coc-wxml' ]
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
