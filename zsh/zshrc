@@ -121,7 +121,7 @@ elif uname -a | grep -sq "Linux"; then
 fi
 
 if command -v anyenv > /dev/null; then
-    eval "$(anyenv init - --no-rehash)"
+    eval "$(anyenv init -)"
 fi
 
 if command -v hub > /dev/null; then
