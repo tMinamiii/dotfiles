@@ -59,9 +59,6 @@ ln -s "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
 ln -s "$HOME/dotfiles/vim" "$HOME/.vim"
 ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
 
-curl https://sh.rustup.rs -sSf | sh
-cargo install ripgrep
-
 ###### tmux ######
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 ln -s "$HOME/dotfiles/tmux" "$HOME/.tmux.d"
