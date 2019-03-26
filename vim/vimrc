@@ -159,6 +159,10 @@ if has('gui_running')
     endif
 endif
 
+"""""" Coc Extensions """"""
+
+let g:coc_global_extensions = ['coc-json', 'coc-vetur', 'coc-html', 'coc-pyls', 'coc-tsserver', 'coc-css', 'coc-eslint', 'coc-wxml' ]
+
 """""" dein (load plugins)"""""
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
