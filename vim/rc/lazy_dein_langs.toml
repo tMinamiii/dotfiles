@@ -5,7 +5,7 @@
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 on_path = ['.*']
-build = 'yarn install --frozen-lockfile'
+build = 'yarn install'
 hook_add = '''
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
