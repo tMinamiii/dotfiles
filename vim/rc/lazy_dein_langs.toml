@@ -5,7 +5,16 @@
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 on_path = ['.*']
-build = 'yarn install'
+build = '''
+./install.sh
+if [ ! -e ~/.config/coc ]; then
+    mkdir -p ~/.config/coc
+fi
+if [ ! -e ~/.config/coc/memos.json ]; then
+    echo "{}" > ~/.config/coc/memos.json
+fi
+'''
+# build = './install.sh v0.0.62'
 hook_add = '''
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -40,7 +49,7 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
+eunction! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
   else
