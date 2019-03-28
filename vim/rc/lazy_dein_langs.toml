@@ -49,7 +49,7 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-eunction! s:show_documentation()
+function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
   else
