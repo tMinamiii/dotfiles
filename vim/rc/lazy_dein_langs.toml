@@ -6,7 +6,8 @@
 repo = 'neoclide/coc.nvim'
 on_path = ['.*']
 build = '''
-./install.sh
+# ./install.sh
+yarn install
 if [ ! -e ~/.config/coc ]; then
     mkdir -p ~/.config/coc
 fi
