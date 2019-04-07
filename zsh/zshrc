@@ -102,7 +102,7 @@ alias docker-rm-exited='docker -aq | xargs docker rm'
 alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias dus='du --max-depth=1 -h | sort -nr'
-alias conoha='ssh -i .ssh/conoha-raspberry.pem tminami@118.27.11.9'
+alias conoha='ssh -i $HOME/.ssh/conoha-raspberry.pem tminami@118.27.11.9'
 
 npm_freeze() {
   npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
