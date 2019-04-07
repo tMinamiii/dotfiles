@@ -2,7 +2,7 @@
   "coc.preferences.autoTrigger": "always",
   "coc.preferences.triggerAfterInsertEnter": false,
   "coc.preferences.minTriggerInputLength": 2,
-  "coc.preferences.timeout": 2000,
+  "coc.preferences.timeout": 5000,
   "coc.preferences.noselect": true,
   "coc.preferences.formatOnType": false,
   "coc.preferences.jumpCommand": "edit",
