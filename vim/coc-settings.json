@@ -14,9 +14,10 @@
   "pyls.trace.server":"verbose",
   "languageserver": {
     "golang": {
-      "command": "bingo",
-      "filetypes": ["go"],
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"]
+      "command": "gopls",
+      "args": [],
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
     },
     "intelephense": {
       "command": "node",
