@@ -29,9 +29,6 @@ RUN apt-get --no-install-recommends update && \
         zsh \
         locales \
         apt-utils \
-        # for build neovim
-        libtool \
-        libtool-bin \
         # for Python
         libssl-dev \
         libbz2-dev \
@@ -45,17 +42,6 @@ RUN apt-get --no-install-recommends update && \
         libmecab-dev \
         mecab-ipadic \
         mecab-ipadic-utf8 \
-        # for neovim build
-        ninja-build \
-        gettext \
-        libtool \
-        libtool-bin \
-        autoconf \
-        automake \
-        cmake \
-        g++ \
-        pkg-config \
-        unzip \
         # Ruby
         autoconf \
         bison \
@@ -76,34 +62,19 @@ RUN locale-gen "en_US.UTF-8" && \
     useradd  -g      "${GROUP}" -G sudo -m -s /bin/zsh "${USERNAME}" && \
     chown -R "${USERNAME}":"${GROUP}" /home/"${USERNAME}" && \
     echo "${USERNAME}:${PASS}" | chpasswd && \
-    echo "${USERNAME}    ALL=(ALL)      NOPASSWD:ALL" >> /etc/sudoers
-
-# RUN curl -L -O https://github.com/neovim/neovim/releases/download/v0.3.4/nvim-linux64.tar.gz && \
-#     tar xzf nvim-linux64.tar.gz && \
-#     cp -rf nvim-linux64/* /usr/local && \
-#     rm -rf nvim-linux64*
+    echo "${USERNAME}    ALL=(ALL)      NOPASSWD:ALL" >> /etc/sudoers && \
+    curl -L -O https://github.com/neovim/neovim/releases/download/v0.3.4/nvim-linux64.tar.gz && \
+    tar xzf nvim-linux64.tar.gz && \
+    cp -rf nvim-linux64/* /usr/local && \
+    rm -rf nvim-linux64*
 
 RUN curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.10.0/ripgrep_0.10.0_amd64.deb && \
     dpkg -i ripgrep_0.10.0_amd64.deb && \
     rm ripgrep_0.10.0_amd64.deb
 
-# Install neovim
-RUN git clone https://github.com/neovim/neovim && \
-    cd neovim && \
-    git checkout v0.3.4 && \
-    make CMAKE_BUILD_TYPE=Release && \
-    make install && \
-    cd - && \
-    rm -rf neovim && \
-    git clone https://github.com/tmux/tmux && \
-    cd tmux && \
-    git checkout 2.9 && \
-    sh autogen.sh && \
-    ./configure && \
-    make && \
-    make install && \
-    cd - && \
-    rm -rf tmux
+# RUN apt-get clean && \
+#     apt-get autoremove && \
+#     dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge
 
 USER $USERNAME
 WORKDIR /home/${USERNAME}
@@ -123,7 +94,6 @@ RUN git clone https://github.com/robbyrussell/oh-my-zsh ~/.oh-my-zsh && \
     bash ~/dotfiles/install.sh && \
     git clone https://github.com/riywo/anyenv ~/.anyenv
 
-
 SHELL ["/bin/bash", "-c"]
 RUN eval "$(anyenv init -)" && \
     anyenv install --force-init && \
@@ -136,11 +106,8 @@ RUN eval "$(anyenv init -)" && \
     anyenv install rbenv
 
 RUN eval "$(anyenv init -)" && \
-    # pyenv install anaconda3-2018.12 && \
-    # pyenv global anaconda3-2018.12 && \
-    pyenv install 2.7.15 && \
-    pyenv install 3.6.8 && \
-    pyenv global 3.6.8 2.7.15 && \
+    pyenv install anaconda3-2018.12 && \
+    pyenv global anaconda3-2018.12 && \
     pyenv rehash && \
     nodenv install 10.15.3 && \
     nodenv global 10.15.3 && \
@@ -158,25 +125,18 @@ RUN eval "$(anyenv init -)" && \
     go get -u golang.org/x/tools/cmd/goimports
 
 RUN eval "$(anyenv init -)" && \
-    pip3 install -U pip && \
-    pip2 install -U pip && \
     npm i -g npm && \
-    # conda install numpy scipy pycodestyle flake8 autopep8 yapf pylint tensorflow pandas matplotlib jupyterlab networkx Faker && \
-    # pip install pynvim python-language-server && \
-    pip3 install pynvim neovim numpy scipy pycodestyle flake8 autopep8 yapf pylint python-language-server tensorflow pandas matplotlib jupyterlab networkx Faker && \
-    pip2 install pynvim neovim && \
+    conda install numpy scipy pycodestyle flake8 autopep8 yapf pylint tensorflow pandas matplotlib jupyterlab networkx Faker && \
+    pip install pynvim python-language-server && \
     go get -u github.com/golangci/golangci-lint/cmd/golangci-lint && \
+    go get -u github.com/saibing/bingo  && \
     go get -u golang.org/x/tools/cmd/goimports && \
-    cd repos && \
-    git clone -b bingo https://github.com/saibing/tools.git && \
-    cd tools/cmd/gopls && \
-    go install && \
-    cd - && \
     npm i -g neovim yarn bash-language-server dockerfile-language-server-nodejs intelephense && \
     gem install neovim
 
 RUN eval "$(anyenv init -)" && \
     nvim +"call dein#install()" +qall && \
+    # nvim +"call dein#install()" +qall && \
     nvim +"UpdateRemotePlugins" +qall
 
 CMD ["/usr/bin/zsh"]
