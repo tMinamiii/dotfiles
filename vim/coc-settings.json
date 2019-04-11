@@ -19,11 +19,6 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     },
-    "intelephense": {
-      "command": "node",
-      "args": ["node_modules/intelephense/lib/intelephense.js", "--stdio"],
-      "filetypes": ["php"]
-    },
     "bash": {
       "command": "bash-language-server",
       "args": ["start"],
