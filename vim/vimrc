@@ -161,7 +161,7 @@ endif
 
 """""" Coc Extensions """"""
 
-let g:coc_global_extensions = ['coc-json', 'coc-vetur', 'coc-html', 'coc-pyls', 'coc-tsserver', 'coc-css', 'coc-eslint', 'coc-wxml' ]
+let g:coc_global_extensions = ['coc-json', 'coc-vetur', 'coc-html', 'coc-pyls', 'coc-tsserver', 'coc-css', 'coc-eslint', 'coc-wxml', 'coc-phpls' ]
 
 """""" dein (load plugins)"""""
 let s:dein_dir = expand('~/.cache/dein')
