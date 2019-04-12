@@ -161,7 +161,7 @@ endif
 
 """""" Coc Extensions """"""
 
-let g:coc_global_extensions = ['coc-json', 'coc-vetur', 'coc-html', 'coc-pyls', 'coc-tsserver', 'coc-css', 'coc-eslint', 'coc-wxml', 'coc-phpls']
+let g:coc_global_extensions = ['coc-json', 'coc-vetur', 'coc-html', 'coc-pyls', 'coc-tsserver', 'coc-css', 'coc-eslint', 'coc-wxml', 'coc-phpls' ]
 
 """""" dein (load plugins)"""""
 let s:dein_dir = expand('~/.cache/dein')
@@ -203,8 +203,13 @@ endif
 
 if has('nvim')
 	" 最新のpythonをhostにする
-    let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-    let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3.6*/bin/python')))[-1]
+	if exists('$VIRTUAL_ENV')
+		let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
+		let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
+	else
+		let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
+		let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3.6*/bin/python')))[-1]
+	endif
 endif
 
 syntax on
