@@ -493,6 +493,10 @@ function! s:defx_my_settings() abort
             \ 'root_icon': '',
             \ })
   endif
+  call defx#custom#column('filename', {
+      \ 'min_width': 250,
+      \ 'max_width': 250,
+      \ })
 endfunction
 '''
 
