@@ -480,7 +480,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> R  defx#do_action('redraw')
   nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
   nnoremap <silent><buffer><expr> <C-t>  defx#do_action('toggle_select') . 'j'
-  if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX')
+  if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
       call defx#custom#column('icon', {
             \ 'directory_icon': '+',
             \ 'opened_icon': '-',
