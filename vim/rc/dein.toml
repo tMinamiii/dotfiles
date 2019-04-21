@@ -182,7 +182,6 @@ hook_add = '''
 let g:vim_json_syntax_conceal = 0
 '''
 
-
 #############
 ### Mics ####
 #############
@@ -247,7 +246,6 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
@@ -465,7 +463,6 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> m      defx#do_action('move')
   nnoremap <silent><buffer><expr> p      defx#do_action('paste')
   nnoremap <silent><buffer><expr> o      defx#is_directory() ? defx#do_action('open_or_close_tree') : ''
-  " nnoremap <silent><buffer><expr> l      ! defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
   nnoremap <silent><buffer><expr> l      ! defx#is_directory() ? defx#do_action('drop') : ''
   nnoremap <silent><buffer><expr> E      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'vsplit')
   nnoremap <silent><buffer><expr> P      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'pedit')
@@ -511,11 +508,3 @@ endfunction
 
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
-
-# [[plugins]]
-# repo='kristijanhusak/defx-icons'
-# hook_add = '''
-# -columns=icons:filename:type
-# let g:defx_icons_enable_syntax_highlight = 1
-# let g:defx_icons_column_length = 2
-# '''

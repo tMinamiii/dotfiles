@@ -107,7 +107,6 @@ nnoremap <silent> [denite]r :<C-u>Denite
     \ -highlight-mode-insert=Search
     \ -cursor-wrap=true references<CR>
 
-
 "##############
 "### Buffer ###
 "##############
