@@ -506,5 +506,12 @@ function! s:defx_my_settings() abort
 endfunction
 '''
 
-# [[plugins]]
-# repo = 'jiangmiao/auto-pairs'
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
+hook_add = '''
+let g:AutoPairs = {
+    \ '(': ')',
+    \ '[': ']',
+    \ '{': '}',
+    \ }
+'''
