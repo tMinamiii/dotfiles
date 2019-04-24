@@ -508,3 +508,10 @@ endfunction
 
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
+hook_add = '''
+let g:AutoPairs = {
+    \ '(': ')',
+    \ '[': ']',
+    \ '{': '}',
+    \ }
+'''
