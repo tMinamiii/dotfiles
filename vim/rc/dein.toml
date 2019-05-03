@@ -97,26 +97,22 @@ let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent 
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_php_cs_fixer_options = '--rules=@PSR1,@PSR2'
 let g:ale_go_golangci_lint_options = '
-\ --fast
+\ --enable-all
 \ -D=typecheck
+\ -D=dupl
 \ -D=gochecknoglobals
 \ -D=deadcode
 \ -D=unused
-\ -D=structcheck
-\ -E=gosimple
-\ -E=staticcheck
 \'
 
+" \ -E=gosimple
+" \ -E=staticcheck
+" \ -D=structcheck
 " "\ --fast
 " "\ -D=typecheck
 " "\ -E=gosimple
 " "\ -E=staticcheck
 " "\'
-"  -D=golint
-" \ -E=lll
-" \ -E=unparam
-" \ -E=unused
-" \ 'go': ['gofmt'],
 
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
