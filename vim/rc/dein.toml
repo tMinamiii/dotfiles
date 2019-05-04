@@ -302,7 +302,9 @@ repo = 'scrooloose/nerdtree.git'
 ### カラーテーマ ###
 ####################
 
-# repo = 'naronA/dracula-vim'
+[[plugins]]
+repo = 'dracula/vim'
+
 [[plugins]]
 repo = 'rhysd/vim-color-spring-night'
 hook_add = '''
