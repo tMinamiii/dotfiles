@@ -248,6 +248,8 @@ augroup END
 set expandtab                   " タブをスペースにする
 set tabstop=4
 set shiftwidth=4
+set conceallevel=2
+set concealcursor=nc
 augroup indentsize
     autocmd FileType sh setlocal shiftwidth=2 tabstop=2
     autocmd FileType vue setlocal shiftwidth=2 tabstop=2
