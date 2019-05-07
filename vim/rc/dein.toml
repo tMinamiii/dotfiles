@@ -65,14 +65,18 @@ let g:ale_linters = {
 \   'zsh': ['shellcheck'],
 \   'yaml': ['prettier'],
 \}
-"'golint', 'govet',
-if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
+" 'golint', 'govet',
+" $TERM_PROGRAM ==? 'hyper' ||
+if exists('$TMUX') || exists('$ALACRITTY_LOG')
   let g:ale_sign_error = 'E>'       " エラー行に表示するマーク
   let g:ale_sign_warning = 'w*'     " エラー行に表示するマーク
 else
   let g:ale_sign_error = ''       " エラー行に表示するマーク
   let g:ale_sign_warning = ''     " エラー行に表示するマーク
 endif
+let g:ale_sign_error = ''       " エラー行に表示するマーク
+let g:ale_sign_warning = ''     " エラー行に表示するマーク
+
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
 let g:ale_sign_column_always = 1 " エラー表示の列を常時表示
@@ -485,7 +489,9 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> R  defx#do_action('redraw')
   nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
   nnoremap <silent><buffer><expr> <C-t>  defx#do_action('toggle_select') . 'j'
-  if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
+
+" $TERM_PROGRAM ==? 'hyper' ||
+  if exists('$TMUX') || exists('$ALACRITTY_LOG')
       call defx#custom#column('icon', {
             \ 'directory_icon': '+',
             \ 'opened_icon': '-',
@@ -498,6 +504,7 @@ function! s:defx_my_settings() abort
             \ 'root_icon': '',
             \ })
   endif
+
   call defx#custom#column('filename', {
       \ 'min_width': 250,
       \ 'max_width': 250,
