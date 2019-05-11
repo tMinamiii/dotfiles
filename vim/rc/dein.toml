@@ -66,16 +66,15 @@ let g:ale_linters = {
 \   'yaml': ['prettier'],
 \}
 " 'golint', 'govet',
-" $TERM_PROGRAM ==? 'hyper' ||
-if exists('$TMUX') || exists('$ALACRITTY_LOG')
+if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
   let g:ale_sign_error = 'E>'       " エラー行に表示するマーク
   let g:ale_sign_warning = 'w*'     " エラー行に表示するマーク
 else
   let g:ale_sign_error = ''       " エラー行に表示するマーク
   let g:ale_sign_warning = ''     " エラー行に表示するマーク
 endif
-let g:ale_sign_error = ''       " エラー行に表示するマーク
-let g:ale_sign_warning = ''     " エラー行に表示するマーク
+"let g:ale_sign_error = ''       " エラー行に表示するマーク
+"let g:ale_sign_warning = ''     " エラー行に表示するマーク
 
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
@@ -455,11 +454,59 @@ let g:vimshell_force_overwrite_statusline = 0
 '''
 
 [[plugins]]
+repo = 'kristijanhusak/defx-icons'
+hook_add = '''
+let g:defx_icons_enable_syntax_highlight = 1
+let g:defx_icons_column_length = 1
+let g:defx_icons_directory_icon = '+ '
+let g:defx_icons_mark_icon = '*'
+let g:defx_icons_parent_icon = '- '
+let g:defx_icons_default_icon = ''
+let g:defx_icons_directory_symlink_icon = ''
+" Options below are applicable only when using "tree" feature
+let g:defx_icons_root_opened_tree_icon = '- '
+let g:defx_icons_nested_opened_tree_icon = '- '
+let g:defx_icons_nested_closed_tree_icon = '+ '
+'''
+
+[[plugins]]
 repo = 'Shougo/defx.nvim'
 hook_add = '''
+autocmd VimEnter * call s:setup_defx()
+autocmd FileType defx call s:defx_my_settings()
 nmap <silent><Leader>n :Defx -split=vertical -winwidth=40 -toggle<CR> :IndentLinesDisable<CR>
 nmap <silent><Leader>h :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
-autocmd FileType defx call s:defx_my_settings()
+
+function! s:setup_defx() abort
+    if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
+        let s:default_columns = 'mark:indent:git:icon:filename'
+        call defx#custom#option('_', {
+              \ 'columns': s:default_columns,
+              \ })
+        call defx#custom#column('icon', {
+              \ 'directory_icon': '+',
+              \ 'opened_icon': '-',
+              \ 'root_icon': '@',
+              \ })
+    else
+        let s:default_columns = 'mark:indent:git:icons:filename'
+        call defx#custom#option('_', {
+              \ 'columns': s:default_columns,
+              \ })
+        call defx#custom#column('icon', {
+              \ 'directory_icon': '+ ',
+              \ 'opened_icon': '- ',
+              \ 'root_icon': '',
+              \ })
+    endif
+
+    call defx#custom#column('filename', {
+        \ 'min_width': 250,
+        \ 'max_width': 250,
+        \ })
+endfunction
+
+
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> c      defx#do_action('copy')
@@ -490,25 +537,11 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
   nnoremap <silent><buffer><expr> <C-t>  defx#do_action('toggle_select') . 'j'
 
-" $TERM_PROGRAM ==? 'hyper' ||
-  if exists('$TMUX') || exists('$ALACRITTY_LOG')
-      call defx#custom#column('icon', {
-            \ 'directory_icon': '+',
-            \ 'opened_icon': '-',
-            \ 'root_icon': '@',
-            \ })
-  else
-      call defx#custom#column('icon', {
-            \ 'directory_icon': '+ ',
-            \ 'opened_icon': '- ',
-            \ 'root_icon': '',
-            \ })
-  endif
-
-  call defx#custom#column('filename', {
-      \ 'min_width': 250,
-      \ 'max_width': 250,
-      \ })
 endfunction
 '''
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = 'nmap <F8> :TagbarToggle<CR>'
+
 
