@@ -46,7 +46,7 @@ set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
-set cursorline
+" set cursorline
 
 " set wildoptions=pum
 " set pumblend=10
@@ -163,6 +163,7 @@ endif
 """""" Coc Extensions """"""
 
 let g:coc_global_extensions = [
+			\ 'coc-neosnippet',
 			\ 'coc-json',
 			\ 'coc-vetur',
 			\ 'coc-html',
