@@ -114,65 +114,56 @@ endfunction
 "### Grep ###
 "############
 nnoremap <silent> [denite]p :<C-u>Denite
-    \ -direction=topleft
     \ -split=floating
     \ -prompt=>>
-    \ -vertical-preview
     \ grep<CR>
 
 "#########################
 "### Current Directory ###
 "#########################
 nnoremap <silent> [denite]f :<C-u>Denite
-    \ -direction=topleft
-    \ -prompt=>>
     \ -split=floating
+    \ -prompt=>>
     \ file/rec<CR>
 
 "##################
 "### References ###
 "##################
 nnoremap <silent> [denite]r :<C-u>Denite
-    \ -direction=topleft
     \ -split=floating
     \ -prompt=>>
-    \ -vertical-preview
     \ references<CR>
 
 "##############
 "### Buffer ###
 "##############
 nnoremap <silent> [denite]b :<C-u>Denite
-    \ -direction=topleft
-    \ -prompt=>>
     \ -split=floating
-    \ -vertical-preview
+    \ -prompt=>>
     \ buffer<CR>
 
 "################
 "### Register ###
 "################
 nnoremap <silent> [denite]R :<C-u>Denite
-    \ -direction=topleft
-    \ -prompt=>>
     \ -split=floating
+    \ -prompt=>>
     \ -buffer-name=register register<CR>
 
 "###########
 "### MRU ###
 "###########
 nnoremap <silent> [denite]m :<C-u>Denite
-    \ -direction=topleft
-    \ -prompt=>>
     \ -split=floating
+    \ -prompt=>>
     \ file_mru<CR>
 
 "################
 "### Bookmark ###
 "################
 nnoremap <silent> [denite]c :<C-u>Denite
-    \ -direction=topleft
     \ -split=floating
+    \ -prompt=>>
     \ bookmark<CR>
 
 "####################
@@ -182,8 +173,8 @@ nnoremap <silent> [denite]a :<C-u>DeniteBookmarkAdd<CR>
 
 ".git以下のディレクトリ検索
 nnoremap <silent> [denite]k :<C-u>Denite
-    \ -direction=topleft
     \ -split=floating
+    \ -prompt=>>
     \ -path=`substitute(finddir('.git', './;'), '.git', '', 'g')`
     \ file/rec/git<CR>
 '''
