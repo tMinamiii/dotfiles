@@ -185,7 +185,7 @@ call denite#custom#map('insert', '<C-P>', '<denite:move_to_previous_line>', 'nor
 call denite#custom#map('insert', '<C-W>', '<denite:move_up_path>', 'noremap')
 
 call denite#custom#var('file/rec/git', 'command', ['git', 'ls-files', '-co',    '--exclude-standard'])
-call denite#custom#var('file/rec',     'command', ['rg',  '--files',  '--glob', '!.git'])
+call denite#custom#var('file/rec',     'command', ['rg',  '--files',  '--glob', '!.git, !node_modules !vendor'])
 
 call denite#custom#var('grep', 'command', ['rg'])
 call denite#custom#var('grep', 'default_opts', ['--vimgrep', '--no-heading'])
