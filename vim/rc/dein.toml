@@ -546,3 +546,5 @@ repo = 'majutsushi/tagbar'
 hook_add = 'nmap <F8> :TagbarToggle<CR>'
 
 
+[[plugins]]
+repo = 'liuchengxu/vista.vim'
