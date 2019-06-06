@@ -92,89 +92,35 @@ on_event = 'BufRead'
 hook_add = '''
 nnoremap [denite] <Nop>
 nmap <Leader> [denite]
-" let ignore=&wildignore . ',.idea,.php_cs_cache,*.pyc,.git,.hg,.svn,node_modules,vendor,mock,laradock,dbsample,docs,public'
-" Define mappings
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
+  nnoremap <silent><buffer><expr> <CR>    denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d       denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p       denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q       denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i       denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
 endfunction
 
-"############
-"### Grep ###
-"############
-nnoremap <silent> [denite]p :<C-u>Denite
-    \ -split=floating
-    \ -prompt=>>
-    \ grep<CR>
-
-"#########################
-"### Current Directory ###
-"#########################
-nnoremap <silent> [denite]f :<C-u>Denite
-    \ -split=floating
-    \ -prompt=>>
-    \ file/rec<CR>
-
-"##################
-"### References ###
-"##################
-nnoremap <silent> [denite]r :<C-u>Denite
-    \ -split=floating
-    \ -prompt=>>
-    \ references<CR>
-
-"##############
-"### Buffer ###
-"##############
-nnoremap <silent> [denite]b :<C-u>Denite
-    \ -split=floating
-    \ -prompt=>>
-    \ buffer<CR>
-
-"################
-"### Register ###
-"################
-nnoremap <silent> [denite]R :<C-u>Denite
-    \ -split=floating
-    \ -prompt=>>
-    \ -buffer-name=register register<CR>
-
-"###########
-"### MRU ###
-"###########
-nnoremap <silent> [denite]m :<C-u>Denite
-    \ -split=floating
-    \ -prompt=>>
-    \ file_mru<CR>
-
-"################
-"### Bookmark ###
-"################
-nnoremap <silent> [denite]c :<C-u>Denite
-    \ -split=floating
-    \ -prompt=>>
-    \ bookmark<CR>
-
-"####################
-"### Add Bookmark ###
-"####################
+""" Grep """
+nnoremap <silent> [denite]p :<C-u>Denite grep<CR>
+""" Current Directory """
+nnoremap <silent> [denite]f :<C-u>Denite file/rec<CR>
+""" References """
+nnoremap <silent> [denite]r :<C-u>Denite references<CR>
+""" Buffer """
+nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
+""" Register """
+nnoremap <silent> [denite]R :<C-u>Denite -buffer-name=register register<CR>
+""" MRU """
+nnoremap <silent> [denite]m :<C-u>Denite file_mru<CR>
+""" Bookmark """
+nnoremap <silent> [denite]c :<C-u>Denite bookmark<CR>
+""" Add Bookmark """
 nnoremap <silent> [denite]a :<C-u>DeniteBookmarkAdd<CR>
 
-".git以下のディレクトリ検索
+""" .git以下のディレクトリ検索
 nnoremap <silent> [denite]k :<C-u>Denite
-    \ -split=floating
-    \ -prompt=>>
     \ -path=`substitute(finddir('.git', './;'), '.git', '', 'g')`
     \ file/rec/git<CR>
 '''
@@ -198,6 +144,10 @@ call denite#custom#source('file',     'matchers', ['matcher_cpsm', 'matcher_fuzz
 call denite#custom#source('buffer',   'matchers', ['matcher_regexp'])
 call denite#custom#source('file_mru', 'matchers', ['matcher_regexp'])
 "call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+
+call denite#custom#option('default', 'auto_action', 'preview')
+call denite#custom#option('default', 'prompt', '>>')
+call denite#custom#option('default', 'split', 'floating')
 '''
 
 ############
