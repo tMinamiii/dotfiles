@@ -1,1 +1,0 @@
-linter/prettierrc.js
