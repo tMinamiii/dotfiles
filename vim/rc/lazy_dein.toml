@@ -202,7 +202,7 @@ on_i = 1
 repo = 'cohama/lexima.vim'
 on_i = 1
 hook_add = '''
-let g:lexima_enable_basic_rules = 0
+let g:lexima_enable_basic_rules = 1
 let g:lexima_ctrlh_as_backspace = 1
 '''
 hook_post_source='''
