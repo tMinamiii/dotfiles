@@ -549,9 +549,10 @@ repo = 'luochen1990/rainbow'
 hook_add = '''
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-\	'guifgs': ['darkorange', 'orchid', 'lightskyblue'],
+\	'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
 \ }
 '''
+# \	'guifgs': ['#ffaa00', 'darkorange', 'orchid', 'lightskyblue'],
 # \	'guifgs': ['#4295f9', 'darkorange2', 'seagreen2', 'firebrick'],
 #     "Gold", "Orchid", "LightSkyBlue"
 
