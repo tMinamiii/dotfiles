@@ -469,8 +469,8 @@ repo = 'Shougo/defx.nvim'
 hook_add = '''
 autocmd VimEnter * call s:setup_defx()
 autocmd FileType defx call s:defx_my_settings()
-nmap <silent><Leader>n :Defx -split=vertical -winwidth=40 -toggle<CR> :IndentLinesDisable<CR>
-nmap <silent><Leader>h :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
+nmap <silent><Leader>n :Defx -direction=topleft -toggle -split=vertical -winwidth=40<CR> :IndentLinesDisable<CR>
+nmap <silent><Leader>h :Defx -direction=topleft -split=vertical -winwidth=40 -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
 
 function! s:setup_defx() abort
     if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
@@ -507,12 +507,12 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer> <C-p>  <Up>
   nnoremap <silent><buffer> <C-j>  <nop>
   nnoremap <silent><buffer> <C-k>  <nop>
-  nnoremap <silent><buffer><expr> <C-l>  defx#do_action('open')
-  nnoremap <silent><buffer><expr> c      defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m      defx#do_action('move')
-  nnoremap <silent><buffer><expr> p      defx#do_action('paste')
-  nnoremap <silent><buffer><expr> o      defx#is_directory() ? defx#do_action('open_or_close_tree') : ''
-  nnoremap <silent><buffer><expr> <Enter>    defx#is_directory() ? defx#do_action('open_or_close_tree') :  defx#do_action('drop')
+  nnoremap <silent><buffer><expr> <C-l>   defx#do_action('open')
+  nnoremap <silent><buffer><expr> c       defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m       defx#do_action('move')
+  nnoremap <silent><buffer><expr> p       defx#do_action('paste')
+  nnoremap <silent><buffer><expr> o       defx#is_directory() ? defx#do_action('open_or_close_tree') : ''
+  nnoremap <silent><buffer><expr> <Enter> defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
   nnoremap <silent><buffer><expr> <C-Enter>  defx#is_directory() ? defx#do_action('open_or_close_tree') :  defx#do_action('drop')
   nnoremap <silent><buffer><expr> l      ! defx#is_directory() ? defx#do_action('drop') : ''
   nnoremap <silent><buffer><expr> E      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'vsplit')
