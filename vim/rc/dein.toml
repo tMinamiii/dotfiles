@@ -66,8 +66,6 @@ else
   let g:ale_sign_error = ''       " エラー行に表示するマーク
   let g:ale_sign_warning = ''     " エラー行に表示するマーク
 endif
-"let g:ale_sign_error = ''       " エラー行に表示するマーク
-"let g:ale_sign_warning = ''     " エラー行に表示するマーク
 
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
@@ -101,15 +99,6 @@ let g:ale_go_golangci_lint_options = '
 \ -D=deadcode
 \ -D=unused
 \'
-
-" \ -E=gosimple
-" \ -E=staticcheck
-" \ -D=structcheck
-" "\ --fast
-" "\ -D=typecheck
-" "\ -E=gosimple
-" "\ -E=staticcheck
-" "\'
 
 let g:ale_set_highlights = 1
 let g:ale_fixers = {
