@@ -194,17 +194,22 @@ let g:blade_custom_directives_pairs = {
       \ }
 '''
 
-# [[plugins]]
-# repo = 'vim-scripts/PDV--phpDocumentor-for-Vim'
-# on_ft = ['php']
-# hook_add = '''
-# " autocmd FileType php :call s:phpdoc_keymap()
-# " function! s:phpdoc_keymap()
-# "     inoremap <buffer><silent> <C-P> <Esc>:call PhpDocSingle()<CR>i
-# "     nnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
-# "     vnoremap <buffer><silent> <C-P> :call PhpDocSingle()<CR>
-# " endfunction
-# '''
+[[plugins]]
+repo = 'tobyS/vmustache'
+
+[[plugins]]
+repo = 'tobyS/pdv'
+on_ft = ['php']
+depends = ['vmustache']
+hook_add = '''
+let g:pdv_template_dir = $HOME ."/.cache/dein/repos/github.com/tobyS/pdv/templates"
+autocmd FileType php :call s:phpdoc_keymap()
+function! s:phpdoc_keymap()
+    inoremap <buffer><silent> <Leader>d <Esc>:call pdv#DocumentCurrentLine()<CR>i
+    nnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
+    vnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
+endfunction
+'''
 
 # [[plugins]]
 # repo = 'lvht/phpcd.vim'

@@ -228,7 +228,6 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
 '''
@@ -274,14 +273,13 @@ repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree.git'
-# hook_add = '''
-# nmap <F9> :NERDTreeToggle<CR>
-# nmap <silent><Leader>n :NERDTreeToggle<CR>
-# nmap <silent><Leader>h :NERDTreeFind<CR>
-# let g:NERDTreeMapActivateNode = "l"
-# let g:NERDTreeWinSize = 40
-# let g:NERDTreeLimitedSyntax = 1
-# '''
+hook_add = '''
+nmap <F9> :NERDTreeToggle<CR>
+nmap <silent><Leader>n :NERDTreeToggle<CR>
+nmap <silent><Leader>h :NERDTreeFind<CR>
+let g:NERDTreeWinSize = 40
+let g:NERDTreeLimitedSyntax = 1
+'''
 
 ####################
 ### カラーテーマ ###
@@ -458,8 +456,8 @@ repo = 'Shougo/defx.nvim'
 hook_add = '''
 autocmd VimEnter * call s:setup_defx()
 autocmd FileType defx call s:defx_my_settings()
-nmap <silent><Leader>n :Defx -direction=topleft -toggle -split=vertical -winwidth=40<CR> :IndentLinesDisable<CR>
-nmap <silent><Leader>h :Defx -direction=topleft -split=vertical -winwidth=40 -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
+" nmap <silent><Leader>n :Defx -direction=topleft -toggle -split=vertical -winwidth=40<CR> :IndentLinesDisable<CR>
+" nmap <silent><Leader>h :Defx -direction=topleft -split=vertical -winwidth=40 -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
 
 function! s:setup_defx() abort
     if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
@@ -539,6 +537,9 @@ hook_add = '''
 let g:rainbow_active = 1
 let g:rainbow_conf = {
 \	'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
+\   'separately': {
+\       'nerdtree': 0,
+\   },
 \ }
 '''
 # \	'guifgs': ['#ffaa00', 'darkorange', 'orchid', 'lightskyblue'],
