@@ -98,6 +98,8 @@ let g:ale_go_golangci_lint_options = '
 \ -D=gochecknoglobals
 \ -D=deadcode
 \ -D=unused
+\ -D=lll
+\ -D=prealloc
 \'
 
 let g:ale_set_highlights = 1

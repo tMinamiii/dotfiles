@@ -48,8 +48,8 @@ set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 " set cursorline
 
-" set wildoptions=pum
-" set pumblend=10
+set wildoptions=pum
+set pumblend=10
 
 if exists('$TMUX')
 	set ambiwidth=double
