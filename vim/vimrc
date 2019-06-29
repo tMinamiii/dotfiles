@@ -148,22 +148,26 @@ if has('nvim')
 
 	"""""" Coc Extensions """"""
 	let g:coc_global_extensions = [
-				\ 'coc-neosnippet',
-				\ 'coc-json',
-				\ 'coc-vetur',
-				\ 'coc-html',
-				\ 'coc-python',
-				\ 'coc-tsserver',
 				\ 'coc-css',
-				\ 'coc-eslint',
-				\ 'coc-wxml',
-				\ 'coc-phpls',
-				\ 'coc-solargraph',
-				\ 'coc-rls',
 				\ 'coc-emmet',
-				\ 'coc-yaml',
+				\ 'coc-eslint',
+				\ 'coc-git',
+				\ 'coc-highlight',
+				\ 'coc-html',
 				\ 'coc-java',
-				\ 'coc-highlight'
+				\ 'coc-json',
+				\ 'coc-neosnippet',
+				\ 'coc-phpls',
+				\ 'coc-python',
+				\ 'coc-rls',
+				\ 'coc-solargraph',
+				\ 'coc-tsserver',
+				\ 'coc-vetur',
+				\ 'coc-vimlsp',
+				\ 'coc-wxml',
+				\ 'coc-xml',
+				\ 'coc-yaml',
+				\ 'coc-yank',
 				\ ]
 
 	"""""" dein (load plugins)"""""
@@ -256,6 +260,7 @@ if ! exists('veonim')
 	hi! NonText ctermbg=NONE guibg=NONE
 endif
 
+" hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=NONE ctermbg=235
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 " hi! ALEWarning guibg=#99FFCC guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
 " hi! ALEError guibg=#FF5555 guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
