@@ -18,7 +18,7 @@
       "command": "gopls",
       "args": [],
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
+      "filetypes": ["go"],
     },
     "bash": {
       "command": "bash-language-server",
