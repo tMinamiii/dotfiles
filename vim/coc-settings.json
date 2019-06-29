@@ -11,6 +11,7 @@
   "coc.preferences.diagnostic.errorSign": "E",
   "coc.preferences.diagnostic.warningSign": "W",
   "coc.preferences.diagnostic.infoSign": ">>",
+  "java.home": "/usr/lib/jvm/default-java",
   "pyls.trace.server":"verbose",
   "languageserver": {
     "golang": {
