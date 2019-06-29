@@ -208,7 +208,7 @@ let g:indentLine_color_gui = '#676767'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 hook_add = '''
-if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX')
+if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
     let g:webdevicons_enable = 0
     let g:webdevicons_enable_nerdtree = 0
     let g:webdevicons_enable_defx = 0
