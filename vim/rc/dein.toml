@@ -282,6 +282,9 @@ nmap <silent><Leader>h :NERDTreeFind<CR>
 let g:NERDTreeWinSize = 40
 let g:NERDTreeLimitedSyntax = 1
 autocmd FileType nerdtree nmap <buffer> l o
+autocmd FileType nerdtree nmap <buffer> <C-0> o
+autocmd FileType nerdtree nmap <buffer> <C-n> j
+autocmd FileType nerdtree nmap <buffer> <C-p> k
 '''
 
 ####################

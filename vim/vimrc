@@ -34,7 +34,6 @@ set textwidth=0                 " 自動的に改行が入るのを無効化
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
 set display=lastline
-set pumheight=15
 
 set softtabstop=0
 set showtabline=2               " 常にタブラインを表示
@@ -47,9 +46,6 @@ set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 " set cursorline
-
-set wildoptions=pum
-set pumblend=10
 
 if exists('$TMUX')
 	set ambiwidth=double
@@ -146,6 +142,10 @@ command! Wq :wq
 command! WQ :wq
 
 if has('nvim')
+	set wildoptions=pum
+	set pumblend=10
+	set pumheight=15
+
 	"""""" Coc Extensions """"""
 	let g:coc_global_extensions = [
 				\ 'coc-neosnippet',
