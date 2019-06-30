@@ -234,8 +234,8 @@ augroup filetypes
 augroup END
 
 set expandtab                   " タブをスペースにする
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set conceallevel=2
 set concealcursor=nc
 augroup indentsize
