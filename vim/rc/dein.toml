@@ -48,7 +48,7 @@ nmap <silent> <leader>kk :ALEPrevious<CR>
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'javascript.jsx': ['eslint'],
-\   'php': ['phpcs', 'phpstan'],
+\   'php': ['phpcs', 'phpstan', 'phan'],
 \   'go': ['govet', 'golangci-lint'],
 \   'python': ['pycodestyle',  'pylint', 'mypy', 'flake8', 'isort'],
 \   'python3': ['pycodestyle', 'pylint', 'mypy', 'flake8', 'isort'],
