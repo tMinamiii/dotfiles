@@ -12,8 +12,8 @@ build = 'make'
 ##################
 ### scratchpad ###
 ##################
-[[plugins]]
-repo = 'metakirby5/codi.vim'
+# [[plugins]]
+# repo = 'metakirby5/codi.vim'
 
 ######################
 ### マルチカーソル ###
@@ -89,8 +89,8 @@ let g:ale_javascript_eslint_options = '--cache'
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
 let g:ale_php_phpcs_use_global = 1
-let g:ale_php_phpcs_standard = 'PHP12,PSR2'
-let g:ale_php_cs_fixer_options = '--rules=@PSR2,@PhpCsFixer'
+let g:ale_php_phpcs_standard = 'PSR12'
+let g:ale_php_cs_fixer_options = '--rules=@PSR1,@PSR2'
 let g:ale_php_phpstan_level = 0
 let g:ale_php_phan_minimum_severity = 0
 let g:ale_go_golangci_lint_options = '
@@ -441,108 +441,108 @@ let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
 '''
 
-[[plugins]]
-repo = 'kristijanhusak/defx-icons'
-hook_add = '''
-let g:defx_icons_enable_syntax_highlight = 0
-let g:defx_icons_column_length = 1
-let g:defx_icons_directory_icon = '+ '
-let g:defx_icons_mark_icon = '*'
-let g:defx_icons_parent_icon = ''
-let g:defx_icons_default_icon = ''
-let g:defx_icons_directory_symlink_icon = ''
-" Options below are applicable only when using "tree" feature
-let g:defx_icons_root_opened_tree_icon = '- '
-let g:defx_icons_nested_opened_tree_icon = '- '
-let g:defx_icons_nested_closed_tree_icon = '+ '
-let g:defx_icons_extensions = {'vue': {'icon': '', 'color': '8FAA54'}}
+# [[plugins]]
+# repo = 'kristijanhusak/defx-icons'
+# hook_add = '''
+# let g:defx_icons_enable_syntax_highlight = 0
+# let g:defx_icons_column_length = 1
+# let g:defx_icons_directory_icon = '+ '
+# let g:defx_icons_mark_icon = '*'
+# let g:defx_icons_parent_icon = ''
+# let g:defx_icons_default_icon = ''
+# let g:defx_icons_directory_symlink_icon = ''
+# " Options below are applicable only when using "tree" feature
+# let g:defx_icons_root_opened_tree_icon = '- '
+# let g:defx_icons_nested_opened_tree_icon = '- '
+# let g:defx_icons_nested_closed_tree_icon = '+ '
+# let g:defx_icons_extensions = {'vue': {'icon': '', 'color': '8FAA54'}}
+#
+# '''
+#
+# [[plugins]]
+# repo = 'Shougo/defx.nvim'
+# hook_add = '''
+# autocmd VimEnter * call s:setup_defx()
+# autocmd FileType defx call s:defx_my_settings()
+# " nmap <silent><Leader>n :Defx -direction=topleft -toggle -split=vertical -winwidth=40<CR> :IndentLinesDisable<CR>
+# " nmap <silent><Leader>h :Defx -direction=topleft -split=vertical -winwidth=40 -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
+#
+# function! s:setup_defx() abort
+#     if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
+#         let s:default_columns = 'mark:indent:git:icon:filename'
+#         call defx#custom#option('_', {
+#               \ 'columns': s:default_columns,
+#               \ })
+#         call defx#custom#column('icon', {
+#               \ 'directory_icon': '+',
+#               \ 'opened_icon': '-',
+#               \ 'root_icon': '@',
+#               \ })
+#     else
+#         let s:default_columns = 'mark:indent:git:icons:filename'
+#         call defx#custom#option('_', {
+#               \ 'columns': s:default_columns,
+#               \ })
+#         call defx#custom#column('icon', {
+#               \ 'directory_icon': '+ ',
+#               \ 'opened_icon': '- ',
+#               \ 'root_icon': '',
+#               \ })
+#     endif
+#     call defx#custom#column('filename', {
+#         \ 'min_width': 250,
+#         \ 'max_width': 250,
+#         \ })
+# endfunction
+#
+#
+# function! s:defx_my_settings() abort
+#   " Define mappings
+#   nnoremap <silent><buffer> <C-n>  <Down>
+#   nnoremap <silent><buffer> <C-p>  <Up>
+#   nnoremap <silent><buffer> <C-j>  <nop>
+#   nnoremap <silent><buffer> <C-k>  <nop>
+#   nnoremap <silent><buffer><expr> <C-l>   defx#do_action('open')
+#   nnoremap <silent><buffer><expr> c       defx#do_action('copy')
+#   nnoremap <silent><buffer><expr> m       defx#do_action('move')
+#   nnoremap <silent><buffer><expr> p       defx#do_action('paste')
+#   nnoremap <silent><buffer><expr> o       defx#is_directory() ? defx#do_action('open_or_close_tree') : ''
+#   nnoremap <silent><buffer><expr> <Enter> defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
+#   nnoremap <silent><buffer><expr> <C-Enter>  defx#is_directory() ? defx#do_action('open_or_close_tree') :  defx#do_action('drop')
+#   nnoremap <silent><buffer><expr> l      ! defx#is_directory() ? defx#do_action('drop') : ''
+#   nnoremap <silent><buffer><expr> E      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'vsplit')
+#   nnoremap <silent><buffer><expr> P      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'pedit')
+#   nnoremap <silent><buffer><expr> K      defx#do_action('new_directory')
+#   nnoremap <silent><buffer><expr> N      defx#do_action('new_file')
+#   nnoremap <silent><buffer><expr> M      defx#do_action('new_multiple_files')
+#   nnoremap <silent><buffer><expr> d      defx#do_action('remove')
+#   nnoremap <silent><buffer><expr> r      defx#do_action('rename')
+#   nnoremap <silent><buffer><expr> !      defx#do_action('execute_command')
+#   nnoremap <silent><buffer><expr> x      defx#do_action('execute_system')
+#   nnoremap <silent><buffer><expr> yy     defx#do_action('yank_path')
+#   nnoremap <silent><buffer><expr> .      defx#do_action('toggle_ignored_files')
+#   nnoremap <silent><buffer><expr> ;      defx#do_action('repeat')
+#   nnoremap <silent><buffer><expr> ~      defx#do_action('cd')
+#   nnoremap <silent><buffer><expr> q      defx#do_action('quit')
+#   nnoremap <silent><buffer><expr> *      defx#do_action('toggle_select_all')
+#   " nnoremap <silent><buffer><expr> j      line('.') == line('$') ? 'gg' : 'j'
+#   " nnoremap <silent><buffer><expr> k      line('.') == 1 ? 'G' : 'k'
+#   nnoremap <silent><buffer><expr> <C-h>  defx#do_action('cd', ['..'])
+#   nnoremap <silent><buffer><expr> R      defx#do_action('redraw')
+#   nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
+#   nnoremap <silent><buffer><expr> <C-t>  defx#do_action('toggle_select') . 'j'
+#   nnoremap <silent><buffer><expr> cd     defx#do_action('change_vim_cwd')
+# endfunction
+# '''
 
-'''
-
-[[plugins]]
-repo = 'Shougo/defx.nvim'
-hook_add = '''
-autocmd VimEnter * call s:setup_defx()
-autocmd FileType defx call s:defx_my_settings()
-" nmap <silent><Leader>n :Defx -direction=topleft -toggle -split=vertical -winwidth=40<CR> :IndentLinesDisable<CR>
-" nmap <silent><Leader>h :Defx -direction=topleft -split=vertical -winwidth=40 -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
-
-function! s:setup_defx() abort
-    if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
-        let s:default_columns = 'mark:indent:git:icon:filename'
-        call defx#custom#option('_', {
-              \ 'columns': s:default_columns,
-              \ })
-        call defx#custom#column('icon', {
-              \ 'directory_icon': '+',
-              \ 'opened_icon': '-',
-              \ 'root_icon': '@',
-              \ })
-    else
-        let s:default_columns = 'mark:indent:git:icons:filename'
-        call defx#custom#option('_', {
-              \ 'columns': s:default_columns,
-              \ })
-        call defx#custom#column('icon', {
-              \ 'directory_icon': '+ ',
-              \ 'opened_icon': '- ',
-              \ 'root_icon': '',
-              \ })
-    endif
-    call defx#custom#column('filename', {
-        \ 'min_width': 250,
-        \ 'max_width': 250,
-        \ })
-endfunction
-
-
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer> <C-n>  <Down>
-  nnoremap <silent><buffer> <C-p>  <Up>
-  nnoremap <silent><buffer> <C-j>  <nop>
-  nnoremap <silent><buffer> <C-k>  <nop>
-  nnoremap <silent><buffer><expr> <C-l>   defx#do_action('open')
-  nnoremap <silent><buffer><expr> c       defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m       defx#do_action('move')
-  nnoremap <silent><buffer><expr> p       defx#do_action('paste')
-  nnoremap <silent><buffer><expr> o       defx#is_directory() ? defx#do_action('open_or_close_tree') : ''
-  nnoremap <silent><buffer><expr> <Enter> defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
-  nnoremap <silent><buffer><expr> <C-Enter>  defx#is_directory() ? defx#do_action('open_or_close_tree') :  defx#do_action('drop')
-  nnoremap <silent><buffer><expr> l      ! defx#is_directory() ? defx#do_action('drop') : ''
-  nnoremap <silent><buffer><expr> E      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'vsplit')
-  nnoremap <silent><buffer><expr> P      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'pedit')
-  nnoremap <silent><buffer><expr> K      defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N      defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M      defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> d      defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r      defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !      defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x      defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy     defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .      defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;      defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> ~      defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q      defx#do_action('quit')
-  nnoremap <silent><buffer><expr> *      defx#do_action('toggle_select_all')
-  " nnoremap <silent><buffer><expr> j      line('.') == line('$') ? 'gg' : 'j'
-  " nnoremap <silent><buffer><expr> k      line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-h>  defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> R      defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
-  nnoremap <silent><buffer><expr> <C-t>  defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> cd     defx#do_action('change_vim_cwd')
-endfunction
-'''
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = 'nmap <F8> :TagbarToggle<CR>'
+# [[plugins]]
+# repo = 'majutsushi/tagbar'
+# hook_add = 'nmap <F8> :TagbarToggle<CR>'
 
 [[plugins]]
 repo = 'luochen1990/rainbow'
 hook_add = '''
-let g:rainbow_active = 1
+let g:rainbow_active = 0
 let g:rainbow_conf = {
 \	'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
 \   'separately': {

@@ -205,7 +205,7 @@ hook_add = '''
 let g:pdv_template_dir = $HOME ."/.cache/dein/repos/github.com/tobyS/pdv/templates"
 autocmd FileType php :call s:phpdoc_keymap()
 function! s:phpdoc_keymap()
-    inoremap <buffer><silent> <Leader>d <Esc>:call pdv#DocumentCurrentLine()<CR>i
+    " inoremap <buffer><silent> <Leader>d <Esc>:call pdv#DocumentCurrentLine()<CR>i
     nnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
     vnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
 endfunction
@@ -276,10 +276,10 @@ let g:vim_markdown_folding_disabled = 1
 #############
 ### Scala ###
 #############
-
-[[plugins]]
-repo = 'derekwyatt/vim-scala'
-on_ft = ['scala']
+#
+# [[plugins]]
+# repo = 'derekwyatt/vim-scala'
+# on_ft = ['scala']
 
 #############
 ### C/C++ ###
