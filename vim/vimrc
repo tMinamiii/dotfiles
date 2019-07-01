@@ -143,6 +143,7 @@ command! WQ :wq
 
 if has('nvim')
 	set wildoptions=pum
+	set winblend=10
 	set pumblend=10
 	set pumheight=15
 
