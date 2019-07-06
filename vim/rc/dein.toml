@@ -58,14 +58,16 @@ let g:ale_linters = {
 \   'zsh': ['shellcheck'],
 \   'yaml': ['prettier'],
 \}
-" 'golint', 'govet',
+
 if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
-  let g:ale_sign_error = 'E>'       " エラー行に表示するマーク
-  let g:ale_sign_warning = 'w*'     " エラー行に表示するマーク
+  let g:ale_sign_error = 'E'       " エラー行に表示するマーク
+  let g:ale_sign_warning = 'W'     " エラー行に表示するマーク
 else
   let g:ale_sign_error = ''       " エラー行に表示するマーク
   let g:ale_sign_warning = ''     " エラー行に表示するマーク
 endif
+let g:ale_sign_error = 'E'       " エラー行に表示するマーク
+let g:ale_sign_warning = 'W'     " エラー行に表示するマーク
 
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
@@ -91,7 +93,9 @@ let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent 
 let g:ale_php_phpcs_use_global = 1
 " let g:ale_php_phpcs_standard = 'PSR12'
 " let g:ale_php_cs_fixer_options = '--rules=@PSR2'
-let g:ale_php_phpstan_level = 0
+" let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
+" let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
+let g:ale_php_phpstan_level = 5
 let g:ale_php_phan_minimum_severity = 0
 let g:ale_go_golangci_lint_options = '
 \ --enable-all
@@ -211,18 +215,11 @@ repo = 'ryanoasis/vim-devicons'
 hook_add = '''
 if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
     let g:webdevicons_enable = 0
-    let g:webdevicons_enable_nerdtree = 0
-    let g:webdevicons_enable_defx = 0
-    let g:webdevicons_enable_vimfiler = 0
-    let g:webdevicons_enable_denite = 0
 else
     let g:webdevicons_enable = 1
-    let g:webdevicons_enable_defx = 1
-    let g:webdevicons_enable_vimfiler = 1
-    let g:webdevicons_enable_denite = 1
-    let g:webdevicons_enable_nerdtree = 1
 endif
 
+let g:webdevicons_enable = 0
 let g:NERDTreeExtensionHighlightColor = {}
 let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}

@@ -79,6 +79,7 @@ PATH="$PATH:$GOBIN"
 PATH="$HOME/.anyenv/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
+PATH="$HOME/.poetry/bin:$PATH"
 # PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
 
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
