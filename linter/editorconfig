@@ -9,7 +9,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.py]
+[*.py,*.php]
 indent_size = 4
 indent_style = space
 
@@ -20,6 +20,3 @@ indent_style = tab
 [*.md]
 trim_trailing_whitespace = false
 root = true
-
-[package.json,*.less,*.coffee]
-indent_size = 2
