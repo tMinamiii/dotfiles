@@ -66,8 +66,8 @@ else
   let g:ale_sign_error = ''       " エラー行に表示するマーク
   let g:ale_sign_warning = ''     " エラー行に表示するマーク
 endif
-let g:ale_sign_error = 'E'       " エラー行に表示するマーク
-let g:ale_sign_warning = 'W'     " エラー行に表示するマーク
+let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
+let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
 
 
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
