@@ -219,4 +219,24 @@ repo = 'vim-airline/vim-airline-themes'
 # '''
 
 
+" if ! has('nvim')
+" " OptionキーをMetaキーとして使う。
+"     let s:c = 'a'
+"     while s:c <=# 'z'
+"         execute 'set <M-' . s:c . '>=\e' . s:c
+"         execute 'imap \e' . s:c . ' <M-' . s:c . '>'
+"         execute 'set <M-S-' . s:c . '>=\e' . toupper(s:c)
+"         execute 'imap \e' . toupper(s:c) . ' <M-' . s:c . '>'
+"         let s:c = nr2char(1+char2nr(s:c))
+"     endw
+" endif
+
+
+##################
+### scratchpad ###
+##################
+# [[plugins]]
+# repo = 'metakirby5/codi.vim'
+
+
 

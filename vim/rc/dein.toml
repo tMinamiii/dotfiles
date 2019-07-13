@@ -3,17 +3,11 @@
 ###################
 
 [[plugins]]
-repo = 'Shougo/dein.vim'
+repo  = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/vimproc'
+repo  = 'Shougo/vimproc'
 build = 'make'
-
-##################
-### scratchpad ###
-##################
-# [[plugins]]
-# repo = 'metakirby5/codi.vim'
 
 ######################
 ### マルチカーソル ###
@@ -22,13 +16,13 @@ build = 'make'
 repo = 'terryma/vim-multiple-cursors'
 
 [[plugins]]
-repo = 'osyo-manga/vim-over'
+repo     = 'osyo-manga/vim-over'
 hook_add = '''
 nnoremap <silent> <Leader>o :OverCommandLine<CR>
 '''
 
 [[plugins]]
-repo = 'terryma/vim-expand-region'
+repo     = 'terryma/vim-expand-region'
 hook_add = '''
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -39,91 +33,8 @@ vmap <C-v> <Plug>(expand_region_shrink)
 ####################
 
 [[plugins]]
-repo = 'w0rp/ale'
-hook_add = '''
-nmap <silent> <Leader>/ :ALEFix<CR>
-nmap <silent> <leader>jj :ALENext<CR>
-nmap <silent> <leader>kk :ALEPrevious<CR>
-
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'javascript.jsx': ['eslint'],
-\   'php': ['phpcs', 'phpstan'],
-\   'go': ['govet', 'golangci-lint'],
-\   'python': ['pycodestyle',  'pylint', 'mypy', 'flake8', 'isort'],
-\   'python3': ['pycodestyle', 'pylint', 'mypy', 'flake8', 'isort'],
-\   'ruby': ['ruby'],
-\   'typescript': ['eslint', 'tsserver'],
-\   'vue': ['eslint', 'vls'],
-\   'zsh': ['shellcheck'],
-\   'yaml': ['prettier'],
-\}
-
-if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
-  let g:ale_sign_error = 'E'       " エラー行に表示するマーク
-  let g:ale_sign_warning = 'W'     " エラー行に表示するマーク
-else
-  let g:ale_sign_error = ''       " エラー行に表示するマーク
-  let g:ale_sign_warning = ''     " エラー行に表示するマーク
-endif
-let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
-let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
-
-
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
-let g:ale_sign_column_always = 1 " エラー表示の列を常時表示
-let g:ale_completion_enabled = 0
-let g:ale_virtualtext_cursor = 1
-
-let g:ale_disable_lsp = 1
-let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
-let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
-let g:ale_fix_on_save = 0        " ファイルを保存したときにfix実行
-let g:ale_lint_delay = 50
-let g:ale_lint_on_text_changed = 'never' " always or never
-
-" lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 0
-let g:ale_open_list = 0
-let g:ale_keep_list_window_open = 0
-let g:ale_javascript_eslint_options = '--cache'
-let g:ale_javascript_eslint_suppress_eslintignore = 1
-let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
-let g:ale_php_phpcs_use_global = 1
-" let g:ale_php_phpcs_standard = 'PSR12'
-" let g:ale_php_cs_fixer_options = '--rules=@PSR2'
-" let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
-" let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
-let g:ale_php_phpstan_level = 5
-let g:ale_php_phan_minimum_severity = 0
-let g:ale_go_golangci_lint_options = '
-\ --enable-all
-\ -D=typecheck
-\ -D=dupl
-\ -D=gochecknoglobals
-\ -D=deadcode
-\ -D=unused
-\ -D=lll
-\ -D=prealloc
-\'
-
-let g:ale_set_highlights = 1
-let g:ale_fixers = {
-    \ 'bash': ['shfmt'],
-    \ 'go': ['gofmt', 'goimports'],
-    \ 'javascript': ['eslint'],
-    \ 'javascript.jsx': ['eslint'],
-    \ 'json': ['prettier'],
-    \ 'php': ['php_cs_fixer', 'phpcbf'],
-    \ 'python': ['autopep8', 'yapf', 'isort'],
-    \ 'python3': ['autopep8', 'yapf', 'isort'],
-    \ 'sh': ['shfmt'],
-    \ 'typescript': ['eslint'],
-    \ 'vue': ['eslint'],
-    \ 'yaml': ['prettier'],
-    \ }
-'''
+repo     = 'w0rp/ale'
+hook_add = 'call narona#init#ale#hook_add()'
 
 ########################
 ### Syntax Highlight ###
@@ -192,15 +103,11 @@ let g:winresizer_vert_resize = 1
 let g:winresizer_horiz_resize = 1
 '''
 
-# [[plugins]]
-# repo = 'junegunn/vim-easy-align'
-# hook_add = 'vnoremap <silent> <Enter> :EasyAlign<cr>'
-
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
-repo = 'Yggdroot/indentLine'
+repo     = 'Yggdroot/indentLine'
 hook_add = '''
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
@@ -211,30 +118,11 @@ let g:indentLine_color_gui = '#676767'
 '''
 
 [[plugins]]
-repo = 'ryanoasis/vim-devicons'
-hook_add = '''
-if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
-    let g:webdevicons_enable = 0
-else
-    let g:webdevicons_enable = 1
-endif
-
-let g:webdevicons_enable = 0
-let g:NERDTreeExtensionHighlightColor = {}
-let g:NERDTreeExtensionHighlightColor['vue'] = "41B883"
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vue'] = ''
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols = {}
-let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['^Dockerfile.*'] = ''
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-let g:webdevicons_conceal_nerdtree_brackets = 1
-'''
+repo     = 'ryanoasis/vim-devicons'
+hook_add = 'call narona#init#vim_devicons#hook_add()'
 
 [[plugins]]
-repo = 'dbakker/vim-projectroot'
+repo     = 'dbakker/vim-projectroot'
 hook_add = '''
 function! <SID>AutoProjectRootCD()
     try
@@ -263,7 +151,7 @@ repo = 'rhysd/git-messenger.vim'
 repo = 'cohama/agit.vim'
 
 [[plugins]]
-repo    = 'tpope/vim-fugitive'
+repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
@@ -273,18 +161,8 @@ repo = 'airblade/vim-gitgutter'
 #############
 
 [[plugins]]
-repo = 'scrooloose/nerdtree.git'
-hook_add = '''
-nmap <F9> :NERDTreeToggle<CR>
-nmap <silent><Leader>n :NERDTreeToggle<CR>
-nmap <silent><Leader>h :NERDTreeFind<CR>
-let g:NERDTreeWinSize = 35
-let g:NERDTreeLimitedSyntax = 1
-autocmd FileType nerdtree nmap <buffer> l o
-autocmd FileType nerdtree nmap <buffer> <C-0> o
-autocmd FileType nerdtree nmap <buffer> <C-n> j
-autocmd FileType nerdtree nmap <buffer> <C-p> k
-'''
+repo     = 'scrooloose/nerdtree.git'
+hook_add = 'call narona#init#nerdtree#hook_add()'
 
 ####################
 ### カラーテーマ ###
@@ -295,249 +173,17 @@ repo = 'dracula/vim'
 
 [[plugins]]
 repo = 'rhysd/vim-color-spring-night'
-hook_add = '''
-let g:spring_night_kill_italic = 0
-'''
+hook_add = 'let g:spring_night_kill_italic = 0'
 
 ##################
 ### Statusline ###
 ##################
 [[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_add = '''
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], ['fugitive', 'filename', 'modified', 'readonly' ] ],
-      \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
-      \ },
-      \ 'tabline': {'left': [['buffers']], 'right': [['close']]},
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'fugitive': 'LightlineFugitive',
-      \   'filename': 'LightlineFilename',
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
-      \   'fileencoding': 'LightlineFileencoding',
-      \   'mode': 'LightlineMode',
-      \ },
-      \ 'component_expand': {
-      \   'syntastic': 'SyntasticStatuslineFlag',
-      \   'buffers': 'lightline#bufferline#buffers',
-      \ },
-      \ 'component_type': {
-      \   'syntastic': 'error',
-      \   'buffers': 'tabsel',
-      \ },
-      \ 'subseparator': { 'left': '|', 'right': '|' }
-      \ }
-
-function! LightlineModified()
-  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! LightlineReadonly()
-  return &ft !~? 'help' && &readonly ? 'RO' : ''
-endfunction
-
-function! LightlineFilename()
-  let fname = expand('%:t')
-  return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-        \ fname == '__Tagbar__' ? g:lightline.fname :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
-        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \ &ft == 'unite' ? unite#get_status_string() :
-        \ &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-        \ ('' != fname ? fname : '[No Name]') .
-        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
-
-function! LightlineFugitive()
-  try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = ''  " edit here for cool mark
-      let branch = fugitive#head()
-      return branch !=# '' ? mark.branch : ''
-    endif
-  catch
-  endtry
-  return ''
-endfunction
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightlineFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
-
-function! LightlineMode()
-  let fname = expand('%:t')
-  return fname == '__Tagbar__' ? 'Tagbar' :
-        \ fname == 'ControlP' ? 'CtrlP' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
-        \ &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! CtrlPMark()
-  if expand('%:t') =~ 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-    call lightline#link('iR'[g:lightline.ctrlp_regex])
-    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-          \ , g:lightline.ctrlp_next], 0)
-  else
-    return ''
-  endif
-endfunction
-
-let g:ctrlp_status_func = {
-  \ 'main': 'CtrlPStatusFunc_1',
-  \ 'prog': 'CtrlPStatusFunc_2',
-  \ }
-
-function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-  let g:lightline.ctrlp_regex = a:regex
-  let g:lightline.ctrlp_prev = a:prev
-  let g:lightline.ctrlp_item = a:item
-  let g:lightline.ctrlp_next = a:next
-  return lightline#statusline(0)
-endfunction
-
-function! CtrlPStatusFunc_2(str)
-  return lightline#statusline(0)
-endfunction
-
-let g:tagbar_status_func = 'TagbarStatusFunc'
-
-function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
-
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-augroup END
-function! s:syntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
-
-let g:unite_force_overwrite_statusline = 0
-let g:vimfiler_force_overwrite_statusline = 0
-let g:vimshell_force_overwrite_statusline = 0
-'''
-
-# [[plugins]]
-# repo = 'kristijanhusak/defx-icons'
-# hook_add = '''
-# let g:defx_icons_enable_syntax_highlight = 0
-# let g:defx_icons_column_length = 1
-# let g:defx_icons_directory_icon = '+ '
-# let g:defx_icons_mark_icon = '*'
-# let g:defx_icons_parent_icon = ''
-# let g:defx_icons_default_icon = ''
-# let g:defx_icons_directory_symlink_icon = ''
-# " Options below are applicable only when using "tree" feature
-# let g:defx_icons_root_opened_tree_icon = '- '
-# let g:defx_icons_nested_opened_tree_icon = '- '
-# let g:defx_icons_nested_closed_tree_icon = '+ '
-# let g:defx_icons_extensions = {'vue': {'icon': '', 'color': '8FAA54'}}
-#
-# '''
-#
-# [[plugins]]
-# repo = 'Shougo/defx.nvim'
-# hook_add = '''
-# autocmd VimEnter * call s:setup_defx()
-# autocmd FileType defx call s:defx_my_settings()
-# " nmap <silent><Leader>n :Defx -direction=topleft -toggle -split=vertical -winwidth=40<CR> :IndentLinesDisable<CR>
-# " nmap <silent><Leader>h :Defx -direction=topleft -split=vertical -winwidth=40 -search=`expand('%:p')`<CR> :IndentLinesDisable<CR>
-#
-# function! s:setup_defx() abort
-#     if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
-#         let s:default_columns = 'mark:indent:git:icon:filename'
-#         call defx#custom#option('_', {
-#               \ 'columns': s:default_columns,
-#               \ })
-#         call defx#custom#column('icon', {
-#               \ 'directory_icon': '+',
-#               \ 'opened_icon': '-',
-#               \ 'root_icon': '@',
-#               \ })
-#     else
-#         let s:default_columns = 'mark:indent:git:icons:filename'
-#         call defx#custom#option('_', {
-#               \ 'columns': s:default_columns,
-#               \ })
-#         call defx#custom#column('icon', {
-#               \ 'directory_icon': '+ ',
-#               \ 'opened_icon': '- ',
-#               \ 'root_icon': '',
-#               \ })
-#     endif
-#     call defx#custom#column('filename', {
-#         \ 'min_width': 250,
-#         \ 'max_width': 250,
-#         \ })
-# endfunction
-#
-#
-# function! s:defx_my_settings() abort
-#   " Define mappings
-#   nnoremap <silent><buffer> <C-n>  <Down>
-#   nnoremap <silent><buffer> <C-p>  <Up>
-#   nnoremap <silent><buffer> <C-j>  <nop>
-#   nnoremap <silent><buffer> <C-k>  <nop>
-#   nnoremap <silent><buffer><expr> <C-l>   defx#do_action('open')
-#   nnoremap <silent><buffer><expr> c       defx#do_action('copy')
-#   nnoremap <silent><buffer><expr> m       defx#do_action('move')
-#   nnoremap <silent><buffer><expr> p       defx#do_action('paste')
-#   nnoremap <silent><buffer><expr> o       defx#is_directory() ? defx#do_action('open_or_close_tree') : ''
-#   nnoremap <silent><buffer><expr> <Enter> defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop')
-#   nnoremap <silent><buffer><expr> <C-Enter>  defx#is_directory() ? defx#do_action('open_or_close_tree') :  defx#do_action('drop')
-#   nnoremap <silent><buffer><expr> l      ! defx#is_directory() ? defx#do_action('drop') : ''
-#   nnoremap <silent><buffer><expr> E      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'vsplit')
-#   nnoremap <silent><buffer><expr> P      defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('drop', 'pedit')
-#   nnoremap <silent><buffer><expr> K      defx#do_action('new_directory')
-#   nnoremap <silent><buffer><expr> N      defx#do_action('new_file')
-#   nnoremap <silent><buffer><expr> M      defx#do_action('new_multiple_files')
-#   nnoremap <silent><buffer><expr> d      defx#do_action('remove')
-#   nnoremap <silent><buffer><expr> r      defx#do_action('rename')
-#   nnoremap <silent><buffer><expr> !      defx#do_action('execute_command')
-#   nnoremap <silent><buffer><expr> x      defx#do_action('execute_system')
-#   nnoremap <silent><buffer><expr> yy     defx#do_action('yank_path')
-#   nnoremap <silent><buffer><expr> .      defx#do_action('toggle_ignored_files')
-#   nnoremap <silent><buffer><expr> ;      defx#do_action('repeat')
-#   nnoremap <silent><buffer><expr> ~      defx#do_action('cd')
-#   nnoremap <silent><buffer><expr> q      defx#do_action('quit')
-#   nnoremap <silent><buffer><expr> *      defx#do_action('toggle_select_all')
-#   " nnoremap <silent><buffer><expr> j      line('.') == line('$') ? 'gg' : 'j'
-#   " nnoremap <silent><buffer><expr> k      line('.') == 1 ? 'G' : 'k'
-#   nnoremap <silent><buffer><expr> <C-h>  defx#do_action('cd', ['..'])
-#   nnoremap <silent><buffer><expr> R      defx#do_action('redraw')
-#   nnoremap <silent><buffer><expr> <C-g>  defx#do_action('print')
-#   nnoremap <silent><buffer><expr> <C-t>  defx#do_action('toggle_select') . 'j'
-#   nnoremap <silent><buffer><expr> cd     defx#do_action('change_vim_cwd')
-# endfunction
-# '''
-
-# [[plugins]]
-# repo = 'majutsushi/tagbar'
-# hook_add = 'nmap <F8> :TagbarToggle<CR>'
+repo     = 'itchyny/lightline.vim'
+hook_add = 'call narona#init#lightline#hook_add()'
 
 [[plugins]]
-repo = 'luochen1990/rainbow'
+repo     = 'luochen1990/rainbow'
 hook_add = '''
 let g:rainbow_active = 0
 let g:rainbow_conf = {
@@ -547,12 +193,17 @@ let g:rainbow_conf = {
 \   },
 \ }
 '''
-# \	'guifgs': ['#ffaa00', 'darkorange', 'orchid', 'lightskyblue'],
-# \	'guifgs': ['#4295f9', 'darkorange2', 'seagreen2', 'firebrick'],
-#     "Gold", "Orchid", "LightSkyBlue"
 
 [[plugins]]
-repo = 'andymass/vim-matchup'
-hook_add = '''
-let g:loaded_matchit = 1
-'''
+repo     = 'andymass/vim-matchup'
+hook_add = 'let g:loaded_matchit = 1'
+
+# [[plugins]]
+# repo = 'kristijanhusak/defx-icons'
+# hook_add = 'call narona#init#defx_icons#hook_add()'
+#
+# [[plugins]]
+# repo = 'Shougo/defx.nvim'
+# hook_add = 'call narona#init#defx#hook_add()'
+
+

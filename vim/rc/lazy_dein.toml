@@ -1,47 +1,16 @@
-################
-### QuickRUN ###
-################
-
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-on_ft = ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']
-depends = ['vimproc']
+on_event = 'BufRead'
+repo     = 'junegunn/vim-easy-align'
 hook_add = '''
-let g:quickrun_config = {
-\     '_' : {
-\         'runner' : 'vimproc',
-\         'runner/vimproc/updatetime' : 40,
-\         'outputter' : 'error',
-\         'outputter/error/success' : 'buffer',
-\         'outputter/error/error'   : 'quickfix',
-\         'outputter/buffer/split' : ':botright 12sp',
-\     }
-\ }
-
-" 実行時に前回の表示内容をクローズ&保存してから実行
-let g:quickrun_no_default_key_mappings = 1
-" "nmap <Leader><C-r> :cclose<CR>:write<CR>:QuickRun -mode n<CR>
-nmap <Leader><C-r> :QuickRun -mode n<CR>
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 '''
 
-###############
-### Snippet ###
-###############
-# [[plugins]]
-# on_i = 1
-# repo = 'honza/vim-snippets'
-#
-# [[plugins]]
-# on_i = 1
-# repo = 'SirVer/ultisnips'
-# depends = ['vim-snippets']
-# hook_source = '''
-# " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-# let g:UltiSnipsExpandTrigger="<tab>"
-# let g:UltiSnipsJumpForwardTrigger="<c-b>"
-# let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-# let g:UltiSnipsEditSplit="vertical"
-# '''
+[[plugins]]
+repo     = 'thinca/vim-quickrun'
+on_ft    = ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']
+depends  = ['vimproc']
+hook_add = 'call narona#init#vim_quickrun#hook_add()'
 
 [[plugins]]
 on_i = 1
@@ -51,119 +20,21 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets']
 on_i = 1
-hook_source = '''
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-imap <expr><CR>
-\ (pumvisible() && neosnippet#expandable()) ? "\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
-
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=niv
-"endif
-'''
-
-##############
-### Denite ###
-##############
+hook_source = 'call narona#init#neosnippet#hook_source()'
 
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
 
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-depends = ['neomru.vim']
-on_event = 'BufRead'
-hook_add = '''
-nnoremap [denite] <Nop>
-nmap <Leader> [denite]
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>    denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d       denite#do_map('do_action', 'delete')
-  nnoremap <silent><buffer><expr> p       denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q       denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i       denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
-endfunction
-
-""" Grep """
-nnoremap <silent> [denite]p :<C-u>Denite grep -auto-action=preview<CR>
-
-""" Current Directory """
-nnoremap <silent> [denite]f :<C-u>Denite file/rec<CR>
-
-""" References """
-nnoremap <silent> [denite]r :<C-u>Denite references<CR>
-
-""" Buffer """
-nnoremap <silent> [denite]b :<C-u>Denite buffer -auto-action=preview<CR>
-
-""" Register """
-nnoremap <silent> [denite]R :<C-u>Denite -buffer-name=register=register<CR>
-
-""" MRU """
-nnoremap <silent> [denite]m :<C-u>Denite file_mru -auto-action=preview<CR>
-
-""" Bookmark """
-nnoremap <silent> [denite]c :<C-u>Denite bookmark<CR>
-
-""" Add Bookmark """
-nnoremap <silent> [denite]a :<C-u>DeniteBookmarkAdd<CR>
-
-""" .git以下のディレクトリ検索
-nnoremap <silent> [denite]k :<C-u>Denite
-    \ -path=`substitute(finddir('.git', './;'), '.git', '', 'g')`
-    \ file/rec/git<CR>
-'''
-hook_post_source =
-'''
-call denite#custom#map('insert', '<C-N>', '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-P>', '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('insert', '<C-W>', '<denite:move_up_path>', 'noremap')
-
-call denite#custom#var('file/rec/git', 'command', ['git', 'ls-files', '-co',    '--exclude-standard'])
-call denite#custom#var('file/rec',     'command', ['rg',  '--files',  '--glob', '!.git'])
-
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep', '--no-heading'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-
-call denite#custom#source('file',     'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
-call denite#custom#source('buffer',   'matchers', ['matcher_regexp'])
-call denite#custom#source('file_mru', 'matchers', ['matcher_regexp'])
-" call denite#custom#alias('source', 'file/rec/git', 'file/rec')
-
-" call denite#custom#option('default', 'auto_action', 'preview')
-call denite#custom#option('default', 'prompt', '>>')
-call denite#custom#option('default', 'split', 'floating')
-'''
-
-############
-### 括弧 ###
-############
+repo             = 'Shougo/denite.nvim'
+depends          = ['neomru.vim']
+on_event         = 'BufRead'
+hook_add         = 'call narona#init#denite#hook_add()'
+hook_post_source = 'call narona#init#denite#hook_post_source()'
 
 [[plugins]]
-repo = 'mattn/emmet-vim'
-on_i = 1
+repo     = 'mattn/emmet-vim'
+on_i     = 1
 hook_add = '''
 "let g:user_emmet_leader_key='<Space>'
 '''
@@ -172,53 +43,152 @@ hook_add = '''
 repo = 'tpope/vim-surround'
 on_i = 1
 
-# Before        Input         After
-# ------------------------------------
-# |             (             (|)
-# ------------------------------------
-# |             "             "|"
-# ------------------------------------
-# ""|           "             """|"""
-# ------------------------------------
-# ''|           '             '''|'''
-# ------------------------------------
-# \|            [             \[|
-# ------------------------------------
-# \|            "             \"|
-# ------------------------------------
-# \|            '             \'|
-# ------------------------------------
-# I|            'm            I'm|
-# ------------------------------------
-# (|)           )             ()|
-# ------------------------------------
-# '|'           '             ''|
-# ------------------------------------
-# (|)           <BS>          |
-# ------------------------------------
-# '|'           <BS>          |
-# ------------------------------------
 [[plugins]]
-repo = 'cohama/lexima.vim'
-on_i = 1
-hook_add = '''
-let g:lexima_enable_basic_rules = 1
-let g:lexima_ctrlh_as_backspace = 1
-'''
-hook_post_source='''
-call lexima#add_rule({'char': '(', 'at': '\%#[^)].*$', 'leave': 1})
-call lexima#add_rule({'char': '{', 'at': '\%#[^}].*$', 'leave': 1})
-call lexima#add_rule({'char': '[', 'at': '\%#[^\]].*$', 'leave': 1})
+repo             = 'cohama/lexima.vim'
+on_i             = 1
+hook_add         = 'call narona#init#lexima#hook_add()'
+hook_post_source = 'call narona#init#lexima#hook_post_source()'
 
-call lexima#add_rule( {'char': '(', 'input_after': ')'})
-call lexima#add_rule( {'char': '(', 'at': '\\\%#'})
-call lexima#add_rule( {'char': ')', 'at': '\%#)', 'leave': 1})
-call lexima#add_rule( {'char': '<BS>', 'at': '(\%#)', 'delete': 1})
-call lexima#add_rule( {'char': '{', 'input_after': '}'})
-call lexima#add_rule( {'char': '}', 'at': '\%#}', 'leave': 1})
-call lexima#add_rule( {'char': '<BS>', 'at': '{\%#}', 'delete': 1})
-call lexima#add_rule( {'char': '[', 'input_after': ']'})
-call lexima#add_rule( {'char': '[', 'at': '\\\%#'})
-call lexima#add_rule( {'char': ']', 'at': '\%#]', 'leave': 1})
-call lexima#add_rule( {'char': '<BS>', 'at': '\[\%#\]', 'delete': 1})
+###########
+### Coc ###
+###########
+
+[[plugins]]
+repo     = 'neoclide/coc.nvim'
+on_path  = ['.*']
+build    = '''
+yarn install
+if [ ! -e ~/.config/coc ]; then
+    mkdir -p ~/.config/coc
+fi
+if [ ! -e ~/.config/coc/memos.json ]; then
+    echo "{}" > ~/.config/coc/memos.json
+fi
 '''
+hook_add = 'call narona#init#coc#hook_add()'
+
+##########
+### GO ###
+##########
+
+[[plugins]]
+repo     = 'fatih/vim-go'
+on_ft    = ['go']
+hook_add = 'call narona#init#vim_go#hook_add()'
+
+#############################
+### Javascript/TypeScript ###
+#############################
+
+[[plugins]]
+repo  = 'ruanyl/vim-sort-imports'
+on_ft = ['javascript', 'typescript']
+
+[[plugins]]
+repo     = 'heavenshell/vim-jsdoc'
+on_ft    = ['typescript', 'javascript', 'javascript.jsx']
+hook_add = '''
+let g:typescript_compiler_binary = ''
+let g:typescript_compiler_options = ''
+autocmd FileType javascript,typescript :call s:jsdoc_keymap()
+function! s:jsdoc_keymap()
+    nnoremap <buffer><silent> <Leader>d :JsDoc<CR>
+    vnoremap <buffer><silent> <Leader>d :JsDoc<CR>
+endfunction
+'''
+
+###########
+### CSV ###
+###########
+
+[[plugins]]
+repo  = 'mechatroner/rainbow_csv'
+on_ft = ['csv']
+
+###########
+### PHP ###
+###########
+
+[[plugins]]
+repo     = 'jwalton512/vim-blade'
+on_ft    = ['blade']
+hook_add = '''
+" Define some single Blade directives. This variable is used for highlighting only.
+let g:blade_custom_directives = ['datetime', 'javascript']
+
+" Define pairs of Blade directives. This variable is used for highlighting and indentation.
+let g:blade_custom_directives_pairs = {
+      \   'markdown': 'endmarkdown',
+      \   'cache': 'endcache',
+      \ }
+'''
+
+[[plugins]]
+repo = 'tobyS/vmustache'
+
+[[plugins]]
+repo     = 'tobyS/pdv'
+on_ft    = ['php']
+depends  = ['vmustache']
+hook_add = '''
+let g:pdv_template_dir = $HOME ."/.cache/dein/repos/github.com/tobyS/pdv/templates"
+autocmd FileType php :call s:phpdoc_keymap()
+function! s:phpdoc_keymap()
+    nnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
+    vnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
+endfunction
+'''
+
+#######################
+### HTML / Markdown ###
+#######################
+
+[[plugins]]
+repo     = 'plasticboy/vim-markdown'
+on_ft    = ['markdown','mkd']
+hook_add = '''
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
+'''
+
+#############
+### C/C++ ###
+#############
+
+# [[plugins]]
+# repo = 'justmao945/vim-clang'
+# on_ft = ['c', 'cpp']
+#
+# [[plugins]]
+# repo = 'zchee/deoplete-clang'
+# on_ft = ['c', 'cpp', 'cmake']
+# depends = ['deoplete.nvim']
+# hook_source = '''
+# if has('unix')
+#     let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang-4.0.so'
+#     let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-4.0/include/clang'
+#     if has('mac')
+#         let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.so'
+#         let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
+#     endif
+# endif
+# '''
+
+
+###############
+### Jupyter ###
+###############
+
+[[plugins]]
+repo     = 'szymonmaszke/vimpyter'
+on_ft    = ['ipynb']
+hook_add = '''
+autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
+autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
+autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
+'''
+
+[[plugins]]
+repo     = 'liuchengxu/vista.vim'
+depends  = ['coc.nvim', 'lightline.vim']
+hook_add = 'call narona#init#vista#hook_add()'

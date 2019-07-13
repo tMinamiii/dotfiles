@@ -70,18 +70,6 @@ let g:vn_line_height = '1.3'
 
 let mapleader = "\<Space>"
 
-" if ! has('nvim')
-" " OptionキーをMetaキーとして使う。
-"     let s:c = 'a'
-"     while s:c <=# 'z'
-"         execute 'set <M-' . s:c . '>=\e' . s:c
-"         execute 'imap \e' . s:c . ' <M-' . s:c . '>'
-"         execute 'set <M-S-' . s:c . '>=\e' . toupper(s:c)
-"         execute 'imap \e' . toupper(s:c) . ' <M-' . s:c . '>'
-"         let s:c = nr2char(1+char2nr(s:c))
-"     endw
-" endif
-
 "---------------------------------------------------------------------------"
 " Commands \ Modes | Normal | Insert | Command | Visual | Select | Operator |
 "------------------|--------|--------|---------|--------|--------|----------|
@@ -193,12 +181,10 @@ if has('nvim')
 		let g:rc_dir = expand('~/.vim/rc')
 		let s:dein_toml = g:rc_dir . '/dein.toml'
 		let s:lazy_dein_toml = g:rc_dir . '/lazy_dein.toml'
-		let s:lazy_dein_langs_toml = g:rc_dir . '/lazy_dein_langs.toml'
 
 		" TOML を読み込み、キャッシュしておく
 		call dein#load_toml(s:dein_toml,      {'lazy': 0})
 		call dein#load_toml(s:lazy_dein_toml, {'lazy': 1})
-		call dein#load_toml(s:lazy_dein_langs_toml, {'lazy': 1})
 
 		call dein#end() " 設定終了
 		call dein#save_state() " キャッシュ保存
