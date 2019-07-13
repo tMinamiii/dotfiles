@@ -39,7 +39,7 @@ pip2 install -U pip
 npm i -g npm
 # conda install numpy scipy pycodestyle flake8 autopep8 yapf pylint tensorflow pandas matplotlib jupyterlab networkx Faker && \
 # pip install pynvim python-language-server && \
-pip3 install pynvim neovim numpy scipy pycodestyle flake8 autopep8 yapf pylint python-language-server tensorflow pandas matplotlib jupyterlab networkx Faker
+pip3 install pynvim neovim numpy scipy pycodestyle flake8 autopep8 yapf pylint python-language-server tensorflow pandas matplotlib jupyterlab networkx Faker vim-vint
 pip2 install pynvim neovim
 go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 go get -u golang.org/x/tools/cmd/goimports

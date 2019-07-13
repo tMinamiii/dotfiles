@@ -108,14 +108,7 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo     = 'Yggdroot/indentLine'
-hook_add = '''
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
-let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'defx', 'terminal']
-let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
-let g:indentLine_color_term = 238
-let g:indentLine_color_gui = '#676767'
-'''
+hook_add = 'call narona#init#indentLine#hook_add()'
 
 [[plugins]]
 repo     = 'ryanoasis/vim-devicons'
@@ -123,19 +116,7 @@ hook_add = 'call narona#init#vim_devicons#hook_add()'
 
 [[plugins]]
 repo     = 'dbakker/vim-projectroot'
-hook_add = '''
-function! <SID>AutoProjectRootCD()
-    try
-        if &ft != 'help'
-        ProjectRootCD
-    endif
-    catch
-        " Silently ignore invalid buffers
-    endtry
-endfunction
-
-autocmd BufEnter * call <SID>AutoProjectRootCD()
-'''
+hook_add = 'call narona#init#vim_projectroot#hook_add()'
 
 # http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 [[plugins]]
