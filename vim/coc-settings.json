@@ -12,13 +12,13 @@
   "coc.preferences.diagnostic.warningSign": "W",
   "coc.preferences.diagnostic.infoSign": ">>",
   "java.home": "/usr/local/jvm/default-java",
-  "pyls.trace.server":"verbose",
+  "python.jediEnabled": false,
   "languageserver": {
     "golang": {
       "command": "gopls",
       "args": [],
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
+      "filetypes": ["go"]
     },
     "bash": {
       "command": "bash-language-server",
