@@ -13,6 +13,7 @@
   "coc.preferences.diagnostic.infoSign": ">>",
   "java.home": "/usr/local/jvm/default-java",
   "python.jediEnabled": false,
+  "vetur.completion.autoImport": true,
   "languageserver": {
     "golang": {
       "command": "gopls",

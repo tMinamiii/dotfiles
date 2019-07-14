@@ -4,22 +4,28 @@ composer global config prefer-stable true
 composer global require squizlabs/php_codesniffer
 composer global require friendsofphp/php-cs-fixer
 composer global require phpstan/phpstan
+composer global require phan/phan
+
 # JS TS JSON
-# eslint tslint
-npm install fixjson
+npm -g install fixjson eslint
+
 # Ruby
 gem install rubocop reek
 gem install solargraph
 
 # Python
-pip install autopep8 flake8 isort
+pip install autopep8 flake8 isort pycodestyle mypy pylint
+
 # YAML
 pip install yamllint
+
 # vim script
 pip install vim-vint
+
 # Markdown
 pip install proselint
 npm install -g write-good mdl
+
 # SQL
 gem install sqlint
 
@@ -28,19 +34,19 @@ npm i -g bash-language-server vue-language-server javascript-typescript-langserv
 
 if [ "$(uname)" = "Darwin" ]; then
   # C/CPP
-  brew install llvm --with-clang
-  if [ ! -e /usr/local/opt/llvm/lib/libclang.so ]; then
-    ln -s /usr/local/opt/llvm/lib/libclang.dylib /usr/local/opt/llvm/lib/libclang.so
-  fi
-  brew install clang-format flawfinder cppcheck
-  pip install cpplint
+  # brew install llvm --with-clang
+  # if [ ! -e /usr/local/opt/llvm/lib/libclang.so ]; then
+  #   ln -s /usr/local/opt/llvm/lib/libclang.dylib /usr/local/opt/llvm/lib/libclang.so
+  # fi
+  # brew install clang-format flawfinder cppcheck
+  # pip install cpplint
   # Dockerfile
   brew install hadolint
   # Shell
   brew install shellcheck
 elif uname -a | grep -sq "Ubuntu"; then
   # C/CPP
-  sudo apt-get install -y cppcheck llvm clang clang-format cppcheck  flawfinder
+  # sudo apt-get install -y cppcheck llvm clang clang-format cppcheck  flawfinder
   # Shell
   sudo apt-get install -y shellcheck
   # Dockerfile
