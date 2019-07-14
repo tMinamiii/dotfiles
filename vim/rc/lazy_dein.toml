@@ -87,15 +87,7 @@ on_ft = ['javascript', 'typescript']
 [[plugins]]
 repo     = 'heavenshell/vim-jsdoc'
 on_ft    = ['typescript', 'javascript', 'javascript.jsx']
-hook_add = '''
-let g:typescript_compiler_binary = ''
-let g:typescript_compiler_options = ''
-autocmd FileType javascript,typescript :call s:jsdoc_keymap()
-function! s:jsdoc_keymap()
-    nnoremap <buffer><silent> <Leader>d :JsDoc<CR>
-    vnoremap <buffer><silent> <Leader>d :JsDoc<CR>
-endfunction
-'''
+hook_add = 'call narona#init#vim_jsdoc#hook_add()'
 
 ###########
 ### CSV ###
@@ -112,16 +104,7 @@ on_ft = ['csv']
 [[plugins]]
 repo     = 'jwalton512/vim-blade'
 on_ft    = ['blade']
-hook_add = '''
-" Define some single Blade directives. This variable is used for highlighting only.
-let g:blade_custom_directives = ['datetime', 'javascript']
-
-" Define pairs of Blade directives. This variable is used for highlighting and indentation.
-let g:blade_custom_directives_pairs = {
-      \   'markdown': 'endmarkdown',
-      \   'cache': 'endcache',
-      \ }
-'''
+hook_add = 'call narona#init#vim_blade#hook_add()'
 
 [[plugins]]
 repo = 'tobyS/vmustache'
@@ -150,30 +133,6 @@ hook_add = '''
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 '''
-
-#############
-### C/C++ ###
-#############
-
-# [[plugins]]
-# repo = 'justmao945/vim-clang'
-# on_ft = ['c', 'cpp']
-#
-# [[plugins]]
-# repo = 'zchee/deoplete-clang'
-# on_ft = ['c', 'cpp', 'cmake']
-# depends = ['deoplete.nvim']
-# hook_source = '''
-# if has('unix')
-#     let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-4.0/lib/libclang-4.0.so'
-#     let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-4.0/include/clang'
-#     if has('mac')
-#         let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.so'
-#         let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/include/clang'
-#     endif
-# endif
-# '''
-
 
 ###############
 ### Jupyter ###
