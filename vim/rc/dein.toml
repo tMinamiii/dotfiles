@@ -32,7 +32,7 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 [[plugins]]
 repo     = 'w0rp/ale'
-hook_add = 'call narona#init#ale#hook_add()'
+hook_add = 'call init#ale#hook_add()'
 
 ########################
 ### Syntax Highlight ###
@@ -104,15 +104,15 @@ repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
 repo     = 'Yggdroot/indentLine'
-hook_add = 'call narona#init#indentLine#hook_add()'
+hook_add = 'call init#indentLine#hook_add()'
 
 [[plugins]]
 repo     = 'ryanoasis/vim-devicons'
-hook_add = 'call narona#init#vim_devicons#hook_add()'
+hook_add = 'call init#vim_devicons#hook_add()'
 
 [[plugins]]
 repo     = 'dbakker/vim-projectroot'
-hook_add = 'call narona#init#vim_projectroot#hook_add()'
+hook_add = 'call init#vim_projectroot#hook_add()'
 
 # http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 [[plugins]]
@@ -139,7 +139,7 @@ repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
 repo     = 'scrooloose/nerdtree.git'
-hook_add = 'call narona#init#nerdtree#hook_add()'
+hook_add = 'call init#nerdtree#hook_add()'
 
 ####################
 ### カラーテーマ ###
@@ -157,11 +157,11 @@ hook_add = 'let g:spring_night_kill_italic = 0'
 ##################
 [[plugins]]
 repo     = 'itchyny/lightline.vim'
-hook_add = 'call narona#init#lightline#hook_add()'
+hook_add = 'call init#lightline#hook_add()'
 
 [[plugins]]
 repo     = 'luochen1990/rainbow'
-hook_add = 'call narona#init#rainbow#hook_add()'
+hook_add = 'call init#rainbow#hook_add()'
 
 [[plugins]]
 repo     = 'andymass/vim-matchup'
@@ -169,10 +169,10 @@ hook_add = 'let g:loaded_matchit = 1'
 
 # [[plugins]]
 # repo = 'kristijanhusak/defx-icons'
-# hook_add = 'call narona#init#defx_icons#hook_add()'
+# hook_add = 'call init#defx_icons#hook_add()'
 #
 # [[plugins]]
 # repo = 'Shougo/defx.nvim'
-# hook_add = 'call narona#init#defx#hook_add()'
+# hook_add = 'call init#defx#hook_add()'
 
 

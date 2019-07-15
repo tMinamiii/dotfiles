@@ -10,7 +10,7 @@ xmap ga <Plug>(EasyAlign)
 repo     = 'thinca/vim-quickrun'
 on_ft    = ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']
 depends  = ['vimproc']
-hook_add = 'call narona#init#vim_quickrun#hook_add()'
+hook_add = 'call init#vim_quickrun#hook_add()'
 
 [[plugins]]
 on_i = 1
@@ -20,7 +20,7 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets']
 on_i = 1
-hook_source = 'call narona#init#neosnippet#hook_source()'
+hook_source = 'call init#neosnippet#hook_source()'
 
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
@@ -29,8 +29,8 @@ repo      = 'Shougo/neomru.vim'
 repo             = 'Shougo/denite.nvim'
 depends          = ['neomru.vim']
 on_event         = 'BufRead'
-hook_add         = 'call narona#init#denite#hook_add()'
-hook_post_source = 'call narona#init#denite#hook_post_source()'
+hook_add         = 'call init#denite#hook_add()'
+hook_post_source = 'call init#denite#hook_post_source()'
 
 [[plugins]]
 repo     = 'mattn/emmet-vim'
@@ -46,8 +46,8 @@ on_i = 1
 [[plugins]]
 repo             = 'cohama/lexima.vim'
 on_i             = 1
-hook_add         = 'call narona#init#lexima#hook_add()'
-hook_post_source = 'call narona#init#lexima#hook_post_source()'
+hook_add         = 'call init#lexima#hook_add()'
+hook_post_source = 'call init#lexima#hook_post_source()'
 
 ###########
 ### Coc ###
@@ -65,7 +65,7 @@ if [ ! -e ~/.config/coc/memos.json ]; then
     echo "{}" > ~/.config/coc/memos.json
 fi
 '''
-hook_add = 'call narona#init#coc#hook_add()'
+hook_add = 'call init#coc#hook_add()'
 
 ##########
 ### GO ###
@@ -74,7 +74,7 @@ hook_add = 'call narona#init#coc#hook_add()'
 [[plugins]]
 repo     = 'fatih/vim-go'
 on_ft    = ['go']
-hook_add = 'call narona#init#vim_go#hook_add()'
+hook_add = 'call init#vim_go#hook_add()'
 
 #############################
 ### Javascript/TypeScript ###
@@ -87,7 +87,7 @@ on_ft = ['javascript', 'typescript']
 [[plugins]]
 repo     = 'heavenshell/vim-jsdoc'
 on_ft    = ['typescript', 'javascript', 'javascript.jsx']
-hook_add = 'call narona#init#vim_jsdoc#hook_add()'
+hook_add = 'call init#vim_jsdoc#hook_add()'
 
 ###########
 ### CSV ###
@@ -104,7 +104,7 @@ on_ft = ['csv']
 [[plugins]]
 repo     = 'jwalton512/vim-blade'
 on_ft    = ['blade']
-hook_add = 'call narona#init#vim_blade#hook_add()'
+hook_add = 'call init#vim_blade#hook_add()'
 
 [[plugins]]
 repo = 'tobyS/vmustache'
@@ -113,7 +113,7 @@ repo = 'tobyS/vmustache'
 repo     = 'tobyS/pdv'
 on_ft    = ['php']
 depends  = ['vmustache']
-hook_add = 'call narona#init#pdv#hook_add()'
+hook_add = 'call init#pdv#hook_add()'
 
 
 #######################
@@ -144,4 +144,4 @@ autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
 [[plugins]]
 repo     = 'liuchengxu/vista.vim'
 depends  = ['coc.nvim', 'lightline.vim']
-hook_add = 'call narona#init#vista#hook_add()'
+hook_add = 'call init#vista#hook_add()'
