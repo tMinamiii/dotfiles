@@ -100,9 +100,9 @@ docker_rmi_none () {
   docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
 }
 
-# alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install'
+# alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install' RelWithDebInfo
 # alias neovim='~/neovim/bin/nvim'
-alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.cache/nvim-cache/usr/local" CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install && sudo cp =$HOME/.cache/nvim-cache/usr/local/bin/nvim /usr/local/bin/neovim'
+alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.cache/nvim-cache/usr/local" CMAKE_BUILD_TYPE=Release && make install && sudo cp =$HOME/.cache/nvim-cache/usr/local/bin/nvim /usr/local/bin/neovim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
 alias docker-rm-exited='docker -aq | xargs docker rm'
