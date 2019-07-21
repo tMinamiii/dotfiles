@@ -204,7 +204,10 @@ if has('nvim')
 	endif
 	syntax on
 	" colorscheme dracula
-	colorscheme spring-night
+	" colorscheme spring-night
+	let g:material_style='palenight'
+	set background=dark
+	colorscheme vim-material
 endif
 
 augroup autoreload

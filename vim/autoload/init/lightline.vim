@@ -1,6 +1,6 @@
 function! init#lightline#hook_add() abort
 	let g:lightline = {
-				\ 'colorscheme': 'wombat',
+				\ 'colorscheme': 'material',
 				\ 'active': {
 				\   'left': [ [ 'mode', 'paste' ], ['fugitive', 'filename', 'modified', 'readonly' ] ],
 				\   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]

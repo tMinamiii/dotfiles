@@ -143,6 +143,8 @@ hook_add = 'call init#nerdtree#hook_add()'
 ####################
 ### カラーテーマ ###
 ####################
+[[plugins]]
+repo = 'hzchirs/vim-material'
 
 [[plugins]]
 repo = 'dracula/vim'
