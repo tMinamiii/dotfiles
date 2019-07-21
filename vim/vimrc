@@ -49,11 +49,12 @@ set shell=zsh
 
 if exists('$TMUX')
 	set ambiwidth=double
-	set notermguicolors
+	set termguicolors
+	" set notermguicolors
 elseif $TERM_PROGRAM ==? 'hyper'
 	set termguicolors
-	" set ambiwidth=double
-	set ambiwidth=single
+	set ambiwidth=double
+	" set ambiwidth=single
 else
 	set termguicolors
     set ambiwidth=double
@@ -251,7 +252,7 @@ if ! exists('veonim')
 	hi! NonText ctermbg=NONE guibg=NONE
 endif
 
-" hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=NONE ctermbg=235
+hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=#334455 ctermbg=235
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 " hi! ALEWarning guibg=#99FFCC guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
 " hi! ALEError guibg=#FF5555 guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
