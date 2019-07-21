@@ -145,13 +145,23 @@ hook_add = 'call init#nerdtree#hook_add()'
 ####################
 [[plugins]]
 repo = 'hzchirs/vim-material'
+hook_add = '''
+let g:material_style='palenight'
+'''
+
+# [[plugins]]
+# repo = 'kaicataldo/material.vim'
+# hook_add = '''
+# let g:material_theme_style = 'palenight'
+# let g:material_terminal_italics = 0
+# '''
 
 [[plugins]]
 repo = 'dracula/vim'
 
 [[plugins]]
 repo = 'rhysd/vim-color-spring-night'
-hook_add = 'let g:spring_night_kill_italic = 0'
+hook_add = 'let g:spring_night_kill_italic = 1'
 
 ##################
 ### Statusline ###
