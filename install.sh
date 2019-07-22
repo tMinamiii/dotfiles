@@ -22,6 +22,9 @@ fi
 if [ -e "$HOME/.tmux.conf" ]; then
   unlink "$HOME/.tmux.conf"
 fi
+if [ -e "$HOME/.hyper.js" ]; then
+  unlink "$HOME/.hyper.js"
+fi
 # if [ -e "$HOME/.tmux.d" ]; then
 #   unlink "$HOME/.tmux.d"
 # fi
@@ -51,6 +54,7 @@ if [ -e "$HOME/.zshrc" ]; then
   mv "$HOME/.zshrc" "$HOME/dotzshrcbk"
 fi
 
+
 ln -s "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
 ln -s "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
 
@@ -62,6 +66,9 @@ ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
 ###### tmux ######
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 # ln -s "$HOME/dotfiles/tmux" "$HOME/.tmux.d"
+
+###### hyper ######
+ln -s "$HOME/dotfiles/hyper/dot.hyper.js" "$HOME/.hyper.js"
 
 ##### GUI setup #####
 if echo "$ARGS" | grep -sq "\\-\\-gui"; then
