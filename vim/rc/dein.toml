@@ -37,47 +37,53 @@ hook_add = 'call init#ale#hook_add()'
 ########################
 ### Syntax Highlight ###
 ########################
+[[plugins]]
+repo = 'sheerun/vim-polyglot'
+hook_add = '''
+let g:vim_json_syntax_conceal = 0
+'''
+
 ### Protocol Buffer ###
-[[plugins]]
-repo = 'uarun/vim-protobuf'
-
-### pug ###
-[[plugins]]
-repo = 'digitaltoad/vim-pug'
-
-### java script ###
-[[plugins]]
-repo = 'jelera/vim-javascript-syntax'
-# repo = 'othree/yajs.vim'
-
-### TypeScript. ###
-[[plugins]]
-repo = 'leafgarland/typescript-vim'
-
-### Vue ###
-[[plugins]]
-repo = 'posva/vim-vue'
-
-### JSX ###
-[[plugins]]
-repo = 'mxw/vim-jsx'
-
-### TOML ###
-[[plugins]]
-repo = 'cespare/vim-toml'
-
-### yaml ###
-[[plugins]]
-repo = 'stephpy/vim-yaml'
-
-[[plugins]]
-repo = 'cakebaker/scss-syntax.vim'
-
-### JSON ###
-[[plugins]]
-repo = 'elzr/vim-json'
-on_ft = ['json']
-hook_add = 'let g:vim_json_syntax_conceal = 0'
+# [[plugins]]
+# repo = 'uarun/vim-protobuf'
+#
+# ### pug ###
+# [[plugins]]
+# repo = 'digitaltoad/vim-pug'
+#
+# ### java script ###
+# [[plugins]]
+# repo = 'jelera/vim-javascript-syntax'
+# # repo = 'othree/yajs.vim'
+#
+# ### TypeScript. ###
+# [[plugins]]
+# repo = 'leafgarland/typescript-vim'
+#
+# ### Vue ###
+# [[plugins]]
+# repo = 'posva/vim-vue'
+#
+# ### JSX ###
+# [[plugins]]
+# repo = 'mxw/vim-jsx'
+#
+# ### TOML ###
+# [[plugins]]
+# repo = 'cespare/vim-toml'
+#
+# ### yaml ###
+# [[plugins]]
+# repo = 'stephpy/vim-yaml'
+#
+# [[plugins]]
+# repo = 'cakebaker/scss-syntax.vim'
+#
+# ### JSON ###
+# [[plugins]]
+# repo = 'elzr/vim-json'
+# on_ft = ['json']
+# hook_add = 'let g:vim_json_syntax_conceal = 0'
 
 #############
 ### Mics ####

@@ -238,15 +238,8 @@ augroup indentsize
     autocmd FileType vue :syntax sync fromstart
 augroup END
 
-if ! exists('veonim')
-	hi! Normal ctermbg=NONE guibg=NONE
-	hi! NonText ctermbg=NONE guibg=NONE
-endif
-
 hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=#334455 ctermbg=235
 hi! SpecialKey ctermfg=239 ctermbg=NONE
-" hi! ALEWarning guibg=#99FFCC guifg=white gui=underline ctermbg=NONE ctermfg=white cterm=underline
-" hi! ALEError guibg=#FF5555 guifg=white gui=underline ctermbg=NONE  ctermfg=white cterm=underline
 hi! CursorLine guibg=NONE guifg=NONE ctermfg=NONE ctermbg=NONE cterm=underline gui=underline
 hi! ALEWarning guibg=NONE guifg=#87ff5f gui=underline ctermbg=NONE ctermfg=119 cterm=underline
 hi! ALEError guibg=NONE guifg=#FF5555 gui=underline ctermbg=NONE  ctermfg=207 cterm=underline
@@ -255,5 +248,17 @@ hi! ALEWarningSign ctermbg=119 ctermfg=NONE guibg=#87ff5f guifg=NONE
 hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
 hi! MatchParen guifg=208 gui=bold
 hi! HighlightedyankRegion cterm=reverse gui=reverse
+
+function! PhpSyntaxOverride()
+  syn match phpDocTags "@\%(abstract\|access\|api\|author\|brief\|bug\|category\|class\|copyright\|created\|date\|deprecated\|details\|example\|exception\|file\|filesource\|final\|global\|id\|ignore\|inheritdoc\|internal\|license\|link\|magic\|method\|name\|package\|param\|property-read\|property-write\|property\|return\|see\|since\|source\|static\|staticvar\|struct\|subpackage\|throws\|toc\|todo\|tutorial\|type\|uses\|var\|version\|warning\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
+  " Put snippet overrides in this function.
+  hi! link phpDocTags phpDefine
+  hi! link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
 " ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
