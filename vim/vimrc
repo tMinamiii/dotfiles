@@ -197,6 +197,12 @@ if has('nvim')
 	endif
 endif
 
+syntax on
+" colorscheme dracula
+" colorscheme material
+" colorscheme spring-night
+colorscheme vim-material
+
 augroup autoreload
     set autoread
     autocmd FocusLost,FocusGained,CursorMoved,CursorMovedI,CursorHold,CursorHoldI  * silent! checktime
@@ -254,11 +260,6 @@ augroup phpSyntaxOverride
   autocmd!
   autocmd FileType php call PhpSyntaxOverride()
 augroup END
-" ファイルタイププラグインおよびインデントを有効化
 
-syntax on
-" colorscheme dracula
-" colorscheme material
-" colorscheme spring-night
-colorscheme vim-material
+" ファイルタイププラグインおよびインデントを有効化
 filetype plugin indent on
