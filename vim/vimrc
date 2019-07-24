@@ -195,11 +195,6 @@ if has('nvim')
 		let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
 		let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3.6*/bin/python')))[-1]
 	endif
-	syntax on
-	" colorscheme dracula
-	" colorscheme material
-	" colorscheme spring-night
-	colorscheme vim-material
 endif
 
 augroup autoreload
@@ -250,9 +245,8 @@ hi! MatchParen guifg=208 gui=bold
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
 function! PhpSyntaxOverride()
-  syn match phpDocTags "@\%(abstract\|access\|api\|author\|brief\|bug\|category\|class\|copyright\|created\|date\|deprecated\|details\|example\|exception\|file\|filesource\|final\|global\|id\|ignore\|inheritdoc\|internal\|license\|link\|magic\|method\|name\|package\|param\|property-read\|property-write\|property\|return\|see\|since\|source\|static\|staticvar\|struct\|subpackage\|throws\|toc\|todo\|tutorial\|type\|uses\|var\|version\|warning\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
-  " Put snippet overrides in this function.
-  hi! link phpDocTags phpDefine
+  syn match phpPropExt "@\%(property-read\|property-write\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
+  hi! link phpDocTags phpPropExt
   hi! link phpDocParam phpType
 endfunction
 
@@ -261,4 +255,10 @@ augroup phpSyntaxOverride
   autocmd FileType php call PhpSyntaxOverride()
 augroup END
 " ファイルタイププラグインおよびインデントを有効化
+
+syntax on
+" colorscheme dracula
+" colorscheme material
+" colorscheme spring-night
+colorscheme vim-material
 filetype plugin indent on
