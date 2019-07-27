@@ -15,6 +15,13 @@
   "python.jediEnabled": false,
   "vetur.completion.autoImport": true,
   "languageserver": {
+    "efm": {
+      "command": "efm-langserver",
+      "args": [],
+      // custom config path
+      // "args": ["-c", "/path/to/your/config.yaml"],
+      "filetypes": ["vim", "eruby", "markdown", "yaml"]
+    },
     "golang": {
       "command": "gopls",
       "args": [],
