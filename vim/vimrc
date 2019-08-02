@@ -196,13 +196,159 @@ if has('nvim')
 		let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
 		let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3.6*/bin/python')))[-1]
 	endif
-endif
+else
 
-syntax on
-" colorscheme dracula
-" colorscheme material
-" colorscheme spring-night
-colorscheme vim-material
+	if empty(glob('~/.vim/autoload/plug.vim'))
+		silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+					\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		augroup plug
+			autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+		augroup END
+	endif
+
+	call plug#begin('~/.vim/plugged')
+
+	Plug 'Shougo/vimproc', {'do': 'make'}
+
+	Plug 'terryma/vim-multiple-cursors'
+
+	Plug 'osyo-manga/vim-over'
+	nnoremap <silent> <Leader>o :OverCommandLine<CR>
+
+	Plug 'terryma/vim-expand-region'
+	vmap v <Plug>(expand_region_expand)
+	vmap <C-v> <Plug>(expand_region_shrink)
+
+    Plug 'w0rp/ale'
+	call init#ale#hook_add()
+
+	" Syntax Highlight
+	Plug 'sheerun/vim-polyglot'
+
+	" Plug 'jelera/vim-javascript-syntax'
+	" Plug 'othree/yajs.vim'
+
+	Plug 'deris/vim-shot-f'
+
+	Plug 'andymass/vim-matchup'
+
+	Plug 'machakann/vim-highlightedyank'
+
+	Plug 'simeji/winresizer'
+	let g:winresizer_vert_resize = 1
+	let g:winresizer_horiz_resize = 1
+
+	Plug 'editorconfig/editorconfig-vim'
+
+	Plug 'Yggdroot/indentLine'
+	call init#indentLine#hook_add()
+
+	Plug 'ryanoasis/vim-devicons'
+	call init#vim_devicons#hook_add()
+
+	Plug 'dbakker/vim-projectroot'
+	call init#vim_projectroot#hook_add()
+
+	" " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+	Plug 'godlygeek/tabular'
+
+	" git
+	Plug 'cohama/agit.vim'
+
+	Plug 'tpope/vim-fugitive'
+
+	Plug 'airblade/vim-gitgutter'
+
+	" Filer
+	Plug 'scrooloose/nerdtree'
+	call init#nerdtree#hook_add()
+
+	Plug 'hzchirs/vim-material'
+	let g:material_style='palenight'
+
+	Plug 'dracula/vim'
+
+	Plug 'rhysd/vim-color-spring-night'
+	let g:spring_night_kill_italic = 1
+
+	" Statusline
+	Plug 'itchyny/lightline.vim'
+	call init#lightline#hook_add()
+
+	Plug 'luochen1990/rainbow'
+	call init#rainbow#hook_add()
+
+	Plug 'andymass/vim-matchup'
+	let g:loaded_matchit = 1
+
+	Plug 'rhysd/git-messenger.vim'
+	nmap <Leader>gm <Plug>(git-messenger)
+	let g:git_messenger_include_diff = 'current'
+	let g:git_messenger_always_into_popup = v:true
+	let g:git_messenger_into_popup_after_show = v:true
+
+	Plug 'junegunn/vim-easy-align'
+	nmap ga <Plug>(EasyAlign)
+	xmap ga <Plug>(EasyAlign)
+
+	Plug 'thinca/vim-quickrun', {'for': ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']}
+	call init#vim_quickrun#hook_add()
+
+	Plug 'Shougo/neosnippet-snippets'
+
+	Plug 'Shougo/neosnippet.vim'
+	call init#neosnippet#hook_source()
+
+	Plug 'Shougo/neomru.vim'
+
+	Plug 'mattn/emmet-vim'
+
+	Plug 'tpope/vim-surround'
+
+	Plug 'cohama/lexima.vim'
+	call init#lexima#hook_add()
+
+	Plug 'fatih/vim-go', {'for': 'go'}
+
+	Plug 'ruanyl/vim-sort-imports', {'for' : ['javascript', 'typescript']}
+
+	Plug 'heavenshell/vim-jsdoc', {'for' : ['javascript', 'typescript', 'javascript.jsx']}
+	call init#vim_jsdoc#hook_add()
+
+	Plug 'mechatroner/rainbow_csv', {'for': 'csv'}
+
+	Plug 'jwalton512/vim-blade', {'for': 'blade'}
+	call init#vim_blade#hook_add()
+
+	Plug 'tobyS/vmustache'
+
+	Plug 'tobyS/pdv', {'for': 'php'}
+	call init#pdv#hook_add()
+
+	Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+	let g:vim_markdown_conceal = 0
+	let g:vim_markdown_folding_disabled = 1
+
+	Plug 'szymonmaszke/vimpyter', {'for': 'ipynb'}
+	augroup vimpyter
+		autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
+		autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
+		autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
+	augroup END
+
+	Plug 'liuchengxu/vista.vim'
+	call init#vista#hook_add()
+
+	Plug 'prabirshrestha/asyncomplete.vim'
+	Plug 'prabirshrestha/async.vim'
+	Plug 'prabirshrestha/vim-lsp'
+	Plug 'prabirshrestha/asyncomplete-lsp.vim'
+	let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+	call plug#end()
+	""" Post Source
+	call init#lexima#hook_post_source()
+	call init#vim_lsp#register_lsp()
+endif
 
 augroup autoreload
     set autoread
@@ -240,6 +386,21 @@ augroup indentsize
     autocmd FileType vue :syntax sync fromstart
 augroup END
 
+if has('nvim')
+	" ファイルタイププラグインおよびインデントを有効化
+	hi! MatchParen guifg=208 gui=bold
+	filetype plugin indent on
+	syntax on
+endif
+
+" colorscheme dracula
+" colorscheme spring-night
+set background=dark
+try
+	colorscheme vim-material
+catch
+endtry
+
 hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=#334455 ctermbg=235
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! CursorLine guibg=NONE guifg=NONE ctermfg=NONE ctermbg=NONE cterm=underline gui=underline
@@ -248,19 +409,17 @@ hi! ALEError guibg=NONE guifg=#FF5555 gui=underline ctermbg=NONE  ctermfg=207 ct
 hi! ALEErrorSign ctermbg=207 ctermfg=NONE guibg=#FF5555 guifg=NONE
 hi! ALEWarningSign ctermbg=119 ctermfg=NONE guibg=#87ff5f guifg=NONE
 hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
-hi! MatchParen guifg=208 gui=bold
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
 function! PhpSyntaxOverride()
-  syn match phpPropExt "@\%(property-read\|property-write\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
-  hi! link phpDocTags phpPropExt
-  hi! link phpDocParam phpType
+	syn match phpPropExt "@\%(property-read\|property-write\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
+	hi! link phpDocTags phpPropExt
+	hi! link phpDocParam phpType
 endfunction
 
 augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
+	autocmd!
+	autocmd FileType php call PhpSyntaxOverride()
 augroup END
 
-" ファイルタイププラグインおよびインデントを有効化
-filetype plugin indent on
+
