@@ -142,6 +142,7 @@ let g:coc_global_extensions = [
             \ 'coc-python',
             \ 'coc-rls',
             \ 'coc-solargraph',
+            \ 'coc-tabnine',
             \ 'coc-tsserver',
             \ 'coc-vetur',
             \ 'coc-vimlsp',
@@ -232,12 +233,13 @@ augroup indentsize
 augroup END
 
 " ファイルタイププラグインおよびインデントを有効化
-" colorscheme dracula
-" colorscheme spring-night
-
 set background=dark
+
+syntax on
 try
-    colorscheme vim-material
+  " colorscheme dracula
+  " colorscheme spring-night
+  colorscheme vim-material
 catch
 endtry
 
@@ -265,4 +267,3 @@ augroup phpSyntaxOverride
 augroup END
 
 filetype plugin indent on
-syntax on
