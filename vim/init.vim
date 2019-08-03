@@ -142,7 +142,6 @@ let g:coc_global_extensions = [
             \ 'coc-python',
             \ 'coc-rls',
             \ 'coc-solargraph',
-            \ 'coc-tabnine',
             \ 'coc-tsserver',
             \ 'coc-vetur',
             \ 'coc-vimlsp',
