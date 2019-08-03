@@ -50,14 +50,6 @@ set shell=zsh
 set ambiwidth=double
 set termguicolors
 
-if exists('$TMUX')
-	" tmux
-elseif $TERM_PROGRAM ==? 'hyper'
-	" hyper
-else
-	" hoge
-endif
-
 " set iminsert=0
 " set imsearch=0
 " set lazyredraw
@@ -122,233 +114,527 @@ command! W :w
 command! Wq :wq
 command! WQ :wq
 
-if has('nvim')
-	set wildoptions=pum
-	set winblend=10
-	set pumblend=10
-	set pumheight=15
-
-	"""""" Coc Extensions """"""
-	let g:coc_global_extensions = [
-				\ 'coc-css',
-				\ 'coc-emmet',
-				\ 'coc-eslint',
-				\ 'coc-git',
-				\ 'coc-highlight',
-				\ 'coc-html',
-				\ 'coc-java',
-				\ 'coc-json',
-				\ 'coc-neosnippet',
-				\ 'coc-phpls',
-				\ 'coc-python',
-				\ 'coc-rls',
-				\ 'coc-solargraph',
-				\ 'coc-tabnine',
-				\ 'coc-tsserver',
-				\ 'coc-vetur',
-				\ 'coc-vimlsp',
-				\ 'coc-wxml',
-				\ 'coc-xml',
-				\ 'coc-yaml',
-				\ 'coc-yank',
-				\ ]
-
-	"""""" dein (load plugins)"""""
-	let s:dein_dir = expand('~/.cache/dein')
-	let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-	" dein.vim がなければ github から落としてくる
-	if &runtimepath !~# '/dein.vim'
-		if !isdirectory(s:dein_repo_dir)
-			execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-		endif
-		execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-	endif
-
-	" もし設定のキャッシュファイルを読み込めなかったら
-	" tomlファイルを再読み込みする
-	if dein#load_state(s:dein_dir)
-		call dein#begin(s:dein_dir) " 設定開始
-
-		" プラグインリストを収めた TOML ファイル
-		" 予め TOML ファイル（後述）を用意しておく
-		let g:rc_dir = expand('~/.vim/rc')
-		let s:dein_toml = g:rc_dir . '/dein.toml'
-		let s:lazy_dein_toml = g:rc_dir . '/lazy_dein.toml'
-
-		" TOML を読み込み、キャッシュしておく
-		call dein#load_toml(s:dein_toml,      {'lazy': 0})
-		call dein#load_toml(s:lazy_dein_toml, {'lazy': 1})
-
-		call dein#end() " 設定終了
-		call dein#save_state() " キャッシュ保存
-	endif
-
-	" もし、未インストールものものがあったらインストール
-	if dein#check_install()
-		call dein#install()
-	endif
-	" 最新のpythonをhostにする
-	if exists('$VIRTUAL_ENV')
-		let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-		let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
-	else
-		let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-		let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3.6*/bin/python')))[-1]
-	endif
-else
-
-	if empty(glob('~/.vim/autoload/plug.vim'))
-		silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-					\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-		augroup plug
-			autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-		augroup END
-	endif
-
-	call plug#begin('~/.vim/plugged')
-
-	Plug 'Shougo/vimproc', {'do': 'make'}
-
-	Plug 'terryma/vim-multiple-cursors'
-
-	Plug 'osyo-manga/vim-over'
-	nnoremap <silent> <Leader>o :OverCommandLine<CR>
-
-	Plug 'terryma/vim-expand-region'
-	vmap v <Plug>(expand_region_expand)
-	vmap <C-v> <Plug>(expand_region_shrink)
-
-    Plug 'w0rp/ale'
-	call init#ale#hook_add()
-
-	" Syntax Highlight
-	Plug 'sheerun/vim-polyglot'
-
-	" Plug 'jelera/vim-javascript-syntax'
-	" Plug 'othree/yajs.vim'
-
-	Plug 'deris/vim-shot-f'
-
-	Plug 'andymass/vim-matchup'
-
-	Plug 'machakann/vim-highlightedyank'
-
-	Plug 'simeji/winresizer'
-	let g:winresizer_vert_resize = 1
-	let g:winresizer_horiz_resize = 1
-
-	Plug 'editorconfig/editorconfig-vim'
-
-	Plug 'Yggdroot/indentLine'
-	call init#indentLine#hook_add()
-
-	Plug 'ryanoasis/vim-devicons'
-	call init#vim_devicons#hook_add()
-
-	Plug 'dbakker/vim-projectroot'
-	call init#vim_projectroot#hook_add()
-
-	" " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
-	Plug 'godlygeek/tabular'
-
-	" git
-	Plug 'cohama/agit.vim'
-
-	Plug 'tpope/vim-fugitive'
-
-	Plug 'airblade/vim-gitgutter'
-
-	" Filer
-	Plug 'scrooloose/nerdtree'
-	call init#nerdtree#hook_add()
-
-	Plug 'hzchirs/vim-material'
-	let g:material_style='palenight'
-
-	Plug 'dracula/vim'
-
-	Plug 'rhysd/vim-color-spring-night'
-	let g:spring_night_kill_italic = 1
-
-	" Statusline
-	Plug 'itchyny/lightline.vim'
-	call init#lightline#hook_add()
-
-	Plug 'luochen1990/rainbow'
-	call init#rainbow#hook_add()
-
-	Plug 'andymass/vim-matchup'
-	let g:loaded_matchit = 1
-
-	Plug 'rhysd/git-messenger.vim'
-	nmap <Leader>gm <Plug>(git-messenger)
-	let g:git_messenger_include_diff = 'current'
-	let g:git_messenger_always_into_popup = v:true
-	let g:git_messenger_into_popup_after_show = v:true
-
-	Plug 'junegunn/vim-easy-align'
-	nmap ga <Plug>(EasyAlign)
-	xmap ga <Plug>(EasyAlign)
-
-	Plug 'thinca/vim-quickrun', {'for': ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']}
-	call init#vim_quickrun#hook_add()
-
-	Plug 'Shougo/neosnippet-snippets'
-
-	Plug 'Shougo/neosnippet.vim'
-	call init#neosnippet#hook_source()
-
-	Plug 'Shougo/neomru.vim'
-
-	Plug 'mattn/emmet-vim'
-
-	Plug 'tpope/vim-surround'
-
-	Plug 'cohama/lexima.vim'
-	call init#lexima#hook_add()
-
-	Plug 'fatih/vim-go', {'for': 'go'}
-
-	Plug 'ruanyl/vim-sort-imports', {'for' : ['javascript', 'typescript']}
-
-	Plug 'heavenshell/vim-jsdoc', {'for' : ['javascript', 'typescript', 'javascript.jsx']}
-	call init#vim_jsdoc#hook_add()
-
-	Plug 'mechatroner/rainbow_csv', {'for': 'csv'}
-
-	Plug 'jwalton512/vim-blade', {'for': 'blade'}
-	call init#vim_blade#hook_add()
-
-	Plug 'tobyS/vmustache'
-
-	Plug 'tobyS/pdv', {'for': 'php'}
-	call init#pdv#hook_add()
-
-	Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-	let g:vim_markdown_conceal = 0
-	let g:vim_markdown_folding_disabled = 1
-
-	Plug 'szymonmaszke/vimpyter', {'for': 'ipynb'}
-	augroup vimpyter
-		autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
-		autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
-		autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
-	augroup END
-
-	Plug 'liuchengxu/vista.vim'
-	call init#vista#hook_add()
-
-	Plug 'prabirshrestha/asyncomplete.vim'
-	Plug 'prabirshrestha/async.vim'
-	Plug 'prabirshrestha/vim-lsp'
-	Plug 'prabirshrestha/asyncomplete-lsp.vim'
-	let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
-	call plug#end()
-	""" Post Source
-	call init#lexima#hook_post_source()
-	call init#vim_lsp#register_lsp()
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    augroup plug
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    augroup END
 endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'Shougo/vimproc', {'do': 'make'}
+
+Plug 'terryma/vim-multiple-cursors'
+
+Plug 'osyo-manga/vim-over'
+nnoremap <silent> <Leader>o :OverCommandLine<CR>
+
+Plug 'terryma/vim-expand-region'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+Plug 'w0rp/ale'
+nmap <silent> <Leader>/ :ALEFix<CR>
+nmap <silent> <leader>jj :ALENext<CR>
+nmap <silent> <leader>kk :ALEPrevious<CR>
+
+let g:ale_linters = {
+            \   'javascript': ['eslint'],
+            \   'javascript.jsx': ['eslint'],
+            \   'php': ['phpcs', 'phpstan'],
+            \   'go': ['govet', 'golangci-lint'],
+            \   'python': ['pycodestyle',  'pylint', 'mypy', 'flake8', 'isort'],
+            \   'ruby': ['ruby'],
+            \   'typescript': ['eslint', 'tsserver'],
+            \   'vue': ['eslint', 'vls'],
+            \   'zsh': ['shellcheck'],
+            \   'vim': ['vint'],
+            \   'yaml': ['prettier'],
+            \}
+
+let g:ale_fixers = {
+            \ 'bash': ['shfmt'],
+            \ 'go': ['gofmt', 'goimports'],
+            \ 'javascript': ['eslint'],
+            \ 'javascript.jsx': ['eslint'],
+            \ 'json': ['prettier'],
+            \ 'php': ['php_cs_fixer', 'phpcbf'],
+            \ 'python': ['autopep8', 'yapf', 'isort'],
+            \ 'sh': ['shfmt'],
+            \ 'typescript': ['eslint'],
+            \ 'vue': ['eslint'],
+            \ 'yaml': ['prettier'],
+            \ }
+
+if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
+    let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
+    let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
+else
+    let g:ale_sign_error = ''       " エラー行に表示するマーク
+    let g:ale_sign_warning = ''     " エラー行に表示するマーク
+endif
+let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
+let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
+
+let g:ale_set_highlights = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
+let g:ale_sign_column_always = 1 " エラー表示の列を常時表示
+let g:ale_completion_enabled = 0
+let g:ale_virtualtext_cursor = 1
+
+let g:ale_disable_lsp = 1
+let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
+let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
+let g:ale_fix_on_save = 0        " ファイルを保存したときにfix実行
+let g:ale_lint_delay = 50
+let g:ale_lint_on_text_changed = 'never' " always or never
+
+" lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 0
+let g:ale_open_list = 0
+let g:ale_keep_list_window_open = 0
+let g:ale_javascript_eslint_options = '--cache'
+let g:ale_javascript_eslint_suppress_eslintignore = 1
+let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
+let g:ale_php_phpcs_use_global = 1
+" let g:ale_php_phpcs_standard = 'PSR12'
+" let g:ale_php_cs_fixer_options = '--rules=@PSR2'
+" let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
+" let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
+let g:ale_php_phpstan_level = 5
+let g:ale_php_phan_minimum_severity = 0
+let g:ale_go_golangci_lint_options = '
+            \ --enable-all
+            \ -D=typecheck
+            \ -D=dupl
+            \ -D=gochecknoglobals
+            \ -D=deadcode
+            \ -D=unused
+            \ -D=lll
+            \ -D=prealloc
+            \'
+
+" Syntax Highlight
+Plug 'sheerun/vim-polyglot'
+
+" Plug 'jelera/vim-javascript-syntax'
+" Plug 'othree/yajs.vim'
+
+Plug 'deris/vim-shot-f'
+
+Plug 'andymass/vim-matchup'
+
+Plug 'machakann/vim-highlightedyank'
+
+Plug 'simeji/winresizer'
+let g:winresizer_vert_resize = 1
+let g:winresizer_horiz_resize = 1
+
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'Yggdroot/indentLine'
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
+let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'defx', 'terminal']
+let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
+let g:indentLine_color_term = 238
+let g:indentLine_color_gui = '#676767'
+
+Plug 'dbakker/vim-projectroot'
+function! <SID>AutoProjectRootCD()
+    try
+        if &filetype !=? 'help'
+            ProjectRootCD
+        endif
+    catch
+        " Silently ignore invalid buffers
+    endtry
+endfunction
+augroup mygroup
+    autocmd BufEnter * call <SID>AutoProjectRootCD()
+augroup END
+
+" " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+Plug 'godlygeek/tabular'
+
+" git
+Plug 'cohama/agit.vim'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'airblade/vim-gitgutter'
+
+" Filer
+Plug 'scrooloose/nerdtree'
+nmap <F9> :NERDTreeToggle<CR>
+nmap <silent><Leader>n :NERDTreeToggle<CR>
+nmap <silent><Leader>h :NERDTreeFind<CR>
+let g:NERDTreeWinSize = 35
+let g:NERDTreeLimitedSyntax = 1
+augroup nerdtree_hook_add
+    autocmd FileType nerdtree nmap <buffer> l o
+    autocmd FileType nerdtree nmap <buffer> <C-0> o
+    autocmd FileType nerdtree nmap <buffer> <C-n> j
+    autocmd FileType nerdtree nmap <buffer> <C-p> k
+augroup END
+
+Plug 'hzchirs/vim-material'
+let g:material_style='palenight'
+
+Plug 'dracula/vim'
+
+Plug 'rhysd/vim-color-spring-night'
+let g:spring_night_kill_italic = 1
+
+" Statusline
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+            \ 'colorscheme': 'material',
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ], ['fugitive', 'filename', 'modified', 'readonly' ] ],
+            \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+            \ },
+            \ 'tabline': {'left': [['buffers']], 'right': [['close']]},
+            \ 'component_function': {
+            \   'cocstatus': 'coc#status',
+            \   'fugitive': 'LightlineFugitive',
+            \   'filename': 'LightlineFilename',
+            \   'fileformat': 'LightlineFileformat',
+            \   'filetype': 'LightlineFiletype',
+            \   'fileencoding': 'LightlineFileencoding',
+            \   'mode': 'LightlineMode',
+            \ },
+            \ 'component_expand': {
+            \   'syntastic': 'SyntasticStatuslineFlag',
+            \   'buffers': 'lightline#bufferline#buffers',
+            \ },
+            \ 'component_type': {
+            \   'syntastic': 'error',
+            \   'buffers': 'tabsel',
+            \ },
+            \ 'subseparator': { 'left': '|', 'right': '|' }
+            \ }
+
+function! LightlineModified()
+    return &filetype =~? 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightlineReadonly()
+    return &filetype !~? 'help' && &readonly ? 'RO' : ''
+endfunction
+
+function! LightlineFilename()
+    let fname = expand('%:t')
+    return fname ==? 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+                \ fname ==? '__Tagbar__' ? g:lightline.fname :
+                \ fname =~? '__Gundo\|NERD_tree' ? '' :
+                \ &filetype ==? 'vimfiler' ? vimfiler#get_status_string() :
+                \ &filetype ==? 'unite' ? unite#get_status_string() :
+                \ &filetype ==? 'vimshell' ? vimshell#get_status_string() :
+                \ ('' !=? LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+                \ ('' !=? fname ? fname : '[No Name]') .
+                \ ('' !=? LightlineModified() ? ' ' . LightlineModified() : '')
+endfunction
+
+function! LightlineFugitive()
+    try
+        if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
+            let mark = ''  " edit here for cool mark
+            let branch = fugitive#head()
+            return branch !=# '' ? mark.branch : ''
+        endif
+    catch
+    endtry
+    return ''
+endfunction
+
+function! LightlineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightlineFileencoding()
+    return winwidth(0) > 70 ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
+endfunction
+
+function! LightlineMode()
+    let fname = expand('%:t')
+    return fname ==? '__Tagbar__' ? 'Tagbar' :
+                \ fname ==? 'ControlP' ? 'CtrlP' :
+                \ fname ==? '__Gundo__' ? 'Gundo' :
+                \ fname ==? '__Gundo_Preview__' ? 'Gundo Preview' :
+                \ fname =~? 'NERD_tree' ? 'NERDTree' :
+                \ &filetype ==? 'unite' ? 'Unite' :
+                \ &filetype ==? 'vimfiler' ? 'VimFiler' :
+                \ &filetype ==? 'vimshell' ? 'VimShell' :
+                \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! CtrlPMark()
+    if expand('%:t') =~? 'ControlP' && has_key(g:lightline, 'ctrlp_item')
+        call lightline#link('iR'[g:lightline.ctrlp_regex])
+        return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+                    \ , g:lightline.ctrlp_next], 0)
+    else
+        return ''
+    endif
+endfunction
+
+let g:ctrlp_status_func = {
+            \ 'main': 'CtrlPStatusFunc_1',
+            \ 'prog': 'CtrlPStatusFunc_2',
+            \ }
+
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+    let g:lightline.ctrlp_regex = a:regex
+    let g:lightline.ctrlp_prev = a:prev
+    let g:lightline.ctrlp_item = a:item
+    let g:lightline.ctrlp_next = a:next
+    return lightline#statusline(0)
+endfunction
+
+function! CtrlPStatusFunc_2(str)
+    return lightline#statusline(0)
+endfunction
+
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+    let g:lightline.fname = a:fname
+    return lightline#statusline(0)
+endfunction
+
+augroup AutoSyntastic
+    autocmd!
+    autocmd BufWritePost *.c,*.cpp call s:syntastic()
+augroup END
+function! s:syntastic()
+    SyntasticCheck
+    call lightline#update()
+endfunction
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
+
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 0
+let g:rainbow_conf = {
+            \   'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
+            \   'separately': {
+            \       'nerdtree': 0,
+            \   },
+            \ }
+
+Plug 'andymass/vim-matchup'
+let g:loaded_matchit = 1
+
+Plug 'rhysd/git-messenger.vim'
+nmap <Leader>gm <Plug>(git-messenger)
+let g:git_messenger_include_diff = 'current'
+let g:git_messenger_always_into_popup = v:true
+let g:git_messenger_into_popup_after_show = v:true
+
+Plug 'junegunn/vim-easy-align'
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
+Plug 'thinca/vim-quickrun', {'for': ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']}
+let g:quickrun_config = {
+            \     '_' : {
+            \         'runner' : 'vimproc',
+            \         'runner/vimproc/updatetime' : 40,
+            \         'outputter' : 'error',
+            \         'outputter/error/success' : 'buffer',
+            \         'outputter/error/error'   : 'quickfix',
+            \         'outputter/buffer/split' : ':botright 12sp',
+            \     }
+            \ }
+
+" 実行時に前回の表示内容をクローズ&保存してから実行
+let g:quickrun_no_default_key_mappings = 1
+" "nmap <Leader><C-r> :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+nmap <Leader><C-r> :QuickRun -mode n<CR>
+
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <expr><TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ neosnippet#expandable_or_jumpable() ?
+            \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+imap <expr><CR>
+            \ (pumvisible() && neosnippet#expandable()) ? "\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
+
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+"if has('conceal')
+"  set conceallevel=2 concealcursor=niv
+"endif
+
+Plug 'Shougo/neomru.vim'
+
+Plug 'mattn/emmet-vim'
+
+Plug 'tpope/vim-surround'
+
+Plug 'cohama/lexima.vim'
+let g:lexima_enable_basic_rules = 1
+let g:lexima_ctrlh_as_backspace = 1
+
+Plug 'fatih/vim-go', {'for': 'go'}
+
+Plug 'ruanyl/vim-sort-imports', {'for' : ['javascript', 'typescript']}
+
+Plug 'heavenshell/vim-jsdoc', {'for' : ['javascript', 'typescript', 'javascript.jsx']}
+let g:typescript_compiler_binary = ''
+let g:typescript_compiler_options = ''
+augroup mygroup
+    autocmd FileType javascript,typescript :call s:jsdoc_keymap()
+augroup END
+function! s:jsdoc_keymap()
+    nnoremap <buffer><silent> <Leader>d :JsDoc<CR>
+    vnoremap <buffer><silent> <Leader>d :JsDoc<CR>
+endfunction
+
+Plug 'mechatroner/rainbow_csv', {'for': 'csv'}
+
+Plug 'jwalton512/vim-blade', {'for': 'blade'}
+" Define some single Blade directives. This variable is used for highlighting only.
+let g:blade_custom_directives = ['datetime', 'javascript']
+
+" Define pairs of Blade directives. This variable is used for highlighting and indentation.
+let g:blade_custom_directives_pairs = {
+            \   'markdown': 'endmarkdown',
+            \   'cache': 'endcache',
+            \ }
+
+Plug 'tobyS/vmustache'
+
+Plug 'tobyS/pdv', {'for': 'php'}
+call init#pdv#hook_add()
+
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
+
+Plug 'szymonmaszke/vimpyter', {'for': 'ipynb'}
+augroup vimpyter
+    autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
+    autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
+    autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
+augroup END
+
+Plug 'liuchengxu/vista.vim'
+let g:pdv_template_dir = $HOME .'/.cache/dein/repos/github.com/tobyS/pdv/templates'
+augroup mygroup
+    autocmd FileType php :call s:phpdoc_keymap()
+augroup END
+function! s:phpdoc_keymap()
+    nnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
+    vnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
+endfunction
+
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+call plug#end()
+
+""" Post Source
+call lexima#add_rule({'char': '(', 'at': '\%#[^)].*$', 'leave': 1})
+call lexima#add_rule({'char': '{', 'at': '\%#[^}].*$', 'leave': 1})
+call lexima#add_rule({'char': '[', 'at': '\%#[^\]].*$', 'leave': 1})
+call lexima#add_rule( {'char': '(', 'input_after': ')'})
+call lexima#add_rule( {'char': '(', 'at': '\\\%#'})
+call lexima#add_rule( {'char': ')', 'at': '\%#)', 'leave': 1})
+call lexima#add_rule( {'char': '<BS>', 'at': '(\%#)', 'delete': 1})
+call lexima#add_rule( {'char': '{', 'input_after': '}'})
+call lexima#add_rule( {'char': '}', 'at': '\%#}', 'leave': 1})
+call lexima#add_rule( {'char': '<BS>', 'at': '{\%#}', 'delete': 1})
+call lexima#add_rule( {'char': '[', 'input_after': ']'})
+call lexima#add_rule( {'char': '[', 'at': '\\\%#'})
+call lexima#add_rule( {'char': ']', 'at': '\%#]', 'leave': 1})
+call lexima#add_rule( {'char': '<BS>', 'at': '\[\%#\]', 'delete': 1})
+
+if executable('pyls')
+    " pip install python-language-server
+    augroup lsp
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'pyls',
+                    \ 'cmd': {server_info->['pyls']},
+                    \ 'whitelist': ['python'],
+                    \ })
+    augroup END
+endif
+if executable('typescript-language-server')
+    " npm install -g typescript typescript-language-server
+    augroup lsp
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'typescript-language-server',
+                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+                    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+                    \ 'whitelist': ['typescript'],
+                    \ })
+    augroup END
+endif
+if executable('gopls')
+    augroup lsp
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'gopls',
+                    \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+                    \ 'whitelist': ['go'],
+                    \ })
+        autocmd BufWritePre *.go LspDocumentFormatSync
+    augroup END
+endif
+if executable('docker-langserver')
+    augroup lsp
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'docker-langserver',
+                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'docker-langserver --stdio']},
+                    \ 'whitelist': ['dockerfile'],
+                    \ })
+    augroup END
+endif
+augroup lsp
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'intelephense',
+                \ 'cmd': {server_info->['node', expand('PATH_TO_GLOBAL_NODE_MODULES/intelephense/lib/intelephense.js'), '--stdio']},
+                \ 'initialization_options': {"storagePath": "PATH_TO_TEMP_FOLDER/intelephense"},
+                \ 'whitelist': ['php'],
+                \ })
+augroup END
+
+if executable('css-languageserver')
+    " npm install -g vscode-css-languageserver-bin
+    augroup lsp
+        au User lsp_setup call lsp#register_server({
+                \ 'name': 'css-languageserver',
+                \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
+                \ 'whitelist': ['css', 'less', 'sass'],
+                \ })
+    augroup END
+endif
+
 
 augroup autoreload
     set autoread
@@ -386,18 +672,11 @@ augroup indentsize
     autocmd FileType vue :syntax sync fromstart
 augroup END
 
-if has('nvim')
-	" ファイルタイププラグインおよびインデントを有効化
-	hi! MatchParen guifg=208 gui=bold
-	filetype plugin indent on
-	syntax on
-endif
-
 " colorscheme dracula
 " colorscheme spring-night
 set background=dark
 try
-	colorscheme vim-material
+    colorscheme vim-material
 catch
 endtry
 
@@ -412,14 +691,14 @@ hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
 function! PhpSyntaxOverride()
-	syn match phpPropExt "@\%(property-read\|property-write\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
-	hi! link phpDocTags phpPropExt
-	hi! link phpDocParam phpType
+    syn match phpPropExt "@\%(property-read\|property-write\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
+    hi! link phpDocTags phpPropExt
+    hi! link phpDocParam phpType
 endfunction
 
 augroup phpSyntaxOverride
-	autocmd!
-	autocmd FileType php call PhpSyntaxOverride()
+    autocmd!
+    autocmd FileType php call PhpSyntaxOverride()
 augroup END
 
 
