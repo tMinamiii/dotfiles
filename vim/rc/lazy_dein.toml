@@ -55,11 +55,11 @@ hook_add = '''
 repo = 'tpope/vim-surround'
 on_i = 1
 
-[[plugins]]
-repo             = 'cohama/lexima.vim'
-on_i             = 1
-hook_add         = 'call init#lexima#hook_add()'
-hook_post_source = 'call init#lexima#hook_post_source()'
+# [[plugins]]
+# repo             = 'cohama/lexima.vim'
+# on_i             = 1
+# hook_add         = 'call init#lexima#hook_add()'
+# hook_post_source = 'call init#lexima#hook_post_source()'
 
 ###########
 ### Coc ###

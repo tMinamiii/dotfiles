@@ -142,7 +142,6 @@ let g:coc_global_extensions = [
             \ 'coc-python',
             \ 'coc-rls',
             \ 'coc-solargraph',
-            \ 'coc-tabnine',
             \ 'coc-tsserver',
             \ 'coc-vetur',
             \ 'coc-vimlsp',
@@ -233,8 +232,6 @@ augroup indentsize
 augroup END
 
 " ファイルタイププラグインおよびインデントを有効化
-" filetype plugin indent on
-" syntax on
 " colorscheme dracula
 " colorscheme spring-night
 
@@ -244,6 +241,7 @@ try
 catch
 endtry
 
+hi! SignColumn guibg=NONE ctermbg=NONE term=NONE
 hi! MatchParen guifg=208 gui=bold
 hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=#334455 ctermbg=235
 hi! SpecialKey ctermfg=239 ctermbg=NONE
@@ -265,3 +263,6 @@ augroup phpSyntaxOverride
     autocmd!
     autocmd FileType php call PhpSyntaxOverride()
 augroup END
+
+filetype plugin indent on
+syntax on
