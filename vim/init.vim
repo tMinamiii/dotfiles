@@ -192,7 +192,7 @@ if exists('$VIRTUAL_ENV')
     let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
 else
     let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-    let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3.6*/bin/python')))[-1]
+    let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
 endif
 
 augroup autoreload
