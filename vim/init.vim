@@ -233,7 +233,6 @@ augroup END
 
 " ファイルタイププラグインおよびインデントを有効化
 set background=dark
-
 syntax on
 try
   " colorscheme dracula

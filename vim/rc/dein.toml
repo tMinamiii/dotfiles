@@ -39,7 +39,17 @@ hook_add = 'call init#ale#hook_add()'
 ########################
 [[plugins]]
 repo = 'sheerun/vim-polyglot'
+hook_add = '''
+let g:polyglot_disabled = ['python']
+'''
 
+[[plugins]]
+repo = 'numirias/semshi'
+hook_add = '''
+let g:semshi#active = v:true
+let g:semshi#mark_selected_nodes = v:false
+let g:semshi#self_to_attribute = v:true
+'''
 # [[plugins]]
 # repo = 'jelera/vim-javascript-syntax'
 # repo = 'othree/yajs.vim'
