@@ -241,6 +241,11 @@ try
 catch
 endtry
 
+hi! clear ALEErrorSignLineNr
+hi! clear ALEWarningSignLineNr
+hi! clear ALEInfoSignLineNr
+hi! clear ALEStyleErrorSignLineNr
+hi! clear ALEStyleWarningSignLineNr
 hi! MatchParen guifg=208 gui=bold
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! clear LineNr
