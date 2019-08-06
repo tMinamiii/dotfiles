@@ -8,7 +8,7 @@ function! init#ale#hook_add() abort
     let g:ale_linters = {
                 \   'javascript': ['eslint'],
                 \   'javascript.jsx': ['eslint'],
-                \   'php': ['phpcs', 'phpstan'],
+                \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
                 \   'python': ['pycodestyle',  'pylint', 'mypy', 'flake8', 'isort'],
                 \   'ruby': ['ruby'],
@@ -33,13 +33,6 @@ function! init#ale#hook_add() abort
                 \ 'yaml': ['prettier'],
                 \ }
 
-    if $TERM_PROGRAM ==? 'hyper' || exists('$TMUX') || exists('$ALACRITTY_LOG')
-        let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
-        let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
-    else
-        let g:ale_sign_error = ''       " エラー行に表示するマーク
-        let g:ale_sign_warning = ''     " エラー行に表示するマーク
-    endif
     let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
     let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
 

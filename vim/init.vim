@@ -241,15 +241,16 @@ try
 catch
 endtry
 
-hi! SignColumn guibg=NONE ctermbg=NONE term=NONE
 hi! MatchParen guifg=208 gui=bold
-hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=#334455 ctermbg=235
 hi! SpecialKey ctermfg=239 ctermbg=NONE
+hi! clear LineNr
+hi! clear SignColumn
+hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=#334455 ctermbg=235
 hi! CursorLine guibg=NONE guifg=NONE ctermfg=NONE ctermbg=NONE cterm=underline gui=underline
-hi! ALEWarning guibg=NONE guifg=#87ff5f gui=underline ctermbg=NONE ctermfg=119 cterm=underline
-hi! ALEError guibg=NONE guifg=#FF5555 gui=underline ctermbg=NONE  ctermfg=207 cterm=underline
-hi! ALEErrorSign ctermbg=207 ctermfg=NONE guibg=#FF5555 guifg=NONE
-hi! ALEWarningSign ctermbg=119 ctermfg=NONE guibg=#87ff5f guifg=NONE
+hi! ALEWarning guibg=NONE guifg=NONE gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
+hi! ALEError guibg=NONE guifg=NONE gui=underline ctermbg=NONE  ctermfg=NONE cterm=underline
+hi! ALEErrorSign ctermbg=207 ctermfg=NONE guibg=#FF5555 guifg=#fffeeb
+hi! ALEWarningSign ctermbg=119 ctermfg=NONE guibg=#11AF33 guifg=#fffeeb
 hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
