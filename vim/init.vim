@@ -228,7 +228,6 @@ augroup indentsize
     autocmd FileType python setlocal shiftwidth=4 tabstop=4
     autocmd FileType makefile setlocal noexpandtab
     autocmd FileType gitconfig setlocal noexpandtab
-    autocmd FileType vue :syntax sync fromstart
 augroup END
 
 " ファイルタイププラグインおよびインデントを有効化
@@ -268,6 +267,10 @@ endfunction
 augroup phpSyntaxOverride
     autocmd!
     autocmd FileType php call PhpSyntaxOverride()
+augroup END
+
+augroup syntaxFromStart
+    autocmd FileType vue :syntax sync fromstart
 augroup END
 
 filetype plugin indent on
