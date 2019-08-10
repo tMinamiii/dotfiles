@@ -14,6 +14,19 @@ build = 'make'
 ######################
 [[plugins]]
 repo = 'terryma/vim-multiple-cursors'
+hook_add = '''
+function! Multiple_cursors_before()
+  if exists(':CocDisable')==2
+    exe 'CocDisable'
+  endif
+endfunction
+
+function! Multiple_cursors_after()
+  if exists(':CocEnable')==2
+    exe 'CocEnable'
+  endif
+endfunction
+'''
 
 [[plugins]]
 repo     = 'osyo-manga/vim-over'
