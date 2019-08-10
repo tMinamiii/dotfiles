@@ -68,15 +68,7 @@ on_i = 1
 [[plugins]]
 repo     = 'neoclide/coc.nvim'
 on_path  = ['.*']
-build    = '''
-yarn install
-if [ ! -e ~/.config/coc ]; then
-    mkdir -p ~/.config/coc
-fi
-if [ ! -e ~/.config/coc/memos.json ]; then
-    echo "{}" > ~/.config/coc/memos.json
-fi
-'''
+build    = 'yarn install'
 hook_add = 'call init#coc#hook_add()'
 
 ##########
