@@ -254,13 +254,6 @@ try
     " " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
     Plug 'godlygeek/tabular'
 
-    " git
-    Plug 'cohama/agit.vim'
-
-    Plug 'tpope/vim-fugitive'
-
-    " Plug 'airblade/vim-gitgutter'
-
     " Filer
     Plug 'scrooloose/nerdtree'
     nmap <F9> :NERDTreeToggle<CR>
@@ -283,140 +276,6 @@ try
     Plug 'rhysd/vim-color-spring-night'
     let g:spring_night_kill_italic = 1
 
-    " Statusline
-    Plug 'itchyny/lightline.vim'
-    let g:lightline = {
-                \ 'colorscheme': 'material',
-                \ 'active': {
-                \   'left': [ [ 'mode', 'paste' ], ['fugitive', 'filename', 'modified', 'readonly' ] ],
-                \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
-                \ },
-                \ 'tabline': {'left': [['buffers']], 'right': [['close']]},
-                \ 'component_function': {
-                \   'cocstatus': 'coc#status',
-                \   'fugitive': 'LightlineFugitive',
-                \   'filename': 'LightlineFilename',
-                \   'fileformat': 'LightlineFileformat',
-                \   'filetype': 'LightlineFiletype',
-                \   'fileencoding': 'LightlineFileencoding',
-                \   'mode': 'LightlineMode',
-                \ },
-                \ 'component_expand': {
-                \   'syntastic': 'SyntasticStatuslineFlag',
-                \   'buffers': 'lightline#bufferline#buffers',
-                \ },
-                \ 'component_type': {
-                \   'syntastic': 'error',
-                \   'buffers': 'tabsel',
-                \ },
-                \ 'subseparator': { 'left': '|', 'right': '|' }
-                \ }
-
-    function! LightlineModified()
-        return &filetype =~? 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-    endfunction
-
-    function! LightlineReadonly()
-        return &filetype !~? 'help' && &readonly ? 'RO' : ''
-    endfunction
-
-    function! LightlineFilename()
-        let fname = expand('%:t')
-        return fname ==? 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-                    \ fname ==? '__Tagbar__' ? g:lightline.fname :
-                    \ fname =~? '__Gundo\|NERD_tree' ? '' :
-                    \ &filetype ==? 'vimfiler' ? vimfiler#get_status_string() :
-                    \ &filetype ==? 'unite' ? unite#get_status_string() :
-                    \ &filetype ==? 'vimshell' ? vimshell#get_status_string() :
-                    \ ('' !=? LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-                    \ ('' !=? fname ? fname : '[No Name]') .
-                    \ ('' !=? LightlineModified() ? ' ' . LightlineModified() : '')
-    endfunction
-
-    function! LightlineFugitive()
-        try
-            if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
-                let mark = ''  " edit here for cool mark
-                let branch = fugitive#head()
-                return branch !=# '' ? mark.branch : ''
-            endif
-        catch
-        endtry
-        return ''
-    endfunction
-
-    function! LightlineFileformat()
-        return winwidth(0) > 70 ? &fileformat : ''
-    endfunction
-
-    function! LightlineFiletype()
-        return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-    endfunction
-
-    function! LightlineFileencoding()
-        return winwidth(0) > 70 ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
-    endfunction
-
-    function! LightlineMode()
-        let fname = expand('%:t')
-        return fname ==? '__Tagbar__' ? 'Tagbar' :
-                    \ fname ==? 'ControlP' ? 'CtrlP' :
-                    \ fname ==? '__Gundo__' ? 'Gundo' :
-                    \ fname ==? '__Gundo_Preview__' ? 'Gundo Preview' :
-                    \ fname =~? 'NERD_tree' ? 'NERDTree' :
-                    \ &filetype ==? 'unite' ? 'Unite' :
-                    \ &filetype ==? 'vimfiler' ? 'VimFiler' :
-                    \ &filetype ==? 'vimshell' ? 'VimShell' :
-                    \ winwidth(0) > 60 ? lightline#mode() : ''
-    endfunction
-
-    function! CtrlPMark()
-        if expand('%:t') =~? 'ControlP' && has_key(g:lightline, 'ctrlp_item')
-            call lightline#link('iR'[g:lightline.ctrlp_regex])
-            return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-                        \ , g:lightline.ctrlp_next], 0)
-        else
-            return ''
-        endif
-    endfunction
-
-    let g:ctrlp_status_func = {
-                \ 'main': 'CtrlPStatusFunc_1',
-                \ 'prog': 'CtrlPStatusFunc_2',
-                \ }
-
-    function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-        let g:lightline.ctrlp_regex = a:regex
-        let g:lightline.ctrlp_prev = a:prev
-        let g:lightline.ctrlp_item = a:item
-        let g:lightline.ctrlp_next = a:next
-        return lightline#statusline(0)
-    endfunction
-
-    function! CtrlPStatusFunc_2(str)
-        return lightline#statusline(0)
-    endfunction
-
-    let g:tagbar_status_func = 'TagbarStatusFunc'
-
-    function! TagbarStatusFunc(current, sort, fname, ...) abort
-        let g:lightline.fname = a:fname
-        return lightline#statusline(0)
-    endfunction
-
-    augroup AutoSyntastic
-        autocmd!
-        autocmd BufWritePost *.c,*.cpp call s:syntastic()
-    augroup END
-    function! s:syntastic()
-        SyntasticCheck
-        call lightline#update()
-    endfunction
-
-    let g:unite_force_overwrite_statusline = 0
-    let g:vimfiler_force_overwrite_statusline = 0
-    let g:vimshell_force_overwrite_statusline = 0
-
     Plug 'luochen1990/rainbow'
     let g:rainbow_active = 0
     let g:rainbow_conf = {
@@ -428,12 +287,6 @@ try
 
     Plug 'andymass/vim-matchup'
     let g:loaded_matchit = 1
-
-    Plug 'rhysd/git-messenger.vim'
-    nmap <Leader>gm <Plug>(git-messenger)
-    let g:git_messenger_include_diff = 'current'
-    let g:git_messenger_always_into_popup = v:true
-    let g:git_messenger_into_popup_after_show = v:true
 
     Plug 'junegunn/vim-easy-align'
     nmap ga <Plug>(EasyAlign)
@@ -532,13 +385,6 @@ try
     let g:vim_markdown_conceal = 0
     let g:vim_markdown_folding_disabled = 1
 
-    Plug 'szymonmaszke/vimpyter', {'for': 'ipynb'}
-    augroup vimpyter
-        autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
-        autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
-        autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
-    augroup END
-
     Plug 'liuchengxu/vista.vim'
     let g:pdv_template_dir = $HOME .'/.cache/dein/repos/github.com/tobyS/pdv/templates'
     augroup mygroup
@@ -568,6 +414,7 @@ if executable('pyls')
                     \ })
     augroup END
 endif
+
 if executable('typescript-language-server')
     " npm install -g typescript typescript-language-server
     augroup lsp
@@ -579,6 +426,7 @@ if executable('typescript-language-server')
                     \ })
     augroup END
 endif
+
 if executable('gopls')
     augroup lsp
         au User lsp_setup call lsp#register_server({
@@ -589,6 +437,7 @@ if executable('gopls')
         autocmd BufWritePre *.go LspDocumentFormatSync
     augroup END
 endif
+
 if executable('docker-langserver')
     augroup lsp
         au User lsp_setup call lsp#register_server({
@@ -598,6 +447,7 @@ if executable('docker-langserver')
                     \ })
     augroup END
 endif
+
 augroup lsp
     au User lsp_setup call lsp#register_server({
                 \ 'name': 'intelephense',
