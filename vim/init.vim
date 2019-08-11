@@ -20,7 +20,8 @@ set noswapfile                  " swapを無効化
 set backspace=0
 " set backspace=indent,eol,start  " バックスペースでなんでも消せるようにする
 
-set clipboard+=unnamedplus
+set clipboard&
+set clipboard^=unnamedplus
 set cmdheight=2
 set updatetime=300
 set shortmess+=c

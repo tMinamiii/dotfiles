@@ -102,7 +102,7 @@ docker_rmi_none () {
 
 # alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install' RelWithDebInfo
 # alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.cache/nvim-cache/usr/local" CMAKE_BUILD_TYPE=Release && make install && sudo cp =$HOME/.cache/nvim-cache/usr/local/bin/nvim /usr/local/bin/neovim'
-alias build-nvim='make CMAKE_BUILD_TYPE=Release && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
+alias build-nvim='sudo make clean && sudo make CMAKE_BUILD_TYPE=Release && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
 alias docker-rm-exited='docker -aq | xargs docker rm'
