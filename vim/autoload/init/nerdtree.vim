@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 function! init#nerdtree#hook_add() abort
-    nmap <F9> :NERDTreeToggle<CR>
+    " nmap <F9> :NERDTreeToggle<CR>
     nmap <silent><Leader>n :NERDTreeToggle<CR>
     nmap <silent><Leader>h :NERDTreeFind<CR>
     let g:NERDTreeWinSize = 35

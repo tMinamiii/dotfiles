@@ -23,6 +23,13 @@ function! init#vim_go#hook_add() abort
 
     function! s:vim_go_keymap()
         nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
+
+        nnoremap <buffer><silent> <F5> :GoDebugContinue<CR>
+        nnoremap <buffer><silent> <F6> :GoDebugPrint<CR>
+        nnoremap <buffer><silent> <F9> :GoDebugBreakpoint<CR>
+        nnoremap <buffer><silent> <F10> :GoDebugNext<CR>
+        nnoremap <buffer><silent> <F11> :GoDebugStep<CR>
+        nnoremap <buffer><silent> <F12> :GoDebugStop<CR>
     endfunction
 
     augroup vim_go_hook_add

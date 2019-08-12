@@ -9,7 +9,7 @@ module.exports = {
     updateChannel: 'canary',
 
     // default font size in pixels for all tabs
-    fontSize: 16,
+    fontSize: 19,
 
     // font family with optional fallbacks
     fontFamily: 'Cica, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',

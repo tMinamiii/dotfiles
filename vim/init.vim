@@ -203,11 +203,11 @@ augroup END
 
 augroup filetypes
     autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile
-    autocmd BufRead,BufNewFile *php_cs* setfiletype php
-    autocmd BufRead,BufNewFile *zshrc setfiletype sh
-    autocmd BufRead,BufNewFile *.mjs setfiletype javascript
-    autocmd BufRead,BufNewFile *.csv setfiletype csv
-    autocmd BufWritePre * :%s/\s\+$//ge
+    autocmd BufRead,BufNewFile *php_cs*    setfiletype php
+    autocmd BufRead,BufNewFile *zshrc      setfiletype sh
+    autocmd BufRead,BufNewFile *.mjs       setfiletype javascript
+    autocmd BufRead,BufNewFile *.csv       setfiletype csv
+    autocmd BufWritePre        * :%s/\s\+$//ge
 augroup END
 
 set expandtab                   " タブをスペースにする
@@ -216,19 +216,19 @@ set shiftwidth=2
 set conceallevel=2
 set concealcursor=nc
 augroup indentsize
-    autocmd FileType sh setlocal shiftwidth=2 tabstop=2
-    autocmd FileType vue setlocal shiftwidth=2 tabstop=2
-    autocmd FileType blade setlocal shiftwidth=2 tabstop=2
-    autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+    autocmd FileType sh         setlocal shiftwidth=2 tabstop=2
+    autocmd FileType vue        setlocal shiftwidth=2 tabstop=2
+    autocmd FileType blade      setlocal shiftwidth=2 tabstop=2
+    autocmd FileType yaml       setlocal shiftwidth=2 tabstop=2
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
-    autocmd FileType json setlocal shiftwidth=2 tabstop=2 conceallevel=0
-    autocmd FileType html setlocal shiftwidth=2 tabstop=2
-    autocmd FileType go setlocal shiftwidth=4 tabstop=4 noexpandtab
-    autocmd FileType vim setlocal shiftwidth=4 tabstop=4
-    autocmd FileType python setlocal shiftwidth=4 tabstop=4
-    autocmd FileType makefile setlocal noexpandtab
-    autocmd FileType gitconfig setlocal noexpandtab
+    autocmd FileType json       setlocal shiftwidth=2 tabstop=2 conceallevel=0
+    autocmd FileType html       setlocal shiftwidth=2 tabstop=2
+    autocmd FileType go         setlocal shiftwidth=4 tabstop=4 noexpandtab
+    autocmd FileType vim        setlocal shiftwidth=4 tabstop=4
+    autocmd FileType python     setlocal shiftwidth=4 tabstop=4
+    autocmd FileType makefile   setlocal noexpandtab
+    autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
 " ファイルタイププラグインおよびインデントを有効化
@@ -250,13 +250,13 @@ hi! MatchParen guifg=208 gui=bold
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! clear LineNr
 hi! clear SignColumn
-hi! NormalFloat term=NONE guifg=#fffeeb ctermfg=230 guibg=#334455 ctermbg=235
-hi! CursorLine guibg=NONE guifg=NONE ctermfg=NONE ctermbg=NONE cterm=underline gui=underline
-hi! ALEWarning guibg=NONE guifg=NONE gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-hi! ALEError guibg=NONE guifg=NONE gui=underline ctermbg=NONE  ctermfg=NONE cterm=underline
-hi! ALEErrorSign ctermbg=207 ctermfg=NONE guibg=#FF5555 guifg=#fffeeb
-hi! ALEWarningSign ctermbg=119 ctermfg=NONE guibg=#11AF33 guifg=#fffeeb
-hi! CursorIM ctermfg=16 ctermbg=127 guifg=#000000 guibg=#af00af
+hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
+hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
+hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
+hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
+hi! ALEErrorSign   guibg=#FF5555 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
+hi! ALEWarningSign guibg=#11AF33 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
+hi! CursorIM       guibg=#af00af guifg=#000000 gui=NONE      ctermbg=127  ctermfg=16   cterm=NONE
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
 function! PhpSyntaxOverride()
