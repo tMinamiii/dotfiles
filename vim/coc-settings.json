@@ -16,11 +16,11 @@
   "python.jediEnabled": false,
   "vetur.completion.autoImport": true,
   "languageserver": {
-    "phan": {
-      "command": "phan",
-      "args": ["--daemonize-tcp-port","4846", "--quick"],
-      "filetypes": ["php"]
-    },
+    // "phan": {
+    //   "command": "phan",
+    //   "args": ["--daemonize-tcp-port","4846", "--quick"],
+    //   "filetypes": ["php"]
+    // },
     "efm": {
       "command": "efm-langserver",
       "args": [],

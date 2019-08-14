@@ -8,7 +8,7 @@ function! init#ale#hook_add() abort
     let g:ale_linters = {
                 \   'javascript': ['eslint'],
                 \   'javascript.jsx': ['eslint'],
-                \   'php': ['phan', 'phpcs', 'phpstan', 'php'],
+                \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
                 \   'python': ['pycodestyle',  'pylint', 'mypy', 'flake8', 'isort'],
                 \   'ruby': ['ruby'],
@@ -63,7 +63,7 @@ function! init#ale#hook_add() abort
     " let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
     " let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
     let g:ale_php_phpstan_level = 5
-    let g:ale_php_phan_use_client = 1
+    " let g:ale_php_phan_use_client = 1
     let g:ale_go_golangci_lint_options = '
                 \ --enable-all
                 \ -D=typecheck
