@@ -12,6 +12,7 @@
   "diagnostic.enable": true,
   "diagnostic.displayByAle": true,
   "diagnostic.refreshAfterSave": true,
+  "diagnostic.refreshOnInsertMode": true,
   "diagnostic.signOffset": 100,
   "java.home": "/usr/local/jvm/default-java",
   "python.jediEnabled": false,
