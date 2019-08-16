@@ -23,13 +23,13 @@
     //   "args": ["--daemonize-tcp-port","4846", "--quick"],
     //   "filetypes": ["php"]
     // },
-    "efm": {
-      "command": "efm-langserver",
-      "args": [],
-      // custom config path
-      // "args": ["-c", "/path/to/your/config.yaml"],
-      "filetypes": ["vim", "eruby", "markdown", "yaml"]
-    },
+    // "efm": {
+    //   "command": "efm-langserver",
+    //   "args": [],
+    //   // custom config path
+    //   // "args": ["-c", "/path/to/your/config.yaml"],
+    //   "filetypes": ["vim", "eruby", "markdown", "yaml"]
+    // },
     "golang": {
       "command": "gopls",
       "args": [],

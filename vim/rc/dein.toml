@@ -44,13 +44,6 @@ hook_add = '''
 let g:polyglot_disabled = ['python']
 '''
 
-[[plugins]]
-repo = 'numirias/semshi'
-hook_add = '''
-let g:semshi#active = v:true
-let g:semshi#mark_selected_nodes = v:false
-let g:semshi#self_to_attribute = v:true
-'''
 # [[plugins]]
 # repo = 'jelera/vim-javascript-syntax'
 # repo = 'othree/yajs.vim'
@@ -82,15 +75,15 @@ repo = 'editorconfig/editorconfig-vim'
 repo     = 'Yggdroot/indentLine'
 hook_add = 'call init#indentLine#hook_add()'
 
-[[plugins]]
-repo     = 'ryanoasis/vim-devicons'
-hook_add = 'call init#vim_devicons#hook_add()'
+# [[plugins]]
+# repo     = 'ryanoasis/vim-devicons'
+# hook_add = 'call init#vim_devicons#hook_add()'
 
 [[plugins]]
 repo     = 'dbakker/vim-projectroot'
 hook_add = 'call init#vim_projectroot#hook_add()'
 
-# http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 [[plugins]]
 repo = 'godlygeek/tabular'
 
@@ -124,12 +117,12 @@ hook_add = '''
 let g:material_style='palenight'
 '''
 
-[[plugins]]
-repo = 'dracula/vim'
-
-[[plugins]]
-repo = 'rhysd/vim-color-spring-night'
-hook_add = 'let g:spring_night_kill_italic = 1'
+# [[plugins]]
+# repo = 'dracula/vim'
+#
+# [[plugins]]
+# repo = 'rhysd/vim-color-spring-night'
+# hook_add = 'let g:spring_night_kill_italic = 1'
 
 ##################
 ### Statusline ###
@@ -138,9 +131,9 @@ hook_add = 'let g:spring_night_kill_italic = 1'
 repo     = 'itchyny/lightline.vim'
 hook_add = 'call init#lightline#hook_add()'
 
-[[plugins]]
-repo     = 'luochen1990/rainbow'
-hook_add = 'call init#rainbow#hook_add()'
+# [[plugins]]
+# repo     = 'luochen1990/rainbow'
+# hook_add = 'call init#rainbow#hook_add()'
 
 [[plugins]]
 repo     = 'andymass/vim-matchup'

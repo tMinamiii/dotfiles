@@ -119,7 +119,14 @@ on_ft    = ['php']
 depends  = ['vmustache']
 hook_add = 'call init#pdv#hook_add()'
 
-
+[[plugins]]
+repo = 'numirias/semshi'
+on_ft    = ['python']
+hook_add = '''
+let g:semshi#active = v:true
+let g:semshi#mark_selected_nodes = v:false
+let g:semshi#self_to_attribute = v:true
+'''
 #######################
 ### HTML / Markdown ###
 #######################

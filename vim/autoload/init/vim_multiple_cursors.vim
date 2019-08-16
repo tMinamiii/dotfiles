@@ -1,10 +1,16 @@
 function! Multiple_cursors_before()
+    if exists(':ALEDisableBuffer')==2
+        exe 'ALEDisableBuffer'
+    endif
     if exists(':CocDisable')==2
         exe 'CocDisable'
     endif
 endfunction
 
 function! Multiple_cursors_after()
+    if exists(':ALEEnableBuffer')==2
+        exe 'ALEEnableBuffer'
+    endif
     if exists(':CocEnable')==2
         exe 'CocEnable'
     endif
