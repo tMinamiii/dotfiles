@@ -1,5 +1,4 @@
 function! Multiple_cursors_before()
-    syntax off
     if exists(':ALEDisableBuffer')==2
         exe 'ALEDisableBuffer'
     endif
@@ -9,7 +8,6 @@ function! Multiple_cursors_before()
 endfunction
 
 function! Multiple_cursors_after()
-    syntax on
     if exists(':ALEEnableBuffer')==2
         exe 'ALEEnableBuffer'
     endif
