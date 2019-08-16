@@ -60,8 +60,8 @@ function! init#ale#hook_add() abort
     let g:ale_php_phpcs_use_global = 1
     " let g:ale_php_phpcs_standard = 'PSR12'
     " let g:ale_php_cs_fixer_options = '--rules=@PSR2'
-    " let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
-    " let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
+    let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
+    let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
     let g:ale_php_phpstan_level = 5
     " let g:ale_php_phan_use_client = 1
     let g:ale_go_golangci_lint_options = '
