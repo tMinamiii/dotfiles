@@ -83,7 +83,7 @@ hook_add = 'call init#indentLine#hook_add()'
 repo     = 'dbakker/vim-projectroot'
 hook_add = 'call init#vim_projectroot#hook_add()'
 
-http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+# http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 [[plugins]]
 repo = 'godlygeek/tabular'
 
