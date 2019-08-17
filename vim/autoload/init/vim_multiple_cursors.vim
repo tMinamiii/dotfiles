@@ -1,4 +1,4 @@
-function! Multiple_cursors_before()
+function! MultipleCursorsBefore()
     if exists(':ALEDisableBuffer')==2
         exe 'ALEDisableBuffer'
     endif
@@ -7,7 +7,7 @@ function! Multiple_cursors_before()
     endif
 endfunction
 
-function! Multiple_cursors_after()
+function! MultipleCursorsAfter()
     if exists(':ALEEnableBuffer')==2
         exe 'ALEEnableBuffer'
     endif
@@ -17,8 +17,8 @@ function! Multiple_cursors_after()
 endfunction
 
 function! init#vim_multiple_cursors#hook_add() abort
-    augroup mygroup
-        autocmd User MultipleCursorsPre  call Multiple_cursors_before()
-        autocmd User MultipleCursorsPost call Multiple_cursors_after()
+    augroup multiple_cursors
+        autocmd User MultipleCursorsPre  call MultipleCursorsBefore()
+        autocmd User MultipleCursorsPost call MultipleCursorsAfter()
     augroup END
 endfunction
