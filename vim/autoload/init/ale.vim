@@ -13,6 +13,7 @@ function! init#ale#hook_add() abort
                 \   'python': ['pycodestyle',  'pylint', 'mypy', 'flake8', 'isort'],
                 \   'ruby': ['ruby'],
                 \   'typescript': ['eslint', 'tsserver'],
+                \   'typescript.tsx': ['eslint', 'tsserver'],
                 \   'vue': ['eslint', 'vls'],
                 \   'zsh': ['shellcheck'],
                 \   'vim': ['vint'],
@@ -29,6 +30,7 @@ function! init#ale#hook_add() abort
                 \ 'python': ['autopep8', 'yapf', 'isort'],
                 \ 'sh': ['shfmt'],
                 \ 'typescript': ['eslint'],
+                \ 'typescript.tsx': ['eslint'],
                 \ 'vue': ['eslint'],
                 \ 'yaml': ['prettier'],
                 \ }
@@ -54,6 +56,7 @@ function! init#ale#hook_add() abort
     let g:ale_set_quickfix = 0
     let g:ale_open_list = 0
     let g:ale_keep_list_window_open = 0
+    let g:ale_javascript_eslint_executable = './node_module/.bin/eslint'
     let g:ale_javascript_eslint_options = '--cache'
     let g:ale_javascript_eslint_suppress_eslintignore = 1
     let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
