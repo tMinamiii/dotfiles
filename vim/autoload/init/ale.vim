@@ -20,6 +20,7 @@ function! init#ale#hook_add() abort
                 \   'yaml': ['prettier'],
                 \}
 
+    " \ 'python': ['autopep8', 'yapf', 'isort'],
     let g:ale_fixers = {
                 \ 'bash': ['shfmt'],
                 \ 'go': ['gofmt', 'goimports'],
@@ -27,7 +28,7 @@ function! init#ale#hook_add() abort
                 \ 'javascript.jsx': ['eslint'],
                 \ 'json': ['prettier'],
                 \ 'php': ['php_cs_fixer', 'phpcbf'],
-                \ 'python': ['autopep8', 'yapf', 'isort'],
+                \ 'python': ['autopep8', 'yapf'],
                 \ 'sh': ['shfmt'],
                 \ 'typescript': ['eslint'],
                 \ 'typescript.tsx': ['eslint'],
