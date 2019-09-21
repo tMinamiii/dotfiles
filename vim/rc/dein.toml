@@ -147,4 +147,5 @@ hook_add = 'let g:loaded_matchit = 1'
 # repo = 'Shougo/defx.nvim'
 # hook_add = 'call init#defx#hook_add()'
 
-
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
