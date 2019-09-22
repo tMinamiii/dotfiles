@@ -10,7 +10,7 @@ function! init#ale#hook_add() abort
                 \   'javascript.jsx': ['eslint'],
                 \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
-                \   'python': ['pycodestyle',  'pylint', 'mypy', 'flake8', 'isort'],
+                \   'python': ['pycodestyle', 'mypy', 'flake8', 'isort'],
                 \   'ruby': ['ruby'],
                 \   'typescript': ['eslint', 'tsserver'],
                 \   'typescript.tsx': ['eslint', 'tsserver'],
@@ -20,7 +20,7 @@ function! init#ale#hook_add() abort
                 \   'yaml': ['prettier'],
                 \}
 
-    " \ 'python': ['autopep8', 'yapf', 'isort'],
+    " \ 'python': ['autopep8', 'yapf', 'isort'],'pylint',
     let g:ale_fixers = {
                 \ 'bash': ['shfmt'],
                 \ 'go': ['gofmt', 'goimports'],
@@ -28,7 +28,7 @@ function! init#ale#hook_add() abort
                 \ 'javascript.jsx': ['eslint'],
                 \ 'json': ['prettier'],
                 \ 'php': ['php_cs_fixer', 'phpcbf'],
-                \ 'python': ['autopep8', 'yapf'],
+                \ 'python': ['autopep8', 'yapf', 'isort'],
                 \ 'sh': ['shfmt'],
                 \ 'typescript': ['eslint'],
                 \ 'typescript.tsx': ['eslint'],
