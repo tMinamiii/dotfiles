@@ -6,7 +6,7 @@
   "suggest.autoTrigger": "always",
   "suggest.floatEnable": true,
   "suggest.minTriggerInputLength": 1,
-  "suggest.noselect": true,
+  "suggest.noselect": false,
   "suggest.timeout": 2000,
   "suggest.triggerAfterInsertEnter": true,
   "diagnostic.enable": true,
