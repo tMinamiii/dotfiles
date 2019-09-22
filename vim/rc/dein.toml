@@ -148,4 +148,7 @@ hook_add = 'let g:loaded_matchit = 1'
 # hook_add = 'call init#defx#hook_add()'
 
 [[plugins]]
-repo = 'jiangmiao/auto-pairs'
+repo = 'cohama/lexima.vim'
+
+# [[plugins]]
+# repo = 'jiangmiao/auto-pairs'
