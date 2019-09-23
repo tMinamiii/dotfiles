@@ -236,8 +236,8 @@ set background=dark
 syntax on
 try
   " colorscheme dracula
-  " colorscheme spring-night
-  colorscheme vim-material
+  colorscheme spring-night
+  " colorscheme vim-material
 catch
 endtry
 
