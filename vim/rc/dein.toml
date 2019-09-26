@@ -55,9 +55,6 @@ let g:polyglot_disabled = ['python']
 repo = 'deris/vim-shot-f'
 
 [[plugins]]
-repo = 'andymass/vim-matchup'
-
-[[plugins]]
 repo = 'machakann/vim-highlightedyank'
 
 
@@ -84,21 +81,21 @@ repo     = 'dbakker/vim-projectroot'
 hook_add = 'call init#vim_projectroot#hook_add()'
 
 # http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
-[[plugins]]
-repo = 'godlygeek/tabular'
+# [[plugins]]
+# repo = 'godlygeek/tabular'
 
 ###########
 ### Git ###
 ###########
 
-[[plugins]]
-repo = 'cohama/agit.vim'
+# [[plugins]]
+# repo = 'cohama/agit.vim'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-[[plugins]]
-repo = 'airblade/vim-gitgutter'
+# [[plugins]]
+# repo = 'airblade/vim-gitgutter'
 
 #############
 ### Filer ###
@@ -117,8 +114,8 @@ hook_add = 'call init#nerdtree#hook_add()'
 # let g:material_style='palenight'
 # '''
 
-[[plugins]]
-repo = 'dracula/vim'
+# [[plugins]]
+# repo = 'dracula/vim'
 
 [[plugins]]
 repo = 'rhysd/vim-color-spring-night'

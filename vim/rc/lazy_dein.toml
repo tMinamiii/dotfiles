@@ -24,15 +24,15 @@ on_ft    = ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']
 depends  = ['vimproc']
 hook_add = 'call init#vim_quickrun#hook_add()'
 
-[[plugins]]
-on_i = 1
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-depends = ['neosnippet-snippets']
-on_i = 1
-hook_source = 'call init#neosnippet#hook_source()'
+# [[plugins]]
+# on_i = 1
+# repo = 'Shougo/neosnippet-snippets'
+#
+# [[plugins]]
+# repo = 'Shougo/neosnippet.vim'
+# depends = ['neosnippet-snippets']
+# on_i = 1
+# hook_source = 'call init#neosnippet#hook_source()'
 
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
@@ -84,9 +84,9 @@ hook_add = 'call init#vim_go#hook_add()'
 ### Javascript/TypeScript ###
 #############################
 
-[[plugins]]
-repo  = 'ruanyl/vim-sort-imports'
-on_ft = ['javascript', 'typescript']
+# [[plugins]]
+# repo  = 'ruanyl/vim-sort-imports'
+# on_ft = ['javascript', 'typescript']
 
 [[plugins]]
 repo     = 'heavenshell/vim-jsdoc'
@@ -143,14 +143,14 @@ let g:vim_markdown_folding_disabled = 1
 ### Jupyter ###
 ###############
 
-[[plugins]]
-repo     = 'szymonmaszke/vimpyter'
-on_ft    = ['ipynb']
-hook_add = '''
-autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
-autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
-autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
-'''
+# [[plugins]]
+# repo     = 'szymonmaszke/vimpyter'
+# on_ft    = ['ipynb']
+# hook_add = '''
+# autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
+# autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
+# autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
+# '''
 
 [[plugins]]
 repo     = 'liuchengxu/vista.vim'
