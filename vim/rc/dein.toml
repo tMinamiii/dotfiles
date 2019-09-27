@@ -1,3 +1,20 @@
+###########
+### Coc ###
+###########
+
+[[plugins]]
+repo     = 'neoclide/coc.nvim'
+build    = 'yarn install --frozen-lockfile'
+hook_add = 'call init#coc#hook_add()'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+
+[[plugins]]
+repo     = 'liuchengxu/vista.vim'
+depends  = ['coc.nvim', 'lightline.vim']
+hook_add = 'call init#vista#hook_add()'
+
 ###################
 ### Dark Powers ###
 ###################
@@ -9,9 +26,13 @@ repo  = 'Shougo/dein.vim'
 repo  = 'Shougo/vimproc'
 build = 'make'
 
+[[plugins]]
+repo      = 'Shougo/neomru.vim'
+
 ######################
 ### マルチカーソル ###
 ######################
+
 [[plugins]]
 repo = 'terryma/vim-multiple-cursors'
 hook_add = 'call init#vim_multiple_cursors#hook_add()'
@@ -48,9 +69,64 @@ let g:polyglot_disabled = ['python']
 # repo = 'jelera/vim-javascript-syntax'
 # repo = 'othree/yajs.vim'
 
+###########
+### Git ###
+###########
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+# [[plugins]]
+# repo = 'cohama/agit.vim'
+
+# [[plugins]]
+# repo = 'airblade/vim-gitgutter'
+
+#############
+### Filer ###
+#############
+
+[[plugins]]
+repo     = 'scrooloose/nerdtree.git'
+hook_add = 'call init#nerdtree#hook_add()'
+
+# [[plugins]]
+# repo = 'kristijanhusak/defx-icons'
+# hook_add = 'call init#defx_icons#hook_add()'
+#
+# [[plugins]]
+# repo = 'Shougo/defx.nvim'
+# hook_add = 'call init#defx#hook_add()'
+# [[plugins]]
+# repo = 'jiangmiao/auto-pairs'
+
+####################
+### カラーテーマ ###
+####################
+# [[plugins]]
+# repo = 'hzchirs/vim-material'
+# hook_add = '''
+# let g:material_style='palenight'
+# '''
+
+# [[plugins]]
+# repo = 'dracula/vim'
+
+[[plugins]]
+repo = 'rhysd/vim-color-spring-night'
+hook_add = 'let g:spring_night_kill_italic = 1'
+
+##################
+### Statusline ###
+##################
+[[plugins]]
+repo     = 'itchyny/lightline.vim'
+hook_add = 'call init#lightline#hook_add()'
+
 #############
 ### Mics ####
 #############
+
 [[plugins]]
 repo = 'deris/vim-shot-f'
 
@@ -84,50 +160,6 @@ hook_add = 'call init#vim_projectroot#hook_add()'
 # [[plugins]]
 # repo = 'godlygeek/tabular'
 
-###########
-### Git ###
-###########
-
-# [[plugins]]
-# repo = 'cohama/agit.vim'
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
-
-# [[plugins]]
-# repo = 'airblade/vim-gitgutter'
-
-#############
-### Filer ###
-#############
-
-[[plugins]]
-repo     = 'scrooloose/nerdtree.git'
-hook_add = 'call init#nerdtree#hook_add()'
-
-####################
-### カラーテーマ ###
-####################
-# [[plugins]]
-# repo = 'hzchirs/vim-material'
-# hook_add = '''
-# let g:material_style='palenight'
-# '''
-
-# [[plugins]]
-# repo = 'dracula/vim'
-
-[[plugins]]
-repo = 'rhysd/vim-color-spring-night'
-hook_add = 'let g:spring_night_kill_italic = 1'
-
-##################
-### Statusline ###
-##################
-[[plugins]]
-repo     = 'itchyny/lightline.vim'
-hook_add = 'call init#lightline#hook_add()'
-
 # [[plugins]]
 # repo     = 'luochen1990/rainbow'
 # hook_add = 'call init#rainbow#hook_add()'
@@ -136,12 +168,12 @@ hook_add = 'call init#lightline#hook_add()'
 repo     = 'andymass/vim-matchup'
 hook_add = 'let g:loaded_matchit = 1'
 
-# [[plugins]]
-# repo = 'kristijanhusak/defx-icons'
-# hook_add = 'call init#defx_icons#hook_add()'
-#
-# [[plugins]]
-# repo = 'Shougo/defx.nvim'
-# hook_add = 'call init#defx#hook_add()'
-# [[plugins]]
-# repo = 'jiangmiao/auto-pairs'
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo     = 'junegunn/vim-easy-align'
+hook_add = '''
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+'''

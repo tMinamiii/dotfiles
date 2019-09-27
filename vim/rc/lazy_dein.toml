@@ -9,15 +9,6 @@ let g:git_messenger_always_into_popup = v:true
 let g:git_messenger_into_popup_after_show = v:true
 '''
 
-
-[[plugins]]
-on_event = 'BufRead'
-repo     = 'junegunn/vim-easy-align'
-hook_add = '''
-nmap ga <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
-'''
-
 [[plugins]]
 repo     = 'thinca/vim-quickrun'
 on_ft    = ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']
@@ -35,9 +26,6 @@ hook_add = 'call init#vim_quickrun#hook_add()'
 # hook_source = 'call init#neosnippet#hook_source()'
 
 [[plugins]]
-repo      = 'Shougo/neomru.vim'
-
-[[plugins]]
 repo             = 'Shougo/denite.nvim'
 depends          = ['neomru.vim']
 on_event         = 'BufRead'
@@ -52,24 +40,10 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'tpope/vim-surround'
-on_i = 1
-
-[[plugins]]
 repo             = 'cohama/lexima.vim'
-on_i             = 1
+on_event         = 'BufRead'
 hook_add         = 'call init#lexima#hook_add()'
 hook_post_source = 'call init#lexima#hook_post_source()'
-
-###########
-### Coc ###
-###########
-
-[[plugins]]
-repo     = 'neoclide/coc.nvim'
-on_path  = ['.*']
-build    = 'yarn install --frozen-lockfile'
-hook_add = 'call init#coc#hook_add()'
 
 ##########
 ### GO ###
@@ -152,7 +126,3 @@ let g:vim_markdown_folding_disabled = 1
 # autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
 # '''
 
-[[plugins]]
-repo     = 'liuchengxu/vista.vim'
-depends  = ['coc.nvim', 'lightline.vim']
-hook_add = 'call init#vista#hook_add()'

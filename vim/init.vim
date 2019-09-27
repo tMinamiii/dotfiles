@@ -138,7 +138,7 @@ let g:coc_global_extensions = [
             \ 'coc-html',
             \ 'coc-java',
             \ 'coc-json',
-            \ 'coc-neosnippet',
+            \ 'coc-snippets',
             \ 'coc-phpls',
             \ 'coc-python',
             \ 'coc-rls',
