@@ -140,6 +140,7 @@ let g:coc_global_extensions = [
             \ 'coc-json',
             \ 'coc-snippets',
             \ 'coc-phpls',
+            \ 'coc-prettier',
             \ 'coc-python',
             \ 'coc-rls',
             \ 'coc-solargraph',

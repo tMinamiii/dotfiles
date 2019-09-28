@@ -6,34 +6,34 @@ function! init#ale#hook_add() abort
     nmap <silent> <leader>kk :ALEPrevious<CR>
 
     let g:ale_linters = {
-                \   'javascript': ['eslint'],
-                \   'javascript.jsx': ['eslint'],
                 \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
-                \   'python': ['pycodestyle', 'mypy', 'flake8', 'isort'],
                 \   'ruby': ['ruby'],
-                \   'typescript': ['eslint', 'tsserver'],
-                \   'typescript.tsx': ['eslint', 'tsserver'],
-                \   'vue': ['eslint', 'vls'],
+                \   'python': [],
+                \   'javascript': [],
+                \   'javascript.jsx': [],
+                \   'typescript': [],
+                \   'typescript.tsx': [],
+                \   'vue': [],
                 \   'zsh': ['shellcheck'],
-                \   'vim': ['vint'],
-                \   'yaml': ['prettier'],
+                \   'vim': ['vint']
                 \}
 
     " \ 'python': ['autopep8', 'yapf', 'isort'],'pylint',
     let g:ale_fixers = {
                 \ 'bash': ['shfmt'],
                 \ 'go': ['gofmt', 'goimports'],
-                \ 'javascript': ['eslint'],
-                \ 'javascript.jsx': ['eslint'],
-                \ 'json': ['prettier'],
                 \ 'php': ['php_cs_fixer', 'phpcbf'],
-                \ 'python': ['autopep8', 'yapf', 'isort'],
                 \ 'sh': ['shfmt'],
-                \ 'typescript': ['eslint'],
-                \ 'typescript.tsx': ['eslint'],
-                \ 'vue': ['eslint'],
-                \ 'yaml': ['prettier'],
+                \ 'python': [],
+                \ 'javascript': [],
+                \ 'javascript.jsx': [],
+                \ 'typescript': [],
+                \ 'typescript.tsx': [],
+                \ 'vue': [],
+                \ 'json': [],
+                \ 'yaml': [],
+                \ 'html': [],
                 \ }
 
     let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
@@ -57,9 +57,6 @@ function! init#ale#hook_add() abort
     let g:ale_set_quickfix = 0
     let g:ale_open_list = 0
     let g:ale_keep_list_window_open = 0
-    let g:ale_javascript_eslint_executable = './node_module/.bin/eslint'
-    let g:ale_javascript_eslint_options = '--cache'
-    let g:ale_javascript_eslint_suppress_eslintignore = 1
     let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
     let g:ale_php_phpcs_use_global = 1
     " let g:ale_php_phpcs_standard = 'PSR12'

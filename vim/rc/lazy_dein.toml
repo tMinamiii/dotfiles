@@ -15,16 +15,6 @@ on_ft    = ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']
 depends  = ['vimproc']
 hook_add = 'call init#vim_quickrun#hook_add()'
 
-# [[plugins]]
-# on_i = 1
-# repo = 'Shougo/neosnippet-snippets'
-#
-# [[plugins]]
-# repo = 'Shougo/neosnippet.vim'
-# depends = ['neosnippet-snippets']
-# on_i = 1
-# hook_source = 'call init#neosnippet#hook_source()'
-
 [[plugins]]
 repo             = 'Shougo/denite.nvim'
 depends          = ['neomru.vim']

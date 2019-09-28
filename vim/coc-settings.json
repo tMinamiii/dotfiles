@@ -1,23 +1,63 @@
 {
-  "coc.preferences.formatOnType": false,
-  "coc.preferences.jumpCommand": "edit",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
   "coc.preferences.enableFloatHighlight": true,
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.jumpCommand": "edit",
   "coc.preferences.previewAutoClose": true,
+  "coc.preferences.snippets.enable": true,
+  "diagnostic.displayByAle": true,
+  "diagnostic.enable": true,
+  "diagnostic.refreshAfterSave": true,
+  "diagnostic.refreshOnInsertMode": false,
+  "eslint.autoFix": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.enable": true,
+  "eslint.run": "onSave",
+  "java.home": "/usr/local/jvm/default-java",
+  "python.formatting.provider": "yapf",
+  "python.jediEnabled": true,
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.lintOnSave": true,
+  "python.sortImports.path": "isort",
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyArgs": [
+    "--ignore-missing-imports",
+    "--follow-imports=silent",
+    "--show-column-numbers"
+  ],
+  "python.linting.pep8Enabled": true,
+  "python.linting.pep8Path": "pycodestyle",
   "suggest.autoTrigger": "always",
   "suggest.floatEnable": true,
   "suggest.minTriggerInputLength": 2,
   "suggest.noselect": false,
   "suggest.timeout": 2000,
   "suggest.triggerAfterInsertEnter": true,
-  "diagnostic.enable": true,
-  "diagnostic.displayByAle": true,
-  "diagnostic.refreshAfterSave": false,
-  "diagnostic.refreshOnInsertMode": false,
-  "diagnostic.signOffset": 1000,
-  "java.home": "/usr/local/jvm/default-java",
-  "python.jediEnabled": false,
   "vetur.completion.autoImport": true,
   "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "args": [],
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
     // "phan": {
     //   "command": "./vendor/bin/phan",
     //   "args": ["--daemonize-tcp-port","4846", "--quick"],
@@ -40,22 +80,6 @@
     //   "disableDynamicRegister": true,
     //   "trace.server": "verbose"
     // },
-    "golang": {
-      "command": "gopls",
-      "args": [],
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    },
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
-    },
-    "dockerfile": {
-      "command": "docker-langserver",
-      "filetypes": ["dockerfile"],
-      "args": ["--stdio"]
-    }
+
   }
 }

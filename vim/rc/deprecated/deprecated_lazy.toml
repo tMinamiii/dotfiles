@@ -445,4 +445,10 @@ call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 # endif
 # '''
 
+# [[plugins]]
+# repo = 'Shougo/neosnippet.vim'
+# depends = ['neosnippet-snippets']
+# on_i = 1
+# hook_source = 'call init#neosnippet#hook_source()'
+
 

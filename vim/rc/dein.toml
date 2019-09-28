@@ -11,6 +11,9 @@ hook_add = 'call init#coc#hook_add()'
 repo = 'honza/vim-snippets'
 
 [[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
 repo     = 'liuchengxu/vista.vim'
 depends  = ['coc.nvim', 'lightline.vim']
 hook_add = 'call init#vista#hook_add()'
