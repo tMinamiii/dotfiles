@@ -210,6 +210,7 @@ augroup filetypes
     autocmd BufRead,BufNewFile *zshrc      setfiletype sh
     autocmd BufRead,BufNewFile *.mjs       setfiletype javascript
     autocmd BufRead,BufNewFile *.csv       setfiletype csv
+    autocmd BufRead,BufNewFile .env*       setfiletype sh
     autocmd BufWritePre        * :%s/\s\+$//ge
 augroup END
 
