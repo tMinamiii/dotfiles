@@ -116,8 +116,15 @@ hook_add = 'call init#nerdtree#hook_add()'
 # repo = 'dracula/vim'
 
 [[plugins]]
-repo = 'rhysd/vim-color-spring-night'
-hook_add = 'let g:spring_night_kill_italic = 1'
+repo = 'kaicataldo/material.vim'
+hook_add = '''
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'palenight'
+'''
+
+# [[plugins]]
+# repo = 'rhysd/vim-color-spring-night'
+# hook_add = 'let g:spring_night_kill_italic = 1'
 
 ##################
 ### Statusline ###
