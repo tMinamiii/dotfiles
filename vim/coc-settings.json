@@ -3,7 +3,7 @@
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact",
+    "typescriptreact"
   ],
   "coc.preferences.enableFloatHighlight": true,
   "coc.preferences.formatOnType": true,

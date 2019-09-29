@@ -10,6 +10,13 @@ let g:git_messenger_into_popup_after_show = v:true
 '''
 
 [[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = ['neosnippet-snippets']
+on_event         = 'BufRead'
+hook_source = 'call init#neosnippet#hook_source()'
+
+
+[[plugins]]
 repo     = 'thinca/vim-quickrun'
 on_ft    = ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']
 depends  = ['vimproc']
