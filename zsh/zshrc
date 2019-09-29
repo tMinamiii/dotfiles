@@ -84,6 +84,45 @@ PATH="$HOME/.poetry/bin:$PATH"
 
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 
+nuxt_setup() {
+  echo -n "ok?(y/N): "
+  if read -q; then
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-nuxt/master/package.json
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-nuxt/master/.eslintrc.js
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-nuxt/master/.eslintignore.js
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-nuxt/master/tsconfig.js
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-nuxt/master/nuxt.config.ts
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-nuxt/master/jest.config.js
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-nuxt/master/index.d.ts
+    rm -rf node_modules yarn.lock
+    yarn install
+  else
+    echo abort
+  fi
+}
+
+react_setup() {
+  echo -n "ok?(y/N): "
+  if read -q; then
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-react/master/.eslintrc.js
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-react/master/.stylelintrc.js
+    curl -L -O https://raw.githubusercontent.com/naronA/ts-react/master/package.json
+    rm -rf node_modules yarn.lock
+    yarn install
+  else
+    echo abort
+  fi
+}
+
+python_setup () {
+  echo -n "ok?(y/N): "
+  if read -q; then
+    pipenv install --dev pynvim neovim ipython flake8 autopep8 pycodestyle yapf jedi isort
+  else
+    echo abort
+  fi
+}
+
 pip3_upgrade () {
   pip3 install --upgrade pip && pip3 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip3 install --upgrade
 }
@@ -92,16 +131,10 @@ pip2_upgrade () {
   pip2 install --upgrade pip && pip2 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip2 install --upgrade
 }
 
-pipenv_dev () {
-  pipenv install --dev neovim ipython flake8 autopep8 pep8 jedi pylint pyflakes isort
-}
-
 docker_rmi_none () {
   docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
 }
 
-# alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim" CMAKE_BUILD_TYPE=Release && make install' RelWithDebInfo
-# alias build-neovim='make clean && make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/.cache/nvim-cache/usr/local" CMAKE_BUILD_TYPE=Release && make install && sudo cp =$HOME/.cache/nvim-cache/usr/local/bin/nvim /usr/local/bin/neovim'
 alias build-nvim='sudo make clean && sudo make CMAKE_BUILD_TYPE=Release && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
@@ -109,7 +142,10 @@ alias docker-rm-exited='docker -aq | xargs docker rm'
 alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias dus='du --max-depth=1 -h | sort -nr'
-alias conoha='ssh -i $HOME/.ssh/conoha-raspberry.pem tminami@118.27.11.9'
+
+alias dock-ps='docker ps -a'
+alias dock-rm-all='docker rm $(docker ps -aq)'
+alias dock-pr-vols='docker system prune --volumes'
 
 npm_freeze() {
   npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
