@@ -250,7 +250,9 @@ hi! clear ALEWarningSignLineNr
 hi! clear ALEInfoSignLineNr
 hi! clear ALEStyleErrorSignLineNr
 hi! clear ALEStyleWarningSignLineNr
+
 hi! MatchParen guibg=#555555 guifg=NONE gui=bold
+hi! Visual guibg=#888888 guifg=NONE
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! clear LineNr
 hi! clear SignColumn
