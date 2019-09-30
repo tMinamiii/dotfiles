@@ -101,16 +101,10 @@ hook_add = 'call init#nerdtree#hook_add()'
 # repo = 'Shougo/defx.nvim'
 # hook_add = 'call init#defx#hook_add()'
 # [[plugins]]
-# repo = 'jiangmiao/auto-pairs'
 
 ####################
 ### カラーテーマ ###
 ####################
-# [[plugins]]
-# repo = 'hzchirs/vim-material'
-# hook_add = '''
-# let g:material_style='palenight'
-# '''
 
 # [[plugins]]
 # repo = 'dracula/vim'
