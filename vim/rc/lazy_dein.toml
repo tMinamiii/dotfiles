@@ -36,12 +36,6 @@ hook_add = '''
 "let g:user_emmet_leader_key='<Space>'
 '''
 
-[[plugins]]
-repo             = 'cohama/lexima.vim'
-on_event         = 'BufRead'
-hook_add         = 'call init#lexima#hook_add()'
-hook_post_source = 'call init#lexima#hook_post_source()'
-
 ##########
 ### GO ###
 ##########
