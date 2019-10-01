@@ -26,6 +26,7 @@ function! init#ale#hook_add() abort
                 \   'typescript': [],
                 \   'typescript.tsx': [],
                 \   'vue': [],
+                \   'sql': [],
                 \   'zsh': ['shellcheck'],
                 \   'vim': ['vint']
                 \}

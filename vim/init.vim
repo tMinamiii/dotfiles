@@ -231,7 +231,7 @@ augroup indentsize
     autocmd FileType go         setlocal shiftwidth=4 tabstop=4 noexpandtab
     autocmd FileType vim        setlocal shiftwidth=4 tabstop=4
     autocmd FileType python     setlocal shiftwidth=4 tabstop=4
-    autocmd FileType makefile   setlocal noexpandtab
+    autocmd FileType make       setlocal shiftwidth=4 tabstop=4 noexpandtab
     autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
