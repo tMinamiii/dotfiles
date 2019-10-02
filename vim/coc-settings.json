@@ -41,7 +41,6 @@
   "prettier.singleQuote": true,
   "prettier.bracketSpacing": true,
   "prettier.trailingComma": "es5",
-  "prettier.onlyUseLocalVersion": true,
   "prettier.eslintIntegration": true,
   "prettier.stylelintIntegration": true,
   "python.autoUpdateLanguageServer": true,
