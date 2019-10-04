@@ -45,6 +45,13 @@ repo     = 'fatih/vim-go'
 on_ft    = ['go']
 hook_add = 'call init#vim_go#hook_add()'
 
+# [[plugins]]
+# repo = 'zchee/nvim-go'
+# build = 'make'
+# depends = ['neosnippet.vim']
+# on_ft    = ['go']
+# hook_add = 'call init#vim_go#hook_add()'
+
 #############################
 ### Javascript/TypeScript ###
 #############################
