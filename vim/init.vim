@@ -22,7 +22,6 @@ set backspace=0
 
 set clipboard&
 set clipboard^=unnamedplus
-set cmdheight=2
 set updatetime=300
 set shortmess+=c
 set signcolumn=yes
@@ -39,6 +38,7 @@ set display=lastline
 set softtabstop=0
 set showtabline=2               " 常にタブラインを表示
 set laststatus=2
+set cmdheight=1
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
 set list                        " 不可視文字の可視化
 set listchars=tab:\|\ ,trail:￭,extends:❯,precedes:❮ ",nbsp:%,eol:￭¬↲ "不可視文字をUnicodeにする
