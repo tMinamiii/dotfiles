@@ -135,7 +135,7 @@ docker_rmi_none () {
   docker images | grep \<none\> | awk "{print $3}" | xargs docker rmi
 }
 
-alias build-nvim='sudo make clean && sudo make CMAKE_BUILD_TYPE=Release && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
+alias build-nvim='sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
 alias docker-rm-exited='docker -aq | xargs docker rm'
@@ -143,9 +143,9 @@ alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset
 alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias dus='du --max-depth=1 -h | sort -nr'
 
-alias dock-ps='docker ps -a'
-alias dock-rm-all='docker rm $(docker ps -aq)'
-alias dock-pr-vols='docker system prune --volumes'
+alias dps='docker ps -a'
+alias drmall='docker rm $(docker ps -aq)'
+alias dprune='docker system prune --volumes'
 
 npm_freeze() {
   npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
