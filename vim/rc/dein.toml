@@ -184,3 +184,14 @@ hook_add = '''
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 '''
+
+[[plugins]]
+repo = 'voldikss/vim-floaterm'
+hook_add ='''
+let g:floaterm_winblend = 10
+let g:floaterm_width = 100
+let g:floaterm_position = 'center'
+noremap  <silent> <F12>           :FloatermToggle<CR>i
+noremap! <silent> <F12>           <Esc>:FloatermToggle<CR>i
+tnoremap <silent> <F12>           <C-\><C-n>:FloatermToggle<CR>
+'''
