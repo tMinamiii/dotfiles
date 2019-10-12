@@ -30,7 +30,6 @@ scriptencoding utf-8
 function! init#lexima#hook_add() abort
     let g:lexima_enable_basic_rules = 1
     let g:lexima_ctrlh_as_backspace = 1
-    let g:lexima_enable_newline_rules = 1
 endfunction
 
 function! init#lexima#hook_post_source() abort
