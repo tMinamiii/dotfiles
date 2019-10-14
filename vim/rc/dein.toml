@@ -191,7 +191,7 @@ hook_add ='''
 let g:floaterm_winblend = 10
 let g:floaterm_width = 100
 let g:floaterm_position = 'center'
-noremap  <silent> <Leader>1           :FloatermToggle<CR>i
-noremap! <silent> <Leader>1           <Esc>:FloatermToggle<CR>i
-tnoremap <silent> <Leader>1           <C-\><C-n>:FloatermToggle<CR>
+nmap <silent> <leader>1           :FloatermToggle<CR>i
+" noremap! <silent> <Leader>1           <Esc>:FloatermToggle<CR>i
+" tnoremap <silent> <Leader>1           <C-\><C-n>:FloatermToggle<CR>
 '''
