@@ -4,18 +4,18 @@ function! init#ale#hook_add() abort
     nmap <silent> <Leader>/ :ALEFix<CR>
     nmap <silent> <leader>jj :ALENext<CR>
     nmap <silent> <leader>kk :ALEPrevious<CR>
-    let g:ale_pattern_options = {
-    \   '.*\.vue$': {'ale_enabled': 0},
-    \   '.*\.json$': {'ale_enabled': 0},
-    \   '.*\.yaml$': {'ale_enabled': 0},
-    \   '.*\.yml$': {'ale_enabled': 0},
-    \   '.*\.html$': {'ale_enabled': 0},
-    \   '.*\.py$': {'ale_enabled': 0},
-    \   '.*\.ts$': {'ale_enabled': 0},
-    \   '.*\.tsx$': {'ale_enabled': 0},
-    \   '.*\.js$': {'ale_enabled': 0},
-    \   '.*\.jsx$': {'ale_enabled': 0},
-    \}
+    " let g:ale_pattern_options = {
+    " \   '.*\.vue$': {'ale_enabled': 0},
+    " \   '.*\.json$': {'ale_enabled': 0},
+    " \   '.*\.yaml$': {'ale_enabled': 0},
+    " \   '.*\.yml$': {'ale_enabled': 0},
+    " \   '.*\.html$': {'ale_enabled': 0},
+    " \   '.*\.py$': {'ale_enabled': 0},
+    " \   '.*\.ts$': {'ale_enabled': 0},
+    " \   '.*\.tsx$': {'ale_enabled': 0},
+    " \   '.*\.js$': {'ale_enabled': 0},
+    " \   '.*\.jsx$': {'ale_enabled': 0},
+    " \}
     let g:ale_linters = {
                 \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
@@ -62,7 +62,7 @@ function! init#ale#hook_add() abort
     let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
     let g:ale_fix_on_save = 0        " ファイルを保存したときにfix実行
     let g:ale_lint_delay = 50
-    let g:ale_lint_on_text_changed = 'never' " always or never
+    let g:ale_lint_on_text_changed = 'always' " always or never
 
     " lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
     let g:ale_set_loclist = 0

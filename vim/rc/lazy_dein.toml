@@ -96,8 +96,10 @@ repo = 'numirias/semshi'
 on_ft    = ['python']
 hook_add = '''
 let g:semshi#active = v:true
+let g:semshi#error_sign = v:false
 let g:semshi#mark_selected_nodes = v:false
 let g:semshi#self_to_attribute = v:true
+let g:semshi#tolerate_syntax_errors = v:false
 '''
 #######################
 ### HTML / Markdown ###
