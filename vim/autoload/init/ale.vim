@@ -20,7 +20,7 @@ function! init#ale#hook_add() abort
                 \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
                 \   'ruby': ['ruby'],
-                \   'python': [],
+                \   'python': ['pydocstyle'],
                 \   'javascript': [],
                 \   'javascript.jsx': [],
                 \   'typescript': [],
