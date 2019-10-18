@@ -130,4 +130,4 @@ let g:vim_markdown_folding_disabled = 1
 repo             = 'cohama/lexima.vim'
 hook_add         = 'call init#lexima#hook_add()'
 on_event         = 'BufRead'
-# hook_post_source = 'call init#lexima#hook_post_source()'
+hook_post_source = 'call init#lexima#hook_post_source()'
