@@ -20,7 +20,7 @@ function! init#ale#hook_add() abort
                 \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
                 \   'ruby': ['ruby'],
-                \   'python': ['pydocstyle'],
+                \   'python': ['pydocstyle', 'mypy', 'flake8', 'pylint', 'isort'],
                 \   'javascript': [],
                 \   'javascript.jsx': [],
                 \   'typescript': [],
@@ -61,7 +61,7 @@ function! init#ale#hook_add() abort
     let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
     let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
     let g:ale_fix_on_save = 0        " ファイルを保存したときにfix実行
-    let g:ale_lint_delay = 50
+    let g:ale_lint_delay = 10
     let g:ale_lint_on_text_changed = 'always' " always or never
 
     " lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
