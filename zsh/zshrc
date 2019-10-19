@@ -119,11 +119,15 @@ react_setup() {
 python_setup () {
   echo -n "ok?(y/N): "
   if read -q; then
-    https://raw.githubusercontent.com/naronA/python-template/master/Pipfile
-    https://raw.githubusercontent.com/naronA/python-template/master/setup.cfg
-    https://raw.githubusercontent.com/naronA/python-template/master/.pre-commit-config.yaml
-    https://raw.githubusercontent.com/naronA/python-template/master/editorconfig
-    https://raw.githubusercontent.com/naronA/python-template/master/.gitignore
+    if [ ! -e "/.vscode" ]; then
+      mkdir .vscode
+    fi
+    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/Pipfile
+    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/setup.cfg
+    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.pre-commit-config.yaml
+    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/editorconfig
+    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.gitignore
+    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.vscode/settings.json
     rm -rf Pipfile.lock .venv
     PIPENV_VENV_IN_PROJECT=true pipenv install -d
   else
