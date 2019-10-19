@@ -4,18 +4,19 @@ function! init#ale#hook_add() abort
     nmap <silent> <Leader>/ :ALEFix<CR>
     nmap <silent> <leader>jj :ALENext<CR>
     nmap <silent> <leader>kk :ALEPrevious<CR>
-    " let g:ale_pattern_options = {
-    " \   '.*\.vue$': {'ale_enabled': 0},
-    " \   '.*\.json$': {'ale_enabled': 0},
-    " \   '.*\.yaml$': {'ale_enabled': 0},
-    " \   '.*\.yml$': {'ale_enabled': 0},
-    " \   '.*\.html$': {'ale_enabled': 0},
-    " \   '.*\.py$': {'ale_enabled': 0},
-    " \   '.*\.ts$': {'ale_enabled': 0},
-    " \   '.*\.tsx$': {'ale_enabled': 0},
-    " \   '.*\.js$': {'ale_enabled': 0},
-    " \   '.*\.jsx$': {'ale_enabled': 0},
-    " \}
+    let g:ale_pattern_options = {
+    \   '.*\.vue$': {'ale_enabled': 0},
+    \   '.*\.json$': {'ale_enabled': 0},
+    \   '.*\.yaml$': {'ale_enabled': 0},
+    \   '.*\.yml$': {'ale_enabled': 0},
+    \   '.*\.html$': {'ale_enabled': 0},
+    \   '.*\.py$': {'ale_enabled': 0},
+    \   '.*\.ts$': {'ale_enabled': 0},
+    \   '.*\.tsx$': {'ale_enabled': 0},
+    \   '.*\.js$': {'ale_enabled': 0},
+    \   '.*\.jsx$': {'ale_enabled': 0},
+    \}
+
     let g:ale_linters = {
                 \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
