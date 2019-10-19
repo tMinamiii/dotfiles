@@ -262,7 +262,10 @@ hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermf
 hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEErrorSign   guibg=#FF5555 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
-hi! ALEWarningSign guibg=#11AF33 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
+hi! ALEWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
+hi! CocErrorSign   guibg=#FF5555 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
+hi! CocWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
+
 hi! CursorIM       guibg=#af00af guifg=#000000 gui=NONE      ctermbg=127  ctermfg=16   cterm=NONE
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
