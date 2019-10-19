@@ -119,7 +119,13 @@ react_setup() {
 python_setup () {
   echo -n "ok?(y/N): "
   if read -q; then
-    pipenv install --dev pynvim neovim ipython flake8 autopep8 pycodestyle yapf jedi isort
+    https://raw.githubusercontent.com/naronA/python-template/master/Pipfile
+    https://raw.githubusercontent.com/naronA/python-template/master/setup.cfg
+    https://raw.githubusercontent.com/naronA/python-template/master/.pre-commit-config.yaml
+    https://raw.githubusercontent.com/naronA/python-template/master/editorconfig
+    https://raw.githubusercontent.com/naronA/python-template/master/.gitignore
+    rm -rf Pipfile.lock .venv
+    PIPENV_VENV_IN_PROJECT=true pipenv install -d
   else
     echo abort
   fi
