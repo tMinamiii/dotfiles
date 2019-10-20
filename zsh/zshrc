@@ -121,13 +121,13 @@ python_setup () {
   if read -q; then
     if [ ! -e "/.vscode" ]; then
       mkdir .vscode
+      curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.vscode/settings.json -o .vscode/settings.json
     fi
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/Pipfile
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/setup.cfg
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.pre-commit-config.yaml
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/editorconfig
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.gitignore
-    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.vscode/settings.json
     rm -rf Pipfile.lock .venv
     PIPENV_VENV_IN_PROJECT=true pipenv install -d
   else
