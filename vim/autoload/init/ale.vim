@@ -21,6 +21,8 @@ function! init#ale#hook_add() abort
                 \   'php': ['phpcs', 'phpstan', 'php'],
                 \   'go': ['govet', 'golangci-lint'],
                 \   'ruby': ['ruby'],
+                \   'zsh': ['shellcheck'],
+                \   'vim': ['vint'],
                 \   'python': [],
                 \   'javascript': [],
                 \   'javascript.jsx': [],
@@ -28,8 +30,6 @@ function! init#ale#hook_add() abort
                 \   'typescript.tsx': [],
                 \   'vue': [],
                 \   'sql': [],
-                \   'zsh': ['shellcheck'],
-                \   'vim': ['vint']
                 \}
 
     " \ 'python': ['autopep8', 'yapf', 'isort'],'pylint',
