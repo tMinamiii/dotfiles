@@ -19,7 +19,7 @@ function! init#ale#hook_add() abort
 
     let g:ale_linters = {
                 \   'php': ['phpcs', 'phpstan', 'php'],
-                \   'go': ['govet', 'golangci-lint'],
+                \   'go': ['golangci-lint'],
                 \   'ruby': ['ruby'],
                 \   'zsh': ['shellcheck'],
                 \   'vim': ['vint'],
