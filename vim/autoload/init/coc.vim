@@ -72,8 +72,11 @@ function! init#coc#hook_add() abort
     " Use `:Format` for format current buffer
     command! -nargs=0 Format :call CocAction('format')
 
+    " use `:OR` for organize import of current buffer
+    command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+
     " Use `:Fold` for fold current buffer
-    command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+    command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
     " Use <C-l> for trigger snippet expand.
     imap <C-l> <Plug>(coc-snippets-expand)
