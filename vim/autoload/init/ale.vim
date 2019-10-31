@@ -38,7 +38,7 @@ function! init#ale#hook_add() abort
                 \ 'go': ['gofmt', 'goimports'],
                 \ 'php': ['php_cs_fixer', 'phpcbf'],
                 \ 'sh': ['shfmt'],
-                \ 'python': ['isort'],
+                \ 'python': [],
                 \ 'javascript': [],
                 \ 'javascript.jsx': [],
                 \ 'typescript': [],
