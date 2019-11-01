@@ -96,12 +96,12 @@ repo = 'numirias/semshi'
 on_ft    = ['python']
 hook_add = '''
 let g:semshi#active = v:true
-let g:semshi#simplify_markup = v:false
+let g:semshi#simplify_markup = v:true
 let g:semshi#error_sign = v:false
-let g:semshi#mark_selected_nodes = v:false
-let g:semshi#self_to_attribute = v:true
-let g:semshi#tolerate_syntax_errors = v:false
-let g:semshi#always_update_all_highlights	= v:true
+" let g:semshi#mark_selected_nodes = v:false
+" let g:semshi#self_to_attribute = v:true
+" let g:semshi#tolerate_syntax_errors = v:false
+" let g:semshi#always_update_all_highlights	= v:true
 '''
 #######################
 ### HTML / Markdown ###
@@ -128,8 +128,8 @@ let g:vim_markdown_folding_disabled = 1
 # autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
 # '''
 
-[[plugins]]
-repo             = 'cohama/lexima.vim'
-hook_add         = 'call init#lexima#hook_add()'
-on_event         = 'BufRead'
-hook_post_source = 'call init#lexima#hook_post_source()'
+# [[plugins]]
+# repo             = 'cohama/lexima.vim'
+# hook_add         = 'call init#lexima#hook_add()'
+# on_event         = 'BufRead'
+# hook_post_source = 'call init#lexima#hook_post_source()'
