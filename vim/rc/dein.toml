@@ -13,10 +13,10 @@ repo = 'honza/vim-snippets'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
-[[plugins]]
-repo     = 'liuchengxu/vista.vim'
-depends  = ['coc.nvim', 'lightline.vim']
-hook_add = 'call init#vista#hook_add()'
+# [[plugins]]
+# repo     = 'liuchengxu/vista.vim'
+# depends  = ['coc.nvim', 'lightline.vim']
+# hook_add = 'call init#vista#hook_add()'
 
 ###################
 ### Dark Powers ###
@@ -116,12 +116,12 @@ let g:material_terminal_italics = 0
 let g:material_theme_style = 'palenight'
 '''
 
-[[plugins]]
-repo = 'rhysd/vim-color-spring-night'
-hook_add = '''
-let g:spring_night_kill_italic = 1
-let g:spring_night_high_contrast = 1
-'''
+# [[plugins]]
+# repo = 'rhysd/vim-color-spring-night'
+# hook_add = '''
+# let g:spring_night_kill_italic = 1
+# let g:spring_night_high_contrast = 1
+# '''
 
 ##################
 ### Statusline ###
