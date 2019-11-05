@@ -160,6 +160,7 @@ alias dus='du --max-depth=1 -h | sort -nr'
 alias d-ps='docker ps -a'
 alias drm-all='docker rm $(docker ps -aq)'
 alias d-prune='docker system prune --volumes'
+alias find='fd'
 
 npm_freeze() {
   npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
