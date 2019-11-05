@@ -132,8 +132,8 @@ repo             = 'cohama/lexima.vim'
 hook_add         = 'call init#lexima#hook_add()'
 on_event         = 'BufRead'
 hook_post_source = 'call init#lexima#hook_post_source()'
-# on_ft            = ['go','javascript', 'typescript', 'javascript.jsx', 'typescript.tsx', 'sh', '']
+on_ft            = ['go','javascript', 'typescript', 'javascript.jsx', 'typescript.tsx', 'sh', '']
 
-# [[plugins]]
-# repo = 'jiangmiao/auto-pairs'
-# on_ft = ['python']
+[[plugins]]
+repo = 'jiangmiao/auto-pairs'
+on_ft = ['python']
