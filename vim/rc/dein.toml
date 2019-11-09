@@ -195,8 +195,8 @@ let g:floaterm_position = 'center'
 nmap <silent> <leader>1           :FloatermToggle<CR>i
 '''
 
-[[plugins]]
-repo = 'glacambre/firenvim'
-hook_post_update = '''
-call firenvim#install(0)
-'''
+# [[plugins]]
+# repo = 'glacambre/firenvim'
+# hook_post_update = '''
+# call firenvim#install(0)
+# '''
