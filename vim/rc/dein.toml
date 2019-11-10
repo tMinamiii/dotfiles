@@ -200,3 +200,4 @@ nmap <silent> <leader>1           :FloatermToggle<CR>i
 # hook_post_update = '''
 # call firenvim#install(0)
 # '''
+
