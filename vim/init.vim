@@ -138,6 +138,7 @@ let g:coc_global_extensions = [
             \ 'coc-emmet',
             \ 'coc-eslint',
             \ 'coc-git',
+            \ 'coc-pairs',
             \ 'coc-highlight',
             \ 'coc-html',
             \ 'coc-java',
