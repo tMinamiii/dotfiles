@@ -1,6 +1,9 @@
 scriptencoding utf-8
 
 function! init#coc#hook_add() abort
+    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+endfunction
+function! init#coc#hook_add2() abort
     " Use tab for trigger completion with characters ahead and navigate.
     " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
     inoremap <silent><expr> <TAB>

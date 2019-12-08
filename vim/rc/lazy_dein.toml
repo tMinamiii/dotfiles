@@ -13,7 +13,7 @@ let g:git_messenger_into_popup_after_show = v:true
 repo = 'Shougo/neosnippet.vim'
 depends = ['neosnippet-snippets']
 on_event         = 'BufRead'
-hook_source = 'call init#neosnippet#hook_source()'
+# hook_source = 'call init#neosnippet#hook_source()'
 
 [[plugins]]
 repo     = 'thinca/vim-quickrun'
@@ -110,9 +110,9 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 '''
 
-[[plugins]]
-repo             = 'cohama/lexima.vim'
-hook_add         = 'call init#lexima#hook_add()'
-on_event         = 'BufRead'
-hook_post_source = 'call init#lexima#hook_post_source()'
-on_ft            = ['python', 'go','javascript', 'typescript', 'javascript.jsx', 'typescript.tsx', 'sh', 'php']
+# [[plugins]]
+# repo             = 'cohama/lexima.vim'
+# hook_add         = 'call init#lexima#hook_add()'
+# on_event         = 'BufRead'
+# hook_post_source = 'call init#lexima#hook_post_source()'
+# on_ft            = ['python', 'go','javascript', 'typescript', 'javascript.jsx', 'typescript.tsx', 'sh', 'php']
