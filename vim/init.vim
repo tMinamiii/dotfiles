@@ -132,13 +132,13 @@ set winblend=10
 set pumblend=10
 set pumheight=15
 
+"\ 'coc-pairs',
 """""" Coc Extensions """"""
 let g:coc_global_extensions = [
             \ 'coc-css',
             \ 'coc-emmet',
             \ 'coc-eslint',
             \ 'coc-git',
-            \ 'coc-pairs',
             \ 'coc-highlight',
             \ 'coc-html',
             \ 'coc-java',

@@ -451,4 +451,17 @@ call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 # on_i = 1
 # hook_source = 'call init#neosnippet#hook_source()'
 
+###############
+### Jupyter ###
+###############
+
+# [[plugins]]
+# repo     = 'szymonmaszke/vimpyter'
+# on_ft    = ['ipynb']
+# hook_add = '''
+# autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
+# autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
+# autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
+# '''
+
 

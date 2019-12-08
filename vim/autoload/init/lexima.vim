@@ -75,9 +75,12 @@ function! init#lexima#hook_post_source() abort
     for rule in g:lexima#default_rules
       call lexima#add_rule(rule)
     endfor
-    " call lexima#add_rule({'char': '(', 'at': '\%#[^)].*$', 'leave': 1})
-    " call lexima#add_rule({'char': '{', 'at': '\%#[^}].*$', 'leave': 1})
-    " call lexima#add_rule({'char': '[', 'at': '\%#[^\]].*$', 'leave': 1})
+    call lexima#add_rule({'char': '(', 'at': '\%#[^)].*$', 'leave': 1})
+    call lexima#add_rule({'char': '{', 'at': '\%#[^}].*$', 'leave': 1})
+    call lexima#add_rule({'char': '[', 'at': '\%#[^\]].*$', 'leave': 1})
+    call lexima#add_rule({'char': '"', 'at': '\%#[^"].*$', 'leave': 1})
+    call lexima#add_rule({'char': "''", 'at': "\%#[^'].*$", 'leave': 1})
+
 
     " call lexima#add_rule( {'char': '(', 'input_after': ')'})
     " call lexima#add_rule( {'char': '(', 'at': '\\\%#'})

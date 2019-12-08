@@ -68,10 +68,6 @@ hook_add = '''
 let g:polyglot_disabled = ['python']
 '''
 
-# [[plugins]]
-# repo = 'jelera/vim-javascript-syntax'
-# repo = 'othree/yajs.vim'
-
 ###########
 ### Git ###
 ###########
@@ -85,13 +81,13 @@ repo = 'tpope/vim-fugitive'
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 hook_add = '''
-    set signcolumn=yes
-    let g:gitgutter_async = 1
-    let g:gitgutter_sign_modified = 'rw'
-    highlight GitGutterAdd ctermfg=green
-    highlight GitGutterChange ctermfg=yellow
-    highlight GitGutterDelete ctermfg=red
-    highlight GitGutterChangeDelete ctermfg=yellow
+  set signcolumn=yes
+  let g:gitgutter_async = 1
+  let g:gitgutter_sign_modified = 'rw'
+  highlight GitGutterAdd ctermfg=green
+  highlight GitGutterChange ctermfg=yellow
+  highlight GitGutterDelete ctermfg=red
+  highlight GitGutterChangeDelete ctermfg=yellow
 '''
 #############
 ### Filer ###
@@ -114,8 +110,8 @@ hook_add = 'call init#nerdtree#hook_add()'
 ### カラーテーマ ###
 ####################
 
-# [[plugins]]
-# repo = 'dracula/vim'
+[[plugins]]
+repo = 'dracula/vim'
 
 [[plugins]]
 repo = 'kaicataldo/material.vim'
@@ -124,12 +120,12 @@ let g:material_terminal_italics = 0
 let g:material_theme_style = 'palenight'
 '''
 
-# [[plugins]]
-# repo = 'rhysd/vim-color-spring-night'
-# hook_add = '''
-# let g:spring_night_kill_italic = 1
-# let g:spring_night_high_contrast = 1
-# '''
+[[plugins]]
+repo = 'rhysd/vim-color-spring-night'
+hook_add = '''
+let g:spring_night_kill_italic = 1
+let g:spring_night_high_contrast = 1
+'''
 
 ##################
 ### Statusline ###
@@ -203,9 +199,8 @@ let g:floaterm_position = 'center'
 nmap <silent> <leader>1           :FloatermToggle<CR>i
 '''
 
-# [[plugins]]
-# repo = 'glacambre/firenvim'
-# hook_post_update = '''
-# call firenvim#install(0)
-# '''
-
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+hook_add = '''
+vnoremap ? :'<,'>TComment<CR>
+'''
