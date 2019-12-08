@@ -7,4 +7,8 @@ function! init#indentLine#hook_add() abort
     let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
     let g:indentLine_color_term = 238
     let g:indentLine_color_gui = '#676767'
+    let g:indentLine_setConceal = 0
+    " let g:indentLine_concealcursor=""
+    " let g:indentLine_concealcursor = 'nc'
+    " let g:indentLine_conceallevel = 0
 endfunction

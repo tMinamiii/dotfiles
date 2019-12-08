@@ -66,6 +66,7 @@ hook_add = 'call init#ale#hook_add()'
 repo = 'sheerun/vim-polyglot'
 hook_add = '''
 let g:polyglot_disabled = ['python']
+let g:vim_json_syntax_conceal = 0
 '''
 
 ###########
