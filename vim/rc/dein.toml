@@ -4,8 +4,10 @@
 
 [[plugins]]
 repo     = 'neoclide/coc.nvim'
-build    = 'yarn install --frozen-lockfile'
+merged = 0
+rev = 'release'
 hook_add = 'call init#coc#hook_add()'
+# build    = 'yarn install --frozen-lockfile'
 
 [[plugins]]
 repo = 'honza/vim-snippets'

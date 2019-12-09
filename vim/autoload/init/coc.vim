@@ -1,9 +1,6 @@
 scriptencoding utf-8
 
 function! init#coc#hook_add() abort
-    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-endfunction
-function! init#coc#hook_add2() abort
     " Use tab for trigger completion with characters ahead and navigate.
     " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
     inoremap <silent><expr> <TAB>
@@ -19,7 +16,7 @@ function! init#coc#hook_add2() abort
 
 
     " Use <c-space> for trigger completion.
-    inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <silent><expr> <c-b> coc#refresh()
 
     " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
     " Coc only does snippet and additional edit on confirm.
