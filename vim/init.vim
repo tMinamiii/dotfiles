@@ -36,7 +36,7 @@ set novisualbell                " 前時代的スクリーンベルを無効化
 set display=lastline
 
 set softtabstop=0
-set showtabline=2               " 常にタブラインを表示
+set showtabline=0               " 常にタブラインを表示
 set laststatus=2
 set cmdheight=1
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
