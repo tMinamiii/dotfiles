@@ -24,8 +24,8 @@ function! init#coc#hook_add() abort
     inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
     " Use `[c` and `]c` for navigate diagnostics
-    nmap <silent> [c <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+    nmap <silent> <Leader>kc <Plug>(coc-diagnostic-prev)
+    nmap <silent> <Leader>jc <Plug>(coc-diagnostic-next)
 
     " Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
