@@ -123,19 +123,18 @@ python_setup () {
       mkdir .vscode
       curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.vscode/settings.json -o .vscode/settings.json
     fi
-    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.env.workspace
-    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.envrc
+    # curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.env.workspace
+    # curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.envrc
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.flake8
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.gitignore
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.isort.cfg
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.mypy.ini
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/.pre-commit-config.yaml
-    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/Pipfile
+    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/requirements.txt
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/editorconfig
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/pyproject.toml
-    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/pyrightconfig.json
-    curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/setup.cfg
     rm -rf Pipfile.lock .venv
+    poetry config --local virtualenvs.in-project true
     PIPENV_VENV_IN_PROJECT=true pipenv install -d
   else
     echo abort
