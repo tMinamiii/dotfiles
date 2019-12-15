@@ -133,9 +133,10 @@ python_setup () {
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/requirements.txt
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/editorconfig
     curl -L -O https://raw.githubusercontent.com/naronA/python-template/master/pyproject.toml
-    rm -rf Pipfile.lock .venv
+    # rm -rf Pipfile.lock .venv
+    python -m venv .venv
     poetry config --local virtualenvs.in-project true
-    PIPENV_VENV_IN_PROJECT=true pipenv install -d
+    # PIPENV_VENV_IN_PROJECT=true pipenv install -d
   else
     echo abort
   fi
