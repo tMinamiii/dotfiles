@@ -135,6 +135,7 @@ set pumheight=15
 """""" Coc Extensions """"""
 let g:coc_global_extensions = [
             \ 'coc-css',
+            \ 'coc-go',
             \ 'coc-pairs',
             \ 'coc-emmet',
             \ 'coc-eslint',
@@ -263,7 +264,7 @@ try
   " colorscheme dracula
   " colorscheme spring-night
   colorscheme material
-catch
+cat
 endtry
 
 hi! clear ALEErrorSignLineNr
