@@ -136,6 +136,7 @@ python_setup () {
     # rm -rf Pipfile.lock .venv
     python -m venv .venv
     poetry config --local virtualenvs.in-project true
+    poetry add -D $(cat requirements.txt)
     # PIPENV_VENV_IN_PROJECT=true pipenv install -d
   else
     echo abort
