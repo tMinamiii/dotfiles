@@ -63,7 +63,7 @@ endif
 
 " set iminsert=0
 " set imsearch=0
-set lazyredraw
+" set lazyredraw
 let mapleader = "\<Space>"
 
 "---------------------------------------------------------------------------"
