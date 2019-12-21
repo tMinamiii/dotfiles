@@ -161,6 +161,11 @@ alias dus='du --max-depth=1 -h | sort -nr'
 alias d-ps='docker ps -a'
 alias drm-all='docker rm $(docker ps -aq)'
 alias d-prune='docker system prune --volumes'
+
+alias pi1='ssh ubuntu@172.16.27.10'
+alias pi2='ssh ubuntu@172.16.27.11'
+alias pi3='ssh ubuntu@172.16.27.12'
+
 # alias find='fd'
 
 npm_freeze() {
@@ -209,3 +214,5 @@ fi
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

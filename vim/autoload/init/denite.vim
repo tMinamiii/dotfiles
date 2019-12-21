@@ -68,5 +68,7 @@ function! init#denite#hook_post_source() abort
 
     " call denite#custom#option('default', 'auto_action', 'preview')
     call denite#custom#option('default', 'prompt', '>>')
-    call denite#custom#option('default', 'split', 'floating')
+    " call denite#custom#option('default', 'split', 'floating')
+    call denite#custom#option('default', 'split', 'horizontal')
+    call denite#custom#option('default', 'winheight', '15')
 endfunction
