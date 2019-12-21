@@ -1,8 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 set completeopt+=noselect
-" set virtualedit=block
-"
+
 """"" [検索系]
 set ignorecase                  " 大文字小文字を区別しない
 set smartcase                   " 検索文字に大文字がある場合は大文字小文字を区別
@@ -50,8 +49,12 @@ set shell=zsh
 
 set ambiwidth=double
 set termguicolors
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum""]]
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
 
 if exists('$TMUX')
     " tmux
@@ -63,7 +66,7 @@ endif
 
 " set iminsert=0
 " set imsearch=0
-" set lazyredraw
+set lazyredraw
 let mapleader = "\<Space>"
 
 "---------------------------------------------------------------------------"
@@ -127,11 +130,6 @@ command! W :w
 command! Wq :wq
 command! WQ :wq
 
-set wildoptions=pum
-set winblend=10
-set pumblend=10
-set pumheight=15
-
 """""" Coc Extensions """"""
 let g:coc_global_extensions = [
             \ 'coc-css',
@@ -162,7 +160,13 @@ let g:coc_global_extensions = [
             \ ]
 
 """""" dein (load plugins)"""""
-let s:dein_dir = expand('~/.cache/dein')
+
+if has('nvim')
+    let s:dein_dir = expand('~/.cache/dein-nvim')
+else
+    let s:dein_dir = expand('~/.cache/dein-vim')
+endif
+
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " dein.vim がなければ github から落としてくる
@@ -198,7 +202,10 @@ if dein#load_state(s:dein_dir)
     let g:rc_dir = expand('~/.vim/rc')
     let s:dein_toml = g:rc_dir . '/dein.toml'
     let s:lazy_dein_toml = g:rc_dir . '/lazy_dein.toml'
-
+    if !has('nvim')
+      call dein#add('roxma/nvim-yarp')
+      call dein#add('roxma/vim-hug-neovim-rpc')
+    endif
     " TOML を読み込み、キャッシュしておく
     call dein#load_toml(s:dein_toml,      {'lazy': 0})
     call dein#load_toml(s:lazy_dein_toml, {'lazy': 1})
@@ -211,13 +218,16 @@ endif
 if dein#check_install()
     call dein#install()
 endif
-" 最新のpythonをhostにする
-if exists('$VIRTUAL_ENV')
-    let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-    let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
-else
-    let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-    let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
+
+if has('nvim')
+    " 最新のpythonをhostにする
+    if exists('$VIRTUAL_ENV')
+        let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
+        let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
+    else
+        let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
+        let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
+    endif
 endif
 
 augroup autoreload
@@ -264,7 +274,7 @@ try
   " colorscheme dracula
   " colorscheme spring-night
   colorscheme material
-cat
+catch
 endtry
 
 hi! clear ALEErrorSignLineNr
@@ -278,8 +288,12 @@ hi! Visual guibg=#888888 guifg=NONE
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! clear LineNr
 hi! clear SignColumn
-hi! Normal guibg=none ctermbg=none
-hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
+
+if has('nvim')
+  hi! Normal guibg=none ctermbg=none
+  hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
+endif
+
 hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
