@@ -92,6 +92,7 @@ hook_add = 'call init#pdv#hook_add()'
 
 [[plugins]]
 repo = 'numirias/semshi'
+if       = 'has("nvim")'
 on_ft    = ['python']
 hook_add = '''
 let g:semshi#active = v:true
@@ -109,10 +110,3 @@ hook_add = '''
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 '''
-
-# [[plugins]]
-# repo             = 'cohama/lexima.vim'
-# hook_add         = 'call init#lexima#hook_add()'
-# on_event         = 'BufRead'
-# hook_post_source = 'call init#lexima#hook_post_source()'
-# on_ft            = ['python', 'go','javascript', 'typescript', 'javascript.jsx', 'typescript.tsx', 'sh', 'php']
