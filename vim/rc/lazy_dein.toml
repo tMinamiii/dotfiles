@@ -28,6 +28,25 @@ on_event         = 'BufRead'
 hook_add         = 'call init#denite#hook_add()'
 hook_post_source = 'call init#denite#hook_post_source()'
 
+# [[plugins]]
+# repo = 'junegunn/fzf'
+# build = './install --all'
+# merged = 0
+#
+# [[plugins]]
+# repo = 'junegunn/fzf.vim'
+# depends = 'fzf'
+# hook_add = '''
+# let g:fzf_layout = { 'up': '~30%' }
+# nnoremap [fzf] <Nop>
+# nmap <Leader> [fzf]
+# nnoremap <silent> [fzf]f :FZF<CR>
+# nnoremap <silent> [fzf]b :Buffers<CR>
+# nnoremap <silent> [fzf]g :GFiles<CR>
+# nnoremap <silent> [fzf]x :Commands<CR>
+# nnoremap <silent> [fzf]a :Ag<CR>
+# '''
+
 [[plugins]]
 repo     = 'mattn/emmet-vim'
 on_i     = 1
