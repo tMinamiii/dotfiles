@@ -50,8 +50,12 @@ set shell=zsh
 
 set ambiwidth=double
 set termguicolors
-" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum""]]
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
 
 if exists('$TMUX')
     " tmux
@@ -156,7 +160,13 @@ let g:coc_global_extensions = [
             \ ]
 
 """""" dein (load plugins)"""""
-let s:dein_dir = expand('~/.cache/dein-vim')
+
+if has('nvim')
+    let s:dein_dir = expand('~/.cache/dein-nvim')
+else
+    let s:dein_dir = expand('~/.cache/dein-vim')
+endif
+
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " dein.vim がなければ github から落としてくる
@@ -275,8 +285,12 @@ hi! Visual guibg=#888888 guifg=NONE
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! clear LineNr
 hi! clear SignColumn
-" hi! Normal guibg=none ctermbg=none
-" hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
+
+if has('nvim')
+  hi! Normal guibg=none ctermbg=none
+  hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
+endif
+
 hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
