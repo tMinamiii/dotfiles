@@ -32,8 +32,8 @@ set textwidth=0                 " 自動的に改行が入るのを無効化
 " set colorcolumn=80,120              " その代わり80文字目にラインを入れる
 set t_vb=
 set novisualbell                " 前時代的スクリーンベルを無効化
+set visualbell t_vb=
 set display=lastline
-
 set softtabstop=0
 set showtabline=0               " 常にタブラインを表示
 set laststatus=2

@@ -2,7 +2,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 # export DEFAULT_USER="naronA"
-
+# set bell-style none
 skip_global_compinit=1
 
 ZSH_THEME="dracula"
