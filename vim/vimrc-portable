@@ -132,18 +132,18 @@ command! WQ :wq
 
 "" yank paste
 if system('uname -a | grep microsoft') != ""
-  let g:clipboard = {
-        \   'name': 'myClipboard',
-        \   'copy': {
-        \      '+': 'win32yank.exe -i',
-        \      '*': 'win32yank.exe -i',
-        \    },
-        \   'paste': {
-        \      '+': 'win32yank.exe -o',
-        \      '*': 'win32yank.exe -o',
-        \   },
-        \   'cache_enabled': 1,
-        \ }
+    let g:clipboard = {
+          \   'name': 'myClipboard',
+          \   'copy': {
+          \      '+': 'win32yank.exe -i',
+          \      '*': 'win32yank.exe -i',
+          \    },
+          \   'paste': {
+          \      '+': 'win32yank.exe -o',
+          \      '*': 'win32yank.exe -o',
+          \   },
+          \   'cache_enabled': 1,
+          \ }
 endif
 
 augroup autoreload
@@ -190,7 +190,6 @@ if has('vim_starting')
         call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
         call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/vim/plugged/vim-plug/autoload')
     end
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.cache/vim/plugged')
