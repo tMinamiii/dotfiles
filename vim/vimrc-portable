@@ -130,53 +130,6 @@ command! W :w
 command! Wq :wq
 command! WQ :wq
 
-"""""" Coc Extensions """"""
-let g:coc_global_extensions = [
-            \ 'coc-css',
-            \ 'coc-go',
-            \ 'coc-pairs',
-            \ 'coc-emmet',
-            \ 'coc-eslint',
-            \ 'coc-git',
-            \ 'coc-highlight',
-            \ 'coc-html',
-            \ 'coc-java',
-            \ 'coc-jest',
-            \ 'coc-json',
-            \ 'coc-phpls',
-            \ 'coc-prettier',
-            \ 'coc-python',
-            \ 'coc-rls',
-            \ 'coc-snippets',
-            \ 'coc-solargraph',
-            \ 'coc-stylelint',
-            \ 'coc-tsserver',
-            \ 'coc-vetur',
-            \ 'coc-vimlsp',
-            \ 'coc-wxml',
-            \ 'coc-xml',
-            \ 'coc-yaml',
-            \ 'coc-yank',
-            \ ]
-
-"""""" dein (load plugins)"""""
-
-if has('nvim')
-    let s:dein_dir = expand('~/.cache/dein-nvim')
-else
-    let s:dein_dir = expand('~/.cache/dein-vim')
-endif
-
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-" dein.vim がなければ github から落としてくる
-if &runtimepath !~# '/dein.vim'
-    if !isdirectory(s:dein_repo_dir)
-        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-    endif
-    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-endif
-
 "" yank paste
 if system('uname -a | grep microsoft') != ""
   let g:clipboard = {
@@ -191,43 +144,6 @@ if system('uname -a | grep microsoft') != ""
         \   },
         \   'cache_enabled': 1,
         \ }
-endif
-" もし設定のキャッシュファイルを読み込めなかったら
-" tomlファイルを再読み込みする
-if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir) " 設定開始
-
-    " プラグインリストを収めた TOML ファイル
-    " 予め TOML ファイル（後述）を用意しておく
-    let g:rc_dir = expand('~/.vim/rc')
-    let s:dein_toml = g:rc_dir . '/dein.toml'
-    let s:lazy_dein_toml = g:rc_dir . '/lazy_dein.toml'
-    if !has('nvim')
-      call dein#add('roxma/nvim-yarp')
-      call dein#add('roxma/vim-hug-neovim-rpc')
-    endif
-    " TOML を読み込み、キャッシュしておく
-    call dein#load_toml(s:dein_toml,      {'lazy': 0})
-    call dein#load_toml(s:lazy_dein_toml, {'lazy': 1})
-
-    call dein#end() " 設定終了
-    call dein#save_state() " キャッシュ保存
-endif
-
-" もし、未インストールものものがあったらインストール
-if dein#check_install()
-    call dein#install()
-endif
-
-if has('nvim')
-    " 最新のpythonをhostにする
-    if exists('$VIRTUAL_ENV')
-        let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-        let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
-    else
-        let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-        let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
-    endif
 endif
 
 augroup autoreload
@@ -267,6 +183,73 @@ augroup indentsize
     autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
+if has('vim_starting')
+    set rtp+=~/.vim/plugged/vim-plug
+    if !isdirectory(expand('~/.cache/vim/plugged/vim-plug'))
+        echo 'install vim-plug...'
+        call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
+        call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/vim/plugged/vim-plug/autoload')
+    end
+endif
+
+call plug#begin('~/.cache/vim/plugged')
+    Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
+    Plug 'kaicataldo/material.vim'
+    let g:material_terminal_italics = 0
+    let g:material_theme_style = 'palenight'
+
+    Plug 'deris/vim-shot-f'
+    Plug 'machakann/vim-highlightedyank'
+    Plug 'andymass/vim-matchup'
+    let g:loaded_matchit = 1
+
+    Plug 'sheerun/vim-polyglot'
+    let g:vim_json_syntax_conceal = 0
+
+    Plug 'scrooloose/nerdtree.git'
+    nmap <silent><Leader>n :NERDTreeToggle<CR>
+    nmap <silent><Leader>h :NERDTreeFind<CR>
+    let g:NERDTreeWinSize = 30
+    let g:NERDTreeLimitedSyntax = 1
+    augroup nerdtree_hook_add
+        autocmd FileType nerdtree nmap <buffer> l o
+        autocmd FileType nerdtree nmap <buffer> <C-0> o
+        autocmd FileType nerdtree nmap <buffer> <C-n> j
+        autocmd FileType nerdtree nmap <buffer> <C-p> k
+    augroup END
+
+    Plug 'terryma/vim-multiple-cursors'
+    function! s:multiple_cursors_before()
+        if exists(':ALEDisableBuffer')==2
+            exe 'ALEDisableBuffer'
+        endif
+        if exists(':CocDisable')==2
+            exe 'CocDisable'
+        endif
+    endfunction
+
+    function! s:multiple_cursors_after()
+        if exists(':ALEEnableBuffer')==2
+            exe 'ALEEnableBuffer'
+        endif
+        if exists(':CocEnable')==2
+            exe 'CocEnable'
+        endif
+    endfunction
+
+    function! init#vim_multiple_cursors#hook_add() abort
+        augroup multiple_cursors
+            autocmd User MultipleCursorsPre  call s:multiple_cursors_before()
+            autocmd User MultipleCursorsPost call s:multiple_cursors_after()
+        augroup END
+    endfunction
+
+    Plug 'terryma/vim-expand-region'
+    vmap v <Plug>(expand_region_expand)
+    vmap <C-v> <Plug>(expand_region_shrink)
+
+call plug#end()
+
 " ファイルタイププラグインおよびインデントを有効化
 set background=dark
 syntax on
@@ -277,47 +260,14 @@ try
 catch
 endtry
 
-hi! clear ALEErrorSignLineNr
-hi! clear ALEWarningSignLineNr
-hi! clear ALEInfoSignLineNr
-hi! clear ALEStyleErrorSignLineNr
-hi! clear ALEStyleWarningSignLineNr
-
 hi! MatchParen guibg=#555555 guifg=NONE gui=bold
 hi! Visual guibg=#888888 guifg=NONE
 hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! clear LineNr
 hi! clear SignColumn
 
-if has('nvim')
-  hi! Normal guibg=none ctermbg=none
-  hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
-endif
-
 hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-hi! ALEErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
-hi! ALEWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
-hi! CocErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
-hi! CocWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
-
 hi! CursorIM       guibg=#af00af guifg=#000000 gui=NONE      ctermbg=127  ctermfg=16   cterm=NONE
 hi! HighlightedyankRegion cterm=reverse gui=reverse
-
-function! PhpSyntaxOverride()
-    syn match phpPropExt "@\%(property-read\|property-write\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
-    hi! link phpDocTags phpPropExt
-    hi! link phpDocParam phpType
-endfunction
-
-augroup phpSyntaxOverride
-    autocmd!
-    autocmd FileType php call PhpSyntaxOverride()
-augroup END
-
-augroup syntaxFromStart
-    autocmd FileType vue :syntax sync fromstart
-augroup END
 
 filetype plugin indent on
