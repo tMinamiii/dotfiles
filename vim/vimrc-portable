@@ -184,69 +184,69 @@ augroup indentsize
 augroup END
 
 if has('vim_starting')
-    set rtp+=~/.vim/plugged/vim-plug
+    set rtp+=~/.cache/vim/plugged/vim-plug
     if !isdirectory(expand('~/.cache/vim/plugged/vim-plug'))
         echo 'install vim-plug...'
         call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
         call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/vim/plugged/vim-plug/autoload')
     end
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.cache/vim/plugged')
-    Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
-    Plug 'kaicataldo/material.vim'
-    let g:material_terminal_italics = 0
-    let g:material_theme_style = 'palenight'
 
-    Plug 'deris/vim-shot-f'
-    Plug 'machakann/vim-highlightedyank'
-    Plug 'andymass/vim-matchup'
-    let g:loaded_matchit = 1
+Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
+Plug 'kaicataldo/material.vim'
+let g:material_terminal_italics = 0
+let g:material_theme_style = 'palenight'
 
-    Plug 'sheerun/vim-polyglot'
-    let g:vim_json_syntax_conceal = 0
+Plug 'deris/vim-shot-f'
+Plug 'machakann/vim-highlightedyank'
+Plug 'andymass/vim-matchup'
+let g:loaded_matchit = 1
 
-    Plug 'scrooloose/nerdtree.git'
-    nmap <silent><Leader>n :NERDTreeToggle<CR>
-    nmap <silent><Leader>h :NERDTreeFind<CR>
-    let g:NERDTreeWinSize = 30
-    let g:NERDTreeLimitedSyntax = 1
-    augroup nerdtree_hook_add
-        autocmd FileType nerdtree nmap <buffer> l o
-        autocmd FileType nerdtree nmap <buffer> <C-0> o
-        autocmd FileType nerdtree nmap <buffer> <C-n> j
-        autocmd FileType nerdtree nmap <buffer> <C-p> k
-    augroup END
+Plug 'sheerun/vim-polyglot'
+let g:vim_json_syntax_conceal = 0
 
-    Plug 'terryma/vim-multiple-cursors'
-    function! s:multiple_cursors_before()
-        if exists(':ALEDisableBuffer')==2
-            exe 'ALEDisableBuffer'
-        endif
-        if exists(':CocDisable')==2
-            exe 'CocDisable'
-        endif
-    endfunction
+Plug 'scrooloose/nerdtree'
+nmap <silent><Leader>n :NERDTreeToggle<CR>
+nmap <silent><Leader>h :NERDTreeFind<CR>
+let g:NERDTreeWinSize = 30
+let g:NERDTreeLimitedSyntax = 1
+augroup nerdtree_hook_add
+    autocmd FileType nerdtree nmap <buffer> l o
+    autocmd FileType nerdtree nmap <buffer> <C-0> o
+    autocmd FileType nerdtree nmap <buffer> <C-n> j
+    autocmd FileType nerdtree nmap <buffer> <C-p> k
+augroup END
 
-    function! s:multiple_cursors_after()
-        if exists(':ALEEnableBuffer')==2
-            exe 'ALEEnableBuffer'
-        endif
-        if exists(':CocEnable')==2
-            exe 'CocEnable'
-        endif
-    endfunction
+Plug 'terryma/vim-multiple-cursors'
+function! s:multiple_cursors_before()
+    if exists(':ALEDisableBuffer')==2
+        exe 'ALEDisableBuffer'
+    endif
+    if exists(':CocDisable')==2
+        exe 'CocDisable'
+    endif
+endfunction
 
-    function! init#vim_multiple_cursors#hook_add() abort
-        augroup multiple_cursors
-            autocmd User MultipleCursorsPre  call s:multiple_cursors_before()
-            autocmd User MultipleCursorsPost call s:multiple_cursors_after()
-        augroup END
-    endfunction
+function! s:multiple_cursors_after()
+    if exists(':ALEEnableBuffer')==2
+        exe 'ALEEnableBuffer'
+    endif
+    if exists(':CocEnable')==2
+        exe 'CocEnable'
+    endif
+endfunction
 
-    Plug 'terryma/vim-expand-region'
-    vmap v <Plug>(expand_region_expand)
-    vmap <C-v> <Plug>(expand_region_shrink)
+augroup multiple_cursors
+    autocmd User MultipleCursorsPre  call s:multiple_cursors_before()
+    autocmd User MultipleCursorsPost call s:multiple_cursors_after()
+augroup END
+
+Plug 'terryma/vim-expand-region'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 call plug#end()
 
