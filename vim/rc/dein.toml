@@ -197,6 +197,7 @@ let g:easy_align_ignore_groups = []
 
 [[plugins]]
 repo = 'voldikss/vim-floaterm'
+if   = 'has("nvim")'
 hook_add ='''
 let g:floaterm_winblend = 10
 let g:floaterm_width = 100
