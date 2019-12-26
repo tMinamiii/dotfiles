@@ -44,7 +44,7 @@ set listchars=tab:\|\ ,trail:￭,extends:❯,precedes:❮ ",nbsp:%,eol:￭¬↲ 
 set ttimeout
 set ttimeoutlen=10
 set scrolloff=5                 " 3行残して画面スクロールする
-set shell=zsh
+set shell=bash
 " set cursorline
 
 set ambiwidth=double
@@ -130,22 +130,6 @@ command! W :w
 command! Wq :wq
 command! WQ :wq
 
-"" yank paste
-if system('uname -a | grep microsoft') != ""
-    let g:clipboard = {
-          \   'name': 'myClipboard',
-          \   'copy': {
-          \      '+': 'win32yank.exe -i',
-          \      '*': 'win32yank.exe -i',
-          \    },
-          \   'paste': {
-          \      '+': 'win32yank.exe -o',
-          \      '*': 'win32yank.exe -o',
-          \   },
-          \   'cache_enabled': 1,
-          \ }
-endif
-
 augroup autoreload
     set autoread
     autocmd FocusLost,FocusGained,CursorMoved,CursorMovedI,CursorHold,CursorHoldI  * silent! checktime
@@ -220,29 +204,6 @@ augroup nerdtree_hook_add
 augroup END
 
 Plug 'terryma/vim-multiple-cursors'
-function! s:multiple_cursors_before()
-    if exists(':ALEDisableBuffer')==2
-        exe 'ALEDisableBuffer'
-    endif
-    if exists(':CocDisable')==2
-        exe 'CocDisable'
-    endif
-endfunction
-
-function! s:multiple_cursors_after()
-    if exists(':ALEEnableBuffer')==2
-        exe 'ALEEnableBuffer'
-    endif
-    if exists(':CocEnable')==2
-        exe 'CocEnable'
-    endif
-endfunction
-
-augroup multiple_cursors
-    autocmd User MultipleCursorsPre  call s:multiple_cursors_before()
-    autocmd User MultipleCursorsPost call s:multiple_cursors_after()
-augroup END
-
 Plug 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
