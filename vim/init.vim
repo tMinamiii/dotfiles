@@ -178,19 +178,32 @@ if &runtimepath !~# '/dein.vim'
 endif
 
 "" yank paste
-if system('uname -a | grep microsoft') != ""
-  let g:clipboard = {
-        \   'name': 'myClipboard',
-        \   'copy': {
-        \      '+': 'win32yank.exe -i',
-        \      '*': 'win32yank.exe -i',
-        \    },
-        \   'paste': {
-        \      '+': 'win32yank.exe -o',
-        \      '*': 'win32yank.exe -o',
-        \   },
-        \   'cache_enabled': 1,
-        \ }
+if has('nvim')
+    if system('uname -a | grep microsoft') != ""
+      let g:clipboard = {
+            \   'name': 'myClipboard',
+            \   'copy': {
+            \      '+': 'win32yank.exe -i',
+            \      '*': 'win32yank.exe -i',
+            \    },
+            \   'paste': {
+            \      '+': 'win32yank.exe -o',
+            \      '*': 'win32yank.exe -o',
+            \   },
+            \   'cache_enabled': 1,
+            \ }
+    endif
+else
+    augroup Yank
+      autocmd!
+      autocmd TextYankPost * :call system('win32yank.exe -i', @")
+    augroup END
+    " nnoremap <silent>yy :.w !win32yank.exe -i<CR><CR>
+    " vnoremap <silent>y :w !win32yank.exe -i<CR><CR>
+    " nnoremap <silent>dd :.w !win32yank.exe -i<CR>dd
+    " vnoremap <silent>d x:let pos = getpos(".")<CR>GpVG:w !win32yank.exe -i<CR>VGx:call setpos(".", pos)<CR>
+    nnoremap <silent>p :r !win32yank.exe -o<CR>
+    vnoremap <silent>p :r !win32yank.exe -o<CR>
 endif
 " もし設定のキャッシュファイルを読み込めなかったら
 " tomlファイルを再読み込みする

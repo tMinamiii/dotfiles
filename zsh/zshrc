@@ -81,7 +81,7 @@ PATH="$PATH:$GOBIN"
 PATH="$HOME/.anyenv/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
-PATH="$HOME/.poetry/bin:$PATH"
+# PATH="$HOME/.poetry/bin:$PATH"
 # PATH="/usr/local/opt/sbt@0.13/bin:$PATH"
 
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
@@ -180,9 +180,13 @@ elif uname -a | grep -sq "Ubuntu"; then
     # Ubuntu
     #export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
     export VTE_VERSION="100"
-    PATH=$HOME/bin:$PATH
+    PATH="$HOME/bin:$PATH"
 elif uname -a | grep -sq "Linux"; then
-    PATH=$HOME/bin:$PATH
+    PATH="$HOME/bin:$PATH"
+fi
+
+if uname -a | grep -sq "microsoft"; then
+    PATH="/mnt/c/Windows/System32:$PATH"
 fi
 
 if command -v anyenv > /dev/null; then
