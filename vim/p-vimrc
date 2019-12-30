@@ -178,35 +178,39 @@ endif
 
 call plug#begin('~/.cache/vim/plugged')
 
-Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
-Plug 'kaicataldo/material.vim'
-let g:material_terminal_italics = 0
-let g:material_theme_style = 'palenight'
+    Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
 
-Plug 'deris/vim-shot-f'
-Plug 'machakann/vim-highlightedyank'
-Plug 'andymass/vim-matchup'
-let g:loaded_matchit = 1
+    Plug 'kaicataldo/material.vim'
+        let g:material_terminal_italics = 0
+        let g:material_theme_style = 'palenight'
 
-Plug 'sheerun/vim-polyglot'
-let g:vim_json_syntax_conceal = 0
+    Plug 'deris/vim-shot-f'
 
-Plug 'scrooloose/nerdtree'
-nmap <silent><Leader>n :NERDTreeToggle<CR>
-nmap <silent><Leader>h :NERDTreeFind<CR>
-let g:NERDTreeWinSize = 30
-let g:NERDTreeLimitedSyntax = 1
-augroup nerdtree_hook_add
-    autocmd FileType nerdtree nmap <buffer> l o
-    autocmd FileType nerdtree nmap <buffer> <C-0> o
-    autocmd FileType nerdtree nmap <buffer> <C-n> j
-    autocmd FileType nerdtree nmap <buffer> <C-p> k
-augroup END
+    Plug 'machakann/vim-highlightedyank'
 
-Plug 'terryma/vim-multiple-cursors'
-Plug 'terryma/vim-expand-region'
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+    Plug 'andymass/vim-matchup'
+        let g:loaded_matchit = 1
+
+    Plug 'sheerun/vim-polyglot'
+        let g:vim_json_syntax_conceal = 0
+
+    Plug 'scrooloose/nerdtree'
+        nmap <silent><Leader>n :NERDTreeToggle<CR>
+        nmap <silent><Leader>h :NERDTreeFind<CR>
+        let g:NERDTreeWinSize = 30
+        let g:NERDTreeLimitedSyntax = 1
+        augroup nerdtree_hook_add
+            autocmd FileType nerdtree nmap <buffer> l o
+            autocmd FileType nerdtree nmap <buffer> <C-0> o
+            autocmd FileType nerdtree nmap <buffer> <C-n> j
+            autocmd FileType nerdtree nmap <buffer> <C-p> k
+        augroup END
+
+    Plug 'terryma/vim-multiple-cursors'
+
+    Plug 'terryma/vim-expand-region'
+        vmap v <Plug>(expand_region_expand)
+        vmap <C-v> <Plug>(expand_region_shrink)
 
 call plug#end()
 

@@ -21,7 +21,7 @@ set backspace=0
 
 set clipboard&
 set clipboard^=unnamedplus
-set updatetime=300
+set updatetime=500
 set shortmess+=c
 set signcolumn=yes
 
@@ -154,7 +154,6 @@ let g:coc_global_extensions = [
             \ 'coc-sh',
             \ 'coc-snippets',
             \ 'coc-solargraph',
-            \ 'coc-sql',
             \ 'coc-stylelint',
             \ 'coc-todolist',
             \ 'coc-tsserver',
@@ -166,6 +165,7 @@ let g:coc_global_extensions = [
             \ 'coc-yank',
             \ ]
 
+" \ 'coc-sql',
 """""" dein (load plugins)"""""
 
 if has('nvim')
