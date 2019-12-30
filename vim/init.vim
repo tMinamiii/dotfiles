@@ -66,7 +66,7 @@ endif
 
 " set iminsert=0
 " set imsearch=0
-" set lazyredraw
+set lazyredraw
 let mapleader = "\<Space>"
 
 "---------------------------------------------------------------------------"
@@ -120,7 +120,8 @@ noremap   <Right>  <nop>
 "noremap   l <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
 
-inoremap  <C-l> <DEL>
+imap  <C-h> <BS>
+imap  <C-l> <DEL>
 nnoremap  <C-k> {
 nnoremap  <C-j> }
 """"" command """""
@@ -204,14 +205,11 @@ if system('uname -a | grep microsoft') != ""
           autocmd!
           autocmd TextYankPost * :call system('win32yank.exe -i', @")
         augroup END
-        " nnoremap <silent>yy :.w !win32yank.exe -i<CR><CR>
-        " vnoremap <silent>y :w !win32yank.exe -i<CR><CR>
-        " nnoremap <silent>dd :.w !win32yank.exe -i<CR>dd
-        " vnoremap <silent>d x:let pos = getpos(".")<CR>GpVG:w !win32yank.exe -i<CR>VGx:call setpos(".", pos)<CR>
-        nnoremap <silent>p :r !win32yank.exe -o<CR>
-        vnoremap <silent>p :r !win32yank.exe -o<CR>
+        nnoremap <silent>,p :r !win32yank.exe -o<CR>
+        vnoremap <silent>,p :r !win32yank.exe -o<CR>
     endif
 endif
+
 " もし設定のキャッシュファイルを読み込めなかったら
 " tomlファイルを再読み込みする
 if dein#load_state(s:dein_dir)
