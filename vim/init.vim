@@ -159,13 +159,13 @@ let g:coc_global_extensions = [
             \ 'coc-tsserver',
             \ 'coc-vetur',
             \ 'coc-vimlsp',
+            \ 'coc-webpack',
             \ 'coc-wxml',
             \ 'coc-xml',
             \ 'coc-yaml',
             \ 'coc-yank',
             \ ]
 
-" \ 'coc-sql',
 """""" dein (load plugins)"""""
 
 if has('nvim')
