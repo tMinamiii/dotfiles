@@ -109,15 +109,15 @@ on_ft    = ['php']
 depends  = ['vmustache']
 hook_add = 'call init#pdv#hook_add()'
 
-[[plugins]]
-repo = 'numirias/semshi'
-if       = 'has("nvim")'
-on_ft    = ['python']
-hook_add = '''
-let g:semshi#active = v:true
-let g:semshi#simplify_markup = v:true
-let g:semshi#error_sign = v:false
-'''
+# [[plugins]]
+# repo = 'numirias/semshi'
+# if       = 'has("nvim")'
+# on_ft    = ['python']
+# hook_add = '''
+# let g:semshi#active = v:true
+# let g:semshi#simplify_markup = v:true
+# let g:semshi#error_sign = v:false
+# '''
 #######################
 ### HTML / Markdown ###
 #######################

@@ -292,8 +292,8 @@ set background=dark
 syntax on
 try
   " colorscheme dracula
-  " colorscheme spring-night
-  colorscheme material
+  colorscheme spring-night
+  " colorscheme material
 catch
 endtry
 
@@ -324,6 +324,16 @@ hi! CocWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermf
 
 hi! CursorIM       guibg=#af00af guifg=#000000 gui=NONE      ctermbg=127  ctermfg=16   cterm=NONE
 hi! HighlightedyankRegion cterm=reverse gui=reverse
+
+autocmd FileType * call <SID>def_base_syntax() " autocmd Syntax may be better
+
+function! s:def_base_syntax()
+  " Simple example
+  syntax match commonOperator "\(+\|=\|-\|\^\|\*\|\.\)"
+  syntax match baseDelimiter ","
+  hi link commonOperator Operator
+  hi link baseDelimiter Special
+endfunction
 
 function! PhpSyntaxOverride()
     syn match phpPropExt "@\%(property-read\|property-write\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
