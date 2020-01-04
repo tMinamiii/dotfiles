@@ -290,8 +290,8 @@ set background=dark
 syntax on
 try
   " colorscheme dracula
-  colorscheme spring-night
-  " colorscheme material
+  " colorscheme spring-night
+  colorscheme material
 catch
 endtry
 
