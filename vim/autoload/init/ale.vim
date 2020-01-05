@@ -87,6 +87,7 @@ function! init#ale#hook_add() abort
                 \ -D=unused
                 \ -D=lll
                 \ -D=prealloc
+                \ -D=gomnd
                 \'
 
 endfunction
