@@ -20,7 +20,7 @@ set backspace=0
 " set backspace=indent,eol,start  " バックスペースでなんでも消せるようにする
 
 set clipboard&
-set clipboard^=unnamedplus
+set clipboard^=unnamedplus,unnamed
 set updatetime=500
 set shortmess+=c
 set signcolumn=yes
