@@ -20,7 +20,7 @@ set backspace=0
 " set backspace=indent,eol,start  " バックスペースでなんでも消せるようにする
 
 set clipboard&
-set clipboard^=unnamedplus
+set clipboard^=unnamedplus,unnamed
 set updatetime=300
 set shortmess+=c
 set signcolumn=yes
@@ -56,16 +56,6 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-if exists('$TMUX')
-    " tmux
-elseif $TERM_PROGRAM ==? 'hyper'
-    " hyper
-else
-    " hoge
-endif
-
-" set iminsert=0
-" set imsearch=0
 " set lazyredraw
 let mapleader = "\<Space>"
 
@@ -180,9 +170,9 @@ call plug#begin('~/.cache/vim/plugged')
 
     Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
 
-    Plug 'kaicataldo/material.vim'
-        let g:material_terminal_italics = 0
-        let g:material_theme_style = 'palenight'
+    Plug 'rhysd/vim-color-spring-night'
+        let g:spring_night_kill_italic = 1
+        let g:spring_night_high_contrast = 1
 
     Plug 'deris/vim-shot-f'
 
@@ -218,9 +208,7 @@ call plug#end()
 set background=dark
 syntax on
 try
-  " colorscheme dracula
-  " colorscheme spring-night
-  colorscheme material
+  colorscheme spring-night
 catch
 endtry
 
