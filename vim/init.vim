@@ -147,7 +147,6 @@ let g:coc_global_extensions = [
             \ 'coc-jest',
             \ 'coc-json',
             \ 'coc-markdownlint',
-            \ 'coc-pairs',
             \ 'coc-phpls',
             \ 'coc-prettier',
             \ 'coc-python',
@@ -166,7 +165,7 @@ let g:coc_global_extensions = [
             \ 'coc-yaml',
             \ 'coc-yank',
             \ ]
-
+" \ 'coc-pairs',
 """""" dein (load plugins)"""""
 
 if has('nvim')
@@ -327,8 +326,8 @@ autocmd FileType * call <SID>def_base_syntax() " autocmd Syntax may be better
 
 function! s:def_base_syntax()
   " Simple example
-  syntax match commonOperator "\(+\|=\|-\|\^\|\*\|\.\)"
-  syntax match baseDelimiter ","
+  syntax match commonOperator "\(+\|=\|-\|\^\|\*\)"
+  syntax match baseDelimiter "\(,\|\.\)"
   hi link commonOperator Operator
   hi link baseDelimiter Special
 endfunction
