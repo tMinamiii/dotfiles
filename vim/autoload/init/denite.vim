@@ -64,11 +64,10 @@ function! init#denite#hook_post_source() abort
     call denite#custom#source('file',     'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
     call denite#custom#source('buffer',   'matchers', ['matcher_regexp'])
     call denite#custom#source('file_mru', 'matchers', ['matcher_regexp'])
-    " call denite#custom#alias('source', 'file/rec/git', 'file/rec')
 
-    " call denite#custom#option('default', 'auto_action', 'preview')
+    call denite#custom#option('default', 'auto_action', 'highlight')
+    call denite#custom#option('default', 'vertical_preview', v:true)
     call denite#custom#option('default', 'prompt', '>>')
-    " call denite#custom#option('default', 'split', 'floating')
     call denite#custom#option('default', 'split', 'horizontal')
-    call denite#custom#option('default', 'winheight', '15')
+    call denite#custom#option('default', 'winheight', '20')
 endfunction
