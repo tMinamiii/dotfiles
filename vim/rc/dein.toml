@@ -210,3 +210,18 @@ repo = 'tomtom/tcomment_vim'
 hook_add = '''
 vnoremap ? :'<,'>TComment<CR>
 '''
+
+# [[plugins]]
+# repo = 'junegunn/fzf'
+# build = './install --all'
+#
+# [[plugins]]
+# repo = 'junegunn/fzf.vim'
+# hook_add = '''
+# let g:fzf_layout = { 'down': '~40%' }
+# nnoremap <silent> <Leader>f :GFiles<CR>
+# nnoremap <silent> <Leader>b :Buffers<CR>
+# nnoremap <silent> <Leader>g :Files<CR>
+# nnoremap <silent> <Leader>x :Commands<CR>
+# nnoremap <silent> <Leader>p :Rg<CR>
+# '''
