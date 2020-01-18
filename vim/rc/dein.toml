@@ -225,3 +225,15 @@ vnoremap ? :'<,'>TComment<CR>
 # nnoremap <silent> <Leader>x :Commands<CR>
 # nnoremap <silent> <Leader>p :Rg<CR>
 # '''
+
+[[plugins]]
+repo = 'previm/previm'
+hook_add = '''
+let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
+let g:previm_wsl_mode = 1
+'''
+
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+
