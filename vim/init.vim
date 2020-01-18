@@ -306,8 +306,9 @@ hi! SpecialKey ctermfg=239 ctermbg=NONE
 hi! clear LineNr
 hi! clear SignColumn
 
+hi! Normal guibg=NONE ctermbg=NONE
+
 if has('nvim')
-  hi! Normal guibg=none ctermbg=none
   hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
 endif
 
@@ -326,10 +327,10 @@ autocmd FileType * call <SID>def_base_syntax() " autocmd Syntax may be better
 
 function! s:def_base_syntax()
   " Simple example
-  syntax match commonOperator "\(+\|=\|-\|\^\|\*\)"
-  syntax match baseDelimiter "\(,\|\.\)"
-  hi link commonOperator Operator
-  hi link baseDelimiter Special
+  autocmd FileType python syntax match commonOperator "\(+\|=\|-\|\^\|\*\)"
+  autocmd FileType python syntax match baseDelimiter "\(,\|\.\)"
+  autocmd FileType python hi link commonOperator Operator
+  autocmd FileType python hi link baseDelimiter Special
 endfunction
 
 function! PhpSyntaxOverride()
