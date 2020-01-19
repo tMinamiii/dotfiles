@@ -119,7 +119,7 @@ RUN git clone https://github.com/robbyrussell/oh-my-zsh ~/.oh-my-zsh && \
     git clone https://github.com/Treri/fzf-zsh.git ~/.oh-my-zsh/custom/plugins/fzf-zsh && \
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && \
     # Install dotfiles
-    git clone https://github.com/naronA/dotfiles ~/dotfiles && \
+    git clone https://github.com/tMinamii/dotfiles ~/dotfiles && \
     bash ~/dotfiles/install.sh && \
     git clone https://github.com/riywo/anyenv ~/.anyenv
 

@@ -71,7 +71,7 @@ if [ ! -e "$HOME/.anyenv" ]; then
 fi
 # Install dotfiles
 if [ ! -e "$HOME/dotfiles" ]; then
-    git clone https://github.com/naronA/dotfiles dotfiles
+    git clone https://github.com/tMinamii/dotfiles dotfiles
 fi
 if echo "$ARGS" | grep -sq "\\-\\-gui"; then
     zsh "$HOME/dotfiles/install.sh" --gui

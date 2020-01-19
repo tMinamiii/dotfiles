@@ -93,7 +93,7 @@ wget -O - https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh | 
 
 # Install dotfiles
 if [ ! -e "$HOME/dotfiles" ]; then
-    git clone https://github.com/naronA/dotfiles dotfiles
+    git clone https://github.com/tMinamii/dotfiles dotfiles
 fi
 bash "$HOME/dotfiles/install.sh"
 
