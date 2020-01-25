@@ -6,6 +6,45 @@ repo = 'junegunn/fzf'
 build = '''
 bash install --all
 '''
+# [[plugins]]
+# repo     = 'ryanoasis/vim-devicons'
+# hook_add = 'call init#vim_devicons#hook_add()'
+
+# http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+# [[plugins]]
+# repo = 'godlygeek/tabular'
+
+# [[plugins]]
+# repo     = 'luochen1990/rainbow'
+# hook_add = 'call init#rainbow#hook_add()'
+
+
+# [[plugins]]
+# repo = 'kristijanhusak/defx-icons'
+# hook_add = 'call init#defx_icons#hook_add()'
+#
+# [[plugins]]
+# repo = 'Shougo/defx.nvim'
+# hook_add = 'call init#defx#hook_add()'
+# [[plugins]]
+
+
+
+# [[plugins]]
+# repo = 'junegunn/fzf'
+# build = './install --all'
+#
+# [[plugins]]
+# repo = 'junegunn/fzf.vim'
+# hook_add = '''
+# let g:fzf_layout = { 'down': '~40%' }
+# nnoremap <silent> <Leader>f :GFiles<CR>
+# nnoremap <silent> <Leader>b :Buffers<CR>
+# nnoremap <silent> <Leader>g :Files<CR>
+# nnoremap <silent> <Leader>x :Commands<CR>
+# nnoremap <silent> <Leader>p :Rg<CR>
+# '''
+
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
