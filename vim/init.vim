@@ -205,8 +205,8 @@ if system('uname -a | grep microsoft') != ""
           autocmd!
           autocmd TextYankPost * :call system('win32yank.exe -i', @")
         augroup END
-        nnoremap <silent>,p :r !win32yank.exe -o<CR>
-        vnoremap <silent>,p :r !win32yank.exe -o<CR>
+        nnoremap <silent>[p :r !win32yank.exe -o<CR>
+        vnoremap <silent>[p :r !win32yank.exe -o<CR>
     endif
 endif
 
