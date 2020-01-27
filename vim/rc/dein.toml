@@ -149,7 +149,6 @@ repo = 'deris/vim-shot-f'
 [[plugins]]
 repo = 'machakann/vim-highlightedyank'
 
-
 [[plugins]]
 repo = 'simeji/winresizer'
 hook_add = '''
@@ -168,9 +167,9 @@ hook_add = 'call init#indentLine#hook_add()'
 # repo     = 'ryanoasis/vim-devicons'
 # hook_add = 'call init#vim_devicons#hook_add()'
 
-[[plugins]]
-repo     = 'dbakker/vim-projectroot'
-hook_add = 'call init#vim_projectroot#hook_add()'
+# [[plugins]]
+# repo     = 'dbakker/vim-projectroot'
+# hook_add = 'call init#vim_projectroot#hook_add()'
 
 # http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 # [[plugins]]
@@ -232,7 +231,6 @@ hook_add = '''
 let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
 let g:previm_wsl_mode = 1
 '''
-
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'

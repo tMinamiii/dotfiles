@@ -1,4 +1,5 @@
 function! init#vim_projectroot#hook_add() abort
+    let g:rootmarkers = ['.projectroot','.git','.hg','.svn','.bzr','_darcs', 'build.xml', '.venv', 'node_modules', 'pyproject.toml', 'package.json', 'go.mod']
     function! <SID>AutoProjectRootCD()
         try
             if &filetype !=? 'help'
