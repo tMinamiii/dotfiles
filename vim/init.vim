@@ -47,6 +47,7 @@ set scrolloff=5                 " 3行残して画面スクロールする
 set shell=zsh
 " set cursorline
 
+set lazyredraw
 set ambiwidth=double
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
