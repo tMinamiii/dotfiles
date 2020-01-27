@@ -455,27 +455,37 @@ call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 ### Jupyter ###
 ###############
 
-# [[plugins]]
-# repo     = 'szymonmaszke/vimpyter'
-# on_ft    = ['ipynb']
-# hook_add = '''
-# autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
-# autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
-# autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
-# '''
+[[plugins]]
+repo     = 'szymonmaszke/vimpyter'
+on_ft    = ['ipynb']
+hook_add = '''
+autocmd Filetype ipynb nmap <silent><C-s>b :VimpyterInsertPythonBlock<CR>
+autocmd Filetype ipynb nmap <silent><C-s>j :VimpyterStartJupyter<CR>
+autocmd Filetype ipynb nmap <silent><C-s>n :VimpyterStartNteract<CR>
+'''
 
-# [[plugins]]
-# repo = 'cohama/lexima.vim'
-# on_i = 1
-# hook_add         = 'call init#lexima#hook_add()'
-# hook_post_source = 'call init#lexima#hook_post_source()'
+[[plugins]]
+repo = 'cohama/lexima.vim'
+on_i = 1
+hook_add         = 'call init#lexima#hook_add()'
+hook_post_source = 'call init#lexima#hook_post_source()'
 
-# [[plugins]]
-# repo = 'numirias/semshi'
-# if       = 'has("nvim")'
-# on_ft    = ['python']
-# hook_add = '''
-# let g:semshi#active = v:true
-# let g:semshi#simplify_markup = v:true
-# let g:semshi#error_sign = v:false
-# '''
+[[plugins]]
+repo = 'numirias/semshi'
+if       = 'has("nvim")'
+on_ft    = ['python']
+hook_add = '''
+let g:semshi#active = v:true
+let g:semshi#simplify_markup = v:true
+let g:semshi#error_sign = v:false
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = ['neosnippet-snippets']
+on_event         = 'BufRead'
+hook_source = 'call init#neosnippet#hook_source()'
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+

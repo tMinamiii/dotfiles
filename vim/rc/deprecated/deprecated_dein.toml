@@ -279,3 +279,14 @@ repo = 'vim-airline/vim-airline-themes'
 
 
 
+[[plugins]]
+repo = 'voldikss/vim-floaterm'
+if   = 'has("nvim")'
+hook_add ='''
+let g:floaterm_winblend = 10
+let g:floaterm_width = 100
+let g:floaterm_position = 'center'
+nmap <silent> <leader>1           :FloatermToggle<CR>i
+'''
+
+
