@@ -290,3 +290,27 @@ nmap <silent> <leader>1           :FloatermToggle<CR>i
 '''
 
 
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+hook_add = '''
+  set signcolumn=yes
+  let g:gitgutter_async = 1
+  let g:gitgutter_sign_modified = 'rw'
+  highlight GitGutterAdd ctermfg=green
+  highlight GitGutterChange ctermfg=yellow
+  highlight GitGutterDelete ctermfg=red
+  highlight GitGutterChangeDelete ctermfg=yellow
+'''
+
+# [[plugins]]
+# repo     = 'ryanoasis/vim-devicons'
+# hook_add = 'call init#vim_devicons#hook_add()'
+
+# [[plugins]]
+# repo     = 'dbakker/vim-projectroot'
+# hook_add = 'call init#vim_projectroot#hook_add()'
+
+# [[plugins]]
+# repo = 'cohama/agit.vim'
+
+
