@@ -18,7 +18,11 @@ function! init#vim_go#hook_add() abort
     let g:go_def_mapping_enabled = 0
     let g:go_gocode_propose_builtins = 0
     let g:go_echo_go_info = 0
-    let g:go_metalinter_enabled = []
+
+    let g:go_diagnostics_enabled = 0
+    let g:go_metalinter_autosave = 0
+
+    "" format ""
     let g:go_fmt_autosave = 0
 
     let g:go_term_height = 15

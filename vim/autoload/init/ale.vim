@@ -32,12 +32,14 @@ function! init#ale#hook_add() abort
                 \   'sql': [],
                 \}
 
+
+    " \ 'bash': ['shfmt'],
     " \ 'python': ['autopep8', 'yapf', 'isort'],'pylint',
     let g:ale_fixers = {
-                \ 'bash': ['shfmt'],
+                \ 'bash': [],
                 \ 'go': ['gofmt', 'goimports'],
                 \ 'php': ['php_cs_fixer', 'phpcbf'],
-                \ 'sh': ['shfmt'],
+                \ 'sh': [],
                 \ 'python': [],
                 \ 'javascript': [],
                 \ 'javascript.jsx': [],
