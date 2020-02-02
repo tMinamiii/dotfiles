@@ -10,9 +10,6 @@ fi
 if [ -e "$HOME/.zshrc" ]; then
   unlink "$HOME/.zshrc"
 fi
-if [ -e "$HOME/.zshenv" ]; then
-  unlink "$HOME/.zshenv"
-fi
 if [ -e "$HOME/.vim" ]; then
   unlink "$HOME/.vim"
 fi

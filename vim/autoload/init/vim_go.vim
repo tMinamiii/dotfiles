@@ -11,7 +11,6 @@ function! init#vim_go#hook_add() abort
     let g:go_highlight_types = 1
     let g:go_highlight_fields = 1
     let g:go_highlight_variable_declarations = 1
-
     let g:go_highlight_variable_assignments = 1
 
     let g:go_echo_command_info = 0

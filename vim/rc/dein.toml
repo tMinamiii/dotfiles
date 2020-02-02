@@ -50,14 +50,6 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 '''
 
-####################
-### 文法チェック ###
-####################
-
-# [[plugins]]
-# repo     = 'w0rp/ale'
-# hook_add = 'call init#ale#hook_add()'
-
 ########################
 ### Syntax Highlight ###
 ########################

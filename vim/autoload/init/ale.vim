@@ -65,7 +65,7 @@ function! init#ale#hook_add() abort
     let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
     let g:ale_fix_on_save = 1        " ファイルを保存したときにfix実行
     let g:ale_lint_delay = 100
-    let g:ale_lint_on_text_changed = 'always' " always or never
+    let g:ale_lint_on_text_changed = 'never' " always or never
 
     " lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
     let g:ale_set_loclist = 0

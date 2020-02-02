@@ -29,6 +29,16 @@ hook_add = '''
 "let g:user_emmet_leader_key='<Space>'
 '''
 
+####################
+### 文法チェック ###
+####################
+
+[[plugins]]
+repo     = 'w0rp/ale'
+on_ft    = ['go', 'php', 'sh','bash', 'ruby', 'vim']
+hook_add = 'call init#ale#hook_add()'
+
+
 ##########
 ### GO ###
 ##########
