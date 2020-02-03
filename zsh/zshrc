@@ -34,36 +34,53 @@ export GOBIN="$HOME/go/1.13.4/bin"
 export GO111MODULE=on
 export TERM=xterm-256color
 export PIPENV_VENV_IN_PROJECT=true
-export FZF_DEFAULT_OPTS='--height 60% --border'
+export FZF_DEFAULT_OPTS='--height 40% --border'
+export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
+export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
+zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
 if [ "$TMUX" != "" ]; then
   export TERM="screen-256color"
 fi
-if uname -a | grep -sq "Ubuntu"; then
-   # LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-   # export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-   # PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
-
-   # LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-   # export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-   # PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
-   # PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
-   # PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
-fi
 
 if uname -a | grep -sq "Ubuntu"; then
-    export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
-    PATH="$JAVA_HOME/bin:$PATH"
+  # LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+  # export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+  # PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
+  export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+  PATH="$JAVA_HOME/bin:$PATH"
+elif [ "$(uname)" = "Darwin" ]; then
+    # Mac OSX
+    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+elif uname -a | grep -sq "microsoft"; then
+    PATH="/mnt/c/Windows/System32:$PATH"
 fi
 
-PATH="$PATH:$GOBIN"
-PATH="$HOME/.anyenv/bin:$PATH"
-PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin:$GOBIN:$PATH"
 
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
+alias build-vim='make clean && make distclean  && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make && sudo make install'
+alias build-nvim='sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
+alias tmux-reload='tmux source-file ~/.tmux.conf'
+alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
+alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
+alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
+alias dus='du --max-depth=1 -h | sort -nr'
 
-nuxt_setup() {
+# docker
+alias docker-ps='docker ps -a'
+alias docker-rm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
+alias docker-prune='docker system prune --volumes'
+
+# raspi
+alias pi1='ssh ubuntu@172.16.27.10'
+alias pi2='ssh ubuntu@172.16.27.11'
+alias pi3='ssh ubuntu@172.16.27.12'
+
+# ghq
+alias github='gh-open $(repos)'
+
+function nuxt_setup() {
   echo -n "ok?(y/N): "
   if read -q; then
     curl -L -O https://raw.githubusercontent.com/tMinamiii/ts-nuxt/master/package.json
@@ -78,7 +95,7 @@ nuxt_setup() {
   fi
 }
 
-react_setup() {
+function react_setup() {
   echo -n "ok?(y/N): "
   if read -q; then
     curl -L -O https://raw.githubusercontent.com/tMinamiii/ts-react/master/.eslintrc.js
@@ -89,7 +106,7 @@ react_setup() {
   fi
 }
 
-python_setup () {
+function python_setup () {
   echo -n "ok?(y/N): "
   if read -q; then
     if [ ! -e "/.vscode" ]; then
@@ -114,53 +131,28 @@ python_setup () {
   fi
 }
 
-pip3_upgrade () {
+function pip3_upgrade () {
   pip3 install --upgrade pip && pip3 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip3 install --upgrade
 }
 
-pip2_upgrade () {
+function pip2_upgrade () {
   pip2 install --upgrade pip && pip2 list --outdated --format columns | awk 'NR>2{print $1}' | xargs pip2 install --upgrade
 }
 
-alias build-vim='make clean && make distclean  && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make && sudo make install'
-alias build-nvim='sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
-alias tmux-reload='tmux source-file ~/.tmux.conf'
-alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
-alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
-alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
-alias dus='du --max-depth=1 -h | sort -nr'
-
-alias docker-ps='docker ps -a'
-alias docker-rm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
-alias docker-prune='docker system prune --volumes'
-
-alias pi1='ssh ubuntu@172.16.27.10'
-alias pi2='ssh ubuntu@172.16.27.11'
-alias pi3='ssh ubuntu@172.16.27.12'
-
-# alias repos='ghq list -p | fzf'
-alias repos='ghq list -p | peco'
-alias repo='cd $(repos)'
-alias github='gh-open $(repos)'
+function ghq-fzf() {
+  local src=$(ghq list | fzf )
+  if [ -n "$src" ]; then
+    BUFFER="cd $(ghq root)/$src"
+    zle accept-line
+  fi
+  zle -R -c
+}
+zle -N ghq-fzf
+bindkey '^G' ghq-fzf
 
 npm_freeze() {
   npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
 }
-
-if [ "$(uname)" = "Darwin" ]; then
-    # Mac OSX
-    test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-elif uname -a | grep -sq "Ubuntu"; then
-    # Ubuntu
-    export VTE_VERSION="100"
-    PATH="$HOME/bin:$PATH"
-elif uname -a | grep -sq "Linux"; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-if uname -a | grep -sq "microsoft"; then
-    PATH="/mnt/c/Windows/System32:$PATH"
-fi
 
 if command -v anyenv > /dev/null; then
     eval "$(anyenv init - --no-rehash)"
@@ -174,25 +166,9 @@ if command -v direnv > /dev/null; then
     eval "$(direnv hook zsh)"
 fi
 
-export PATH=$PATH
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 fi
 
-export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
-export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
-zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
-
-function ghq-fzf() {
-  local src=$(ghq list | fzf )
-  if [ -n "$src" ]; then
-    BUFFER="cd $(ghq root)/$src"
-    zle accept-line
-  fi
-  zle -R -c
-}
-zle -N ghq-fzf
-bindkey '^G' ghq-fzf
