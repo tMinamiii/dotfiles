@@ -159,7 +159,7 @@ npm_freeze() {
 
 [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - --no-rehash)"
 [ -f "$(which hub)" ] && eval "$(hub alias -s)"
-[ -f "$(direnv)" ] && eval "$(direnv hook zsh)"
+[ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
