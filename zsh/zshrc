@@ -8,8 +8,22 @@ setopt no_beep
 ZSH_THEME="dracula"
 
 plugins=(
-    git
-    zsh-autosuggestions
+  composer
+  docker
+  docker-compose
+  git
+  npm
+  npx
+  pip
+  pipenv
+  python
+  go
+  golang
+  ripgrep
+  tig
+  tmux
+  yarn
+  zsh-autosuggestions
 )
 
 bindkey '^[' autosuggest-accept
