@@ -9,20 +9,24 @@ ZSH_THEME="dracula"
 
 plugins=(
   composer
+  debian
+  django
+  dnf
   docker
   docker-compose
   git
+  go
+  golang
   npm
   npx
   pip
   pipenv
   python
-  go
-  golang
   ripgrep
   tig
   tmux
   yarn
+  yum
   zsh-autosuggestions
 )
 
