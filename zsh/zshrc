@@ -40,9 +40,7 @@ export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
-if [ "$TMUX" != "" ]; then
-  export TERM="screen-256color"
-fi
+[ "$TMUX" != "" ] && export TERM="screen-256color"
 
 if uname -a | grep -sq "Ubuntu"; then
   # LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
@@ -154,21 +152,9 @@ npm_freeze() {
   npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
 }
 
-if command -v anyenv > /dev/null; then
-    eval "$(anyenv init - --no-rehash)"
-fi
-
-if command -v hub > /dev/null; then
-    eval "$(hub alias -s)"
-fi
-
-if command -v direnv > /dev/null; then
-    eval "$(direnv hook zsh)"
-fi
-
+[ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - --no-rehash)"
+[ -f "$(which hub)" ] && eval "$(hub alias -s)"
+[ -f "$(direnv)" ] && eval "$(direnv hook zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if [ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-fi
+[ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
