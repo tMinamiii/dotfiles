@@ -16,7 +16,6 @@ plugins=(
   tmux
 )
 
-
 . "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
 # User configuration
@@ -177,4 +176,6 @@ autoload -Uz _zinit
 # zinit light sindresorhus/pure
 zinit light denysdovhan/spaceship-prompt
 zinit light zsh-users/zsh-autosuggestions
+zinit light b4b4r07/enhancd
+export ENHANCD_COMMAND=cdd
 bindkey '^[' autosuggest-accept
