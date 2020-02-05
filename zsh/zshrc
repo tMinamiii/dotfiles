@@ -40,6 +40,8 @@ export FZF_DEFAULT_OPTS='--height 40% --border'
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
+
+export ENHANCD_COMMAND=cdd
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
 [ "$TMUX" != "" ] && export TERM="screen-256color"
@@ -177,5 +179,4 @@ autoload -Uz _zinit
 zinit light denysdovhan/spaceship-prompt
 zinit light zsh-users/zsh-autosuggestions
 zinit light b4b4r07/enhancd
-export ENHANCD_COMMAND=cdd
 bindkey '^[' autosuggest-accept
