@@ -14,10 +14,8 @@ plugins=(
   ripgrep
   tig
   tmux
-  zsh-autosuggestions
 )
 
-bindkey '^[' autosuggest-accept
 
 . "$HOME/.oh-my-zsh/oh-my-zsh.sh"
 
@@ -161,7 +159,6 @@ npm_freeze() {
 [ -f "$(which hub)" ] && eval "$(hub alias -s)"
 [ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ ! -e "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -179,3 +176,5 @@ autoload -Uz _zinit
 # zinit ice pick"async.zsh" src"pure.zsh"
 # zinit light sindresorhus/pure
 zinit light denysdovhan/spaceship-prompt
+zinit light zsh-users/zsh-autosuggestions
+bindkey '^[' autosuggest-accept
