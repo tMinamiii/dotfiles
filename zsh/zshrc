@@ -5,6 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 set bell-style none
 skip_global_compinit=1
 setopt no_beep
+ZSH_THEME=""
 
 plugins=(
   docker
@@ -175,6 +176,6 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit installer's chunk
 
-zinit ice pick"async.zsh" src"pure.zsh"
-zinit light sindresorhus/pure
-ZSH_THEME=""
+# zinit ice pick"async.zsh" src"pure.zsh"
+# zinit light sindresorhus/pure
+zinit light denysdovhan/spaceship-prompt
