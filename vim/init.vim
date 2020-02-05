@@ -223,16 +223,15 @@ if system('uname -a | grep microsoft') != ""
                 \ }
     else
         augroup Yank
-            " autocmd!
-            " autocmd TextYankPost * :call system('win32yank.exe -i', @")
-            au!
-            autocmd TextYankPost * echo v:event
-            autocmd TextYankPost * call system('win32yank.exe -i', v:event.regcontents + [''])
+            autocmd!
+            autocmd TextYankPost * :call system('win32yank.exe -i', @")
+            " au!
+            " autocmd TextYankPost * echo v:event
+            " autocmd TextYankPost * call system('win32yank.exe -i', v:event.regcontents + [''])
         augroup END
 
-        "nnoremap <silent> [p :call setreg('"',system('win32yank.exe -o'))<CR>
-        nnoremap <silent>[p :r !win32yank.exe -o<CR>
-        " vnoremap <silent>[p :r !win32yank.exe -o<CR>
+        " noremap <silent>[p :call setreg('"',system('win32yank.exe -o'))<CR>
+        noremap <silent>[p :r !win32yank.exe -o<CR>
     endif
 endif
 
