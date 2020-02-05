@@ -170,6 +170,26 @@ let g:coc_global_extensions = [
 " \ 'coc-pairs',
 """""" dein (load plugins)"""""
 
+if has('terminal')
+  function! s:set_default_ansi_colors() abort
+    if exists('g:terminal_ansi_colors')
+      return
+    endif
+
+    let g:terminal_ansi_colors = [
+      \ "#073642", "#c50f1f", "#13a10e", "#c19c00",
+      \ "#0037da", "#881798", "#3a96dd", "#cccccc",
+      \ "#767676", "#e74856", "#16c60c", "#eadf84",
+      \ "#3b78ff", "#b4009e", "#61d6d6", "#e8e8e8"
+      \ ]
+  endfunction
+  call s:set_default_ansi_colors()
+
+  augroup vimrc
+    autocmd ColorScheme * call s:set_default_ansi_colors()
+  augroup END
+endif
+
 if has('nvim')
     let s:dein_dir = expand('~/.cache/dein-nvim')
 else
@@ -203,11 +223,16 @@ if system('uname -a | grep microsoft') != ""
                 \ }
     else
         augroup Yank
-          autocmd!
-          autocmd TextYankPost * :call system('win32yank.exe -i', @")
+            " autocmd!
+            " autocmd TextYankPost * :call system('win32yank.exe -i', @")
+            au!
+            autocmd TextYankPost * echo v:event
+            autocmd TextYankPost * call system('win32yank.exe -i', v:event.regcontents + [''])
         augroup END
+
+        "nnoremap <silent> [p :call setreg('"',system('win32yank.exe -o'))<CR>
         nnoremap <silent>[p :r !win32yank.exe -o<CR>
-        vnoremap <silent>[p :r !win32yank.exe -o<CR>
+        " vnoremap <silent>[p :r !win32yank.exe -o<CR>
     endif
 endif
 
@@ -286,8 +311,10 @@ augroup indentsize
     autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
+command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: 80, minheight: 24 })
+
 " ファイルタイププラグインおよびインデントを有効化
-set background=dark
+" set background=dark
 syntax on
 try
   " colorscheme dracula
@@ -314,6 +341,7 @@ if has('nvim')
   hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
 endif
 
+hi! Terminal       guibg=#323232 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
 hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
@@ -321,7 +349,6 @@ hi! ALEErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermf
 hi! ALEWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
 hi! CocErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
 hi! CocWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
-
 hi! CursorIM       guibg=#af00af guifg=#000000 gui=NONE      ctermbg=127  ctermfg=16   cterm=NONE
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
