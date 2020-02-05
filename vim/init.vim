@@ -310,7 +310,7 @@ augroup indentsize
     autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
-command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: 80, minheight: 24 })
+command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: 120, minheight: 24 })
 
 " ファイルタイププラグインおよびインデントを有効化
 " set background=dark
