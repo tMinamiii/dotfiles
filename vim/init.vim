@@ -1,7 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 set completeopt+=noselect
-
+"
 """"" [検索系]
 set ignorecase                  " 大文字小文字を区別しない
 set smartcase                   " 検索文字に大文字がある場合は大文字小文字を区別
@@ -230,8 +230,8 @@ if system('uname -a | grep microsoft') != ""
             " autocmd TextYankPost * call system('win32yank.exe -i', v:event.regcontents + [''])
         augroup END
 
-        " noremap <silent>[p :call setreg('"',system('win32yank.exe -o'))<CR>
-        noremap <silent>[p :r !win32yank.exe -o<CR>
+        noremap <silent> <leader>p :call setreg('"',system('win32yank.exe -o'))<CR>""p<CR>
+        " noremap <silent> <leader>p :r !win32yank.exe -o<CR>
     endif
 endif
 

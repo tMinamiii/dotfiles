@@ -17,7 +17,7 @@ function! init#denite#hook_add() abort
     endfunction
 
     """ Grep """
-    nnoremap <silent> [denite]p :<C-u>Denite grep -auto-action=preview<CR>
+    nnoremap <silent> [denite]g :<C-u>Denite grep -auto-action=preview<CR>
 
     """ Current Directory """
     nnoremap <silent> [denite]f :<C-u>Denite file/rec<CR>
