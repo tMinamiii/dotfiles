@@ -174,9 +174,9 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit installer's chunk
 
-# zinit ice pick"async.zsh" src"pure.zsh"
-# zinit light sindresorhus/pure
-zinit light denysdovhan/spaceship-prompt
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+# zinit light denysdovhan/spaceship-prompt
 zinit light zsh-users/zsh-autosuggestions
 zinit light b4b4r07/enhancd
 bindkey '^[' autosuggest-accept
