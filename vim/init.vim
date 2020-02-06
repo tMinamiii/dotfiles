@@ -43,13 +43,17 @@ set list                        " 不可視文字の可視化
 set listchars=tab:\|\ ,trail:￭,extends:❯,precedes:❮ ",nbsp:%,eol:￭¬↲ "不可視文字をUnicodeにする
 set ttimeout
 set ttimeoutlen=10
-set scrolloff=5                 " 3行残して画面スクロールする
+set scrolloff=30                 " 3行残して画面スクロールする
 set shell=zsh
 " set cursorline
 
 set lazyredraw
+set ttyfast
 set ambiwidth=double
 set termguicolors
+
+set synmaxcol=256
+
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 let &t_ti.="\e[1 q"
@@ -178,8 +182,8 @@ if has('terminal')
 
     let g:terminal_ansi_colors = [
       \ "#073642", "#c50f1f", "#13a10e", "#c19c00",
-      \ "#0037da", "#881798", "#3a96dd", "#cccccc",
-      \ "#767676", "#e74856", "#16c60c", "#eadf84",
+      \ "#6666ef", "#881798", "#3a96dd", "#cccccc",
+      \ "#989898", "#e74856", "#16c60c", "#eadf84",
       \ "#3b78ff", "#b4009e", "#61d6d6", "#e8e8e8"
       \ ]
   endfunction
