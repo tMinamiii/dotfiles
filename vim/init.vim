@@ -182,7 +182,7 @@ if has('terminal')
 
     let g:terminal_ansi_colors = [
       \ "#073642", "#c50f1f", "#13a10e", "#c19c00",
-      \ "#6666ef", "#881798", "#3a96dd", "#cccccc",
+      \ "#3399ff", "#881798", "#3a96dd", "#cccccc",
       \ "#989898", "#e74856", "#16c60c", "#eadf84",
       \ "#3b78ff", "#b4009e", "#61d6d6", "#e8e8e8"
       \ ]
@@ -322,9 +322,11 @@ augroup indentsize
     autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
-command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: 120, minheight: 24 })
-nmap <silent> <leader>t :Terminal<CR>
-
+if !has('nvim')
+    " command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: 120, minheight: 24 })
+    command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
+    nmap <silent> <leader>t :Terminal<CR>
+endif
 " ファイルタイププラグインおよびインデントを有効化
 " set background=dark
 syntax on
