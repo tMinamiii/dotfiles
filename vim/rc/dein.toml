@@ -24,13 +24,6 @@ hook_add = 'call init#vista#hook_add()'
 [[plugins]]
 repo  = 'Shougo/dein.vim'
 
-[[plugins]]
-repo  = 'Shougo/vimproc'
-build = 'make'
-
-[[plugins]]
-repo      = 'Shougo/neomru.vim'
-
 ######################
 ### マルチカーソル ###
 ######################
@@ -163,4 +156,23 @@ endif
 
 [[plugins]]
 repo = 'tyru/open-browser.vim'
+
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --all'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+hook_add = '''
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+let g:fzf_layout = { 'down': '~40%' }
+nnoremap <silent> <Leader>f :GFiles<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>m :Files<CR>
+nnoremap <silent> <Leader>x :Commands<CR>
+nnoremap <silent> <Leader>g :Rg<CR>
+'''
+
 

@@ -10,19 +10,6 @@ let g:git_messenger_into_popup_after_show = v:true
 '''
 
 [[plugins]]
-repo     = 'thinca/vim-quickrun'
-on_ft    = ['python', 'ruby', 'javascript', 'javascript.jsx', 'typescript']
-depends  = ['vimproc']
-hook_add = 'call init#vim_quickrun#hook_add()'
-
-[[plugins]]
-repo             = 'Shougo/denite.nvim'
-depends          = ['neomru.vim']
-on_event         = 'BufRead'
-hook_add         = 'call init#denite#hook_add()'
-hook_post_source = 'call init#denite#hook_post_source()'
-
-[[plugins]]
 repo     = 'mattn/emmet-vim'
 on_i     = 1
 hook_add = '''

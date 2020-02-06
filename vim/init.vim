@@ -43,7 +43,7 @@ set list                        " 不可視文字の可視化
 set listchars=tab:\|\ ,trail:￭,extends:❯,precedes:❮ ",nbsp:%,eol:￭¬↲ "不可視文字をUnicodeにする
 set ttimeout
 set ttimeoutlen=10
-set scrolloff=30                 " 3行残して画面スクロールする
+set scrolloff=10                 " 3行残して画面スクロールする
 set shell=zsh
 " set cursorline
 
@@ -266,6 +266,13 @@ if dein#check_install()
     call dein#install()
 endif
 
+" plugin remove check
+let s:removed_plugins = dein#check_clean()
+if len(s:removed_plugins) > 0
+    call map(s:removed_plugins, "delete(v:val, 'rf')")
+    call dein#recache_runtimepath()
+endif
+
 if has('nvim')
     " 最新のpythonをhostにする
     if exists('$VIRTUAL_ENV')
@@ -285,7 +292,8 @@ augroup END
 augroup filetypes
     autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile
     autocmd BufRead,BufNewFile *php_cs*    setfiletype php
-    autocmd BufRead,BufNewFile *zshrc      setfiletype sh
+    autocmd BufRead,BufNewFile *zshrc      setfiletype zsh
+    autocmd BufRead,BufNewFile *zsh        setfiletype zsh
     autocmd BufRead,BufNewFile *.mjs       setfiletype javascript
     autocmd BufRead,BufNewFile *.csv       setfiletype csv
     autocmd BufRead,BufNewFile .env*       setfiletype sh
@@ -315,6 +323,7 @@ augroup indentsize
 augroup END
 
 command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: 120, minheight: 24 })
+nmap <silent> <leader>t :Terminal<CR>
 
 " ファイルタイププラグインおよびインデントを有効化
 " set background=dark

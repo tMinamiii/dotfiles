@@ -488,4 +488,11 @@ hook_source = 'call init#neosnippet#hook_source()'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
+# [[plugins]]
+# repo             = 'Shougo/denite.nvim'
+# depends          = ['neomru.vim']
+# on_event         = 'BufRead'
+# hook_add         = 'call init#denite#hook_add()'
+# hook_post_source = 'call init#denite#hook_post_source()'
+
 
