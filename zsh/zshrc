@@ -185,6 +185,6 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light b4b4r07/enhancd
 bindkey '^[' autosuggest-accept
 
-if [ $DOTFILES/.zshrc -nt ~/.zshrc.zwc ]; then
+if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
 fi
