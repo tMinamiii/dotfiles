@@ -1,5 +1,22 @@
 #!/bin/zsh
-# Path to your oh-my-zsh installation.
+
+if [[ ! -d $HOME/.oh-my-zsh ]]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f"
+fi
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit installer's chunk
+
 export ZSH=$HOME/.oh-my-zsh
 # export DEFAULT_USER="tMinamiii"
 set bell-style none
@@ -152,7 +169,7 @@ function ghq-fzf() {
 zle -N ghq-fzf
 bindkey '^G' ghq-fzf
 
-npm_freeze() {
+function npm_freeze() {
   npm list -g --depth=0 | tail +2 | awk '{ print $2 }' | sed -e 's/\@[0-9].*$//g' | tr '\n' ' '
 }
 
@@ -160,19 +177,6 @@ npm_freeze() {
 [ -f "$(which hub)" ] && eval "$(hub alias -s)"
 [ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f"
-fi
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit installer's chunk
 
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
