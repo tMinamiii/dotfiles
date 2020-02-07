@@ -297,6 +297,7 @@ augroup filetypes
     autocmd BufRead,BufNewFile *.csv       setfiletype csv
     autocmd BufRead,BufNewFile .env*       setfiletype sh
     autocmd BufWritePre        * :%s/\s\+$//ge
+    autocmd BufWritePre        * :%s/\+$//ge
 augroup END
 
 set expandtab                   " タブをスペースにする
