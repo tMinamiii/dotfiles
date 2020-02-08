@@ -1,0 +1,7 @@
+node_modules
+.dist
+dist
+yarn-error.log
+.nyc_output
+coverage
+**/.DS_Store

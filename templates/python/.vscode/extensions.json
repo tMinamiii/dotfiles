@@ -1,0 +1,28 @@
+{
+  "recommendations": [
+    // EditorConfig
+    "EditorConfig.editorconfig",
+    // autoDocstring
+    "njpwerner.autodocstring",
+    // Python
+    "ms-python.python",
+    // Pyright
+    "ms-pyright.pyright",
+    // OpenAPI (Swagger) Editor
+    "42crunch.vscode-openapi",
+    // OpenApi Designer
+    "philosowaffle.openapi-designer",
+    // YAML
+    "redhat.vscode-yaml",
+    // VSCodeIntellicode
+    "visualstudioexptteam.vscodeintellicode",
+    // AWS Toolkit for VisualStudio Code
+    "amazonwebservices.aws-toolkit-vscode",
+    // Markdown All in One
+    "yzhang.markdown-all-in-one",
+    // Markdownlint
+    "davidanson.vscode-markdownlint",
+    // Prettier
+    "esbenp.prettier-vscode"
+  ]
+}
