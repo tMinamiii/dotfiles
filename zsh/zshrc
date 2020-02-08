@@ -3,6 +3,7 @@
 set bell-style none
 skip_global_compinit=1
 setopt no_beep
+
 export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=100000
@@ -168,6 +169,7 @@ zinit light b4b4r07/enhancd
 
 ### Bind keys ###
 zle -N ghq-fzf
+bindkey -e
 bindkey '^G' ghq-fzf
 bindkey '^[' autosuggest-accept
 
