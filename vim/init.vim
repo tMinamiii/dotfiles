@@ -46,11 +46,14 @@ set ttimeoutlen=10
 set scrolloff=10                 " 3行残して画面スクロールする
 set shell=zsh
 " set cursorline
-
+set noequalalways
 set lazyredraw
 set ttyfast
 set ambiwidth=double
 set termguicolors
+if !has('nvim')
+    set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
+endif
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -324,7 +327,7 @@ augroup END
 
 if !has('nvim')
     " command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: 120, minheight: 24 })
-    command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
+    command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
     nmap <silent> <leader>t :Terminal<CR>
 endif
 " ファイルタイププラグインおよびインデントを有効化

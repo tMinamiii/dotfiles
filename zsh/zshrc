@@ -106,7 +106,15 @@ alias pi1='ssh ubuntu@172.16.27.10'
 alias pi2='ssh ubuntu@172.16.27.11'
 alias pi3='ssh ubuntu@172.16.27.12'
 
-# ghq
+### FZF
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+else
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+
+### ghq + fzf
 alias github='gh-open $(repos)'
 
 function ghq-fzf() {
@@ -120,7 +128,6 @@ function ghq-fzf() {
 
 [ -f "$(which hub)" ] && eval "$(hub alias -s)"
 [ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ### anyenv ###
 # [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - --no-rehash)"
@@ -151,7 +158,7 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light zsh-users/zsh-autosuggestions
-zinit light zdharma/fast-syntax-highlighting
+# zinit light zdharma/fast-syntax-highlighting
 zinit light dracula/zsh
 zinit light b4b4r07/enhancd
 
