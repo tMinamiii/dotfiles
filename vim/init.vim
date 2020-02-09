@@ -296,15 +296,17 @@ if !has('nvim')
     command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
     nmap <silent> <leader>t :Terminal<CR>
 endif
+
 if has('vim_starting')
-    set rtp+=~/.cache/vim/plugged/vim-plug
     if has('nvim')
+        set rtp+=~/.cache/nvim/plugged/vim-plug
         if !isdirectory(expand('~/.cache/nvim/plugged/vim-plug'))
             echo 'install vim-plug...'
             call system('mkdir -p ~/.cache/nvim/plugged/vim-plug')
             call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/nvim/plugged/vim-plug/autoload')
         endif
     else
+        set rtp+=~/.cache/vim/plugged/vim-plug
         if !isdirectory(expand('~/.cache/vim/plugged/vim-plug'))
             echo 'install vim-plug...'
             call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
