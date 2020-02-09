@@ -304,6 +304,7 @@ if has('vim_starting')
             echo 'install vim-plug...'
             call system('mkdir -p ~/.cache/nvim/plugged/vim-plug')
             call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/nvim/plugged/vim-plug/autoload')
+            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
         endif
     else
         set rtp+=~/.cache/vim/plugged/vim-plug
@@ -311,13 +312,17 @@ if has('vim_starting')
             echo 'install vim-plug...'
             call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
             call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/vim/plugged/vim-plug/autoload')
+            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
         endif
     endif
 endif
 
-call plug#begin('~/.cache/vim/plugged')
 
-    Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
+if has('nvim')
+    call plug#begin('~/.cache/vim/plugged')
+else
+    call plug#begin('~/.cache/nvim/plugged')
+endif
 
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
         call init#coc#config()
