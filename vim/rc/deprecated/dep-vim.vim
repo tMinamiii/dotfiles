@@ -156,3 +156,38 @@
     augroup END
 
 
+" もし設定のキャッシュファイルを読み込めなかったら
+" tomlファイルを再読み込みする
+"if dein#load_state(s:dein_dir)
+"    call dein#begin(s:dein_dir) " 設定開始
+"
+"    " プラグインリストを収めた TOML ファイル
+"    " 予め TOML ファイル（後述）を用意しておく
+"    let g:rc_dir = expand('~/.vim/rc')
+"    let s:dein_toml = g:rc_dir . '/dein.toml'
+"    let s:lazy_dein_toml = g:rc_dir . '/lazy_dein.toml'
+"    if !has('nvim')
+"      call dein#add('roxma/nvim-yarp')
+"      call dein#add('roxma/vim-hug-neovim-rpc')
+"    endif
+"    " TOML を読み込み、キャッシュしておく
+"    call dein#load_toml(s:dein_toml,      {'lazy': 0})
+"    call dein#load_toml(s:lazy_dein_toml, {'lazy': 1})
+"
+"    call dein#end() " 設定終了
+"    call dein#save_state() " キャッシュ保存
+"endif
+"
+"" もし、未インストールものものがあったらインストール
+"if dein#check_install()
+"    call dein#install()
+"endif
+"
+"" plugin remove check
+"let s:removed_plugins = dein#check_clean()
+"if len(s:removed_plugins) > 0
+"    call map(s:removed_plugins, "delete(v:val, 'rf')")
+"    call dein#recache_runtimepath()
+"endif
+
+

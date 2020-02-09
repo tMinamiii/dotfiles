@@ -241,39 +241,140 @@ if system('uname -a | grep microsoft') != ""
     endif
 endif
 
-" もし設定のキャッシュファイルを読み込めなかったら
-" tomlファイルを再読み込みする
-if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir) " 設定開始
-
-    " プラグインリストを収めた TOML ファイル
-    " 予め TOML ファイル（後述）を用意しておく
-    let g:rc_dir = expand('~/.vim/rc')
-    let s:dein_toml = g:rc_dir . '/dein.toml'
-    let s:lazy_dein_toml = g:rc_dir . '/lazy_dein.toml'
-    if !has('nvim')
-      call dein#add('roxma/nvim-yarp')
-      call dein#add('roxma/vim-hug-neovim-rpc')
-    endif
-    " TOML を読み込み、キャッシュしておく
-    call dein#load_toml(s:dein_toml,      {'lazy': 0})
-    call dein#load_toml(s:lazy_dein_toml, {'lazy': 1})
-
-    call dein#end() " 設定終了
-    call dein#save_state() " キャッシュ保存
+if has('vim_starting')
+    set rtp+=~/.cache/vim/plugged/vim-plug
+    if !isdirectory(expand('~/.cache/vim/plugged/vim-plug'))
+        echo 'install vim-plug...'
+        call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
+        call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/vim/plugged/vim-plug/autoload')
+    end
 endif
 
-" もし、未インストールものものがあったらインストール
-if dein#check_install()
-    call dein#install()
-endif
 
-" plugin remove check
-let s:removed_plugins = dein#check_clean()
-if len(s:removed_plugins) > 0
-    call map(s:removed_plugins, "delete(v:val, 'rf')")
-    call dein#recache_runtimepath()
-endif
+call plug#begin('~/.cache/vim/plugged')
+
+    Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
+
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        call init#coc#hook_add()
+
+    Plug 'honza/vim-snippets'
+
+    Plug 'liuchengxu/vista.vim'
+        call init#vista#hook_add()
+
+    Plug 'terryma/vim-multiple-cursors'
+        call init#vim_multiple_cursors#hook_add()
+
+    Plug 'osyo-manga/vim-over'
+        nnoremap <silent> <Leader>o :OverCommandLine<CR>
+
+    Plug 'terryma/vim-expand-region'
+        vmap v <Plug>(expand_region_expand)
+        vmap <C-v> <Plug>(expand_region_shrink)
+
+    Plug 'sheerun/vim-polyglot'
+        if has("nvim")
+          let g:polyglot_disabled = ['python']
+        endif
+        let g:vim_json_syntax_conceal = 0
+
+    Plug 'tpope/vim-fugitive'
+
+    Plug 'scrooloose/nerdtree'
+        call init#nerdtree#hook_add()
+
+    Plug 'dracula/vim'
+
+    Plug 'kaicataldo/material.vim'
+        let g:material_terminal_italics = 0
+        let g:material_theme_style = 'palenight'
+
+    Plug 'rhysd/vim-color-spring-night'
+        let g:spring_night_kill_italic = 1
+        let g:spring_night_high_contrast = 1
+
+    Plug 'itchyny/lightline.vim'
+        call init#lightline#hook_add()
+
+    Plug 'deris/vim-shot-f'
+
+    Plug 'machakann/vim-highlightedyank'
+
+    Plug 'simeji/winresizer'
+        let g:winresizer_vert_resize = 1
+        let g:winresizer_horiz_resize = 1
+
+    " Plug 'editorconfig/editorconfig-vim'
+
+    Plug 'Yggdroot/indentLine'
+        call init#indentLine#hook_add()
+
+    Plug 'andymass/vim-matchup'
+        let g:loaded_matchit = 1
+
+    Plug 'tpope/vim-surround'
+
+    Plug 'junegunn/vim-easy-align'
+        nmap ga <Plug>(EasyAlign)
+        xmap ga <Plug>(EasyAlign)
+        let g:easy_align_ignore_groups = []
+
+    Plug 'tomtom/tcomment_vim'
+        vnoremap ? :'<,'>TComment<CR>
+
+    Plug 'previm/previm'
+        if system('uname -a | grep microsoft') != ""
+          let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
+          let g:previm_wsl_mode = 1
+        endif
+
+    Plug 'tyru/open-browser.vim'
+
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+    Plug 'junegunn/fzf.vim'
+        command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+        command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+        let g:fzf_layout = { 'down': '~40%' }
+        nnoremap <silent> <Leader>f :GFiles<CR>
+        nnoremap <silent> <Leader>b :Buffers<CR>
+        nnoremap <silent> <Leader>m :Files<CR>
+        nnoremap <silent> <Leader>x :Commands<CR>
+        nnoremap <silent> <Leader>g :Rg<CR>
+
+    Plug 'rhysd/git-messenger.vim'
+        nmap <Leader>gm <Plug>(git-messenger)
+        let g:git_messenger_include_diff = 'current'
+        let g:git_messenger_always_into_popup = v:true
+        let g:git_messenger_into_popup_after_show = v:true
+
+    Plug 'mattn/emmet-vim'
+
+    Plug 'w0rp/ale', { 'for':  ['go', 'php', 'sh','bash', 'ruby', 'vim'] }
+        call init#ale#hook_add()
+
+    Plug 'fatih/vim-go' , { 'for': 'go' }
+        call init#vim_go#hook_add()
+
+    Plug 'heavenshell/vim-jsdoc', { 'for': ['typescript', 'javascript', 'javascript.jsx'] }
+        call init#vim_jsdoc#hook_add()
+
+    Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
+
+    Plug 'jwalton512/vim-blade', { 'for':'blade' }
+        call init#vim_blade#hook_add()
+
+    Plug 'tobyS/vmustache'
+
+    Plug 'tobyS/pdv', {'for': 'php'}
+        call init#pdv#hook_add()
+
+    Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
+        let g:vim_markdown_conceal = 0
+        let g:vim_markdown_folding_disabled = 1
+call plug#end()
+
 
 if has('nvim')
     " 最新のpythonをhostにする
@@ -326,8 +427,7 @@ augroup indentsize
 augroup END
 
 if !has('nvim')
-    " command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: 120, minheight: 24 })
-    command! Terminal call popup_create(term_start(['zsh'], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
+    command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
     nmap <silent> <leader>t :Terminal<CR>
 endif
 " ファイルタイププラグインおよびインデントを有効化
