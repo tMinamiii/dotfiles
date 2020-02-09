@@ -136,13 +136,13 @@ function ghq-fzf() {
 
 ### anyenv ###
 # [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - --no-rehash)"
-function cache-anyenv() {
+function anyenv-cache() {
     [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
     anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
 }
 
 if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
-    [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || cache-anyenv
+    [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
     source $XDG_CACHE_HOME/anyenv/init.zsh
 fi
 
