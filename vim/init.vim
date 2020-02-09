@@ -51,6 +51,7 @@ set lazyredraw
 set ttyfast
 set ambiwidth=double
 set termguicolors
+
 if !has('nvim')
     set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
 endif
@@ -241,149 +242,6 @@ if system('uname -a | grep microsoft') != ""
     endif
 endif
 
-if has('vim_starting')
-    set rtp+=~/.cache/vim/plugged/vim-plug
-    if has('nvim')
-        if !isdirectory(expand('~/.cache/nvim/plugged/vim-plug'))
-            echo 'install vim-plug...'
-            call system('mkdir -p ~/.cache/nvim/plugged/vim-plug')
-            call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/nvim/plugged/vim-plug/autoload')
-        endif
-    else
-        if !isdirectory(expand('~/.cache/vim/plugged/vim-plug'))
-            echo 'install vim-plug...'
-            call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
-            call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/vim/plugged/vim-plug/autoload')
-        endif
-    endif
-endif
-
-
-call plug#begin('~/.cache/vim/plugged')
-
-    Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
-
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-        call init#coc#hook_add()
-
-    Plug 'honza/vim-snippets'
-
-    Plug 'liuchengxu/vista.vim'
-        call init#vista#hook_add()
-
-    Plug 'terryma/vim-multiple-cursors'
-        call init#vim_multiple_cursors#hook_add()
-
-    Plug 'osyo-manga/vim-over'
-        nnoremap <silent> <Leader>o :OverCommandLine<CR>
-
-    Plug 'terryma/vim-expand-region'
-        vmap v <Plug>(expand_region_expand)
-        vmap <C-v> <Plug>(expand_region_shrink)
-
-    Plug 'sheerun/vim-polyglot'
-        if has("nvim")
-          let g:polyglot_disabled = ['python']
-        endif
-        let g:vim_json_syntax_conceal = 0
-
-    Plug 'tpope/vim-fugitive'
-
-    Plug 'scrooloose/nerdtree'
-        call init#nerdtree#hook_add()
-
-    Plug 'dracula/vim'
-
-    Plug 'kaicataldo/material.vim'
-        let g:material_terminal_italics = 0
-        let g:material_theme_style = 'palenight'
-
-    Plug 'rhysd/vim-color-spring-night'
-        let g:spring_night_kill_italic = 1
-        let g:spring_night_high_contrast = 1
-
-    Plug 'itchyny/lightline.vim'
-        call init#lightline#hook_add()
-
-    Plug 'deris/vim-shot-f'
-
-    Plug 'machakann/vim-highlightedyank'
-
-    Plug 'simeji/winresizer'
-        let g:winresizer_vert_resize = 1
-        let g:winresizer_horiz_resize = 1
-
-    " Plug 'editorconfig/editorconfig-vim'
-
-    Plug 'Yggdroot/indentLine'
-        call init#indentLine#hook_add()
-
-    Plug 'andymass/vim-matchup'
-        let g:loaded_matchit = 1
-
-    Plug 'tpope/vim-surround'
-
-    Plug 'junegunn/vim-easy-align'
-        nmap ga <Plug>(EasyAlign)
-        xmap ga <Plug>(EasyAlign)
-        let g:easy_align_ignore_groups = []
-
-    Plug 'tomtom/tcomment_vim'
-        vnoremap ? :'<,'>TComment<CR>
-
-    Plug 'previm/previm'
-        if system('uname -a | grep microsoft') != ""
-          let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
-          let g:previm_wsl_mode = 1
-        endif
-
-    Plug 'tyru/open-browser.vim'
-
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-    Plug 'junegunn/fzf.vim'
-        command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-        command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-        let g:fzf_layout = { 'down': '~40%' }
-        nnoremap <silent> <Leader>f :GFiles<CR>
-        nnoremap <silent> <Leader>b :Buffers<CR>
-        nnoremap <silent> <Leader>m :Files<CR>
-        nnoremap <silent> <Leader>x :Commands<CR>
-        nnoremap <silent> <Leader>g :Rg<CR>
-
-    Plug 'rhysd/git-messenger.vim'
-        nmap <Leader>gm <Plug>(git-messenger)
-        let g:git_messenger_include_diff = 'current'
-        let g:git_messenger_always_into_popup = v:true
-        let g:git_messenger_into_popup_after_show = v:true
-
-    Plug 'mattn/emmet-vim'
-
-    Plug 'w0rp/ale', { 'for':  ['go', 'php', 'sh','bash', 'ruby', 'vim'] }
-        call init#ale#hook_add()
-
-    Plug 'fatih/vim-go' , { 'for': 'go' }
-        call init#vim_go#hook_add()
-
-    Plug 'heavenshell/vim-jsdoc', { 'for': ['typescript', 'javascript', 'javascript.jsx'] }
-        call init#vim_jsdoc#hook_add()
-
-    Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
-
-    Plug 'jwalton512/vim-blade', { 'for':'blade' }
-        call init#vim_blade#hook_add()
-
-    Plug 'tobyS/vmustache'
-
-    Plug 'tobyS/pdv', {'for': 'php'}
-        call init#pdv#hook_add()
-
-    Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
-        let g:vim_markdown_conceal = 0
-        let g:vim_markdown_folding_disabled = 1
-call plug#end()
-
-
 if has('nvim')
     " 最新のpythonをhostにする
     if exists('$VIRTUAL_ENV')
@@ -438,6 +296,260 @@ if !has('nvim')
     command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
     nmap <silent> <leader>t :Terminal<CR>
 endif
+if has('vim_starting')
+    set rtp+=~/.cache/vim/plugged/vim-plug
+    if has('nvim')
+        if !isdirectory(expand('~/.cache/nvim/plugged/vim-plug'))
+            echo 'install vim-plug...'
+            call system('mkdir -p ~/.cache/nvim/plugged/vim-plug')
+            call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/nvim/plugged/vim-plug/autoload')
+        endif
+    else
+        if !isdirectory(expand('~/.cache/vim/plugged/vim-plug'))
+            echo 'install vim-plug...'
+            call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
+            call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/vim/plugged/vim-plug/autoload')
+        endif
+    endif
+endif
+
+call plug#begin('~/.cache/vim/plugged')
+
+    Plug 'junegunn/vim-plug', {'dir': '~/.cache/vim/plugged/vim-plug/autoload'}
+
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        call init#coc#hook_add()
+
+    Plug 'itchyny/lightline.vim'
+        call init#lightline#hook_add()
+
+    Plug 'w0rp/ale', { 'for':  ['go', 'php', 'sh','bash', 'ruby', 'vim'] }
+        call init#ale#hook_add()
+
+    Plug 'honza/vim-snippets'
+
+    Plug 'liuchengxu/vista.vim'
+        nmap <silent> <C-f><C-v> :<C-u>Vista coc<CR>
+        let g:vista_close_on_jump = 1
+        let g:vista_icon_indent = ['`-> ', '|-> ']
+        let g:vista#renderer#enable_icon = 0
+        let g:vista#renderer#icons = {
+                    \   'function': 'func',
+                    \   'variable': 'var',
+                    \   'field': 'field',
+                    \   'struct': 'struct',
+                    \   'constant': 'const',
+                    \  }
+
+    Plug 'terryma/vim-multiple-cursors'
+        function! s:multiple_cursors_before()
+            if exists(':ALEDisableBuffer')==2
+                exe 'ALEDisableBuffer'
+            endif
+            if exists(':CocDisable')==2
+                exe 'CocDisable'
+            endif
+        endfunction
+        function! s:multiple_cursors_after()
+            if exists(':ALEEnableBuffer')==2
+                exe 'ALEEnableBuffer'
+            endif
+            if exists(':CocEnable')==2
+                exe 'CocEnable'
+            endif
+        endfunction
+        augroup multiple_cursors
+            autocmd User MultipleCursorsPre  call s:multiple_cursors_before()
+            autocmd User MultipleCursorsPost call s:multiple_cursors_after()
+        augroup END
+
+    Plug 'osyo-manga/vim-over'
+        nnoremap <silent> <Leader>o :OverCommandLine<CR>
+
+    Plug 'terryma/vim-expand-region'
+        vmap v <Plug>(expand_region_expand)
+        vmap <C-v> <Plug>(expand_region_shrink)
+
+    Plug 'sheerun/vim-polyglot'
+        if has("nvim")
+          let g:polyglot_disabled = ['python']
+        endif
+        let g:vim_json_syntax_conceal = 0
+
+    Plug 'tpope/vim-fugitive'
+
+    Plug 'scrooloose/nerdtree'
+        nmap <silent><Leader>n :NERDTreeToggle<CR>
+        nmap <silent><Leader>h :NERDTreeFind<CR>
+        let g:NERDTreeWinSize = 30
+        let g:NERDTreeLimitedSyntax = 1
+        let g:NERDTreeQuitOnOpen = 3
+        augroup nerdtree_hook_add
+            autocmd FileType nerdtree nmap <buffer> l o
+            autocmd FileType nerdtree nmap <buffer> <C-0> o
+            autocmd FileType nerdtree nmap <buffer> <C-n> j
+            autocmd FileType nerdtree nmap <buffer> <C-p> k
+        augroup END
+
+
+    Plug 'dracula/vim'
+
+    Plug 'kaicataldo/material.vim'
+        let g:material_terminal_italics = 0
+        let g:material_theme_style = 'palenight'
+
+    Plug 'rhysd/vim-color-spring-night'
+        let g:spring_night_kill_italic = 1
+        let g:spring_night_high_contrast = 1
+
+    Plug 'deris/vim-shot-f'
+
+    Plug 'machakann/vim-highlightedyank'
+
+    Plug 'simeji/winresizer'
+        let g:winresizer_vert_resize = 1
+        let g:winresizer_horiz_resize = 1
+
+    Plug 'Yggdroot/indentLine'
+        let g:indentLine_showFirstIndentLevel = 1
+        let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
+        let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'defx', 'terminal']
+        let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
+        let g:indentLine_color_term = 238
+        let g:indentLine_color_gui = '#676767'
+        let g:indentLine_setConceal = 0
+
+
+    Plug 'andymass/vim-matchup'
+        let g:loaded_matchit = 1
+
+    Plug 'tpope/vim-surround'
+
+    Plug 'junegunn/vim-easy-align'
+        nmap ga <Plug>(EasyAlign)
+        xmap ga <Plug>(EasyAlign)
+        let g:easy_align_ignore_groups = []
+
+    Plug 'tomtom/tcomment_vim'
+        vnoremap ? :'<,'>TComment<CR>
+
+    Plug 'previm/previm'
+        if system('uname -a | grep microsoft') != ""
+          let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
+          let g:previm_wsl_mode = 1
+        endif
+
+    Plug 'tyru/open-browser.vim'
+
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+    Plug 'junegunn/fzf.vim'
+        command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+        command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+        let g:fzf_layout = { 'down': '~40%' }
+        nnoremap <silent> <Leader>f :GFiles<CR>
+        nnoremap <silent> <Leader>b :Buffers<CR>
+        nnoremap <silent> <Leader>m :Files<CR>
+        nnoremap <silent> <Leader>x :Commands<CR>
+        nnoremap <silent> <Leader>g :Rg<CR>
+
+    Plug 'rhysd/git-messenger.vim'
+        nmap <Leader>gm <Plug>(git-messenger)
+        let g:git_messenger_include_diff = 'current'
+        let g:git_messenger_always_into_popup = v:true
+        let g:git_messenger_into_popup_after_show = v:true
+
+    Plug 'mattn/emmet-vim'
+
+    Plug 'fatih/vim-go' , { 'for': 'go' }
+        let g:go_highlight_methods = 1
+        let g:go_highlight_structs = 1
+        let g:go_highlight_operators = 1
+        let g:go_highlight_functions = 1
+        let g:go_highlight_function_parameters = 1
+        let g:go_highlight_function_arguments = 1
+        let g:go_highlight_function_calls = 1
+        let g:go_highlight_types = 1
+        let g:go_highlight_fields = 1
+        let g:go_highlight_variable_declarations = 1
+        let g:go_highlight_variable_assignments = 1
+
+        let g:go_echo_command_info = 0
+        let g:go_def_mapping_enabled = 0
+        let g:go_gocode_propose_builtins = 0
+        let g:go_echo_go_info = 0
+
+        let g:go_diagnostics_enabled = 0
+        let g:go_metalinter_autosave = 0
+
+        "" format ""
+        let g:go_fmt_autosave = 0
+        let g:go_term_height = 15
+        let g:go_term_mode = 'on | belowright split'
+        let g:go_term_enabled = 0
+
+        function! s:vim_go_keymap()
+            nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
+            nnoremap <buffer><silent> <F5> :GoDebugContinue<CR>
+            nnoremap <buffer><silent> <F6> :GoDebugPrint<CR>
+            nnoremap <buffer><silent> <F9> :GoDebugBreakpoint<CR>
+            nnoremap <buffer><silent> <F10> :GoDebugNext<CR>
+            nnoremap <buffer><silent> <F11> :GoDebugStep<CR>
+            nnoremap <buffer><silent> <F12> :GoDebugStop<CR>
+        endfunction
+
+        augroup vim_go_hook_add
+            autocmd FileType go :call s:vim_go_keymap()
+        augroup END
+
+
+    Plug 'heavenshell/vim-jsdoc', { 'for': ['typescript', 'javascript', 'javascript.jsx'] }
+        let g:typescript_compiler_binary = ''
+        let g:typescript_compiler_options = ''
+        augroup mygroup
+            autocmd FileType javascript,typescript :call s:jsdoc_keymap()
+        augroup END
+        function! s:jsdoc_keymap()
+            nnoremap <buffer><silent> <Leader>d :JsDoc<CR>
+            vnoremap <buffer><silent> <Leader>d :JsDoc<CR>
+        endfunction
+
+    Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
+        let g:rainbow_active = 0
+        let g:rainbow_conf = {
+                    \    'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
+                    \   'separately': {
+                    \       'nerdtree': 0,
+                    \   },
+                    \ }
+
+
+    Plug 'jwalton512/vim-blade', { 'for':'blade' }
+        let g:blade_custom_directives = ['datetime', 'javascript']
+        let g:blade_custom_directives_pairs = {
+                    \   'markdown': 'endmarkdown',
+                    \   'cache': 'endcache',
+                    \ }
+
+    Plug 'tobyS/vmustache'
+
+    Plug 'tobyS/pdv', {'for': 'php'}
+        let g:pdv_template_dir = $HOME .'/.cache/dein/repos/github.com/tobyS/pdv/templates'
+        augroup mygroup
+            autocmd FileType php :call s:phpdoc_keymap()
+        augroup END
+        function! s:phpdoc_keymap()
+            nnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
+            vnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
+        endfunction
+
+
+    Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
+        let g:vim_markdown_conceal = 0
+        let g:vim_markdown_folding_disabled = 1
+call plug#end()
+
+
 " ファイルタイププラグインおよびインデントを有効化
 " set background=dark
 syntax on
