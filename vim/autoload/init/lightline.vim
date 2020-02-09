@@ -1,4 +1,4 @@
-function! init#lightline#hook_add() abort
+function! init#lightline#config() abort
     let g:lightline = {
                 \ 'colorscheme': 'material',
                 \ 'active': {

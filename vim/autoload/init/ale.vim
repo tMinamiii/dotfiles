@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function! init#ale#hook_add() abort
+function! init#ale#config() abort
     nmap <silent> <Leader>/ :ALEFix<CR>
     nmap <silent> <leader>jj :ALENext<CR>
     nmap <silent> <leader>kk :ALEPrevious<CR>

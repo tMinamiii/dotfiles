@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function! init#coc#hook_add() abort
+function! init#coc#config() abort
     " Use tab for trigger completion with characters ahead and navigate.
     " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
     inoremap <silent><expr> <TAB>
