@@ -19,12 +19,6 @@ fi
 if [ -e "$HOME/.tmux.conf" ]; then
   unlink "$HOME/.tmux.conf"
 fi
-if [ -e "$HOME/.hyper.js" ]; then
-  unlink "$HOME/.hyper.js"
-fi
-# if [ -e "$HOME/.tmux.d" ]; then
-#   unlink "$HOME/.tmux.d"
-# fi
 
 ARGS=$*
 
@@ -63,10 +57,6 @@ ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
 ###### tmux ######
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 # ln -s "$HOME/dotfiles/tmux" "$HOME/.tmux.d"
-
-###### hyper ######
-ln -s "$HOME/dotfiles/hyper/dot.hyper.js" "$HOME/.hyper.js"
-
 ##### GUI setup #####
 if echo "$ARGS" | grep -sq "\\-\\-gui"; then
   ##### font setup ######
@@ -85,9 +75,9 @@ if echo "$ARGS" | grep -sq "\\-\\-gui"; then
     sudo apt-get install gconf2
     gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
     UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
-    gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "Cica 13"
+    gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "HackGen 13"
     gconftool-2 --get /apps/gnome-terminal/profiles/Default/font
-    gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "Cica 12"
+    gconftool-2 --set --type string /apps/gnome-terminal/profiles/Default/font "HackGen 13"
     ###### Xsession ######
     ln -s "$HOME/dotfiles/Xsession/xsessionrc" "$HOME/.xsessionrc"
 

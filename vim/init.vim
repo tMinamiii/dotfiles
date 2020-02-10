@@ -292,11 +292,6 @@ augroup indentsize
     autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
-if !has('nvim')
-    command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
-    nmap <silent> <leader>t :Terminal<CR>
-endif
-
 if has('vim_starting')
     if has('nvim')
         set rtp+=~/.cache/nvim/plugged/vim-plug
@@ -335,10 +330,21 @@ endif
 
     if has('nvim')
         Plug 'zchee/nvim-go', { 'do': 'make', 'for': 'go'}
-        call init#vim_go#config()
+            call init#vim_go#config()
     else
         Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-        call init#vim_go#config()
+            call init#vim_go#config()
+    endif
+
+    if has('nvim')
+        Plug 'voldikss/vim-floaterm'
+            let g:floaterm_winblend = 0
+            let g:floaterm_width = 100
+            let g:floaterm_position = 'center'
+            nmap <silent> <leader>t           :FloatermToggle<CR>i
+    else
+        command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
+        nmap <silent> <leader>t :Terminal<CR>
     endif
 
     Plug 'honza/vim-snippets'
