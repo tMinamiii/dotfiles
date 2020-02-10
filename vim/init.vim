@@ -193,62 +193,6 @@ if has('terminal')
   augroup END
 endif
 
-if has('nvim')
-    let s:dein_dir = expand('~/.cache/dein-nvim')
-else
-    let s:dein_dir = expand('~/.cache/dein-vim')
-endif
-
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-" dein.vim がなければ github から落としてくる
-if &runtimepath !~# '/dein.vim'
-    if !isdirectory(s:dein_repo_dir)
-        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-    endif
-    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-endif
-
-"" yank paste
-if system('uname -a | grep microsoft') != ""
-    if has('nvim')
-          let g:clipboard = {
-                \   'name': 'myClipboard',
-                \   'copy': {
-                \      '+': 'win32yank.exe -i',
-                \      '*': 'win32yank.exe -i',
-                \    },
-                \   'paste': {
-                \      '+': 'win32yank.exe -o',
-                \      '*': 'win32yank.exe -o',
-                \   },
-                \   'cache_enabled': 1,
-                \ }
-    else
-        augroup Yank
-            autocmd!
-            autocmd TextYankPost * :call system('win32yank.exe -i', @")
-            " au!
-            " autocmd TextYankPost * echo v:event
-            " autocmd TextYankPost * call system('win32yank.exe -i', v:event.regcontents + [''])
-        augroup END
-
-        noremap <silent> <leader>p :call setreg('"',system('win32yank.exe -o'))<CR>""p<CR>
-        " noremap <silent> <leader>p :r !win32yank.exe -o<CR>
-    endif
-endif
-
-if has('nvim')
-    " 最新のpythonをhostにする
-    if exists('$VIRTUAL_ENV')
-        let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-        let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
-    else
-        let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
-        let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
-    endif
-endif
-
 augroup autoreload
     set autoread
     autocmd FocusLost,FocusGained,CursorMoved,CursorMovedI,CursorHold,CursorHoldI  * silent! checktime
@@ -263,7 +207,8 @@ augroup filetypes
     autocmd BufRead,BufNewFile *.csv       setfiletype csv
     autocmd BufRead,BufNewFile .env*       setfiletype sh
     autocmd BufWritePre        * :%s/\s\+$//ge
-    autocmd BufWritePre        * :%s/\+$//ge
+    autocmd BufWritePre        * :%s/
+\+$//ge
 augroup END
 
 set expandtab                   " タブをスペースにする
@@ -288,32 +233,54 @@ augroup indentsize
     autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
-if has('vim_starting')
-    if has('nvim')
-        set rtp+=~/.cache/nvim/plugged/vim-plug
-        if !isdirectory(expand('~/.cache/nvim/plugged/vim-plug'))
-            echo 'install vim-plug...'
-            call system('mkdir -p ~/.cache/nvim/plugged/vim-plug')
-            call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/nvim/plugged/vim-plug/autoload')
-            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-        endif
-    else
-        set rtp+=~/.cache/vim/plugged/vim-plug
-        if !isdirectory(expand('~/.cache/vim/plugged/vim-plug'))
-            echo 'install vim-plug...'
-            call system('mkdir -p ~/.cache/vim/plugged/vim-plug')
-            call system('git clone https://github.com/junegunn/vim-plug.git ~/.cache/vim/plugged/vim-plug/autoload')
-            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-        endif
-    endif
-endif
-
-
 if has('nvim')
-    call plug#begin('~/.cache/vim/plugged')
+    if $WSL_DISTRO_NAME != ""
+        let g:clipboard = {
+            \   'name': 'myClipboard',
+            \   'copy': {
+            \      '+': 'win32yank.exe -i',
+            \      '*': 'win32yank.exe -i',
+            \    },
+            \   'paste': {
+            \      '+': 'win32yank.exe -o',
+            \      '*': 'win32yank.exe -o',
+            \   },
+            \   'cache_enabled': 1,
+            \ }
+    endif
+
+    if exists('$VIRTUAL_ENV')
+        let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
+        let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
+    else
+        let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
+        let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
+    endif
+
+    let s:vim_plug_root = '~/.cache/nvim/plugged'
+    set rtp+=~/.cache/nvim/plugged/vim-plug
 else
-    call plug#begin('~/.cache/nvim/plugged')
+    if $WSL_DISTRO_NAME != ""
+        augroup Yank
+            au!
+            autocmd TextYankPost * :call system('win32yank.exe -i', @")
+        augroup END
+        noremap <silent> p :call setreg('"',system('win32yank.exe -o'))<CR>""p<CR>k
+    endif
+
+    let s:vim_plug_root = '~/.cache/vim/plugged'
+    set rtp+=~/.cache/vim/plugged/vim-plug
 endif
+
+
+if !isdirectory(expand(s:vim_plug_root))
+    echo 'install vim-plug...'
+    call system('mkdir -p ' . s:vim_plug_root . 'vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ' . s:vim_plug_root . '/vim-plug/autoload')
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin(s:vim_plug_root)
 
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
         call init#coc#config()
@@ -507,17 +474,6 @@ endif
 
     Plug 'tobyS/vmustache'
 
-    Plug 'tobyS/pdv', {'for': 'php'}
-        let g:pdv_template_dir = $HOME .'/.cache/dein/repos/github.com/tobyS/pdv/templates'
-        augroup mygroup
-            autocmd FileType php :call s:phpdoc_keymap()
-        augroup END
-        function! s:phpdoc_keymap()
-            nnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
-            vnoremap <buffer><silent> <Leader>d :call pdv#DocumentCurrentLine()<CR>
-        endfunction
-
-
     Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
         let g:vim_markdown_conceal = 0
         let g:vim_markdown_folding_disabled = 1
@@ -525,7 +481,6 @@ call plug#end()
 
 
 " ファイルタイププラグインおよびインデントを有効化
-" set background=dark
 syntax on
 try
   " colorscheme dracula
