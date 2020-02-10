@@ -111,14 +111,6 @@ alias pi3='ssh ubuntu@172.16.27.12'
 alias py-setup='curl -sSfL https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/install.sh | sh'
 alias ts-setup='curl -sSfL https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/typescript/install.sh | sh'
 
-### FZF
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
-else
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
-fi
-
 ### ghq + fzf
 alias github='gh-open $(repos)'
 
@@ -172,6 +164,14 @@ zle -N ghq-fzf
 bindkey -e
 bindkey '^G' ghq-fzf
 bindkey '^[' autosuggest-accept
+
+### FZF
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+else
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
 
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
