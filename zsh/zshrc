@@ -58,7 +58,7 @@ if [ "$(uname)" = "Darwin" ]; then
   alias t='tail -f'
 else
   # ls, the common ones I use a lot shortened for rapid fire usage
-  alias ls='ls'
+  alias ls='ls --color'
   alias l='ls -lFh --color'     #size,show type,human readable
   alias la='ls -lAFh --color'   #long list,show almost all,show type,human readable
   alias lr='ls -tRFh --color'   #sorted by date,recursive,show type,human readable
