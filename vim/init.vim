@@ -52,10 +52,6 @@ set ttyfast
 set ambiwidth=double
 set termguicolors
 
-if !has('nvim')
-    set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
-endif
-
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 let &t_ti.="\e[1 q"
