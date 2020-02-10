@@ -45,21 +45,32 @@ fi
 
 export PATH="$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin:$GOBIN:$PATH"
 
-# ls, the common ones I use a lot shortened for rapid fire usage
-alias ls='ls --color'
-alias l='ls -lFh --color'     #size,show type,human readable
-alias la='ls -lAFh --color'   #long list,show almost all,show type,human readable
-alias lr='ls -tRFh --color'   #sorted by date,recursive,show type,human readable
-alias lt='ls -ltFh --color'   #long list,sorted by date,show type,human readable
-alias ll='ls -l --color'      #long list
+if [ "$(uname)" = "Darwin" ]; then
+  # ls, the common ones I use a lot shortened for rapid fire usage
+  alias ls='ls -G'
+  alias l='ls -lFhG'     #size,show type,human readable
+  alias la='ls -lAFhG'   #long list,show almost all,show type,human readable
+  alias lr='ls -tRFhG'   #sorted by date,recursive,show type,human readable
+  alias lt='ls -ltFhG'   #long list,sorted by date,show type,human readable
+  alias ll='ls -lG'      #long list
+  alias grep='grep -G'
+  alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
+  alias t='tail -f'
+else
+  # ls, the common ones I use a lot shortened for rapid fire usage
+  alias ls='ls'
+  alias l='ls -lFh --color'     #size,show type,human readable
+  alias la='ls -lAFh --color'   #long list,show almost all,show type,human readable
+  alias lr='ls -tRFh --color'   #sorted by date,recursive,show type,human readable
+  alias lt='ls -ltFh --color'   #long list,sorted by date,show type,human readable
+  alias ll='ls -l --color'      #long list
+  alias grep='grep --color'
+  alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
+  alias t='tail -f'
 
+fi
 alias zshrc='${=EDITOR} ~/.zshrc' # Quick access to the ~/.zshrc file
 alias vimrc='${=EDITOR} ~/.vim/init.vim' # Quick access to the ~/.zshrc file
-
-alias grep='grep --color'
-alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
-
-alias t='tail -f'
 
 # Command line head / tail shortcuts
 alias -g H='| head'
