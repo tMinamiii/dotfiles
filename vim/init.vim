@@ -207,8 +207,7 @@ augroup filetypes
     autocmd BufRead,BufNewFile *.csv       setfiletype csv
     autocmd BufRead,BufNewFile .env*       setfiletype sh
     autocmd BufWritePre        * :%s/\s\+$//ge
-    autocmd BufWritePre        * :%s/
-\+$//ge
+    autocmd BufWritePre        * :%s/\r//ge
 augroup END
 
 set expandtab                   " タブをスペースにする
@@ -373,23 +372,8 @@ call plug#begin(s:vim_plug_root)
 
         " Use <C-j> for both expand and jump (make expand higher priority.)
         imap <C-j> <Plug>(coc-snippets-expand-jump)
-        " Shortcuts for denite interface
-        " Show extension list
-        " nnoremap <silent> <space>e  :<C-u>Denite coc-extension<cr>
-        " Show symbols of current buffer
-        " nnoremap <silent> <space>o  :<C-u>Denite coc-symbols<cr>
-        " Search symbols of current workspace
-        " nnoremap <silent> <space>t  :<C-u>Denite coc-workspace<cr>
-        " Show diagnostics of current workspace
-        " nnoremap <silent> <space>a  :<C-u>Denite coc-diagnostic<cr>
-        " Show available commands
-        " nnoremap <silent> <space>c  :<C-u>Denite coc-command<cr>
-        " Show available services
-        " nnoremap <silent> <space>s  :<C-u>Denite coc-service<cr>
-        " Show links of current buffer
-        " nnoremap <silent> <space>l  :<C-u>Denite coc-link<cr>
-
-    Plug 'itchyny/lightline.vim'
+        "
+        Plug 'itchyny/lightline.vim'
         let g:lightline = {
                     \ 'colorscheme': 'material',
                     \ 'active': {
