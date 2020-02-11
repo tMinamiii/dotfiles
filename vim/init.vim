@@ -265,7 +265,7 @@ else
             au!
             autocmd TextYankPost * :call system('win32yank.exe -i', @")
         augroup END
-        noremap <silent> p :call setreg('"',system('win32yank.exe -o'))<CR>""p<CR>k
+        noremap <silent> p :call setreg('"',system('win32yank.exe -o'))<CR>""p
     endif
 
     let s:vim_plug_root = '~/.cache/vim/plugged'
