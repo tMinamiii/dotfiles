@@ -694,8 +694,6 @@ call plug#begin(s:vim_plug_root)
             autocmd FileType nerdtree nmap <buffer> <C-p> k
         augroup END
 
-    Plug 'dracula/vim'
-
     Plug 'kaicataldo/material.vim'
         let g:material_terminal_italics = 0
         let g:material_theme_style = 'palenight'
@@ -720,7 +718,6 @@ call plug#begin(s:vim_plug_root)
         let g:indentLine_color_term = 238
         let g:indentLine_color_gui = '#676767'
         let g:indentLine_setConceal = 0
-
 
     Plug 'andymass/vim-matchup'
         let g:loaded_matchit = 1
@@ -763,17 +760,6 @@ call plug#begin(s:vim_plug_root)
 
     Plug 'mattn/emmet-vim'
 
-    Plug 'heavenshell/vim-jsdoc', { 'for': ['typescript', 'javascript', 'javascript.jsx'] }
-        let g:typescript_compiler_binary = ''
-        let g:typescript_compiler_options = ''
-        augroup mygroup
-            autocmd FileType javascript,typescript :call s:jsdoc_keymap()
-        augroup END
-        function! s:jsdoc_keymap()
-            nnoremap <buffer><silent> <Leader>d :JsDoc<CR>
-            vnoremap <buffer><silent> <Leader>d :JsDoc<CR>
-        endfunction
-
     Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
         let g:rainbow_active = 0
         let g:rainbow_conf = {
@@ -782,16 +768,6 @@ call plug#begin(s:vim_plug_root)
                     \       'nerdtree': 0,
                     \   },
                     \ }
-
-
-    Plug 'jwalton512/vim-blade', { 'for':'blade' }
-        let g:blade_custom_directives = ['datetime', 'javascript']
-        let g:blade_custom_directives_pairs = {
-                    \   'markdown': 'endmarkdown',
-                    \   'cache': 'endcache',
-                    \ }
-
-    Plug 'tobyS/vmustache'
 
     Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
         let g:vim_markdown_conceal = 0
