@@ -47,7 +47,7 @@ set scrolloff=10                 " 3行残して画面スクロールする
 set shell=zsh
 " set cursorline
 set noequalalways
-set lazyredraw
+"set lazyredraw
 set ttyfast
 set ambiwidth=double
 set termguicolors
@@ -135,8 +135,11 @@ command! Wq :wq
 command! WQ :wq
 
 """""" Coc Extensions """"""
+" \ 'coc-ccls',
+" \ 'coc-java',
+" \ 'coc-solargraph',
+" \ 'coc-rls',
 let g:coc_global_extensions = [
-            \ 'coc-ccls',
             \ 'coc-css',
             \ 'coc-docker',
             \ 'coc-emmet',
@@ -146,7 +149,6 @@ let g:coc_global_extensions = [
             \ 'coc-go',
             \ 'coc-highlight',
             \ 'coc-html',
-            \ 'coc-java',
             \ 'coc-jest',
             \ 'coc-json',
             \ 'coc-marketplace',
@@ -155,10 +157,8 @@ let g:coc_global_extensions = [
             \ 'coc-phpls',
             \ 'coc-prettier',
             \ 'coc-python',
-            \ 'coc-rls',
             \ 'coc-sh',
             \ 'coc-snippets',
-            \ 'coc-solargraph',
             \ 'coc-stylelint',
             \ 'coc-todolist',
             \ 'coc-tsserver',
@@ -170,7 +170,6 @@ let g:coc_global_extensions = [
             \ 'coc-yaml',
             \ 'coc-yank',
             \ ]
-" \ 'coc-pairs',
 """""" dein (load plugins)"""""
 
 if has('terminal')
@@ -730,7 +729,8 @@ call plug#begin(s:vim_plug_root)
         command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
         command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
         let g:fzf_layout = { 'down': '~40%' }
-        nnoremap <silent> <Leader>f :GFiles<CR>
+        " nnoremap <silent> <Leader>f :GFiles<CR>
+        nnoremap <silent> <C-p> :GFiles<CR>
         nnoremap <silent> <Leader>b :Buffers<CR>
         nnoremap <silent> <Leader>m :Files<CR>
         nnoremap <silent> <Leader>x :Commands<CR>
