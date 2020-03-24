@@ -139,6 +139,7 @@ command! WQ :wq
 " \ 'coc-java',
 " \ 'coc-solargraph',
 " \ 'coc-rls',
+" \ 'coc-yank',
 let g:coc_global_extensions = [
             \ 'coc-css',
             \ 'coc-docker',
@@ -168,7 +169,6 @@ let g:coc_global_extensions = [
             \ 'coc-wxml',
             \ 'coc-xml',
             \ 'coc-yaml',
-            \ 'coc-yank',
             \ ]
 """""" dein (load plugins)"""""
 
@@ -279,8 +279,8 @@ if !isdirectory(expand(s:vim_plug_root))
 endif
 
 call plug#begin(s:vim_plug_root)
-
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
         inoremap <silent><expr> <TAB>
                     \ pumvisible() ? "\<C-n>" :
                     \ <SID>check_back_space() ? "\<TAB>" :
@@ -372,7 +372,7 @@ call plug#begin(s:vim_plug_root)
         " Use <C-j> for both expand and jump (make expand higher priority.)
         imap <C-j> <Plug>(coc-snippets-expand-jump)
         "
-        Plug 'itchyny/lightline.vim'
+    Plug 'itchyny/lightline.vim'
         let g:lightline = {
                     \ 'colorscheme': 'material',
                     \ 'active': {
