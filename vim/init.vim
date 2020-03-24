@@ -601,16 +601,16 @@ call plug#begin(s:vim_plug_root)
             autocmd FileType go :call s:vim_go_keymap()
         augroup END
 
-    if has('nvim')
-        Plug 'voldikss/vim-floaterm'
-            let g:floaterm_winblend = 0
-            let g:floaterm_width = 100
-            let g:floaterm_position = 'center'
-            nmap <silent> <leader>t           :FloatermToggle<CR>i
-    else
-        command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
-        nmap <silent> <leader>t :Terminal<CR>
-    endif
+    " if has('nvim')
+    "     Plug 'voldikss/vim-floaterm'
+    "         let g:floaterm_winblend = 0
+    "         let g:floaterm_width = 100
+    "         let g:floaterm_position = 'center'
+    "         nmap <silent> <leader>t           :FloatermToggle<CR>i
+    " else
+    "     command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
+    "     nmap <silent> <leader>t :Terminal<CR>
+    " endif
 
     Plug 'honza/vim-snippets'
 
