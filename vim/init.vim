@@ -728,6 +728,12 @@ call plug#begin(s:vim_plug_root)
     Plug 'junegunn/fzf.vim'
         command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
         command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+        command! -bang -nargs=* Rg
+            \ call fzf#vim#grep(
+            \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+            \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+            \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+            \ <bang>0)
         let g:fzf_layout = { 'down': '~40%' }
         " nnoremap <silent> <Leader>f :GFiles<CR>
         nnoremap <silent> <C-p> :GFiles<CR>

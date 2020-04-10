@@ -170,6 +170,7 @@ if [[ ! -f $ZINIT/bin/zinit.zsh ]]; then
 fi
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
+autoload -Uz edit-command-line
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light zsh-users/zsh-autosuggestions
@@ -179,9 +180,11 @@ zinit light b4b4r07/enhancd
 
 ### Bind keys ###
 zle -N ghq-fzf
+zle -N edit-command-line
 bindkey -e
 bindkey '^G' ghq-fzf
 bindkey '^[' autosuggest-accept
+bindkey '^x^e' edit-command-line
 
 ### FZF
 if [ -f ~/.fzf.zsh ]; then
