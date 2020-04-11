@@ -223,7 +223,7 @@ augroup indentsize
   autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
   autocmd FileType json       setlocal shiftwidth=2 tabstop=2
   autocmd FileType html       setlocal shiftwidth=2 tabstop=2
-  autocmd FileType go         setlocal shiftwidth=2 tabstop=2 noexpandtab
+  autocmd FileType go         setlocal shiftwidth=4 tabstop=4 noexpandtab
   autocmd FileType vim        setlocal shiftwidth=2 tabstop=2
   autocmd FileType python     setlocal shiftwidth=4 tabstop=4
   autocmd FileType make       setlocal shiftwidth=4 tabstop=4 noexpandtab
