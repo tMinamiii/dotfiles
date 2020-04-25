@@ -131,7 +131,7 @@ alias pi3='ssh ubuntu@172.16.27.12'
 # language setup
 alias py-setup='curl -sSfL https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/install.sh | sh'
 alias ts-setup='curl -sSfL https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/typescript/install.sh | sh'
-
+alias ide="$HOME/dotfiles/tmux/ide.sh"
 ### ghq + fzf
 alias github='gh-open $(repos)'
 
