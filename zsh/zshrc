@@ -40,8 +40,10 @@ export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
 if uname -a | grep -sq "Ubuntu"; then
-  export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
-  PATH="$JAVA_HOME/bin:$PATH"
+  # export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+  # PATH="$JAVA_HOME/bin:$PATH"
+  export JAVA_HOME=$HOME/.sdkman/candidates/java/current
+  export PATH=$JAVA_HOME/bin:$PATH
 elif [ "$(uname)" = "Darwin" ]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 elif [ "$WSL_DISTRO_NAME" != "" ]; then
@@ -114,7 +116,8 @@ alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%
 alias dus='du --max-depth=1 -h | sort -nr'
 
 alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
-
+# echo 70 > /sys/class/power_supply/BAT0/charge_start_threshold
+# echo 85 > /sys/class/power_supply/BAT0/charge_stop_threshold
 # docker
 alias docker-ps='docker ps -a'
 alias docker-rm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
@@ -197,3 +200,7 @@ fi
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/tminamiii/.sdkman"
+[[ -s "/home/tminamiii/.sdkman/bin/sdkman-init.sh" ]] && source "/home/tminamiii/.sdkman/bin/sdkman-init.sh"

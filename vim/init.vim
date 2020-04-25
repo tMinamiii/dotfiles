@@ -557,7 +557,8 @@ call plug#begin(s:vim_plug_root)
                   \'
 
     if has('nvim')
-      Plug 'zchee/nvim-go', { 'do': 'make', 'for': 'go'}
+      " Plug 'zchee/nvim-go', { 'do': 'make', 'for': 'go'}
+      Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
     else
       Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
     endif
