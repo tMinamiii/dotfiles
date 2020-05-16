@@ -735,7 +735,10 @@ call plug#begin(s:vim_plug_root)
           \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
           \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
           \ <bang>0)
-      let g:fzf_layout = { 'down': '~40%' }
+      " let g:fzf_layout = { 'down': '~40%' }
+      " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+      let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo' } }
+      " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'sharp' } }
       " nnoremap <silent> <Leader>f :GFiles<CR>
       nnoremap <silent> <C-p> :GFiles<CR>
       nnoremap <silent> <Leader>b :Buffers<CR>
