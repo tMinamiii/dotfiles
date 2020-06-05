@@ -48,6 +48,7 @@ elif [ "$(uname)" = "Darwin" ]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 elif [ "$WSL_DISTRO_NAME" != "" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
+  eval `ssh-agent` > /dev/null 2>&1
 fi
 
 export PATH="$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin:$GOBIN:$HOME/go/bin:/usr/local/go/bin:$PATH"
