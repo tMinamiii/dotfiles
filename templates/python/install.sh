@@ -5,7 +5,7 @@ if [ ! -e "/.vscode" ]; then
   mkdir .vscode
   curl -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.vscode/settings.json -o .vscode/settings.json
 fi
-# curl -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.env.workspace
+curl -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.env.workspace
 curl -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.envrc
 curl -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.flake8
 curl -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.gitignore
