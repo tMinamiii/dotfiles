@@ -140,36 +140,36 @@ command! WQ :wq
 " \ 'coc-solargraph',
 " \ 'coc-rls',
 " \ 'coc-yank',
-let g:coc_global_extensions = [
-  \ 'coc-css',
-  \ 'coc-docker',
-  \ 'coc-emmet',
-  \ 'coc-eslint',
-  \ 'coc-git',
-  \ 'coc-gitignore',
-  \ 'coc-go',
-  \ 'coc-highlight',
-  \ 'coc-html',
-  \ 'coc-jest',
-  \ 'coc-json',
-  \ 'coc-marketplace',
-  \ 'coc-markdownlint',
-  \ 'coc-pairs',
-  \ 'coc-phpls',
-  \ 'coc-prettier',
-  \ 'coc-python',
-  \ 'coc-sh',
-  \ 'coc-snippets',
-  \ 'coc-stylelint',
-  \ 'coc-todolist',
-  \ 'coc-tsserver',
-  \ 'coc-vetur',
-  \ 'coc-vimlsp',
-  \ 'coc-webpack',
-  \ 'coc-wxml',
-  \ 'coc-xml',
-  \ 'coc-yaml',
-\ ]
+" let g:coc_global_extensions = [
+"   \ 'coc-css',
+"   \ 'coc-docker',
+"   \ 'coc-emmet',
+"   \ 'coc-eslint',
+"   \ 'coc-git',
+"   \ 'coc-gitignore',
+"   \ 'coc-go',
+"   \ 'coc-highlight',
+"   \ 'coc-html',
+"   \ 'coc-jest',
+"   \ 'coc-json',
+"   \ 'coc-marketplace',
+"   \ 'coc-markdownlint',
+"   \ 'coc-pairs',
+"   \ 'coc-phpls',
+"   \ 'coc-prettier',
+"   \ 'coc-python',
+"   \ 'coc-sh',
+"   \ 'coc-snippets',
+"   \ 'coc-stylelint',
+"   \ 'coc-todolist',
+"   \ 'coc-tsserver',
+"   \ 'coc-vetur',
+"   \ 'coc-vimlsp',
+"   \ 'coc-webpack',
+"   \ 'coc-wxml',
+"   \ 'coc-xml',
+"   \ 'coc-yaml',
+" \ ]
 """""" dein (load plugins)"""""
 
 if has('terminal')
@@ -267,9 +267,14 @@ else
   endif
 
   let s:vim_plug_root = '~/.cache/vim/plugged'
+  let s:vim_plug_plugins = '~/.cache/vim/plugged/plugins'
   set rtp+=~/.cache/vim/plugged/vim-plug
+  set rtp+=~/.cache/vim/plugged/vim-plug/plugins
 endif
 
+if !isdirectory(expand(s:vim_plug_root))
+  call system('mkdir -p ' . s:vim_plug_plugins)
+endif
 
 if !isdirectory(expand(s:vim_plug_root))
   echo 'install vim-plug...'
@@ -278,99 +283,146 @@ if !isdirectory(expand(s:vim_plug_root))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin(s:vim_plug_root)
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-      inoremap <silent><expr> <TAB>
-                  \ pumvisible() ? "\<C-n>" :
-                  \ <SID>check_back_space() ? "\<TAB>" :
-                  \ coc#refresh()
-      inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+call plug#begin(s:vim_plug_plugins)
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'thomasfaingnaert/vim-lsp-snippets'
+    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+      let g:lsp_settings_filetype_css =  ['vscode-css-languageserver-bin']
+      let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
+      let g:lsp_settings_filetype_javascript = ['typescript-language-server', 'eslint-language-server']
+      let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+      let g:lsp_settings_filetype_python = ['pyls-ms' , 'jedi-language-server']
+      let g:lsp_settings_filetype_ruby = ['solargraph']
+      let g:lsp_settings_filetype_vim = ['vim-language-serer']
+      let g:lsp_settings_filetype_bash = ['bash-language-server']
+      let g:lsp_settings_filetype_dockerfile = ['dockerfile-language-server-nodejs']
+      let g:lsp_settings_filetype_yaml = ['yaml-language-server']
+      let g:lsp_settings_filetype_xml = ['lemminx']
+      let g:lsp_settings_filetype_json = ['json-languageserver	']
+      let g:lsp_settings_filetype_php = ['intelephense']
+      let g:lsp_settings_filetype_vue = ['vue-language-server']
+      let g:lsp_settings_filetype_sql = ['sql-language-server']
 
-      function! s:check_back_space() abort
-          let col = col('.') - 1
-          return !col || getline('.')[col - 1]  =~# '\s'
+      function! s:on_lsp_buffer_enabled() abort
+          setlocal omnifunc=lsp#complete
+          setlocal signcolumn=yes
+          if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+          nmap <buffer> gd <plug>(lsp-definition)
+          nmap <buffer> gr <plug>(lsp-references)
+          nmap <buffer> gi <plug>(lsp-implementation)
+          nmap <buffer> gt <plug>(lsp-type-definition)
+          nmap <buffer> <leader>rn <plug>(lsp-rename)
+          nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+          nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+          nmap <buffer> K <plug>(lsp-hover)
+          " refer to doc to add more commands
       endfunction
 
-      " Use <c-space> for trigger completion.
-      inoremap <silent><expr> <c-b> coc#refresh()
+      augroup lsp_install
+          au!
+          " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+          autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+      augroup END
+    Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+      let g:material_terminal_italics = 0
+      let g:material_theme_style = 'palenight'
 
-      " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-      " Coc only does snippet and additional edit on confirm.
-      " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-      inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-      " Use `[c` and `]c` for navigate diagnostics
-      nmap <silent> <Leader>kc <Plug>(coc-diagnostic-prev)
-      nmap <silent> <Leader>jc <Plug>(coc-diagnostic-next)
+    " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    " " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    "   inoremap <silent><expr> <TAB>
+    "               \ pumvisible() ? "\<C-n>" :
+    "               \ <SID>check_back_space() ? "\<TAB>" :
+    "               \ coc#refresh()
+    "   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-      " Remap keys for gotos
-      nmap <silent> gd <Plug>(coc-definition)
-      nmap <silent> gy <Plug>(coc-type-definition)
-      nmap <silent> gi <Plug>(coc-implementation)
-      nmap <silent> gr <Plug>(coc-references)
+    "   function! s:check_back_space() abort
+    "       let col = col('.') - 1
+    "       return !col || getline('.')[col - 1]  =~# '\s'
+    "   endfunction
 
-      " Use K for show documentation in preview window
-      nnoremap <silent> K :call <SID>show_documentation()<CR>
+    "   " Use <c-space> for trigger completion.
+    "   inoremap <silent><expr> <c-b> coc#refresh()
 
-      function! s:show_documentation()
-          if &filetype ==? 'vim'
-              execute 'h '.expand('<cword>')
-          else
-              call CocAction('doHover')
-          endif
-      endfunction
+    "   " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+    "   " Coc only does snippet and additional edit on confirm.
+    "   " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    "   inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-      " Highlight symbol under cursor on CursorHold
-      " autocmd CursorHold * silent call CocActionAsync('highlight')
+    "   " Use `[c` and `]c` for navigate diagnostics
+    "   nmap <silent> <Leader>kc <Plug>(coc-diagnostic-prev)
+    "   nmap <silent> <Leader>jc <Plug>(coc-diagnostic-next)
 
-      " Remap for rename current word
-      nmap <leader>rn <Plug>(coc-rename)
+    "   " Remap keys for gotos
+    "   nmap <silent> gd <Plug>(coc-definition)
+    "   nmap <silent> gy <Plug>(coc-type-definition)
+    "   nmap <silent> gi <Plug>(coc-implementation)
+    "   nmap <silent> gr <Plug>(coc-references)
 
-      " Remap for format selected region
-      " vmap <leader>f  <Plug>(coc-format-selected)
-      " nmap <leader>f  <Plug>(coc-format-selected)
+    "   " Use K for show documentation in preview window
+    "   nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-      augroup mygroup
-          autocmd!
-          " Setup formatexpr specified filetype(s).
-          autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-          " Update signature help on jump placeholder
-          autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-      augroup end
+    "   function! s:show_documentation()
+    "       if &filetype ==? 'vim'
+    "           execute 'h '.expand('<cword>')
+    "       else
+    "           call CocAction('doHover')
+    "       endif
+    "   endfunction
 
-      " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-      vmap <leader>a  <Plug>(coc-codeaction-selected)
-      nmap <leader>a  <Plug>(coc-codeaction-selected)
+    "   " Highlight symbol under cursor on CursorHold
+    "   " autocmd CursorHold * silent call CocActionAsync('highlight')
 
-      " Remap for do codeAction of current line
-      nmap <leader>ac  <Plug>(coc-codeaction)
-      " Fix autofix problem of current line
-      nmap <leader>qf  <Plug>(coc-fix-current)
+    "   " Remap for rename current word
+    "   nmap <leader>rn <Plug>(coc-rename)
 
-      " Use `:Format` for format current buffer
-      command! -nargs=0 Format :call CocAction('format')
+    "   " Remap for format selected region
+    "   " vmap <leader>f  <Plug>(coc-format-selected)
+    "   " nmap <leader>f  <Plug>(coc-format-selected)
 
-      " use `:OR` for organize import of current buffer
-      command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+    "   augroup mygroup
+    "       autocmd!
+    "       " Setup formatexpr specified filetype(s).
+    "       autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    "       " Update signature help on jump placeholder
+    "       autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    "   augroup end
 
-      " Use `:Fold` for fold current buffer
-      command! -nargs=? Fold :call CocAction('fold', <f-args>)
+    "   " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+    "   vmap <leader>a  <Plug>(coc-codeaction-selected)
+    "   nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-      " Use <C-l> for trigger snippet expand.
-      imap <C-l> <Plug>(coc-snippets-expand)
+    "   " Remap for do codeAction of current line
+    "   nmap <leader>ac  <Plug>(coc-codeaction)
+    "   " Fix autofix problem of current line
+    "   nmap <leader>qf  <Plug>(coc-fix-current)
 
-      " Use <C-j> for select text for visual placeholder of snippet.
-      vmap <C-j> <Plug>(coc-snippets-select)
+    "   " Use `:Format` for format current buffer
+    "   command! -nargs=0 Format :call CocAction('format')
 
-      " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-      let g:coc_snippet_next = '<c-j>'
+    "   " use `:OR` for organize import of current buffer
+    "   command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
-      " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-      let g:coc_snippet_prev = '<c-k>'
+    "   " Use `:Fold` for fold current buffer
+    "   command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
-      " Use <C-j> for both expand and jump (make expand higher priority.)
-      imap <C-j> <Plug>(coc-snippets-expand-jump)
+    "   " Use <C-l> for trigger snippet expand.
+    "   imap <C-l> <Plug>(coc-snippets-expand)
+
+    "   " Use <C-j> for select text for visual placeholder of snippet.
+    "   vmap <C-j> <Plug>(coc-snippets-select)
+
+    "   " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+    "   let g:coc_snippet_next = '<c-j>'
+
+    "   " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+    "   let g:coc_snippet_prev = '<c-k>'
+
+    "   " Use <C-j> for both expand and jump (make expand higher priority.)
+    "   imap <C-j> <Plug>(coc-snippets-expand-jump)
         "
     Plug 'itchyny/lightline.vim'
       let g:lightline = {
@@ -678,10 +730,6 @@ call plug#begin(s:vim_plug_root)
           autocmd FileType nerdtree nmap <buffer> <C-p> k
       augroup END
 
-    Plug 'kaicataldo/material.vim'
-      let g:material_terminal_italics = 0
-      let g:material_theme_style = 'palenight'
-
     Plug 'rhysd/vim-color-spring-night'
       let g:spring_night_kill_italic = 1
       let g:spring_night_high_contrast = 1
@@ -796,14 +844,16 @@ if has('nvim')
   hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
 endif
 
+"""" Coc """""
+" hi! CocErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
+" hi! CocWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
+
 hi! Terminal       guibg=#323232 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
 hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
 hi! ALEErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
 hi! ALEWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
-hi! CocErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
-hi! CocWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
 hi! CursorIM       guibg=#af00af guifg=#000000 gui=NONE      ctermbg=127  ctermfg=16   cterm=NONE
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
