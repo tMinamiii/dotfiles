@@ -4,8 +4,12 @@ set bell-style none
 skip_global_compinit=1
 setopt no_beep
 
-export HISTFILE=${HOME}/.zsh_history
-export HISTSIZE=100000
+if [[ -f ${HOME}/OneDrive/conf/.zsh_history ]]; then
+  export HISTFILE=${HOME}/OneDrive/conf/.zsh_history
+else
+  export HISTFILE=${HOME}/.zsh_history
+fi
+export HISTSIZE=10000
 export SAVEHIST=10000000
 setopt hist_ignore_dups
 setopt share_history
