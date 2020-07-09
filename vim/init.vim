@@ -292,8 +292,8 @@ call plug#begin(s:vim_plug_plugins)
       let g:material_theme_style = 'palenight'
 
 
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
       inoremap <silent><expr> <TAB>
                   \ pumvisible() ? "\<C-n>" :
                   \ <SID>check_back_space() ? "\<TAB>" :
