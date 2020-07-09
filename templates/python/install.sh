@@ -10,6 +10,7 @@ if [ ! -e ".vscode" ]; then
 fi
 curl -s -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.envrc
 curl -s -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.gitignore
+curl -s -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/pyrightconfig.json
 curl -s -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/setup.cfg
 curl -s -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.pre-commit-config.yaml
 curl -s -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/requirements.txt

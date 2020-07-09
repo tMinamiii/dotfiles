@@ -127,6 +127,7 @@ imap  <C-h> <BS>
 imap  <C-l> <DEL>
 nnoremap  <C-k> {
 nnoremap  <C-j> }
+nnoremap <ESC><ESC> :nohl<CR>
 """"" command """""
 " よく押し間違えるので
 command! Q :q
@@ -462,7 +463,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:vimfiler_force_overwrite_statusline = 0
       let g:vimshell_force_overwrite_statusline = 0
 
-    Plug 'w0rp/ale', { 'for':  ['go', 'php', 'sh','bash', 'ruby', 'vim'] }
+    Plug 'w0rp/ale', { 'for':  ['python', 'go', 'php', 'sh','bash', 'ruby', 'vim'] }
       nmap <silent> <Leader>/ :ALEFix<CR>
       nmap <silent> <leader>jj :ALENext<CR>
       nmap <silent> <leader>kk :ALEPrevious<CR>
@@ -472,12 +473,12 @@ call plug#begin(s:vim_plug_plugins)
       \   '.*\.yaml$': {'ale_enabled': 0},
       \   '.*\.yml$': {'ale_enabled': 0},
       \   '.*\.html$': {'ale_enabled': 0},
-      \   '.*\.py$': {'ale_enabled': 0},
       \   '.*\.ts$': {'ale_enabled': 0},
       \   '.*\.tsx$': {'ale_enabled': 0},
       \   '.*\.js$': {'ale_enabled': 0},
       \   '.*\.jsx$': {'ale_enabled': 0},
       \}
+      "\   '.*\.py$': {'ale_enabled': 0},
 
       let g:ale_linters = {
                   \   'php': ['phpcs', 'phpstan', 'php'],
@@ -495,8 +496,6 @@ call plug#begin(s:vim_plug_plugins)
                   \}
 
 
-      " \ 'bash': ['shfmt'],
-      " \ 'python': ['autopep8', 'yapf', 'isort'],'pylint',
       let g:ale_fixers = {
                   \ 'bash': [],
                   \ 'go': ['gofmt', 'goimports'],
@@ -515,7 +514,6 @@ call plug#begin(s:vim_plug_plugins)
 
       let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
       let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
-
       let g:ale_set_highlights = 1
       let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
       let g:ale_sign_column_always = 1 " エラー表示の列を常時表示
