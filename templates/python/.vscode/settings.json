@@ -1,21 +1,21 @@
 {
-  "autoDocstring.docstringFormat": "google",
-  "pyright.disableLanguageServices": false,
-  "python.jediEnabled": false,
+  // "autoDocstring.docstringFormat": "google",
   "python.linting.flake8Enabled": true,
   "python.linting.lintOnSave": true,
-  "python.linting.mypyEnabled": true,
+  "python.linting.pydocstyleEnabled": true,
   "python.linting.pycodestyleEnabled": false,
   "python.linting.pylintEnabled": false,
-  "python.linting.pydocstyleEnabled": true,
+  "python.linting.mypyEnabled": false,
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "python.analysis.disabled": ["inherit-non-class"],
+  "editor.formatOnSave": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "es5",
   "prettier.jsxSingleQuote": true,
   "prettier.jsxBracketSameLine": true,
+  "python.formatting.provider": "black",
   "python.linting.pylintCategorySeverity.refactor": "Warning",
   "python.linting.pylintCategorySeverity.convention": "Warning",
   "python.linting.mypyCategorySeverity.note": "Warning",
@@ -27,7 +27,6 @@
   "terminal.integrated.env.osx": {},
   "python.sortImports.path": "isort",
   "python.sortImports.args": ["--settings-path=${workspaceFolder}/setup.cfg"],
-  "python.formatting.provider": "black",
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
@@ -37,26 +36,5 @@
     "**/.pytest_cache": true,
     "**/__pycache__": true,
     "**/.venv": true
-  },
-  "yaml.customTags": [
-    "!Ref",
-    "!Sub scalar",
-    "!Sub sequence",
-    "!Join sequence",
-    "!FindInMap sequence",
-    "!GetAtt scalar",
-    "!GetAtt sequence",
-    "!Base64 mapping",
-    "!GetAZs",
-    "!Select scalar",
-    "!Select sequence",
-    "!Split sequence",
-    "!ImportValue",
-    "!Condition",
-    "!Equals sequence",
-    "!And",
-    "!If",
-    "!Not",
-    "!Or"
-  ]
+  }
 }

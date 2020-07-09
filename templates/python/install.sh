@@ -1,7 +1,7 @@
 #!/bin/sh
 set -Ceu
 
-if [ ! -e "/.vscode" ]; then
+if [ ! -e ".vscode" ]; then
   mkdir .vscode
   curl -s -L -O https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/python/.vscode/settings.json -o .vscode/settings.json
 fi
