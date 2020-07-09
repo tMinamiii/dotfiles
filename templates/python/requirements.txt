@@ -10,3 +10,4 @@ pre-commit
 pydocstyle
 pynvim
 pytest
+pytest-cov
