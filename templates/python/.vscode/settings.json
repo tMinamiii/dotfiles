@@ -11,9 +11,7 @@
   "[yaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "python.analysis.disabled": [
-    "inherit-non-class"
-  ],
+  "python.analysis.disabled": ["inherit-non-class"],
   "prettier.singleQuote": true,
   "prettier.trailingComma": "es5",
   "prettier.jsxSingleQuote": true,
@@ -22,25 +20,13 @@
   "python.linting.pylintCategorySeverity.convention": "Warning",
   "python.linting.mypyCategorySeverity.note": "Warning",
   "json.format.enable": true,
-  "beautify.ignore": [
-    "**/*"
-  ],
-  "python.venvFolders": [
-    ".venv"
-  ],
+  "beautify.ignore": ["**/*"],
+  "python.venvFolders": [".venv"],
   "python.pythonPath": ".venv/bin/python",
-  "terminal.integrated.env.linux": {
-    "PIPENV_DOTENV_LOCATION": "${workspaceFolder}/.env.workspace",
-    "PIPENV_VENV_IN_PROJECT": "true"
-  },
-  "terminal.integrated.env.osx": {
-    "PIPENV_DOTENV_LOCATION": "${workspaceFolder}/.env.workspace",
-    "PIPENV_VENV_IN_PROJECT": "true"
-  },
+  "terminal.integrated.env.linux": {},
+  "terminal.integrated.env.osx": {},
   "python.sortImports.path": "isort",
-  "python.sortImports.args": [
-    "--settings-path=${workspaceFolder}/.isort.cfg"
-  ],
+  "python.sortImports.args": ["--settings-path=${workspaceFolder}/setup.cfg"],
   "python.formatting.provider": "black",
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
