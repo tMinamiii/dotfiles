@@ -158,6 +158,7 @@ let g:coc_global_extensions = [
   \ 'coc-phpls',
   \ 'coc-prettier',
   \ 'coc-python',
+  \ 'coc-swagger',
   \ 'coc-sh',
   \ 'coc-snippets',
   \ 'coc-stylelint',
@@ -291,8 +292,8 @@ call plug#begin(s:vim_plug_plugins)
       let g:material_theme_style = 'palenight'
 
 
-    " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
       inoremap <silent><expr> <TAB>
                   \ pumvisible() ? "\<C-n>" :
                   \ <SID>check_back_space() ? "\<TAB>" :
@@ -318,6 +319,7 @@ call plug#begin(s:vim_plug_plugins)
       nmap <silent> gy <Plug>(coc-type-definition)
       nmap <silent> gi <Plug>(coc-implementation)
       nmap <silent> gr <Plug>(coc-references)
+
       " Use K for show documentation in preview window
       nnoremap <silent> K :call <SID>show_documentation()<CR>
       function! s:show_documentation()
@@ -333,13 +335,13 @@ call plug#begin(s:vim_plug_plugins)
       nmap <leader>rn <Plug>(coc-rename)
       " Remap for format selected region
       " vmap <leader>f  <Plug>(coc-format-selected)
-      " nmap <leader>f  <Plug>(coc-format-selected)
       augroup mygroup
           autocmd!
           " Setup formatexpr specified filetype(s).
           autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
           " Update signature help on jump placeholder
           autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+          " autocmd BufWritePre *.py,*.ts,*.js,*.go :call CocAction('runCommand', 'editor.action.organizeImport') | sleep 100m
       augroup end
 
       " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
@@ -353,6 +355,7 @@ call plug#begin(s:vim_plug_plugins)
       command! -nargs=0 Format :call CocAction('format')
       " use `:OR` for organize import of current buffer
       command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+
       " Use `:Fold` for fold current buffer
       command! -nargs=? Fold :call CocAction('fold', <f-args>)
       " Use <C-l> for trigger snippet expand.
@@ -365,7 +368,8 @@ call plug#begin(s:vim_plug_plugins)
       let g:coc_snippet_prev = '<c-k>'
       " Use <C-j> for both expand and jump (make expand higher priority.)
       imap <C-j> <Plug>(coc-snippets-expand-jump)
-        "
+      "
+
     Plug 'itchyny/lightline.vim'
       let g:lightline = {
                   \ 'colorscheme': 'material',
@@ -498,7 +502,7 @@ call plug#begin(s:vim_plug_plugins)
                   \ 'go': ['gofmt', 'goimports'],
                   \ 'php': ['php_cs_fixer', 'phpcbf'],
                   \ 'sh': [],
-                  \ 'python': [],
+                  \ 'python': ['isort'],
                   \ 'javascript': [],
                   \ 'javascript.jsx': [],
                   \ 'typescript': [],
