@@ -1,4 +1,5 @@
 black
+wemake-python-styleguide
 flake8-bugbear
 flake8
 ipython
@@ -11,4 +12,3 @@ pydocstyle
 pynvim
 pytest
 pytest-cov
-wemake-python-styleguide
