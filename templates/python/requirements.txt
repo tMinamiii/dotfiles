@@ -1,5 +1,4 @@
 black
-wemake-python-styleguide
 flake8
 ipython
 isort
@@ -10,4 +9,5 @@ pre-commit
 pydocstyle
 pynvim
 pytest
+wemake-python-styleguide
 pytest-cov
