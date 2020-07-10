@@ -11,3 +11,4 @@ pydocstyle
 pynvim
 pytest
 pytest-cov
+wemake-python-styleguide
