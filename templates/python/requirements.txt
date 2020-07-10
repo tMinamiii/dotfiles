@@ -1,6 +1,5 @@
 black
 wemake-python-styleguide
-flake8-bugbear
 flake8
 ipython
 isort
