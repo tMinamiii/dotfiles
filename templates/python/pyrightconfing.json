@@ -1,5 +1,5 @@
 {
-  "include": ["src", "tests", "seeder", "migrations", "deliciapp", "tools"],
+  "include": ["src", "tests", "seeder", "migrations", "tools"],
 
   "exclude": ["**/node_modules", "**/__pycache__"],
 
@@ -10,6 +10,7 @@
 
   "reportMissingImports": true,
   "reportMissingTypeStubs": false,
+  "disableOranizeImports": true,
 
   "pythonVersion": "3.7",
   "typeCheckingMode": "basic",
@@ -17,18 +18,7 @@
     {
       "root": "./",
       "pythonVersion": "3.7",
-      "extraPaths": [
-        "src/layer/utils/python",
-        "src/api/auth_funcs",
-        "src/api/line_funcs",
-        "src/api/dashboard_funcs",
-        "src/api/feature_funcs",
-        "src/api/recipe_funcs",
-        "src/api/system_funcs",
-        "src/api/terms_funcs",
-        "src/api/user_funcs",
-        "src/api/fire_control_record_funcs"
-      ]
+      "extraPaths": ["src", "src/layer/utils/python"]
     }
   ]
 }
