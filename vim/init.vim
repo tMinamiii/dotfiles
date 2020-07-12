@@ -119,6 +119,7 @@ noremap   <Up>     <nop>
 noremap   <Down>   <nop>
 noremap   <Left>   <nop>
 noremap   <Right>  <nop>
+nmap      <C-[>    <nop>  " Undo防止
 "noremap   h <nop>
 "noremap   l <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
@@ -127,7 +128,6 @@ imap  <C-h> <BS>
 imap  <C-l> <DEL>
 nnoremap  <C-k> {
 nnoremap  <C-j> }
-nnoremap <ESC><ESC> :nohl<CR>
 """"" command """""
 " よく押し間違えるので
 command! Q :q
