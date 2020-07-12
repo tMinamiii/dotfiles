@@ -176,6 +176,16 @@ let g:coc_global_extensions = [
 \ ]
 """""" dein (load plugins)"""""
 
+" ファイルツリーの表示形式、1にするとls -laのような表示になります
+let g:netrw_liststyle=1
+" ヘッダを非表示にする
+let g:netrw_banner=0
+" サイズを(K,M,G)で表示する
+let g:netrw_sizestyle="H"
+" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
+" プレビューウィンドウを垂直分割で表示する
+let g:netrw_preview=1
 if has('terminal')
   function! s:set_default_ansi_colors() abort
     if exists('g:terminal_ansi_colors')
@@ -690,7 +700,7 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'Yggdroot/indentLine'
       let g:indentLine_showFirstIndentLevel = 1
-      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*'D '_defx.*']
+      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
       let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'defx', 'terminal']
       let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
       let g:indentLine_color_term = 238
