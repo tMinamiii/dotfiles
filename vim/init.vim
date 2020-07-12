@@ -119,7 +119,9 @@ noremap   <Up>     <nop>
 noremap   <Down>   <nop>
 noremap   <Left>   <nop>
 noremap   <Right>  <nop>
-nmap      <C-[>    <nop>  " Undo防止
+nmap      <C-[>    <nop>
+nmap      <Esc>    <nop>
+
 "noremap   h <nop>
 "noremap   l <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
@@ -688,7 +690,7 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'Yggdroot/indentLine'
       let g:indentLine_showFirstIndentLevel = 1
-      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
+      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*'D '_defx.*']
       let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'defx', 'terminal']
       let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
       let g:indentLine_color_term = 238
