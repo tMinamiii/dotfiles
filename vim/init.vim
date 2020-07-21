@@ -300,7 +300,7 @@ if !isdirectory(expand(s:vim_plug_root))
 endif
 
 call plug#begin(s:vim_plug_plugins)
-    Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+    Plug 'kaicataldo/material.vim' " , { 'branch': 'master' }
       let g:material_terminal_italics = 0
       let g:material_theme_style = 'palenight'
 
