@@ -26,20 +26,13 @@ sudo apt-get install -y \
     zsh \
     locales \
     apt-utils \
-    # for Python
     libssl-dev \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
-    ## mecab modules
     make \
     xz-utils \
     file \
-    mecab \
-    libmecab-dev \
-    mecab-ipadic \
-    mecab-ipadic-utf8 \
-    # for neovim build
     ninja-build \
     gettext \
     libtool \
@@ -50,7 +43,6 @@ sudo apt-get install -y \
     g++ \
     pkg-config \
     unzip \
-    # Ruby
     autoconf \
     bison \
     build-essential \
