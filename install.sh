@@ -59,9 +59,12 @@ ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 # ln -s "$HOME/dotfiles/tmux" "$HOME/.tmux.d"
 
 if grep -sq "Ubuntu" /etc/os-release; then
-  gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
-  UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
-  gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "HackGen 13"
+  if [ "$WSL_DISTRO_NAME" == "" ]; then
+    ## WSLでは設定不要
+    gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
+    UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
+    gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "HackGen 13"
+  fi
 fi
 
 ##### GUI setup #####
