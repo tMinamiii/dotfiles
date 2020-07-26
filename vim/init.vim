@@ -887,4 +887,10 @@ augroup syntaxFromStart
     autocmd FileType vue :syntax sync fromstart
 augroup END
 
+
+if has('multi_byte_ime')
+  highlight Cursor guifg=NONE guibg=Green
+  highlight CursorIM guifg=NONE guibg=Purple
+endif
+
 filetype plugin indent on
