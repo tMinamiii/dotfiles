@@ -4,11 +4,12 @@ set bell-style none
 skip_global_compinit=1
 setopt no_beep
 
-if [[ -f ${HOME}/OneDrive/conf/.zsh_history ]]; then
-  export HISTFILE=${HOME}/OneDrive/conf/.zsh_history
-else
-  export HISTFILE=${HOME}/.zsh_history
-fi
+export HISTFILE=${HOME}/.zsh_history
+# if [[ -f ${HOME}/OneDrive/conf/.zsh_history ]]; then
+#   export HISTFILE=${HOME}/OneDrive/conf/.zsh_history
+# else
+#   export HISTFILE=${HOME}/.zsh_history
+# fi
 export HISTSIZE=10000
 export SAVEHIST=10000000
 setopt hist_ignore_dups
@@ -143,6 +144,7 @@ alias ide="$HOME/dotfiles/tmux/ide.sh"
 ### ghq + fzf
 alias github='gh-open $(repos)'
 alias pipenv='poetry'
+alias tailscale='ip addr show tailscale0'
 
 function ghq-fzf() {
   local src=$(ghq list | fzf )
