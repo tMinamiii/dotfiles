@@ -145,6 +145,7 @@ alias ide="$HOME/dotfiles/tmux/ide.sh"
 alias github='gh-open $(repos)'
 alias pipenv='poetry'
 alias tailscale='ip addr show tailscale0'
+alias synczsh='cp -f ~/.zsh_history ~/OneDrive/conf/.zsh_history'
 
 function ghq-fzf() {
   local src=$(ghq list | fzf )
