@@ -146,7 +146,8 @@ alias github='gh-open $(repos)'
 alias pipenv='poetry'
 alias tailscale='ip addr show tailscale0'
 alias up-zsh='cp -rf ~/.zsh_history ~/OneDrive/conf/.zsh_history'
-alias down-zsh='cp -rf ~/.zsh_history ~/OneDrive/conf/.zsh_history'
+alias down-zsh='cp -rf ~/OneDrive/conf/.zsh_history ~/.zsh_history'
+alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout private.key -out public.crt'
 
 function ghq-fzf() {
   local src=$(ghq list | fzf )
