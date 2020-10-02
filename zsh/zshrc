@@ -53,6 +53,8 @@ elif [ "$(uname)" = "Darwin" ]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 elif [ "$WSL_DISTRO_NAME" != "" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
+  export JAVA_HOME=$HOME/.sdkman/candidates/java/current
+  export PATH=$JAVA_HOME/bin:$PATH
   eval `ssh-agent` > /dev/null 2>&1
 fi
 

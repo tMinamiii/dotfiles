@@ -728,27 +728,30 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'tyru/open-browser.vim'
 
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-    Plug 'junegunn/fzf.vim'
-      command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-      command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-      command! -bang -nargs=* Rg
-          \ call fzf#vim#grep(
-          \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-          \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-          \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-          \ <bang>0)
-      " let g:fzf_layout = { 'down': '~40%' }
-      " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-      let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo' } }
-      " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'sharp' } }
-      " nnoremap <silent> <Leader>f :GFiles<CR>
-      nnoremap <silent> <C-p> :GFiles<CR>
-      nnoremap <silent> <Leader>b :Buffers<CR>
-      nnoremap <silent> <Leader>m :Files<CR>
-      nnoremap <silent> <Leader>x :Commands<CR>
-      nnoremap <silent> <Leader>g :Rg<CR>
+    Plug 'ctrlpvim/ctrlp.vim'
+      let g:ctrlp_map = '<c-p>'
+      let g:ctrlp_cmd = 'CtrlP'
+      let g:ctrlp_working_path_mode = 'ra'
+    " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    " Plug 'junegunn/fzf.vim'
+    "   command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+    "   command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+    "   command! -bang -nargs=* Rg
+    "       \ call fzf#vim#grep(
+    "       \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+    "       \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+    "       \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+    "       \ <bang>0)
+    "   " let g:fzf_layout = { 'down': '~40%' }
+    "   " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+    "   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo' } }
+    "   " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'sharp' } }
+    "   " nnoremap <silent> <Leader>f :GFiles<CR>
+    "   nnoremap <silent> <C-p> :GFiles<CR>
+    "   nnoremap <silent> <Leader>b :Buffers<CR>
+    "   nnoremap <silent> <Leader>m :Files<CR>
+    "   nnoremap <silent> <Leader>x :Commands<CR>
+    "   nnoremap <silent> <Leader>g :Rg<CR>
 
     Plug 'rhysd/git-messenger.vim'
       nmap <Leader>gm <Plug>(git-messenger)
