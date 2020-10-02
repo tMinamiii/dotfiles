@@ -153,6 +153,7 @@ let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-highlight',
   \ 'coc-html',
+  \ 'coc-java',
   \ 'coc-jest',
   \ 'coc-json',
   \ 'coc-marketplace',
