@@ -56,7 +56,7 @@ elif [ "$(uname)" = "Darwin" ]; then
 elif [ "$WSL_DISTRO_NAME" != "" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
-  export PATH=$JAVA_HOME/bin:$PATH
+  export PATH=$JAVA_HOME/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:$PATH
   eval `ssh-agent` > /dev/null 2>&1
   ## WSL genie for daemonize docker
   if [ "`ps -eo pid,lstart,cmd | grep systemd | grep -v -e grep -e systemd- | sort -n -k2 | awk 'NR==1 { print $1 }'`" != "1" ]; then
@@ -88,8 +88,11 @@ else
   alias grep='grep --color'
   alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
   alias t='tail -f'
-  alias open='xdg-open'
-
+  if [ "$WSL_DISTRO_NAME" != "" ]; then
+    alias open='wsl-open'
+  else
+    alias open='xdg-open'
+  fi
 fi
 alias zshrc='${=EDITOR} ~/.zshrc' # Quick access to the ~/.zshrc file
 alias vimrc='${=EDITOR} ~/.vim/init.vim' # Quick access to the ~/.zshrc file
