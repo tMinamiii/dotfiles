@@ -59,7 +59,7 @@ ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 # ln -s "$HOME/dotfiles/tmux" "$HOME/.tmux.d"
 
 if grep -sq "Ubuntu" /etc/os-release; then
-  if [ "$WSL_DISTRO_NAME" == "" ]; then
+  if [ -z "$WSL_DISTRO_NAME" ]; then
     ## WSLでは設定不要
     gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
     UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')

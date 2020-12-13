@@ -15,7 +15,6 @@ sudo apt-get install -y \
     file \
     g++ \
     gettext \
-    gettext \
     git \
     htop \
     libacl1-dev \
@@ -51,10 +50,10 @@ sudo apt-get install -y \
     python-dev \
     python3-dev \
     ruby-dev \
+    hub \
     software-properties-common \
     tmux \
     tree \
-    unzip \
     unzip \
     wget \
     xz-utils \
