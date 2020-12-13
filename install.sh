@@ -47,7 +47,7 @@ fi
 
 
 ln -s "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
-ln -s "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
+# ln -s "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
 
 ###### vim setup ######
 
