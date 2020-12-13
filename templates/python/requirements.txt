@@ -4,10 +4,8 @@ ipython
 isort
 jupyter
 mypy
-neovim
 pre-commit
 pydocstyle
-pynvim
 pytest
 wemake-python-styleguide
 pytest-cov
