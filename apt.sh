@@ -12,6 +12,7 @@ sudo apt-get install -y \
     cmake \
     cproto \
     curl \
+    direnv \
     file \
     g++ \
     gettext \
