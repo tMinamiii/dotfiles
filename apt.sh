@@ -12,6 +12,7 @@ sudo apt-get install -y \
     cmake \
     cproto \
     curl \
+    dconf-cli \
     direnv \
     file \
     g++ \
@@ -51,6 +52,7 @@ sudo apt-get install -y \
     python-dev \
     python3-dev \
     ruby-dev \
+    ripgrep \
     hub \
     software-properties-common \
     tmux \
