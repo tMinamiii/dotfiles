@@ -53,7 +53,7 @@ if uname -a | grep -sq "Ubuntu"; then
   export PATH=$JAVA_HOME/bin:$PATH
 elif [ "$(uname)" = "Darwin" ]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-elif [ "$WSL_DISTRO_NAME" != "" ]; then
+elif [ -n "$WSL_DISTRO_NAME" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
   export PATH=$JAVA_HOME/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:$PATH
@@ -88,7 +88,7 @@ else
   alias grep='grep --color'
   alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
   alias t='tail -f'
-  if [ "$WSL_DISTRO_NAME" != "" ]; then
+  if [ -n "$WSL_DISTRO_NAME" ]; then
     alias open='wsl-open'
   else
     alias open='xdg-open'
