@@ -7,5 +7,4 @@ mypy
 pre-commit
 pydocstyle
 pytest
-wemake-python-styleguide
 pytest-cov
