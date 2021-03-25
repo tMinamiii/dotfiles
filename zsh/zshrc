@@ -42,7 +42,7 @@ export FZF_DEFAULT_OPTS='--height 40% --border'
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
-export DENO_INSTALL="/home/tminamiii/.deno"
+export DENO_INSTALL="${HOME}/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
@@ -53,6 +53,8 @@ if uname -a | grep -sq "Ubuntu"; then
   export PATH=$JAVA_HOME/bin:$PATH
 elif [ "$(uname)" = "Darwin" ]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+  export JAVA_HOME=$HOME/.sdkman/candidates/java/current
+  export PATH=$JAVA_HOME/bin:$PATH
 elif [ -n "$WSL_DISTRO_NAME" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
@@ -228,5 +230,5 @@ if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/tminamiii/.sdkman"
-[[ -s "/home/tminamiii/.sdkman/bin/sdkman-init.sh" ]] && source "/home/tminamiii/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="${HOME}/.sdkman"
+[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
