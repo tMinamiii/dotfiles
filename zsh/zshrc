@@ -34,6 +34,7 @@ export ANYENV_ROOT="$HOME/.anyenv"
 export XDG_CACHE_HOME="$HOME/.cache"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
 export PHPENV_ROOT="$HOME/.anyenv/envs/phpenv"
+export PHPENV_ROOT="$HOME/.anyenv/envs/goenv"
 export GTAGSLABEL=pygments
 export GO111MODULE=on
 export TERM=xterm-256color
@@ -44,6 +45,7 @@ export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export DENO_INSTALL="${HOME}/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH=$HOME/.cargo/bin:$PATH
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
 if uname -a | grep -sq "Ubuntu"; then
