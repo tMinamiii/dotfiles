@@ -472,94 +472,93 @@ call plug#begin(s:vim_plug_plugins)
       let g:vimfiler_force_overwrite_statusline = 0
       let g:vimshell_force_overwrite_statusline = 0
 
-    Plug 'w0rp/ale', { 'for':  ['python', 'go', 'php', 'sh','bash', 'ruby', 'vim'] }
-      nmap <silent> <Leader>/ :ALEFix<CR>
-      nmap <silent> <leader>jj :ALENext<CR>
-      nmap <silent> <leader>kk :ALEPrevious<CR>
-      let g:ale_pattern_options = {
-      \   '.*\.vue$': {'ale_enabled': 0},
-      \   '.*\.json$': {'ale_enabled': 0},
-      \   '.*\.yaml$': {'ale_enabled': 0},
-      \   '.*\.yml$': {'ale_enabled': 0},
-      \   '.*\.html$': {'ale_enabled': 0},
-      \   '.*\.ts$': {'ale_enabled': 0},
-      \   '.*\.tsx$': {'ale_enabled': 0},
-      \   '.*\.js$': {'ale_enabled': 0},
-      \   '.*\.jsx$': {'ale_enabled': 0},
-      \}
-      "\   '.*\.py$': {'ale_enabled': 0},
+    " Plug 'w0rp/ale', { 'for':  ['python', 'go', 'php', 'sh','bash', 'ruby', 'vim'] }
+    "   nmap <silent> <Leader>/ :ALEFix<CR>
+    "   nmap <silent> <leader>jj :ALENext<CR>
+    "   nmap <silent> <leader>kk :ALEPrevious<CR>
+    "   let g:ale_pattern_options = {
+    "   \   '.*\.vue$': {'ale_enabled': 0},
+    "   \   '.*\.json$': {'ale_enabled': 0},
+    "   \   '.*\.yaml$': {'ale_enabled': 0},
+    "   \   '.*\.yml$': {'ale_enabled': 0},
+    "   \   '.*\.html$': {'ale_enabled': 0},
+    "   \   '.*\.ts$': {'ale_enabled': 0},
+    "   \   '.*\.tsx$': {'ale_enabled': 0},
+    "   \   '.*\.js$': {'ale_enabled': 0},
+    "   \   '.*\.jsx$': {'ale_enabled': 0},
+    "   \}
+    "   "\   '.*\.py$': {'ale_enabled': 0},
 
-      let g:ale_linters = {
-                  \   'php': ['phpcs', 'phpstan', 'php'],
-                  \   'go': ['golangci-lint'],
-                  \   'ruby': ['ruby'],
-                  \   'zsh': ['shellcheck'],
-                  \   'vim': ['vint'],
-                  \   'python': [],
-                  \   'javascript': [],
-                  \   'javascript.jsx': [],
-                  \   'typescript': [],
-                  \   'typescript.tsx': [],
-                  \   'vue': [],
-                  \   'sql': [],
-                  \}
+    "   let g:ale_linters = {
+    "               \   'php': ['phpcs', 'phpstan', 'php'],
+    "               \   'go': ['golangci-lint'],
+    "               \   'ruby': ['ruby'],
+    "               \   'zsh': ['shellcheck'],
+    "               \   'vim': ['vint'],
+    "               \   'python': [],
+    "               \   'javascript': [],
+    "               \   'javascript.jsx': [],
+    "               \   'typescript': [],
+    "               \   'typescript.tsx': [],
+    "               \   'vue': [],
+    "               \   'sql': [],
+    "               \}
 
+    "   let g:ale_fixers = {
+    "               \ 'bash': [],
+    "               \ 'go': ['gofmt', 'goimports'],
+    "               \ 'php': ['php_cs_fixer', 'phpcbf'],
+    "               \ 'sh': [],
+    "               \ 'python': ['isort'],
+    "               \ 'javascript': [],
+    "               \ 'javascript.jsx': [],
+    "               \ 'typescript': [],
+    "               \ 'typescript.tsx': [],
+    "               \ 'vue': [],
+    "               \ 'json': [],
+    "               \ 'yaml': [],
+    "               \ 'html': [],
+    "               \ }
 
-      let g:ale_fixers = {
-                  \ 'bash': [],
-                  \ 'go': ['gofmt', 'goimports'],
-                  \ 'php': ['php_cs_fixer', 'phpcbf'],
-                  \ 'sh': [],
-                  \ 'python': ['isort'],
-                  \ 'javascript': [],
-                  \ 'javascript.jsx': [],
-                  \ 'typescript': [],
-                  \ 'typescript.tsx': [],
-                  \ 'vue': [],
-                  \ 'json': [],
-                  \ 'yaml': [],
-                  \ 'html': [],
-                  \ }
+    "   let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
+    "   let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
+    "   let g:ale_set_highlights = 1
+    "   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
+    "   let g:ale_sign_column_always = 1 " エラー表示の列を常時表示
+    "   let g:ale_completion_enabled = 0
+    "   let g:ale_virtualtext_cursor = 1
 
-      let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
-      let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
-      let g:ale_set_highlights = 1
-      let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
-      let g:ale_sign_column_always = 1 " エラー表示の列を常時表示
-      let g:ale_completion_enabled = 0
-      let g:ale_virtualtext_cursor = 1
+    "   let g:ale_disable_lsp = 1
+    "   let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
+    "   let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
+    "   let g:ale_fix_on_save = 1        " ファイルを保存したときにfix実行
+    "   let g:ale_lint_delay = 100
+    "   let g:ale_lint_on_text_changed = 'never' " always or never
 
-      let g:ale_disable_lsp = 1
-      let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
-      let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
-      let g:ale_fix_on_save = 1        " ファイルを保存したときにfix実行
-      let g:ale_lint_delay = 100
-      let g:ale_lint_on_text_changed = 'never' " always or never
-
-      " lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
-      let g:ale_set_loclist = 0
-      let g:ale_set_quickfix = 0
-      let g:ale_open_list = 0
-      let g:ale_keep_list_window_open = 0
-      let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
-      let g:ale_php_phpcs_use_global = 1
-      " let g:ale_php_phpcs_standard = 'PSR12'
-      " let g:ale_php_cs_fixer_options = '--rules=@PSR2'
-      let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
-      let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
-      let g:ale_php_phpstan_level = 5
-      " let g:ale_php_phan_use_client = 1
-      let g:ale_go_golangci_lint_options = '
-                  \ --enable-all
-                  \ -D=typecheck
-                  \ -D=dupl
-                  \ -D=gochecknoglobals
-                  \ -D=deadcode
-                  \ -D=unused
-                  \ -D=lll
-                  \ -D=prealloc
-                  \ -D=gomnd
-                  \'
+    "   " lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
+    "   let g:ale_set_loclist = 0
+    "   let g:ale_set_quickfix = 0
+    "   let g:ale_open_list = 0
+    "   let g:ale_keep_list_window_open = 0
+    "   let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
+    "   let g:ale_php_phpcs_use_global = 1
+    "   " let g:ale_php_phpcs_standard = 'PSR12'
+    "   " let g:ale_php_cs_fixer_options = '--rules=@PSR2'
+    "   let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
+    "   let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
+    "   let g:ale_php_phpstan_level = 5
+    "   " let g:ale_php_phan_use_client = 1
+    "   let g:ale_go_golangci_lint_options = '
+    "               \ --enable-all
+    "               \ -D=typecheck
+    "               \ -D=dupl
+    "               \ -D=gochecknoglobals
+    "               \ -D=deadcode
+    "               \ -D=unused
+    "               \ -D=lll
+    "               \ -D=prealloc
+    "               \ -D=gomnd
+    "               \'
 
     if has('nvim')
       " Plug 'zchee/nvim-go', { 'do': 'make', 'for': 'go'}
@@ -634,26 +633,26 @@ call plug#begin(s:vim_plug_plugins)
                   \  }
 
     Plug 'terryma/vim-multiple-cursors'
-      function! s:multiple_cursors_before()
-          if exists(':ALEDisableBuffer')==2
-              exe 'ALEDisableBuffer'
-          endif
-          if exists(':CocDisable')==2
-              exe 'CocDisable'
-          endif
-      endfunction
-      function! s:multiple_cursors_after()
-          if exists(':ALEEnableBuffer')==2
-              exe 'ALEEnableBuffer'
-          endif
-          if exists(':CocEnable')==2
-              exe 'CocEnable'
-          endif
-      endfunction
-      augroup multiple_cursors
-          autocmd User MultipleCursorsPre  call s:multiple_cursors_before()
-          autocmd User MultipleCursorsPost call s:multiple_cursors_after()
-      augroup END
+      " function! s:multiple_cursors_before()
+      "     if exists(':ALEDisableBuffer')==2
+      "         exe 'ALEDisableBuffer'
+      "     endif
+      "     if exists(':CocDisable')==2
+      "         exe 'CocDisable'
+      "     endif
+      " endfunction
+      " function! s:multiple_cursors_after()
+      "     if exists(':ALEEnableBuffer')==2
+      "         exe 'ALEEnableBuffer'
+      "     endif
+      "     if exists(':CocEnable')==2
+      "         exe 'CocEnable'
+      "     endif
+      " endfunction
+      " augroup multiple_cursors
+      "     autocmd User MultipleCursorsPre  call s:multiple_cursors_before()
+      "     autocmd User MultipleCursorsPost call s:multiple_cursors_after()
+      " augroup END
 
     Plug 'osyo-manga/vim-over'
       nnoremap <silent> <Leader>o :OverCommandLine<CR>
@@ -783,6 +782,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'thomasfaingnaert/vim-lsp-snippets'
     Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+      let g:lsp_settings_root_markers = ['.projections.json', '.git', '.git/']
       let g:lsp_settings_filetype_css =  ['vscode-css-languageserver-bin']
       let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
       let g:lsp_settings_filetype_javascript = ['typescript-language-server', 'eslint-language-server']
@@ -801,12 +801,14 @@ call plug#begin(s:vim_plug_plugins)
       let g:lsp_settings_filetype_terraform = ['terraform-ls']
       let g:lsp_settings_filetype_rust = ['rls', 'rust-analyzer']
       let g:lsp_settings = {
-            \  'pyls': {
-            \     'configurationsSourcess': ['flake8']
+            \  'pyls-all': {
+            \     'configurationsSourcess': ['flake8'],
+            \     'pydocstyle.enabled': 1
             \   }
             \}
 
-
+      let g:lsp_diagnostics_enabled = 1
+      let g:lsp_diagnostics_echo_cursor = 1
       function! s:on_lsp_buffer_enabled() abort
           setlocal omnifunc=lsp#complete
           setlocal signcolumn=yes
@@ -819,7 +821,9 @@ call plug#begin(s:vim_plug_plugins)
           nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
           nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
           nmap <buffer> K <plug>(lsp-hover)
-          " refer to doc to add more commands
+          nmap <buffer> <C-l><C-l> <plug>(lsp-document-diagnostics)
+          let g:lsp_format_sync_timeout = 1000
+          autocmd! BufWritePre *.rs,*.go,*.py call execute('LspDocumentFormatSync')
       endfunction
 
       augroup lsp_install
@@ -840,11 +844,11 @@ try
 catch
 endtry
 
-hi! clear ALEErrorSignLineNr
-hi! clear ALEWarningSignLineNr
-hi! clear ALEInfoSignLineNr
-hi! clear ALEStyleErrorSignLineNr
-hi! clear ALEStyleWarningSignLineNr
+" hi! clear ALEErrorSignLineNr
+" hi! clear ALEWarningSignLineNr
+" hi! clear ALEInfoSignLineNr
+" hi! clear ALEStyleErrorSignLineNr
+" hi! clear ALEStyleWarningSignLineNr
 
 hi! MatchParen guibg=#555555 guifg=NONE gui=bold
 hi! Visual guibg=#888888 guifg=NONE
@@ -864,10 +868,10 @@ endif
 
 hi! Terminal       guibg=#323232 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
 hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-hi! ALEErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
-hi! ALEWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
+" hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
+" hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
+" hi! ALEErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
+" hi! ALEWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
 hi! CursorIM       guibg=#af00af guifg=#000000 gui=NONE      ctermbg=127  ctermfg=16   cterm=NONE
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
