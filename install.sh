@@ -51,8 +51,13 @@ ln -s "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
 
 ###### vim setup ######
 
+if [ ! -e "$HOME/.config" ]; then
+  mkdir "$HOME/.config/efm-langserver"
+fi
+
 ln -s "$HOME/dotfiles/vim" "$HOME/.vim"
 ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
+ln -s "$HOME/dotfiles/efm-config.yml" "$HOME/.config/efm-langserver/config.yml"
 
 ###### tmux ######
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"

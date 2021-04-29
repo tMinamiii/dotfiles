@@ -800,11 +800,13 @@ call plug#begin(s:vim_plug_plugins)
       let g:lsp_settings_filetype_sql = ['sql-language-server', 'sqls']
       let g:lsp_settings_filetype_terraform = ['terraform-ls']
       let g:lsp_settings_filetype_rust = ['rls', 'rust-analyzer']
+
       let g:lsp_settings = {
             \  'pyls-all': {
-            \     'configurationsSourcess': ['flake8'],
+            \     'configurationsSources': ['flake8'],
             \     'pydocstyle.enabled': 1
-            \   }
+            \   },
+            \  'efm-langserver': {'disabled': v:false}
             \}
 
       let g:lsp_diagnostics_enabled = 1
