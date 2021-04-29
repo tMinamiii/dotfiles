@@ -783,34 +783,35 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'thomasfaingnaert/vim-lsp-snippets'
     Plug 'thomasfaingnaert/vim-lsp-ultisnips'
       let g:lsp_settings_root_markers = ['.projections.json', '.git', '.git/']
-      let g:lsp_settings_filetype_css =  ['vscode-css-languageserver-bin']
-      let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
-      let g:lsp_settings_filetype_javascript = ['typescript-language-server', 'eslint-language-server']
-      let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
-      let g:lsp_settings_filetype_python = ['pyls-all' , 'jedi-language-server', 'pyright-langserver']
-      let g:lsp_settings_filetype_ruby = ['solargraphk']
-      let g:lsp_settings_filetype_vim = ['vim-language-serer']
-      let g:lsp_settings_filetype_bash = ['bash-language-server']
-      let g:lsp_settings_filetype_dockerfile = ['dockerfile-language-server-nodejs']
-      let g:lsp_settings_filetype_yaml = ['yaml-language-server']
-      let g:lsp_settings_filetype_xml = ['lemminx']
-      let g:lsp_settings_filetype_json = ['json-languageserver	']
-      let g:lsp_settings_filetype_php = ['intelephense']
-      let g:lsp_settings_filetype_vue = ['vue-language-server']
-      let g:lsp_settings_filetype_sql = ['sql-language-server', 'sqls']
-      let g:lsp_settings_filetype_terraform = ['terraform-ls']
-      let g:lsp_settings_filetype_rust = ['rls', 'rust-analyzer']
 
+      " let g:lsp_settings_filetype_css =  ['vscode-css-languageserver-bin']
+      " let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
+      " let g:lsp_settings_filetype_javascript = ['typescript-language-server', 'eslint-language-server']
+      " let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+      " let g:lsp_settings_filetype_python = ['pyls-all' , 'jedi-language-server', 'pyright-langserver']
+      " let g:lsp_settings_filetype_ruby = ['solargraphk']
+      " let g:lsp_settings_filetype_vim = ['vim-language-serer']
+      " let g:lsp_settings_filetype_bash = ['bash-language-server']
+      " let g:lsp_settings_filetype_dockerfile = ['dockerfile-language-server-nodejs']
+      " let g:lsp_settings_filetype_yaml = ['yaml-language-server']
+      " let g:lsp_settings_filetype_xml = ['lemminx']
+      " let g:lsp_settings_filetype_json = ['json-languageserver	']
+      " let g:lsp_settings_filetype_php = ['intelephense']
+      " let g:lsp_settings_filetype_vue = ['vue-language-server']
+      " let g:lsp_settings_filetype_sql = ['sql-language-server', 'sqls']
+      " let g:lsp_settings_filetype_terraform = ['terraform-ls']
+      " let g:lsp_settings_filetype_rust = ['rls', 'rust-analyzer']
+      " \  'pyls-all': {
+            " \     'configurationsSources': ['flake8'],
+            " \     'pydocstyle.enabled': 1
+            " \   },
       let g:lsp_settings = {
-            \  'pyls-all': {
-            \     'configurationsSources': ['flake8'],
-            \     'pydocstyle.enabled': 1
-            \   },
             \  'efm-langserver': {'disabled': v:false}
             \}
 
       let g:lsp_diagnostics_enabled = 1
       let g:lsp_diagnostics_echo_cursor = 1
+
       function! s:on_lsp_buffer_enabled() abort
           setlocal omnifunc=lsp#complete
           setlocal signcolumn=yes

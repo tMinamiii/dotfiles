@@ -57,7 +57,7 @@ fi
 
 ln -s "$HOME/dotfiles/vim" "$HOME/.vim"
 ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
-ln -s "$HOME/dotfiles/efm-config.yml" "$HOME/.config/efm-langserver/config.yml"
+ln -s "$HOME/dotfiles/efm-config.yaml" "$HOME/.config/efm-langserver/config.yaml"
 
 ###### tmux ######
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
