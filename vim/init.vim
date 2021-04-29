@@ -740,20 +740,19 @@ call plug#begin(s:vim_plug_plugins)
       command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
       command! -bang -nargs=* Rg
           \ call fzf#vim#grep(
-          \ 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+          \ 'rg --column --line-number --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
           \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-          \ : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+          \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
           \ <bang>0)
       let g:fzf_layout = { 'down': '~40%' }
       " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
       " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo' } }
       " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'sharp' } }
-      " nnoremap <silent> <Leader>f :GFiles<CR>
-      " nnoremap <silent> <C-p> :GFiles<CR>
-      " nnoremap <silent> <Leader>b :Buffers<CR>
-      " nnoremap <silent> <Leader>m :Files<CR>
-      " nnoremap <silent> <Leader>x :Commands<CR>
+      nnoremap <silent> <Leader>f :GFiles<CR>
+      nnoremap <silent> <Leader>m :Files<CR>
       nnoremap <silent> <C-g> :Rg<CR>
+      " nnoremap <silent> <Leader>b :Buffers<CR>
+      " nnoremap <silent> <Leader>x :Commands<CR>
 
     Plug 'rhysd/git-messenger.vim'
       nmap <Leader>gm <Plug>(git-messenger)
