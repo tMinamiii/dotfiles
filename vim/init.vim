@@ -782,16 +782,17 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'thomasfaingnaert/vim-lsp-snippets'
     Plug 'thomasfaingnaert/vim-lsp-ultisnips'
       let g:lsp_settings = {
-            \  'efm-langserver': {'disabled': v:false},
+            \  'efm-langserver': {
+            \    'disabled': v:false
+            \  },
             \  'pyls-all': {
             \    'workspace_config': {
-            \      'pyls' : {
-            \        'configurationSources': ['flake8','mypy','pydocstyle', 'black']
+            \      'pyls': {
+            \        'configurationSources': ['flake8','pydocstyle', 'mypy']
             \      }
             \    }
             \  },
             \}
-
       let g:lsp_diagnostics_enabled = 1
       let g:lsp_diagnostics_echo_cursor = 1
 

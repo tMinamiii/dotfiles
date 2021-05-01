@@ -3,11 +3,11 @@ root-markers:
   - .git/
   - .projectroot
 
-commands:
-  - command: notepad
-    arguments:
-      - ${INPUT}
-    title: メモ帳
+    # commands:
+    #   - command: notepad
+    #     arguments:
+    #       - ${INPUT}
+    #     title: メモ帳
 
 tools:
   eruby-erb: &eruby-erb
@@ -152,9 +152,9 @@ tools:
       - mix.lock
       - mix.exs
 
-  any-excitetranslate: &any-excitetranslate
-    hover-command: 'excitetranslate'
-    hover-stdin: true
+  # any-excitetranslate: &any-excitetranslate
+  #   hover-command: 'excitetranslate'
+  #   hover-stdin: true
 
 languages:
   eruby:
@@ -222,5 +222,5 @@ languages:
   elixir:
     - <<: *mix_credo
 
-  _:
-    - <<: *any-excitetranslate
+  # _:
+  #   - <<: *any-excitetranslate
