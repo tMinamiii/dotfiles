@@ -775,12 +775,16 @@ call plug#begin(s:vim_plug_plugins)
       let g:vim_markdown_conceal = 0
       let g:vim_markdown_folding_disabled = 1
 
+    " Plug 'cohama/lexima.vim'
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    Plug 'thomasfaingnaert/vim-lsp-snippets'
-    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+    " Plug 'thomasfaingnaert/vim-lsp-snippets'
+    " Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+      inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+      inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+      inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
       let g:lsp_settings = {
             \  'efm-langserver': {
             \    'disabled': v:false
@@ -795,6 +799,8 @@ call plug#begin(s:vim_plug_plugins)
             \}
       let g:lsp_diagnostics_enabled = 1
       let g:lsp_diagnostics_echo_cursor = 1
+      let g:lsp_diagnostics_float_cursor = 1
+      let g:lsp_diagnostics_float_delay = 200
 
       function! s:on_lsp_buffer_enabled() abort
           setlocal omnifunc=lsp#complete
