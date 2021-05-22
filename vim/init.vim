@@ -620,7 +620,8 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'honza/vim-snippets'
 
     Plug 'liuchengxu/vista.vim'
-      nmap <silent> <C-f><C-v> :<C-u>Vista coc<CR>
+      " nmap <silent> <C-f><C-v> :<C-u>Vista coc<CR>
+      nmap <silent> <C-f><C-v> :<C-u>Vista vim_lsp<CR>
       let g:vista_close_on_jump = 1
       let g:vista_icon_indent = ['`-> ', '|-> ']
       let g:vista#renderer#enable_icon = 0
