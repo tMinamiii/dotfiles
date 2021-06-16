@@ -171,9 +171,14 @@ alias fetch-prettier='curl -O https://gist.githubusercontent.com/tMinamiii/8a2db
 
 function ghq-fzf() {
   local src=$(ghq list | fzf )
+  local root_list=($(ghq root --all))
   if [ -n "$src" ]; then
-    BUFFER="cd $(ghq root)/$src"
-    zle accept-line
+    for root in $root_list; do
+      if [ -e "${root}/${src}" ]; then
+        BUFFER="cd ${root}/${src}"
+        zle accept-line
+      fi
+    done
   fi
   zle -R -c
 }
