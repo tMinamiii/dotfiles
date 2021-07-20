@@ -560,6 +560,7 @@ call plug#begin(s:vim_plug_plugins)
     "               \ -D=gomnd
     "               \'
 
+    Plug 'buoto/gotests-vim'
     if has('nvim')
       " Plug 'zchee/nvim-go', { 'do': 'make', 'for': 'go'}
       Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
