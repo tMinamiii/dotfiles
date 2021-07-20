@@ -776,7 +776,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:vim_markdown_conceal = 0
       let g:vim_markdown_folding_disabled = 1
 
-    " Plug 'cohama/lexima.vim'
+    Plug 'cohama/lexima.vim'
     " Plug 'jiangmiao/auto-pairs'
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
