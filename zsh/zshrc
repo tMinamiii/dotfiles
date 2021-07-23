@@ -64,10 +64,20 @@ elif [ -n "$WSL_DISTRO_NAME" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
   export PATH=$JAVA_HOME/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:$PATH
+  export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
   eval `ssh-agent` > /dev/null 2>&1
   ## WSL genie for daemonize docker
-  if [ "`ps -eo pid,lstart,cmd | grep systemd | grep -v -e grep -e systemd- -e /lib/systemd/systemd | awk 'NR==1 { print $1 }'`" != "1" ]; then
-    genie -s
+  # if [ "`ps -eo pid,lstart,cmd | grep systemd | grep -v -e grep -e systemd- -e /lib/systemd/systemd | awk 'NR==1 { print $1 }'`" != "1" ]; then
+  #  genie -s
+  # fi
+  if [[ -v INSIDE_GENIE ]]; then
+    echo -n " * Waiting for systemd (user)..."
+    until systemctl --user is-system-running &>/dev/null
+    do
+      sleep 1
+      echo -n "."
+    done
+    echo
   fi
 fi
 

@@ -51,7 +51,7 @@ ln -s "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
 
 ###### vim setup ######
 
-if [ ! -e "$HOME/.config" ]; then
+if [ ! -e "$HOME/.config/efm-langserver" ]; then
   mkdir "$HOME/.config/efm-langserver"
 fi
 
