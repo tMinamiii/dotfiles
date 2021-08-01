@@ -137,42 +137,6 @@ command! W :w
 command! Wq :wq
 command! WQ :wq
 
-"""""" Coc Extensions """"""
-" let g:coc_global_extensions = [
-"   \ 'coc-css',
-"   \ 'coc-docker',
-"   \ 'coc-emmet',
-"   \ 'coc-eslint',
-"   \ 'coc-git',
-"   \ 'coc-gitignore',
-"   \ 'coc-go',
-"   \ 'coc-highlight',
-"   \ 'coc-html',
-"   \ 'coc-java',
-"   \ 'coc-jest',
-"   \ 'coc-json',
-"   \ 'coc-marketplace',
-"   \ 'coc-markdownlint',
-"   \ 'coc-rls',
-"   \ 'coc-pairs',
-"   \ 'coc-phpls',
-"   \ 'coc-prettier',
-"   \ 'coc-python',
-"   \ 'coc-swagger',
-"   \ 'coc-sh',
-"   \ 'coc-snippets',
-"   \ 'coc-stylelint',
-"   \ 'coc-todolist',
-"   \ 'coc-tsserver',
-"   \ 'coc-vetur',
-"   \ 'coc-vimlsp',
-"   \ 'coc-webpack',
-"   \ 'coc-wxml',
-"   \ 'coc-xml',
-"   \ 'coc-yaml',
-" \ ]
-"""""" dein (load plugins)"""""
-
 " ファイルツリーの表示形式、1にするとls -laのような表示になります
 let g:netrw_liststyle=1
 " ヘッダを非表示にする
@@ -301,85 +265,6 @@ call plug#begin(s:vim_plug_plugins)
       let g:material_terminal_italics = 0
       let g:material_theme_style = 'palenight'
 
-
-    " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    "   inoremap <silent><expr> <TAB>
-    "               \ pumvisible() ? "\<C-n>" :
-    "               \ <SID>check_back_space() ? "\<TAB>" :
-    "               \ coc#refresh()
-    "   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    "   function! s:check_back_space() abort
-    "       let col = col('.') - 1
-    "       return !col || getline('.')[col - 1]  =~# '\s'
-    "   endfunction
-
-    "   " Use <c-space> for trigger completion.
-    "   inoremap <silent><expr> <c-b> coc#refresh()
-    "   " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-    "   " Coc only does snippet and additional edit on confirm.
-    "   " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    "   inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-    "   " Use `[c` and `]c` for navigate diagnostics
-    "   nmap <silent> <Leader>kc <Plug>(coc-diagnostic-prev)
-    "   nmap <silent> <Leader>jc <Plug>(coc-diagnostic-next)
-    "   " Remap keys for gotos
-    "   nmap <silent> gd <Plug>(coc-definition)
-    "   nmap <silent> gy <Plug>(coc-type-definition)
-    "   nmap <silent> gi <Plug>(coc-implementation)
-    "   nmap <silent> gr <Plug>(coc-references)
-
-    "   " Use K for show documentation in preview window
-    "   nnoremap <silent> K :call <SID>show_documentation()<CR>
-    "   function! s:show_documentation()
-    "       if &filetype ==? 'vim'
-    "           execute 'h '.expand('<cword>')
-    "       else
-    "           call CocAction('doHover')
-    "       endif
-    "   endfunction
-    "   " Highlight symbol under cursor on CursorHold
-    "   " autocmd CursorHold * silent call CocActionAsync('highlight')
-    "   " Remap for rename current word
-    "   nmap <leader>rn <Plug>(coc-rename)
-    "   " Remap for format selected region
-    "   " vmap <leader>f  <Plug>(coc-format-selected)
-    "   augroup mygroup
-    "       autocmd!
-    "       " Setup formatexpr specified filetype(s).
-    "       autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    "       " Update signature help on jump placeholder
-    "       autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-    "       " autocmd BufWritePre *.py,*.ts,*.js,*.go :call CocAction('runCommand', 'editor.action.organizeImport') | sleep 100m
-    "   augroup end
-
-    "   " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-    "   vmap <leader>a  <Plug>(coc-codeaction-selected)
-    "   nmap <leader>a  <Plug>(coc-codeaction-selected)
-    "   " Remap for do codeAction of current line
-    "   nmap <leader>ac  <Plug>(coc-codeaction)
-    "   " Fix autofix problem of current line
-    "   nmap <leader>qf  <Plug>(coc-fix-current)
-    "   " Use `:Format` for format current buffer
-    "   command! -nargs=0 Format :call CocAction('format')
-    "   " use `:OR` for organize import of current buffer
-    "   command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
-
-    "   " Use `:Fold` for fold current buffer
-    "   command! -nargs=? Fold :call CocAction('fold', <f-args>)
-    "   " Use <C-l> for trigger snippet expand.
-    "   imap <C-l> <Plug>(coc-snippets-expand)
-    "   " Use <C-j> for select text for visual placeholder of snippet.
-    "   vmap <C-j> <Plug>(coc-snippets-select)
-    "   " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-    "   let g:coc_snippet_next = '<c-j>'
-    "   " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-    "   let g:coc_snippet_prev = '<c-k>'
-    "   " Use <C-j> for both expand and jump (make expand higher priority.)
-    "   imap <C-j> <Plug>(coc-snippets-expand-jump)
-    "   "
-
     Plug 'itchyny/lightline.vim'
       let g:lightline = {
                   \ 'colorscheme': 'material',
@@ -393,7 +278,6 @@ call plug#begin(s:vim_plug_plugins)
                   \ },
                   \ 'tabline': {'left': [['buffers']], 'right': [['close']]},
                   \ 'component_function': {
-                  \   'cocstatus': 'coc#status',
                   \   'fugitive': 'LightlineFugitive',
                   \   'filename': 'LightlineFilename',
                   \   'fileformat': 'LightlineFileformat',
@@ -472,156 +356,51 @@ call plug#begin(s:vim_plug_plugins)
       let g:vimfiler_force_overwrite_statusline = 0
       let g:vimshell_force_overwrite_statusline = 0
 
-    " Plug 'w0rp/ale', { 'for':  ['python', 'go', 'php', 'sh','bash', 'ruby', 'vim'] }
-    "   nmap <silent> <Leader>/ :ALEFix<CR>
-    "   nmap <silent> <leader>jj :ALENext<CR>
-    "   nmap <silent> <leader>kk :ALEPrevious<CR>
-    "   let g:ale_pattern_options = {
-    "   \   '.*\.vue$': {'ale_enabled': 0},
-    "   \   '.*\.json$': {'ale_enabled': 0},
-    "   \   '.*\.yaml$': {'ale_enabled': 0},
-    "   \   '.*\.yml$': {'ale_enabled': 0},
-    "   \   '.*\.html$': {'ale_enabled': 0},
-    "   \   '.*\.ts$': {'ale_enabled': 0},
-    "   \   '.*\.tsx$': {'ale_enabled': 0},
-    "   \   '.*\.js$': {'ale_enabled': 0},
-    "   \   '.*\.jsx$': {'ale_enabled': 0},
-    "   \}
-    "   "\   '.*\.py$': {'ale_enabled': 0},
-
-    "   let g:ale_linters = {
-    "               \   'php': ['phpcs', 'phpstan', 'php'],
-    "               \   'go': ['golangci-lint'],
-    "               \   'ruby': ['ruby'],
-    "               \   'zsh': ['shellcheck'],
-    "               \   'vim': ['vint'],
-    "               \   'python': [],
-    "               \   'javascript': [],
-    "               \   'javascript.jsx': [],
-    "               \   'typescript': [],
-    "               \   'typescript.tsx': [],
-    "               \   'vue': [],
-    "               \   'sql': [],
-    "               \}
-
-    "   let g:ale_fixers = {
-    "               \ 'bash': [],
-    "               \ 'go': ['gofmt', 'goimports'],
-    "               \ 'php': ['php_cs_fixer', 'phpcbf'],
-    "               \ 'sh': [],
-    "               \ 'python': ['isort'],
-    "               \ 'javascript': [],
-    "               \ 'javascript.jsx': [],
-    "               \ 'typescript': [],
-    "               \ 'typescript.tsx': [],
-    "               \ 'vue': [],
-    "               \ 'json': [],
-    "               \ 'yaml': [],
-    "               \ 'html': [],
-    "               \ }
-
-    "   let g:ale_sign_error = 'E*'       " エラー行に表示するマーク
-    "   let g:ale_sign_warning = 'W*'     " エラー行に表示するマーク
-    "   let g:ale_set_highlights = 1
-    "   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]' " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
-    "   let g:ale_sign_column_always = 1 " エラー表示の列を常時表示
-    "   let g:ale_completion_enabled = 0
-    "   let g:ale_virtualtext_cursor = 1
-
-    "   let g:ale_disable_lsp = 1
-    "   let g:ale_lint_on_enter = 1      " ファイルを開いたときにlint実行
-    "   let g:ale_lint_on_save = 1       " ファイルを保存したときにlint実行
-    "   let g:ale_fix_on_save = 1        " ファイルを保存したときにfix実行
-    "   let g:ale_lint_delay = 100
-    "   let g:ale_lint_on_text_changed = 'never' " always or never
-
-    "   " lint結果をロケーションリストとQuickFixには表示しない。QuickFixを書き換えられるのは困る
-    "   let g:ale_set_loclist = 0
-    "   let g:ale_set_quickfix = 0
-    "   let g:ale_open_list = 0
-    "   let g:ale_keep_list_window_open = 0
-    "   let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports=silent --show-column-numbers'
-    "   let g:ale_php_phpcs_use_global = 1
-    "   " let g:ale_php_phpcs_standard = 'PSR12'
-    "   " let g:ale_php_cs_fixer_options = '--rules=@PSR2'
-    "   let g:ale_php_phpcs_executable = './vendor/bin/phpcs'
-    "   let g:ale_php_phpstan_executable = './vendor/bin/phpstan'
-    "   let g:ale_php_phpstan_level = 5
-    "   " let g:ale_php_phan_use_client = 1
-    "   let g:ale_go_golangci_lint_options = '
-    "               \ --enable-all
-    "               \ -D=typecheck
-    "               \ -D=dupl
-    "               \ -D=gochecknoglobals
-    "               \ -D=deadcode
-    "               \ -D=unused
-    "               \ -D=lll
-    "               \ -D=prealloc
-    "               \ -D=gomnd
-    "               \'
-
     Plug 'buoto/gotests-vim'
-    if has('nvim')
-      " Plug 'zchee/nvim-go', { 'do': 'make', 'for': 'go'}
-      Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-    else
-      Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-    endif
-        let g:go_highlight_methods = 1
-        let g:go_highlight_structs = 1
-        let g:go_highlight_operators = 1
-        let g:go_highlight_functions = 1
-        let g:go_highlight_function_parameters = 1
-        let g:go_highlight_function_arguments = 1
-        let g:go_highlight_function_calls = 1
-        let g:go_highlight_types = 1
-        let g:go_highlight_fields = 1
-        let g:go_highlight_variable_declarations = 1
-        let g:go_highlight_variable_assignments = 1
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
+      let g:go_highlight_methods = 1
+      let g:go_highlight_structs = 1
+      let g:go_highlight_operators = 1
+      let g:go_highlight_functions = 1
+      let g:go_highlight_function_parameters = 1
+      let g:go_highlight_function_arguments = 1
+      let g:go_highlight_function_calls = 1
+      let g:go_highlight_types = 1
+      let g:go_highlight_fields = 1
+      let g:go_highlight_variable_declarations = 1
+      let g:go_highlight_variable_assignments = 1
 
-        let g:go_echo_command_info = 0
-        let g:go_def_mapping_enabled = 0
-        let g:go_gocode_propose_builtins = 0
-        let g:go_echo_go_info = 0
+      let g:go_echo_command_info = 0
+      let g:go_def_mapping_enabled = 0
+      let g:go_gocode_propose_builtins = 0
+      let g:go_echo_go_info = 0
 
-        let g:go_diagnostics_enabled = 0
-        let g:go_metalinter_autosave = 0
+      let g:go_diagnostics_enabled = 0
+      let g:go_metalinter_autosave = 0
 
-        "" format ""
-        let g:go_fmt_autosave = 0
-        let g:go_term_height = 15
-        let g:go_term_mode = 'on | belowright split'
-        let g:go_term_enabled = 0
+      "" format ""
+      let g:go_fmt_autosave = 0
+      let g:go_term_height = 15
+      let g:go_term_mode = 'on | belowright split'
+      let g:go_term_enabled = 0
 
-        function! s:vim_go_keymap()
-            nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
-            nnoremap <buffer><silent> <F5> :GoDebugContinue<CR>
-            nnoremap <buffer><silent> <F6> :GoDebugPrint<CR>
-            nnoremap <buffer><silent> <F9> :GoDebugBreakpoint<CR>
-            nnoremap <buffer><silent> <F10> :GoDebugNext<CR>
-            nnoremap <buffer><silent> <F11> :GoDebugStep<CR>
-            nnoremap <buffer><silent> <F12> :GoDebugStop<CR>
-        endfunction
+      function! s:vim_go_keymap()
+          nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
+          nnoremap <buffer><silent> <F5> :GoDebugContinue<CR>
+          nnoremap <buffer><silent> <F6> :GoDebugPrint<CR>
+          nnoremap <buffer><silent> <F9> :GoDebugBreakpoint<CR>
+          nnoremap <buffer><silent> <F10> :GoDebugNext<CR>
+          nnoremap <buffer><silent> <F11> :GoDebugStep<CR>
+          nnoremap <buffer><silent> <F12> :GoDebugStop<CR>
+      endfunction
 
-        augroup vim_go_hook_add
-            autocmd FileType go :call s:vim_go_keymap()
-        augroup END
-
-    " if has('nvim')
-    "     Plug 'voldikss/vim-floaterm'
-    "         let g:floaterm_winblend = 0
-    "         let g:floaterm_width = 100
-    "         let g:floaterm_position = 'center'
-    "         nmap <silent> <leader>t           :FloatermToggle<CR>i
-    " else
-    "     command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
-    "     nmap <silent> <leader>t :Terminal<CR>
-    " endif
+      augroup vim_go_hook_add
+          autocmd FileType go :call s:vim_go_keymap()
+      augroup END
 
     Plug 'honza/vim-snippets'
 
     Plug 'liuchengxu/vista.vim'
-      " nmap <silent> <C-f><C-v> :<C-u>Vista coc<CR>
       nmap <silent> <C-f><C-v> :<C-u>Vista vim_lsp<CR>
       let g:vista_close_on_jump = 1
       let g:vista_icon_indent = ['`-> ', '|-> ']
@@ -635,26 +414,6 @@ call plug#begin(s:vim_plug_plugins)
                   \  }
 
     Plug 'terryma/vim-multiple-cursors'
-      " function! s:multiple_cursors_before()
-      "     if exists(':ALEDisableBuffer')==2
-      "         exe 'ALEDisableBuffer'
-      "     endif
-      "     if exists(':CocDisable')==2
-      "         exe 'CocDisable'
-      "     endif
-      " endfunction
-      " function! s:multiple_cursors_after()
-      "     if exists(':ALEEnableBuffer')==2
-      "         exe 'ALEEnableBuffer'
-      "     endif
-      "     if exists(':CocEnable')==2
-      "         exe 'CocEnable'
-      "     endif
-      " endfunction
-      " augroup multiple_cursors
-      "     autocmd User MultipleCursorsPre  call s:multiple_cursors_before()
-      "     autocmd User MultipleCursorsPost call s:multiple_cursors_after()
-      " augroup END
 
     Plug 'osyo-manga/vim-over'
       nnoremap <silent> <Leader>o :OverCommandLine<CR>
@@ -840,12 +599,6 @@ try
 catch
 endtry
 
-" hi! clear ALEErrorSignLineNr
-" hi! clear ALEWarningSignLineNr
-" hi! clear ALEInfoSignLineNr
-" hi! clear ALEStyleErrorSignLineNr
-" hi! clear ALEStyleWarningSignLineNr
-
 hi! MatchParen guibg=#555555 guifg=NONE gui=bold
 hi! Visual guibg=#888888 guifg=NONE
 hi! SpecialKey ctermfg=239 ctermbg=NONE
@@ -858,16 +611,8 @@ if has('nvim')
   hi! NormalFloat    guibg=#334455 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
 endif
 
-"""" Coc """""
-" hi! CocErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
-" hi! CocWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
-
 hi! Terminal       guibg=#323232 guifg=#fffeeb gui=NONE      ctermfg=235  ctermbg=230  cterm=NONE
 hi! CursorLine     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-" hi! ALEWarning     guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-" hi! ALEError       guibg=NONE    guifg=NONE    gui=underline ctermbg=NONE ctermfg=NONE cterm=underline
-" hi! ALEErrorSign   guibg=#BB1111 guifg=#fffeeb gui=NONE      ctermbg=207  ctermfg=NONE cterm=NONE
-" hi! ALEWarningSign guibg=#AA5533 guifg=#fffeeb gui=NONE      ctermbg=119  ctermfg=NONE cterm=NONE
 hi! CursorIM       guibg=#af00af guifg=#000000 gui=NONE      ctermbg=127  ctermfg=16   cterm=NONE
 hi! HighlightedyankRegion cterm=reverse gui=reverse
 
