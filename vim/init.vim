@@ -509,8 +509,8 @@ call plug#begin(s:vim_plug_plugins)
       " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
       " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo' } }
       " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'sharp' } }
-      nnoremap <silent> <Leader>f :GFiles<CR>
-      nnoremap <silent> <Leader>m :Files<CR>
+      nnoremap <silent> <Leader>p :GFiles<CR>
+      nnoremap <silent> <Leader>f m:Files<CR>
       nnoremap <silent> <C-g> :Rg<CR>
       " nnoremap <silent> <Leader>b :Buffers<CR>
       " nnoremap <silent> <Leader>x :Commands<CR>
