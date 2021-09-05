@@ -386,6 +386,7 @@ call plug#begin(s:vim_plug_plugins)
 
       function! s:vim_go_keymap()
           nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
+          nnoremap <buffer><silent> <Leader>rt :GoTestFunc<CR>
           nnoremap <buffer><silent> <F5> :GoDebugContinue<CR>
           nnoremap <buffer><silent> <F6> :GoDebugPrint<CR>
           nnoremap <buffer><silent> <F9> :GoDebugBreakpoint<CR>
