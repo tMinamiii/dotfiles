@@ -167,8 +167,8 @@ alias pi2='ssh ubuntu@172.16.27.11'
 alias pi3='ssh ubuntu@172.16.27.12'
 
 # language setup
-alias py-setup='curl -sSfL -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/tMinamiii/python-template/master/install.sh | sh'
-alias ts-setup='curl -sSfL -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/typescript/install.sh | sh'
+alias py-setup='curl -sSfL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/tMinamiii/python-template/master/install.sh | sh'
+alias ts-setup='curl -sSfL -H "Cache-Control: no-cache" https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/typescript/install.sh | sh'
 alias ide="$HOME/dotfiles/tmux/ide.sh"
 ### ghq + fzf
 alias github='gh-open $(repos)'
