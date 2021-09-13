@@ -552,6 +552,18 @@ call plug#begin(s:vim_plug_plugins)
             \  'efm-langserver': {
             \    'disabled': v:false
             \  },
+            \  'pyls-all': {
+            \    'disabled': v:true
+            \  },
+            \  'pyls': {
+            \    'disabled': v:true
+            \  },
+            \  'pyls-ms': {
+            \    'disabled': v:true
+            \  },
+            \  'jedi-language-server': {
+            \    'disabled': v:true
+            \  }
             \}
             " \  'pyls-all': {
             " \    'workspace_config': {
