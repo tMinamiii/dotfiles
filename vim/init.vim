@@ -552,18 +552,20 @@ call plug#begin(s:vim_plug_plugins)
             \  'efm-langserver': {
             \    'disabled': v:false
             \  },
-            \  'pyls-all': {
-            \    'workspace_config': {
-            \      'pyls': {
-            \        'configurationSources': ['flake8','pydocstyle', 'mypy']
-            \      }
-            \    }
-            \  },
             \}
+            " \  'pyls-all': {
+            " \    'workspace_config': {
+            " \      'pyls': {
+            " \        'configurationSources': ['flake8','pydocstyle', 'mypy']
+            " \      }
+            " \    }
+            " \  },
+            " \}
       let g:lsp_diagnostics_enabled = 1
       let g:lsp_diagnostics_echo_cursor = 1
       let g:lsp_diagnostics_float_cursor = 1
       let g:lsp_diagnostics_float_delay = 200
+      let g:lsp_settings_filetype_python = "pyright-langserver"
 
       function! s:on_lsp_buffer_enabled() abort
           setlocal omnifunc=lsp#complete
