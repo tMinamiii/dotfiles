@@ -51,15 +51,26 @@ export PATH=$HOME/.goenv/bin:$PATH
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
-function ecs-ec2() {
-  local src=$(aws ec2 describe-instances --query 'Reservations[*].[[Instances[*].[InstanceId, PublicDnsName, PublicIpAddress, [Tags[?Key==\`Name\`].Value][0][0]]]]' --output text | grep -v None | grep 'ECS Instance' | fzf )
+function ec2() {
+  local src=$(aws ec2 describe-instances --query 'Reservations[*].[[Instances[*].[InstanceId, PublicDnsName, PublicIpAddress, [Tags[?Key==`Name`].Value][0][0]]]]' --output text | grep -v None | grep -v 'ECS Instance' | grep -v 'worker' | fzf )
   local name=$(echo ${src} | awk '{print $4}')
+  local ipaddr=$(echo ${src} | awk '{print $3}')
+  if echo ${name} | grep -sq "dev"; then
+    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem delish@${ipaddr}
+  else
+    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem delish@${ipaddr}
+  fi
+}
+
+
+function ecs-ec2() {
+  local src=$(aws ec2 describe-instances --query 'Reservations[*].[[Instances[*].[InstanceId, PublicDnsName, PublicIpAddress, [Tags[?Key==`Name`].Value][0][0]]]]' --output text | grep -v None | grep 'ECS Instance' | fzf )
+  local name=$(echo ${src} | awk '{print $7}')
   local ipaddr=$(echo ${src} | awk '{print $3}')
   if echo ${name} | grep -sq "dev"; then
     ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr}
   else
     ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ec2-user@${ipaddr}
-
   fi
 }
 
