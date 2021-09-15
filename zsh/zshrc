@@ -79,7 +79,7 @@ function dev-delish() {
   local service_name="dev-delish-server3"
   local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf)
   local task_arn=$(echo ${task_arns} | awk '{print $2}')
-  local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arns}" | jq -r '.tasks[0].containerInstanceArn')
+  local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn')
   local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text)
   local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp')
   ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr}
