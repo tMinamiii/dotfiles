@@ -54,6 +54,8 @@ zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 function ec2() {
   if [ -z "$1" ]; then
     local username="delish"
+  elif [ "$1" = "d" ]; then
+    local username="delish"
   elif [ "$1" = "u" ]; then
     local username="ubuntu"
   else
@@ -64,8 +66,6 @@ function ec2() {
   local ipaddr=$(echo ${src} | awk '{print $3}')
   if echo ${name} | grep -sq "dev"; then
     ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ${username}@${ipaddr}
-  elif echo ${name} | grep -sq "deploy"; then
-    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ubuntu@${ipaddr}
   else
     ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ${username}@${ipaddr}
   fi
