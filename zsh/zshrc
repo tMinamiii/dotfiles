@@ -52,6 +52,7 @@ export PATH=$HOME/.goenv/bin:$PATH
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
 
+
 if uname -a | grep -sq "Ubuntu"; then
   # export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
   # PATH="$JAVA_HOME/bin:$PATH"
@@ -81,7 +82,6 @@ elif [ "$(uname)" = "Darwin" ]; then
     fi
   }
 
-
   function ecs-ec2() {
     local src=$(aws ec2 describe-instances --query 'Reservations[*].[[Instances[*].[InstanceId, PublicDnsName, PublicIpAddress, [Tags[?Key==`Name`].Value][0][0]]]]' --output text | grep -v None | grep 'ECS Instance' | fzf )
     local name=$(echo ${src} | awk '{print $7}')
@@ -93,9 +93,9 @@ elif [ "$(uname)" = "Darwin" ]; then
     fi
   }
 
-  function dev-cluster() {
+  function dev-delish() {
     local cluster="dev-delish"
-    local service_name=$(echo "dev-delish-server3\ndev-delish-flyer\nt-minami-dev-delish-server\n" | fzf)
+    local service_name=$(echo "dev-delish-server3\nt-minami-dev-delish-server\n" | fzf)
     local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf)
     local task_arn=$(echo ${task_arns} | awk '{print $2}')
     local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn')
@@ -104,9 +104,20 @@ elif [ "$(uname)" = "Darwin" ]; then
     ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr}
   }
 
-  function prd-cluster() {
+  function dev-delish-payment() {
+    local cluster="dev-delish-payment"
+    local service_name="dev-delish-payment"
+    local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf)
+    local task_arn=$(echo ${task_arns} | awk '{print $2}')
+    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn')
+    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text)
+    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp')
+    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr}
+  }
+
+  function prd-delish() {
     local cluster="delish2"
-    local service_name=$(echo "delish-server3\ndelish-flyer\n" | fzf)
+    local service_name="delish-server3"
     local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf)
     local task_arn=$(echo ${task_arns} | awk '{print $2}')
     local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn')
@@ -114,6 +125,20 @@ elif [ "$(uname)" = "Darwin" ]; then
     local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp')
     ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ec2-user@${ipaddr}
   }
+
+  function prd-delish-payment() {
+    local cluster="delish2"
+    local service_name="delish-payment"
+    local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf)
+    local task_arn=$(echo ${task_arns} | awk '{print $2}')
+    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn')
+    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text | fzf)
+    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp')
+    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ec2-user@${ipaddr}
+  }
+
+  export REDIS_CLUSTER_IP=127.0.0.1
+
 elif [ -n "$WSL_DISTRO_NAME" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
