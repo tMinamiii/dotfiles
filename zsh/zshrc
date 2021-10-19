@@ -228,7 +228,6 @@ alias make-vim='build-vim'
 alias build-nvim='sudo echo "start" && sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
 alias make-nvim='build-nvim'
 alias tmux-reload='tmux source-file ~/.tmux.conf'
-alias php-parse-stubs='composer run-script --working-dir="./vendor/felixfbecker/language-server" parse-stubs'
 alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias dus='du --max-depth=1 -h | sort -nr'
@@ -252,11 +251,9 @@ alias ide="$HOME/dotfiles/tmux/ide.sh"
 ### ghq + fzf
 alias github='gh-open $(repos)'
 alias pipenv='poetry'
-alias tailscale='ip addr show tailscale0'
 alias up-zsh='cp -rf ~/.zsh_history ~/OneDrive/conf/.zsh_history'
 alias down-zsh='cp -rf ~/OneDrive/conf/.zsh_history ~/.zsh_history'
 alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout private.key -out public.crt'
-alias fetch-prettier='curl -O https://gist.githubusercontent.com/tMinamiii/8a2db0ab4fc95679a72e56eae987364b/raw/2b18caf03ea9e9b1f32ed7d81626e9973f9da12c/.prettierrc.yaml'
 
 function ghq-fzf() {
   local src=$(ghq list | fzf )
