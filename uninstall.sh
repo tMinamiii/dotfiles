@@ -3,6 +3,7 @@ unlink ~/.zshenv
 unlink ~/.vim
 unlink ~/.config/nvim
 unlink ~/.tmux.conf
+unlink "$HOME/.config/efm-langserver/config.yaml"
 
 if uname | grep -sq "Darwin"; then
   unlink  ~/Library/Fonts/Cica*.ttf
