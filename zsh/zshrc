@@ -95,6 +95,17 @@ elif [ "$(uname)" = "Darwin" ]; then
     fi
   }
 
+  function tailf-mydev() {
+    local cluster="dev-delish"
+    local service_name="t-minami-dev-delish-server"
+    local task_arn=$(aws ecs list-tasks --cluster "${cluster}" --service-name ${service_name} --output text | awk 'NR==1' | awk '{print $2}')
+    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn')
+    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text)
+    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp')
+    local dockerps=$(ssh -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr} docker ps | grep t-minami | awk '{print $1}')
+    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr} tail -f /var/log/delish-fluentd/delish-api-${dockerps}.log
+  }
+
   function dev-delish() {
     local cluster="dev-delish"
     local service_name=$(echo "dev-delish-server3\nt-minami-dev-delish-server\n" | fzf)
