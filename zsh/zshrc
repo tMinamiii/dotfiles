@@ -63,6 +63,7 @@ elif [ "$(uname)" = "Darwin" ]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
   export PATH=$JAVA_HOME/bin:$PATH
+  alias ubuntu="ssh -o ServerAliveInterval=60 tminamiii@192.168.2.123"
   function ec2() {
     if [ -z "$1" ]; then
       local username="delish"
