@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -Ceu
+set -Ce
 
 if [ ! -e "$HOME/.config" ]; then
   mkdir "$HOME/.config"
