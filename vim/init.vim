@@ -588,13 +588,12 @@ call plug#begin(s:vim_plug_plugins)
           nmap <buffer> gi <plug>(lsp-implementation)
           nmap <buffer> gt <plug>(lsp-type-definition)
           nmap <buffer> <leader>rn <plug>(lsp-rename)
-          nmap <buffer> <leader>f <plug>(lsp-document-format-sync)
           nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
           nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
           nmap <buffer> K <plug>(lsp-hover)
           nmap <buffer> <C-l><C-l> <plug>(lsp-document-diagnostics)
           let g:lsp_format_sync_timeout = 1000
-          autocmd! BufWritePre *.rs,*.go,*.py call execute('LspDocumentFormatSync')
+          autocmd! BufWritePre *.rs,*.go,*.py,*.c,*.ts,*.js call execute('LspDocumentFormatSync')
       endfunction
 
       augroup lsp_install
