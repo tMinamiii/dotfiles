@@ -63,15 +63,15 @@ ln -s "$HOME/dotfiles/vim/efm-config.yaml" "$HOME/.config/efm-langserver/config.
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 # ln -s "$HOME/dotfiles/tmux" "$HOME/.tmux.d"
 
-if grep -sq "Ubuntu" /etc/os-release; then
-  if [ -z "$WSL_DISTRO_NAME" ]; then
-    ## WSLでは設定不要
-    gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
-    UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
-    gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "HackGen 13"
-  fi
-fi
-
+# if grep -sq "Ubuntu" /etc/os-release; then
+#   if [ -z "$WSL_DISTRO_NAME" ]; then
+#     ## WSLでは設定不要
+#     gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
+#     UUID=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d \')
+#     gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:${UUID}/ font "HackGen 13"
+#   fi
+# fi
+#
 ##### GUI setup #####
 # if echo "$ARGS" | grep -sq "\\-\\-gui"; then
 #   ##### font setup ######
