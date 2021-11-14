@@ -176,7 +176,7 @@ elif [ -n "$WSL_DISTRO_NAME" ]; then
     # read -t 3 -p "yn? * Preparing to enter genie bottle (in 3s); abort? " yn
     # echo
     if [[ $yn != "y" ]]; then
-      echo "Starting genie:"
+      # echo "Starting genie:"
       exec /usr/bin/genie -s
     fi
   fi
