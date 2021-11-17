@@ -173,17 +173,13 @@ elif [ -n "$WSL_DISTRO_NAME" ]; then
   export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
   eval `ssh-agent` > /dev/null 2>&1
   ## WSL genie for daemonize docker
-  # if [ "`ps -eo pid,lstart,cmd | grep systemd | grep -v -e grep -e systemd- -e /lib/systemd/systemd | awk 'NR==1 { print $1 }'`" != "1" ]; then
-  #  genie -s
-  # fi
-  if [[ -v INSIDE_GENIE ]]; then
-    echo -n " * Waiting for systemd (user)..."
-    until systemctl --user is-system-running &>/dev/null
-    do
-      sleep 1
-      echo -n "."
-    done
-    echo
+  if [[ ! -v INSIDE_GENIE ]]; then
+    # read -t 3 -p "yn? * Preparing to enter genie bottle (in 3s); abort? " yn
+    # echo
+    if [[ $yn != "y" ]]; then
+      # echo "Starting genie:"
+      exec /usr/bin/genie -s
+    fi
   fi
 fi
 
