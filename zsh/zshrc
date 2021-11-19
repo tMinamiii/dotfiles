@@ -64,6 +64,7 @@ elif [ "$(uname)" = "Darwin" ]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
   export PATH=$JAVA_HOME/bin:$PATH
+  export PATH="/usr/local/sbin":$PATH
   export PATH=$PATH:/Users/takahiro.minami/Library/Android/sdk/platform-tools
   export DBC_USER="takahiro.minami@every.tv"
   alias ubuntu="ssh -o ServerAliveInterval=60 tminamiii@192.168.56.100"
