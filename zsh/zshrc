@@ -170,6 +170,7 @@ elif [ -n "$WSL_DISTRO_NAME" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
   export PATH=$JAVA_HOME/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:$PATH
+  export PATH=$PATH:/usr/local/bin
   export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
   eval `ssh-agent` > /dev/null 2>&1
   ## WSL genie for daemonize docker
