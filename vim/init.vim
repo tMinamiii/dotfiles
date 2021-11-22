@@ -136,6 +136,7 @@ command! Q :q
 command! W :w
 command! Wq :wq
 command! WQ :wq
+command! Term :bo terminal
 
 " ファイルツリーの表示形式、1にするとls -laのような表示になります
 let g:netrw_liststyle=1
@@ -201,6 +202,7 @@ augroup indentsize
   autocmd FileType go         setlocal shiftwidth=4 tabstop=4 noexpandtab
   autocmd FileType vim        setlocal shiftwidth=2 tabstop=2
   autocmd FileType python     setlocal shiftwidth=4 tabstop=4
+  autocmd FileType c          setlocal shiftwidth=4 tabstop=4
   autocmd FileType make       setlocal shiftwidth=4 tabstop=4 noexpandtab
   autocmd FileType markdown   setlocal shiftwidth=2 tabstop=2 conceallevel=0
   autocmd FileType gitconfig  setlocal noexpandtab
@@ -235,13 +237,13 @@ if has('nvim')
   set rtp+=~/.cache/nvim/plugged/vim-plug
   set rtp+=~/.cache/nvim/plugins
 else
-  if $WSL_DISTRO_NAME != ""
-    augroup Yank
-      au!
-      autocmd TextYankPost * :call system('win32yank.exe -i', @")
-    augroup END
-    noremap <silent> p :call setreg('"',system('win32yank.exe -o'))<CR>""p
-  endif
+  " if $WSL_DISTRO_NAME != ""
+  "   augroup Yank
+  "     au!
+  "     autocmd TextYankPost * :call system('win32yank.exe -i', @")
+  "   augroup END
+  "   noremap <silent> p :call setreg('"',system('win32yank.exe -o'))<CR>""p
+  " endif
 
   let s:vim_plug_root = '~/.cache/vim/plugged'
   let s:vim_plug_plugins = '~/.cache/vim/plugins'
