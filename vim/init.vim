@@ -136,7 +136,7 @@ command! Q :q
 command! W :w
 command! Wq :wq
 command! WQ :wq
-command! Term :bo terminal
+command! Term :bo terminal ++rows=20
 
 " ファイルツリーの表示形式、1にするとls -laのような表示になります
 let g:netrw_liststyle=1
