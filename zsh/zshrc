@@ -174,9 +174,9 @@ elif [ -n "$WSL_DISTRO_NAME" ]; then
   export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
   eval `ssh-agent` > /dev/null 2>&1
   ## WSL genie for daemonize docker
-  if [[ ! -v INSIDE_GENIE ]]; then
-    exec /usr/bin/genie -s
-  fi
+  # if [[ ! -v INSIDE_GENIE ]]; then
+  #   exec /usr/bin/genie -s
+  # fi
 fi
 
 export PATH="$PATH:$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin"
