@@ -143,6 +143,18 @@ elif [ "$(uname)" = "Darwin" ]; then
     ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr}
   }
 
+  function prd-delish-es() {
+    local cluster="delish2"; \
+    local service_name="delish-es2"; \
+    local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf); \
+    local task_arn=$(echo ${task_arns} | awk '{print $2}'); \
+    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn'); \
+    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text | fzf); \
+    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp'); \
+    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ec2-user@${ipaddr}
+  }
+
+
   function prd-delish() {
     local cluster="delish2"; \
     local service_name="delish-server3"; \
@@ -298,7 +310,6 @@ function anyenv-cache() {
     [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
     anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
 }
-
 
 if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
     [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
