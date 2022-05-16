@@ -144,7 +144,7 @@ elif [ "$(uname)" = "Darwin" ]; then
   }
 
   function prd-delish-es() {
-    local cluster="delish2"; \
+    local cluster="delish-es2"; \
     local service_name="delish-es2"; \
     local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf); \
     local task_arn=$(echo ${task_arns} | awk '{print $2}'); \

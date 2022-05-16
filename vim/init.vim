@@ -498,6 +498,8 @@ call plug#begin(s:vim_plug_plugins)
         \ 'file': '\v\.(exe|so|dll)$',
         \ 'link': 'some_bad_symbolic_links',
         \ }
+    Plug 'mattn/ctrlp-matchfuzzy'
+      let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
