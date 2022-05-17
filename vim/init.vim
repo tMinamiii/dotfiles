@@ -490,7 +490,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'tyru/open-browser.vim'
 
     Plug 'ctrlpvim/ctrlp.vim'
-      let g:ctrlp_map = '<c-p>'
+      let g:ctrlp_map = '<C-p>'
       let g:ctrlp_cmd = 'CtrlP'
       let g:ctrlp_working_path_mode = 'ra'
       let g:ctrlp_custom_ignore = {
@@ -498,6 +498,8 @@ call plug#begin(s:vim_plug_plugins)
         \ 'file': '\v\.(exe|so|dll)$',
         \ 'link': 'some_bad_symbolic_links',
         \ }
+    Plug 'mattn/ctrlp-matchfuzzy'
+      let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
