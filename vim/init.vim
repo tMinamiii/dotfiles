@@ -580,7 +580,7 @@ call plug#begin(s:vim_plug_plugins)
             " \}
       let g:lsp_diagnostics_enabled = 1
       let g:lsp_diagnostics_echo_cursor = 1
-      let g:lsp_diagnostics_float_cursor = 1
+      let g:lsp_diagnostics_float_cursor = 0
       let g:lsp_diagnostics_float_delay = 200
       let g:lsp_settings_filetype_python = "pyright-langserver"
 
