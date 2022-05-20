@@ -49,7 +49,7 @@ set shell=zsh
 set noequalalways
 "set lazyredraw
 set ttyfast
-set ambiwidth=double
+set ambiwidth=single
 set termguicolors
 set wildoptions=pum
 
