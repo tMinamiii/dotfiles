@@ -51,6 +51,8 @@ set noequalalways
 set ttyfast
 set ambiwidth=single
 set termguicolors
+set wildmenu
+set wildmode=full
 set wildoptions=pum
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
