@@ -10,7 +10,7 @@ export HISTFILE=${HOME}/.zsh_history
 # else
 #   export HISTFILE=${HOME}/.zsh_history
 # fi
-export HISTSIZE=10000
+export HISTSIZE=10000000
 export SAVEHIST=10000000
 setopt hist_ignore_dups
 # setopt share_history
