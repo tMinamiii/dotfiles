@@ -227,6 +227,7 @@ else
 fi
 alias zshrc='${=EDITOR} ~/.zshrc' # Quick access to the ~/.zshrc file
 alias vimrc='${=EDITOR} ~/.vim/init.vim' # Quick access to the ~/.zshrc file
+alias dot='cd ~/dotfiles' # Quick access to the ~/.zshrc file
 
 # Command line head / tail shortcuts
 alias -g H='| head'
