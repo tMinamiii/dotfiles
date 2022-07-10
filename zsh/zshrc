@@ -50,6 +50,7 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:"${HOME}/go/bin"
+export PATH=$PATH:"${HOME}/flutter/bin"
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 

@@ -570,6 +570,15 @@ call plug#begin(s:vim_plug_plugins)
             \  },
             \  'jedi-language-server': {
             \    'disabled': v:true
+            \  },
+            \  'gopls': {
+            \    'go.inlayHints.assignVariableTypes': v:true,
+            \    'go.inlayHints.compositeLiteralFields': v:true,
+            \    'go.inlayHints.compositeLiteralTypes': v:true,
+            \    'go.inlayHints.constantValues': v:true,
+            \    'go.inlayHints.functionTypeParameters': v:true,
+            \    'go.inlayHints.parameterNames': v:true,
+            \    'go.inlayHints.rangeVariableTypes': v:true
             \  }
             \}
             " \  'pyls-all': {
