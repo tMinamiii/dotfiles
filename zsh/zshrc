@@ -45,12 +45,11 @@ export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export DENO_INSTALL="${HOME}/.deno"
-
 export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:"/usr/local/go/bin"
 export PATH=$PATH:"${HOME}/go/bin"
-export PATH=$PATH:"${HOME}/flutter/bin"
+export PATH=$PATH:"${HOME}/zls"
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
@@ -184,10 +183,17 @@ elif [ "$(uname)" = "Darwin" ]; then
 
 elif [ -n "$WSL_DISTRO_NAME" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
+  export ANDROID_SDK_ROOT="${HOME}/Android/Sdk"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
   export PATH=$JAVA_HOME/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:$PATH
   export PATH=$PATH:/usr/local/bin
   export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+  export PATH=$PATH:"/usr/local/zig"
+  export PATH=$PATH:"/usr/local/flutter/bin"
+  export PATH=$PATH:"/usr/local/android-studio/bin"
+  export PATH=$PATH:"${ANDROID_SDK_ROOT}/bin"
+  export PATH=$PATH:"${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin"
+
   eval `ssh-agent` > /dev/null 2>&1
   ## WSL genie for daemonize docker
   # if [[ ! -v INSIDE_GENIE ]]; then

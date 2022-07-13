@@ -571,6 +571,10 @@ call plug#begin(s:vim_plug_plugins)
             \  'jedi-language-server': {
             \    'disabled': v:true
             \  },
+            \  'zls': {
+            \    'zip_lib_path': '/usr/loca/zig/lib',
+            \    'zip_exe_path': '/usr/loca/zig/zig'
+            \  },
             \  'gopls': {
             \    'go.inlayHints.assignVariableTypes': v:true,
             \    'go.inlayHints.compositeLiteralFields': v:true,
