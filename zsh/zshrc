@@ -345,7 +345,7 @@ autoload -Uz edit-command-line
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light zsh-users/zsh-autosuggestions
-zinit light zdharma/fast-syntax-highlighting
+# zinit light zdharma/fast-syntax-highlighting
 zinit light dracula/zsh
 zinit light b4b4r07/enhancd
 zinit light marlonrichert/zsh-autocomplete
