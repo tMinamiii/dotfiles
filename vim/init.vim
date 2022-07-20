@@ -362,6 +362,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:vimshell_force_overwrite_statusline = 0
 
     Plug 'buoto/gotests-vim'
+    Plug 'ziglang/zig.vim'
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
       let g:go_highlight_methods = 1
       let g:go_highlight_structs = 1
@@ -475,6 +476,8 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'tpope/vim-surround'
 
+    Plug 'easymotion/vim-easymotion'
+
     Plug 'junegunn/vim-easy-align'
       nmap ga <Plug>(EasyAlign)
       xmap ga <Plug>(EasyAlign)
@@ -548,10 +551,12 @@ call plug#begin(s:vim_plug_plugins)
     " Plug 'jiangmiao/auto-pairs'
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    " Plug 'thomasfaingnaert/vim-lsp-snippets'
-    " Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+    Plug 'SirVer/ultisnips'
+    Plug 'thomasfaingnaert/vim-lsp-snippets'
+    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
       inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
       inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
       inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
@@ -598,6 +603,9 @@ call plug#begin(s:vim_plug_plugins)
       let g:lsp_diagnostics_float_cursor = 0
       let g:lsp_diagnostics_float_delay = 200
       let g:lsp_settings_filetype_python = "pyright-langserver"
+      let g:UltiSnipsExpandTrigger="<tab>"
+      let g:UltiSnipsJumpForwardTrigger="<tab>"
+      let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
       function! s:on_lsp_buffer_enabled() abort
           setlocal omnifunc=lsp#complete
