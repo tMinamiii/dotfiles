@@ -1,7 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 set completeopt+=noselect
-"
+
 """"" [検索系]
 set ignorecase                  " 大文字小文字を区別しない
 set smartcase                   " 検索文字に大文字がある場合は大文字小文字を区別
@@ -37,7 +37,7 @@ set display=lastline
 set softtabstop=0
 set showtabline=0               " 常にタブラインを表示
 set laststatus=2
-set cmdheight=1
+set cmdheight=0
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
 set list                        " 不可視文字の可視化
 set listchars=tab:\|\ ,trail:￭,extends:❯,precedes:❮ ",nbsp:%,eol:￭¬↲ "不可視文字をUnicodeにする
@@ -477,6 +477,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'tpope/vim-surround'
 
     Plug 'easymotion/vim-easymotion'
+    map <Leader> <Plug>(easymotion-prefix)
 
     Plug 'junegunn/vim-easy-align'
       nmap ga <Plug>(EasyAlign)
