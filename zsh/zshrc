@@ -281,6 +281,8 @@ alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
 alias docker-ps='docker ps -a'
 alias docker-rm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
 alias docker-prune='docker system prune --volumes'
+alias dc='docker compose'
+alias d-c='docker-compose'
 
 # raspi
 alias pi1='ssh ubuntu@172.16.27.10'

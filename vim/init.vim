@@ -37,7 +37,7 @@ set display=lastline
 set softtabstop=0
 set showtabline=0               " 常にタブラインを表示
 set laststatus=2
-set cmdheight=0
+set cmdheight=1
 set whichwrap=b,s,<,>,[,]       " wrapするカッコ一覧
 set list                        " 不可視文字の可視化
 set listchars=tab:\|\ ,trail:￭,extends:❯,precedes:❮ ",nbsp:%,eol:￭¬↲ "不可視文字をUnicodeにする
