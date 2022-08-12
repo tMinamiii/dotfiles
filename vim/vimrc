@@ -13,11 +13,7 @@ set hidden                      " バッファを閉じる代わりに隠す（U
 set switchbuf=useopen           " 新しく開く代わりにすでに開いてあるバッファを開く
 set showmatch                   " 対応する括弧などをハイライト表示する
 set matchtime=2                 " 対応括弧のハイライト表示を3秒にする
-set nowritebackup               " Backupを無効化
-set nobackup                    " Backupを無効化
-set noswapfile                  " swapを無効化
 set backspace=0
-" set backspace=indent,eol,start  " バックスペースでなんでも消せるようにする
 
 set clipboard&
 set clipboard^=unnamedplus,unnamed
@@ -29,10 +25,9 @@ set signcolumn=yes
 set number                      " 行番号の表示
 set nowrap                      " 長いテキストの折り返し
 set textwidth=0                 " 自動的に改行が入るのを無効化
-" set colorcolumn=80,120              " その代わり80文字目にラインを入れる
-set t_vb=
-set novisualbell                " 前時代的スクリーンベルを無効化
-set visualbell t_vb=
+" set t_vb=
+" set novisualbell                " 前時代的スクリーンベルを無効化
+" set visualbell t_vb=
 set display=lastline
 set softtabstop=0
 set showtabline=0               " 常にタブラインを表示
@@ -45,9 +40,7 @@ set ttimeout
 set ttimeoutlen=10
 set scrolloff=10                 " 3行残して画面スクロールする
 set shell=zsh
-" set cursorline
 set noequalalways
-"set lazyredraw
 set ttyfast
 set ambiwidth=single
 set termguicolors
@@ -70,9 +63,6 @@ else
     " hoge
 endif
 
-" set iminsert=0
-" set imsearch=0
-" set lazyredraw
 let mapleader = "\<Space>"
 
 "---------------------------------------------------------------------------"
@@ -116,21 +106,18 @@ inoremap  <Up>     <nop>
 inoremap  <Down>   <nop>
 inoremap  <Left>   <nop>
 inoremap  <Right>  <nop>
-" inoremap  <BS>     <nop>
 noremap   <C-c>    <nop>
 noremap   <Up>     <nop>
 noremap   <Down>   <nop>
 noremap   <Left>   <nop>
 noremap   <Right>  <nop>
-nmap      <C-[>    <nop>
-nmap      <Esc>    <nop>
+noremap   <C-[>    <nop>
+noremap   <Esc>    <nop>
 
-"noremap   h <nop>
-"noremap   l <nop>
 tnoremap <C-j><C-j> <C-\><C-n>
 
-imap  <C-h> <BS>
-imap  <C-l> <DEL>
+inoremap  <C-h> <BS>
+inoremap  <C-l> <DEL>
 nnoremap  <C-k> {
 nnoremap  <C-j> }
 """"" command """""
@@ -266,7 +253,7 @@ if !isdirectory(expand(s:vim_plug_root))
 endif
 
 call plug#begin(s:vim_plug_plugins)
-    Plug 'kaicataldo/material.vim' " , { 'branch': 'master' }
+    Plug 'kaicataldo/material.vim'
       let g:material_terminal_italics = 0
       let g:material_theme_style = 'palenight'
 
@@ -430,9 +417,6 @@ call plug#begin(s:vim_plug_plugins)
       vmap <C-v> <Plug>(expand_region_shrink)
 
     Plug 'sheerun/vim-polyglot'
-      if has("nvim")
-        let g:polyglot_disabled = ['python']
-      endif
       let g:vim_json_syntax_conceal = 0
 
     Plug 'tpope/vim-fugitive'
@@ -518,9 +502,6 @@ call plug#begin(s:vim_plug_plugins)
           \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
           \ <bang>0)
       let g:fzf_layout = { 'down': '~40%' }
-      " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-      " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo' } }
-      " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Todo', 'border': 'sharp' } }
       nnoremap <silent> <Leader>p :GFiles<CR>
       nnoremap <silent> <Leader>f m:Files<CR>
       nnoremap <silent> <Leader>g :Rg<CR>
@@ -549,7 +530,6 @@ call plug#begin(s:vim_plug_plugins)
       let g:vim_markdown_folding_disabled = 1
 
     Plug 'cohama/lexima.vim'
-    " Plug 'jiangmiao/auto-pairs'
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
     Plug 'prabirshrestha/async.vim'
@@ -580,25 +560,9 @@ call plug#begin(s:vim_plug_plugins)
             \  'zls': {
             \    'zip_lib_path': '/usr/loca/zig/lib',
             \    'zip_exe_path': '/usr/loca/zig/zig'
-            \  },
-            \  'gopls': {
-            \    'go.inlayHints.assignVariableTypes': v:true,
-            \    'go.inlayHints.compositeLiteralFields': v:true,
-            \    'go.inlayHints.compositeLiteralTypes': v:true,
-            \    'go.inlayHints.constantValues': v:true,
-            \    'go.inlayHints.functionTypeParameters': v:true,
-            \    'go.inlayHints.parameterNames': v:true,
-            \    'go.inlayHints.rangeVariableTypes': v:true
             \  }
             \}
-            " \  'pyls-all': {
-            " \    'workspace_config': {
-            " \      'pyls': {
-            " \        'configurationSources': ['flake8','pydocstyle', 'mypy']
-            " \      }
-            " \    }
-            " \  },
-            " \}
+
       let g:lsp_diagnostics_enabled = 1
       let g:lsp_diagnostics_echo_cursor = 1
       let g:lsp_diagnostics_float_cursor = 0
@@ -637,8 +601,6 @@ call plug#end()
 " ファイルタイププラグインおよびインデントを有効化
 syntax on
 try
-  " colorscheme dracula
-  " colorscheme spring-night
   colorscheme material
 catch
 endtry
@@ -670,21 +632,9 @@ function! s:def_base_syntax()
   autocmd FileType python hi link baseDelimiter Special
 endfunction
 
-function! PhpSyntaxOverride()
-    syn match phpPropExt "@\%(property-read\|property-write\)" containedin=phpDocComment nextgroup=phpDocParam,phpDocIdentifier skipwhite contained
-    hi! link phpDocTags phpPropExt
-    hi! link phpDocParam phpType
-endfunction
-
-augroup phpSyntaxOverride
-    autocmd!
-    autocmd FileType php call PhpSyntaxOverride()
-augroup END
-
 augroup syntaxFromStart
     autocmd FileType vue :syntax sync fromstart
 augroup END
-
 
 if has('multi_byte_ime')
   highlight Cursor guifg=NONE guibg=Green
