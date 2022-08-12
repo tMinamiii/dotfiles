@@ -14,6 +14,9 @@ set switchbuf=useopen           " 新しく開く代わりにすでに開いて�
 set showmatch                   " 対応する括弧などをハイライト表示する
 set matchtime=2                 " 対応括弧のハイライト表示を3秒にする
 set backspace=0
+set noswapfile
+set nobackup
+set noundofile
 
 set clipboard&
 set clipboard^=unnamedplus,unnamed
@@ -25,9 +28,7 @@ set signcolumn=yes
 set number                      " 行番号の表示
 set nowrap                      " 長いテキストの折り返し
 set textwidth=0                 " 自動的に改行が入るのを無効化
-" set t_vb=
 " set novisualbell                " 前時代的スクリーンベルを無効化
-" set visualbell t_vb=
 set display=lastline
 set softtabstop=0
 set showtabline=0               " 常にタブラインを表示
