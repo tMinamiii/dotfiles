@@ -102,18 +102,19 @@ vnoremap  <Up>     <nop>
 vnoremap  <Down>   <nop>
 vnoremap  <Left>   <nop>
 vnoremap  <Right>  <nop>
+
 inoremap  <C-c>    <nop>
 inoremap  <Up>     <nop>
 inoremap  <Down>   <nop>
 inoremap  <Left>   <nop>
 inoremap  <Right>  <nop>
 noremap   <C-c>    <nop>
-noremap   <Up>     <nop>
-noremap   <Down>   <nop>
-noremap   <Left>   <nop>
-noremap   <Right>  <nop>
-noremap   <C-[>    <nop>
-noremap   <Esc>    <nop>
+nnoremap   <Up>     <nop>
+nnoremap   <Down>   <nop>
+nnoremap   <Left>   <nop>
+nnoremap   <Right>  <nop>
+" nnoremap   <C-[>    <nop>
+" nnoremap   <Esc>    <nop>
 
 tnoremap <C-j><C-j> <C-\><C-n>
 
@@ -129,16 +130,7 @@ command! Wq :wq
 command! WQ :wq
 command! Term :bo terminal ++rows=20
 
-" ファイルツリーの表示形式、1にするとls -laのような表示になります
-let g:netrw_liststyle=1
-" ヘッダを非表示にする
-let g:netrw_banner=0
-" サイズを(K,M,G)で表示する
-let g:netrw_sizestyle="H"
-" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
-" プレビューウィンドウを垂直分割で表示する
-let g:netrw_preview=1
+
 if has('terminal')
   function! s:set_default_ansi_colors() abort
     if exists('g:terminal_ansi_colors')
@@ -252,6 +244,16 @@ if !isdirectory(expand(s:vim_plug_root))
 endif
 
 call plug#begin(s:vim_plug_plugins)
+    let g:netrw_liststyle=1   " ファイルツリーの表示形式、1にするとls -laのような表示になります
+    let g:netrw_banner=0      " ヘッダを非表示にする
+    let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
+    " let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S" "日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+    let g:netrw_timefmt="%Y/%m/%d(%a)" "日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+    let g:netrw_preview=1      " プレビューウィンドウを垂直分割で表示する
+
+    nnoremap <silent> <Leader>n :e .<CR>
+    " nnoremap <silent> <Leader>h :NERDTreeFocus<CR>
+
     Plug 'kaicataldo/material.vim'
       let g:material_terminal_italics = 0
       let g:material_theme_style = 'palenight'
@@ -324,7 +326,7 @@ call plug#begin(s:vim_plug_plugins)
       endfunction
 
       function! LightlineFileencoding()
-          return winwidth(0) > 70 ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
+          return winwidth(-1) > 70 ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
       endfunction
 
       function! LightlineMode()
@@ -420,18 +422,18 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'tpope/vim-fugitive'
 
-    Plug 'preservim/nerdtree'
-      nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-      nnoremap <silent> <Leader>h :NERDTreeFocus<CR>
-      let g:NERDTreeWinSize = 35
-      let g:NERDTreeLimitedSyntax = 1
-      let g:NERDTreeQuitOnOpen = 0
-      augroup nerdtree_hook_add
-          autocmd FileType nerdtree nmap <buffer> l o
-          autocmd FileType nerdtree nmap <buffer> <C-0> o
-          autocmd FileType nerdtree nmap <buffer> <C-n> j
-          autocmd FileType nerdtree nmap <buffer> <C-p> k
-      augroup END
+    "Plug 'preservim/nerdtree'
+    "  nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+    "  nnoremap <silent> <Leader>h :NERDTreeFocus<CR>
+    "  let g:NERDTreeWinSize = 35
+    "  let g:NERDTreeLimitedSyntax = 1
+    "  let g:NERDTreeQuitOnOpen = 0
+    "  augroup nerdtree_hook_add
+    "      autocmd FileType nerdtree nmap <buffer> l o
+    "      autocmd FileType nerdtree nmap <buffer> <C-0> o
+    "      autocmd FileType nerdtree nmap <buffer> <C-n> j
+    "      autocmd FileType nerdtree nmap <buffer> <C-p> k
+    "  augroup END
 
     Plug 'rhysd/vim-color-spring-night'
       let g:spring_night_kill_italic = 1
