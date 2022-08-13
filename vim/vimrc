@@ -216,10 +216,8 @@ if has('nvim')
   endif
 
   if exists('$VIRTUAL_ENV')
-    let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
     let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
   else
-    let g:python_host_prog=sort(split(glob($PYENV_ROOT.'/versions/2.7*/bin/python')))[-1]
     let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
   endif
 
@@ -422,9 +420,9 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'tpope/vim-fugitive'
 
-    Plug 'scrooloose/nerdtree'
-      nmap <silent><Leader>n :NERDTreeToggle<CR>
-      nmap <silent><Leader>h :NERDTreeFind<CR>
+    Plug 'preservim/nerdtree'
+      nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
+      nnoremap <silent> <Leader>h :NERDTreeFocus<CR>
       let g:NERDTreeWinSize = 35
       let g:NERDTreeLimitedSyntax = 1
       let g:NERDTreeQuitOnOpen = 0
