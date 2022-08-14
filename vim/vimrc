@@ -244,7 +244,7 @@ endif
 call plug#begin(s:vim_plug_plugins)
     let g:netrw_liststyle=3
     let g:netrw_banner=0
-    let g:netrw_winsize=35
+    let g:netrw_winsize=30
     let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
     " "%Y/%m/%d(%a) %H:%M:%S"
     let g:netrw_timefmt="%Y/%m/%d(%a)" " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
