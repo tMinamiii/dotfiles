@@ -66,7 +66,7 @@ function! IsTMUX()
     return exists('$TMUX')
 endfunction
 
-function! IsTermHyper()
+function! IsHyper()
     return $TERM_PROGRAM==? 'hyper'
 endfunction
 
@@ -133,7 +133,7 @@ command! Q :q
 command! W :w
 command! Wq :wq
 command! WQ :wq
-command! Term :bo terminal ++rows=20
+command! T :bo terminal ++rows=20
 
 if has('terminal')
   function! s:set_default_ansi_colors() abort
@@ -248,37 +248,46 @@ if !isdirectory(expand(s:vim_plug_root))
 endif
 
 call plug#begin(s:vim_plug_plugins)
-    let g:netrw_liststyle=3
-    let g:netrw_banner=0
-    let g:netrw_winsize=30
-    let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
-    " "%Y/%m/%d(%a) %H:%M:%S"
-    let g:netrw_timefmt="%Y/%m/%d(%a)" " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-    let g:netrw_browse_split=4
-    let g:netrw_alto=1
-    let g:netrw_preview=1 " プレビューウィンドウを垂直分割で表示する
-    augroup netrw_setup | au!
-        au FileType netrw nmap <silent> <buffer> l <CR>
-    augroup END
-    "Netrw を toggle する関数を設定
-    "元処理と異なり Vex を呼び出すことで左 window に表示
-    let g:NetrwIsOpen=0
-    function! ToggleNetrw()
-        if g:NetrwIsOpen
-            let i = bufnr("$")
-            while (i >= 1)
-                if (getbufvar(i, "&filetype") == "netrw")
-                    silent exe "bwipeout " . i
-                endif
-                let i-=1
-            endwhile
-            let g:NetrwIsOpen=0
-        else
-            let g:NetrwIsOpen=1
-            silent Vex
-        endif
-    endfunction
-    nnoremap <silent> <Leader>n :call ToggleNetrw()<CR>
+    Plug 'preservim/nerdtree'
+      nmap <silent><Leader>n :NERDTreeToggle<CR>
+      nmap <silent><Leader>h :NERDTreeFind<CR>
+      let g:NERDTreeWinSize = 35
+      let g:NERDTreeLimitedSyntax = 1
+      let g:NERDTreeQuitOnOpen = 0
+      augroup nerdtree_hook_add
+          autocmd FileType nerdtree nmap <buffer> l o
+          autocmd FileType nerdtree nmap <buffer> <C-0> o
+          autocmd FileType nerdtree nmap <buffer> <C-n> j
+          autocmd FileType nerdtree nmap <buffer> <C-p> k
+      augroup END
+    " let g:netrw_liststyle=3
+    " let g:netrw_banner=0
+    " let g:netrw_winsize=30
+    " let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
+    " let g:netrw_timefmt="%Y/%m/%d(%a)" " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する %Y/%m/%d(%a) %H:%M:%S"
+    " let g:netrw_browse_split=4
+    " let g:netrw_alto=1
+    " let g:netrw_preview=1 " プレビューウィンドウを垂直分割で表示する
+    " augroup netrw_setup | au!
+    "     au FileType netrw nmap <silent> <buffer> l <CR>
+    " augroup END
+    " let g:NetrwIsOpen=0
+    " function! ToggleNetrw()
+    "     if g:NetrwIsOpen
+    "         let i = bufnr("$")
+    "         while (i >= 1)
+    "             if (getbufvar(i, "&filetype") == "netrw")
+    "                 silent exe "bwipeout " . i
+    "             endif
+    "             let i-=1
+    "         endwhile
+    "         let g:NetrwIsOpen=0
+    "     else
+    "         let g:NetrwIsOpen=1
+    "         silent Vex
+    "     endif
+    " endfunction
+    " nnoremap <silent> <Leader>n :call ToggleNetrw()<CR>
 
    Plug 'kaicataldo/material.vim'
       let g:material_terminal_italics = 0
@@ -325,7 +334,7 @@ call plug#begin(s:vim_plug_plugins)
       function! LightlineFilename()
           let fname = expand('%:t')
           return fname ==? '__Tagbar__' ? g:lightline.fname :
-                  \ fname =~? '__Gundo' ? '' :
+                  \ fname =~? '__Gundo\|NERD_tree' ? '' :
                   \ ('' !=? LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
                   \ ('' !=? fname ? fname : '[No Name]') .
                   \ ('' !=? LightlineModified() ? ' ' . LightlineModified() : '')
@@ -333,7 +342,7 @@ call plug#begin(s:vim_plug_plugins)
 
       function! LightlineFugitive()
           try
-              if expand('%:t') !~? 'Tagbar\|Gundo' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
+              if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
                   let mark = ''  " edit here for cool mark
                   let branch = fugitive#head()
                   return branch !=# '' ? mark.branch : ''
@@ -360,6 +369,7 @@ call plug#begin(s:vim_plug_plugins)
           return fname ==? '__Tagbar__' ? 'Tagbar' :
                       \ fname ==? '__Gundo__' ? 'Gundo' :
                       \ fname ==? '__Gundo_Preview__' ? 'Gundo Preview' :
+                      \ fname =~? 'NERD_tree' ? 'NERDTree' :
                       \ winwidth(0) > 60 ? lightline#mode() : ''
       endfunction
 
@@ -454,9 +464,9 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'Yggdroot/indentLine'
       let g:indentLine_showFirstIndentLevel = 1
-      let g:indentLine_bufNameExclude = ['_.*']
-      let g:indentLine_bufTypeExluce = ['help', 'terminal']
-      let g:indentLine_fileTypeExluce = ['help']
+      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
+      let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'terminal']
+      let g:indentLine_fileTypeExluce = ['help', 'nerdtree']
       let g:indentLine_color_term = 238
       let g:indentLine_color_gui = '#676767'
       let g:indentLine_setConceal = 0
