@@ -104,12 +104,17 @@ vnoremap  <Down>   <nop>
 vnoremap  <Left>   <nop>
 vnoremap  <Right>  <nop>
 
+inoremap  <C-h> <BS>
+inoremap  <C-l> <DEL>
 inoremap  <C-c>    <nop>
 inoremap  <Up>     <nop>
 inoremap  <Down>   <nop>
 inoremap  <Left>   <nop>
 inoremap  <Right>  <nop>
-noremap   <C-c>    <nop>
+
+nnoremap  <C-k> {
+nnoremap  <C-j> }
+nnoremap   <C-c>    <nop>
 nnoremap   <Up>     <nop>
 nnoremap   <Down>   <nop>
 nnoremap   <Left>   <nop>
@@ -117,10 +122,6 @@ nnoremap   <Right>  <nop>
 
 tnoremap <C-j><C-j> <C-\><C-n>
 
-inoremap  <C-h> <BS>
-inoremap  <C-l> <DEL>
-nnoremap  <C-k> {
-nnoremap  <C-j> }
 """"" command """""
 " よく押し間違えるので
 command! Q :q
@@ -251,6 +252,9 @@ call plug#begin(s:vim_plug_plugins)
     let g:netrw_browse_split=4
     let g:netrw_alto=1
     let g:netrw_preview=1 " プレビューウィンドウを垂直分割で表示する
+    augroup netrw_setup | au!
+        au FileType netrw nmap <silent> <buffer> l <CR>
+    augroup END
     "Netrw を toggle する関数を設定
     "元処理と異なり Vex を呼び出すことで左 window に表示
     let g:NetrwIsOpen=0
@@ -431,10 +435,6 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'osyo-manga/vim-over'
       nnoremap <silent> <Leader>o :OverCommandLine<CR>
 
-    Plug 'terryma/vim-expand-region'
-      vmap v <Plug>(expand_region_expand)
-      vmap <C-v> <Plug>(expand_region_shrink)
-
     Plug 'sheerun/vim-polyglot'
       let g:vim_json_syntax_conceal = 0
 
@@ -484,7 +484,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:easy_align_ignore_groups = []
 
     Plug 'tomtom/tcomment_vim'
-        vnoremap ? :'<,'>TComment<CR>
+        vmap ? :'<,'>TComment<CR>
 
     Plug 'previm/previm'
       if system('uname -a | grep microsoft') != ""
@@ -518,11 +518,11 @@ call plug#begin(s:vim_plug_plugins)
           \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
           \ <bang>0)
       let g:fzf_layout = { 'down': '~40%' }
-      nnoremap <silent> <Leader>p :GFiles<CR>
-      nnoremap <silent> <Leader>f :Files<CR>
-      nnoremap <silent> <Leader>g :Rg<CR>
-      " nnoremap <silent> <Leader>b :Buffers<CR>
-      " nnoremap <silent> <Leader>x :Commands<CR>
+      nmap <silent> <Leader>p :GFiles<CR>
+      nmap <silent> <Leader>f :Files<CR>
+      nmap <silent> <Leader>g :Rg<CR>
+      nmap <silent> <Leader>b :Buffers<CR>
+      nmap <silent> <Leader>x :Commands<CR>
 
     Plug 'rhysd/git-messenger.vim'
       nmap <Leader>gm <Plug>(git-messenger)
@@ -546,17 +546,20 @@ call plug#begin(s:vim_plug_plugins)
       let g:vim_markdown_folding_disabled = 1
 
     Plug 'cohama/lexima.vim'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'mattn/vim-lsp-settings'
+
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
     Plug 'SirVer/ultisnips'
     Plug 'thomasfaingnaert/vim-lsp-snippets'
     Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-      inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-      inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-      inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
+
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+      imap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+      imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+      imap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
       let g:lsp_settings = {
             \  'efm-langserver': {
             \    'disabled': v:false
