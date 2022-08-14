@@ -57,13 +57,18 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-if exists('$TMUX')
-    " tmux
-elseif $TERM_PROGRAM ==? 'hyper'
-    " hyper
-else
-    " hoge
-endif
+
+function! IsWSL()
+    return $WSL_DISTRO_NAME != ""
+endfunction
+
+function! IsTMUX()
+    return exists('$TMUX')
+endfunction
+
+function! IsTermHyper()
+    return $TERM_PROGRAM==? 'hyper'
+endfunction
 
 let mapleader = "\<Space>"
 
@@ -191,7 +196,7 @@ augroup indentsize
 augroup END
 
 if has('nvim')
-  if $WSL_DISTRO_NAME != ""
+  if IsWSL()
     let g:clipboard = {
         \   'name': 'myClipboard',
         \   'copy': {
@@ -217,7 +222,7 @@ if has('nvim')
   set rtp+=~/.cache/nvim/plugged/vim-plug
   set rtp+=~/.cache/nvim/plugins
 else
-  if $WSL_DISTRO_NAME != ""
+  if IsWSL()
     augroup Yank
       au!
       autocmd TextYankPost * :call system('win32yank.exe -i', @")
@@ -440,19 +445,6 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'tpope/vim-fugitive'
 
-    "Plug 'preservim/nerdtree'
-    "  nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-    "  nnoremap <silent> <Leader>h :NERDTreeFocus<CR>
-    "  let g:NERDTreeWinSize = 35
-    "  let g:NERDTreeLimitedSyntax = 1
-    "  let g:NERDTreeQuitOnOpen = 0
-    "  augroup nerdtree_hook_add
-    "      autocmd FileType nerdtree nmap <buffer> l o
-    "      autocmd FileType nerdtree nmap <buffer> <C-0> o
-    "      autocmd FileType nerdtree nmap <buffer> <C-n> j
-    "      autocmd FileType nerdtree nmap <buffer> <C-p> k
-    "  augroup END
-
     Plug 'deris/vim-shot-f'
 
     Plug 'machakann/vim-highlightedyank'
@@ -463,8 +455,8 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'Yggdroot/indentLine'
       let g:indentLine_showFirstIndentLevel = 1
-      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', 'NetrwTreeListing.*']
-      let g:indentLine_bufTypeExluce = ['help', "netrw", 'terminal']
+      let g:indentLine_bufNameExclude = ['_.*']
+      let g:indentLine_bufTypeExluce = ['help', 'terminal']
       let g:indentLine_fileTypeExluce = ['help']
       let g:indentLine_color_term = 238
       let g:indentLine_color_gui = '#676767'
@@ -484,10 +476,10 @@ call plug#begin(s:vim_plug_plugins)
       let g:easy_align_ignore_groups = []
 
     Plug 'tomtom/tcomment_vim'
-        vmap ? :'<,'>TComment<CR>
+      vmap ? :'<,'>TComment<CR>
 
     Plug 'previm/previm'
-      if system('uname -a | grep microsoft') != ""
+      if IsWSL()
         let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
         let g:previm_wsl_mode = 1
       endif
