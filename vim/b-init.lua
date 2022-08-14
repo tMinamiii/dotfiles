@@ -115,13 +115,6 @@ api.nvim_set_keymap("n", "<Right>", "<nop>", { noremap = true })
 api.nvim_set_keymap("n", "<C-[>", "<nop>", { noremap = true })
 api.nvim_set_keymap("n", "<Esc>", "<nop>", { noremap = true })
 
--- NERDTree
--- api.nvim_set_keymap("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
--- api.nvim_set_keymap("n", "<Leader>h", ":NERDTreeFocus<CR>", { noremap = true, silent = true })
-vim.cmd [[
-nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <Leader>h :NERDTreeFocus<CR>
-]]
 -- easymotion
 -- api.nvim_set_keymap("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 api.nvim_create_user_command("Q", ":q", {})
@@ -129,9 +122,6 @@ api.nvim_create_user_command("W", ":w", {})
 api.nvim_create_user_command("Wq", ":wq", {})
 api.nvim_create_user_command("WQ", ":wq", {})
 api.nvim_create_user_command("Term", ":bo terminal ++rows=20", {})
-
-vim.cmd [[packadd packer.nvim]]
-vim.cmd [[colorscheme material]]
 
 opt.expandtab = true -- タブをスペースにする
 opt.tabstop = 2
@@ -158,7 +148,6 @@ augroup filetypes
   autocmd BufWritePre        * :%s/\s\+$//ge
   autocmd BufWritePre        * :%s/\r//ge
 augroup END
-
 
 augroup indentsize
   autocmd FileType sh         setlocal shiftwidth=2 tabstop=2
@@ -198,272 +187,237 @@ if exists('$VIRTUAL_ENV')
 else
   let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
 endif
-
-let s:vim_plug_root = '~/.cache/nvim/plugged'
-let s:vim_plug_plugins = '~/.cache/nvim/plugins'
-set rtp+=~/.cache/nvim/plugged/vim-plug
-set rtp+=~/.cache/nvim/plugins
-if !isdirectory(expand(s:vim_plug_plugins))
-  call system('mkdir -p ' . s:vim_plug_plugins)
-endif
-
-if !isdirectory(expand(s:vim_plug_root))
-  echo 'install vim-plug...'
-  call system('mkdir -p ' . s:vim_plug_root . 'vim-plug')
-  call system('git clone https://github.com/junegunn/vim-plug.git ' . s:vim_plug_root . '/vim-plug/autoload')
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin(s:vim_plug_plugins)
-    Plug 'kaicataldo/material.vim'
-      let g:material_terminal_italics = 0
-      let g:material_theme_style = 'palenight'
-
-   Plug 'buoto/gotests-vim'
-    Plug 'ziglang/zig.vim'
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
-      let g:go_highlight_methods = 1
-      let g:go_highlight_structs = 1
-      let g:go_highlight_operators = 1
-      let g:go_highlight_functions = 1
-      let g:go_highlight_function_parameters = 1
-      let g:go_highlight_function_arguments = 1
-      let g:go_highlight_function_calls = 1
-      let g:go_highlight_types = 1
-      let g:go_highlight_fields = 1
-      let g:go_highlight_variable_declarations = 1
-      let g:go_highlight_variable_assignments = 1
-
-      let g:go_echo_command_info = 0
-      let g:go_def_mapping_enabled = 0
-      let g:go_gocode_propose_builtins = 0
-      let g:go_echo_go_info = 0
-
-      let g:go_diagnostics_enabled = 0
-      let g:go_metalinter_autosave = 0
-
-      "" format ""
-      let g:go_fmt_autosave = 0
-      let g:go_term_height = 15
-      let g:go_term_mode = 'on | belowright split'
-      let g:go_term_enabled = 0
-
-      function! s:vim_go_keymap()
-          nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
-          nnoremap <buffer><silent> <Leader>rt :GoTestFunc<CR>
-          nnoremap <buffer><silent> <F5> :GoDebugContinue<CR>
-          nnoremap <buffer><silent> <F6> :GoDebugPrint<CR>
-          nnoremap <buffer><silent> <F9> :GoDebugBreakpoint<CR>
-          nnoremap <buffer><silent> <F10> :GoDebugNext<CR>
-          nnoremap <buffer><silent> <F11> :GoDebugStep<CR>
-          nnoremap <buffer><silent> <F12> :GoDebugStop<CR>
-      endfunction
-
-      augroup vim_go_hook_add
-          autocmd FileType go :call s:vim_go_keymap()
-      augroup END
-
-    Plug 'honza/vim-snippets'
-
-    Plug 'liuchengxu/vista.vim'
-      nmap <silent> <C-f><C-v> :<C-u>Vista vim_lsp<CR>
-      let g:vista_close_on_jump = 1
-      let g:vista_icon_indent = ['`-> ', '|-> ']
-      let g:vista#renderer#enable_icon = 0
-      let g:vista#renderer#icons = {
-                  \   'function': 'func',
-                  \   'variable': 'var',
-                  \   'field': 'field',
-                  \   'struct': 'struct',
-                  \   'constant': 'const',
-                  \  }
-
-    Plug 'terryma/vim-multiple-cursors'
-
-    Plug 'osyo-manga/vim-over'
-      nnoremap <silent> <Leader>o :OverCommandLine<CR>
-
-    Plug 'terryma/vim-expand-region'
-      vmap v <Plug>(expand_region_expand)
-      vmap <C-v> <Plug>(expand_region_shrink)
-
-    Plug 'sheerun/vim-polyglot'
-      let g:vim_json_syntax_conceal = 0
-
-    Plug 'tpope/vim-fugitive'
-
-    Plug 'scrooloose/nerdtree'
-      nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
-      nnoremap <silent> <Leader>h :NERDTreeFocus<CR>
-      let g:NERDTreeWinSize = 35
-      let g:NERDTreeLimitedSyntax = 1
-      let g:NERDTreeQuitOnOpen = 0
-      augroup nerdtree_hook_add
-          autocmd FileType nerdtree nmap <buffer> l o
-          autocmd FileType nerdtree nmap <buffer> <C-0> o
-          autocmd FileType nerdtree nmap <buffer> <C-n> j
-          autocmd FileType nerdtree nmap <buffer> <C-p> k
-      augroup END
-
-    Plug 'rhysd/vim-color-spring-night'
-      let g:spring_night_kill_italic = 1
-      let g:spring_night_high_contrast = 1
-
-    Plug 'deris/vim-shot-f'
-
-    Plug 'machakann/vim-highlightedyank'
-
-    Plug 'simeji/winresizer'
-      let g:winresizer_vert_resize = 1
-      let g:winresizer_horiz_resize = 1
-
-    Plug 'Yggdroot/indentLine'
-      let g:indentLine_showFirstIndentLevel = 1
-      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
-      let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'defx', 'terminal']
-      let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
-      let g:indentLine_color_term = 238
-      let g:indentLine_color_gui = '#676767'
-      let g:indentLine_setConceal = 0
-
-    Plug 'andymass/vim-matchup'
-      let g:loaded_matchit = 1
-
-    Plug 'tpope/vim-surround'
-
-    Plug 'easymotion/vim-easymotion'
-    map <Leader> <Plug>(easymotion-prefix)
-
-    Plug 'junegunn/vim-easy-align'
-      nmap ga <Plug>(EasyAlign)
-      xmap ga <Plug>(EasyAlign)
-      let g:easy_align_ignore_groups = []
-
-    Plug 'tomtom/tcomment_vim'
-        vnoremap ? :'<,'>TComment<CR>
-
-    Plug 'previm/previm'
-      if system('uname -a | grep microsoft') != ""
-        let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
-        let g:previm_wsl_mode = 1
-      endif
-
-    Plug 'tyru/open-browser.vim'
-
-    Plug 'ctrlpvim/ctrlp.vim'
-      let g:ctrlp_map = '<C-p>'
-      let g:ctrlp_cmd = 'CtrlP'
-      let g:ctrlp_working_path_mode = 'ra'
-      let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\v[\/]\.(git|hg|svn)$|node_modules',
-        \ 'file': '\v\.(exe|so|dll)$',
-        \ 'link': 'some_bad_symbolic_links',
-        \ }
-    Plug 'mattn/ctrlp-matchfuzzy'
-      let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
-
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-      command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-      command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-      command! -bang -nargs=* Rg
-          \ call fzf#vim#grep(
-          \ 'rg --column --line-number --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
-          \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-          \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-          \ <bang>0)
-      let g:fzf_layout = { 'down': '~40%' }
-      nnoremap <silent> <Leader>p :GFiles<CR>
-      nnoremap <silent> <Leader>f m:Files<CR>
-      nnoremap <silent> <Leader>g :Rg<CR>
-      " nnoremap <silent> <Leader>b :Buffers<CR>
-      " nnoremap <silent> <Leader>x :Commands<CR>
-
-    Plug 'rhysd/git-messenger.vim'
-      nmap <Leader>gm <Plug>(git-messenger)
-      let g:git_messenger_include_diff = 'current'
-      let g:git_messenger_always_into_popup = v:true
-      let g:git_messenger_into_popup_after_show = v:true
-
-    Plug 'mattn/emmet-vim'
-
-    Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
-      let g:rainbow_active = 0
-      let g:rainbow_conf = {
-                  \    'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
-                  \   'separately': {
-                  \       'nerdtree': 0,
-                  \   },
-                  \ }
-
-    Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
-      let g:vim_markdown_conceal = 0
-      let g:vim_markdown_folding_disabled = 1
-
-    Plug 'cohama/lexima.vim'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'mattn/vim-lsp-settings'
-    Plug 'prabirshrestha/async.vim'
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    Plug 'SirVer/ultisnips'
-    Plug 'thomasfaingnaert/vim-lsp-snippets'
-    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-      inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-      inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-      inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
-      let g:lsp_settings = {
-            \  'efm-langserver': {
-            \    'disabled': v:false
-            \  },
-            \  'pyls-all': {
-            \    'disabled': v:true
-            \  },
-            \  'pyls': {
-            \    'disabled': v:true
-            \  },
-            \  'pyls-ms': {
-            \    'disabled': v:true
-            \  },
-            \  'jedi-language-server': {
-            \    'disabled': v:true
-            \  },
-            \  'zls': {
-            \    'zip_lib_path': '/usr/loca/zig/lib',
-            \    'zip_exe_path': '/usr/loca/zig/zig'
-            \  }
-            \}
-
-      let g:lsp_diagnostics_enabled = 1
-      let g:lsp_diagnostics_echo_cursor = 1
-      let g:lsp_diagnostics_float_cursor = 0
-      let g:lsp_diagnostics_float_delay = 200
-      let g:lsp_settings_filetype_python = "pyright-langserver"
-      let g:UltiSnipsExpandTrigger="<tab>"
-      let g:UltiSnipsJumpForwardTrigger="<tab>"
-      let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-      function! s:on_lsp_buffer_enabled() abort
-          setlocal omnifunc=lsp#complete
-          setlocal signcolumn=yes
-          if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-          nmap <buffer> gd <plug>(lsp-definition)
-          nmap <buffer> gr <plug>(lsp-references)
-          nmap <buffer> gi <plug>(lsp-implementation)
-          nmap <buffer> gt <plug>(lsp-type-definition)
-          nmap <buffer> <leader>rn <plug>(lsp-rename)
-          nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-          nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-          nmap <buffer> K <plug>(lsp-hover)
-          nmap <buffer> <C-l><C-l> <plug>(lsp-document-diagnostics)
-          let g:lsp_format_sync_timeout = 1000
-          autocmd! BufWritePre *.rs,*.go,*.py,*.c,*.ts,*.js call execute('LspDocumentFormatSync')
-      endfunction
-
-      augroup lsp_install
-          au!
-          " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-          autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-      augroup END
-call plug#end()
 ]]
+
+vim.cmd [[packadd packer.nvim]]
+vim.cmd [[colorscheme material]]
+
+return require('packer').startup(function(use)
+  use 'plasticboy/vim-markdown'
+  vim.g.vim_markdown_conceal = 0
+  vim.g.vim_markdown_folding_disabled = 1
+
+  use 'cohama/lexima.vim'
+
+  use 'kaicataldo/material.vim'
+  vim.g.material_terminal_italics = 0
+  vim.g.material_theme_style = 'palenight'
+
+  use 'buoto/gotests-vim'
+
+  use 'fatih/vim-go'
+  vim.g.go_highlight_methods = 1
+  vim.g.go_highlight_structs = 1
+  vim.g.go_highlight_operators = 1
+  vim.g.go_highlight_functions = 1
+  vim.g.go_highlight_function_parameters = 1
+  vim.g.go_highlight_function_arguments = 1
+  vim.g.go_highlight_function_calls = 1
+  vim.g.go_highlight_types = 1
+  vim.g.go_highlight_fields = 1
+  vim.g.go_highlight_variable_declarations = 1
+  vim.g.go_highlight_variable_assignments = 1
+
+  vim.g.go_echo_command_info = 0
+  vim.g.go_def_mapping_enabled = 0
+  vim.g.go_gocode_propose_builtins = 0
+  vim.g.go_echo_go_info = 0
+
+  vim.g.go_diagnostics_enabled = 0
+  vim.g.go_metalinter_autosave = 0
+
+  vim.g.go_fmt_autosave = 0
+  vim.g.go_term_height = 15
+  vim.g.go_term_mode = 'on | belowright split'
+  vim.g.go_term_enabled = 0
+
+  vim.cmd [[
+        function! s:vim_go_keymap()
+            nnoremap <buffer><silent> <Leader><C-r> :GoRun<CR>
+            nnoremap <buffer><silent> <Leader>rt :GoTestFunc<CR>
+            nnoremap <buffer><silent> <F5> :GoDebugContinue<CR>
+            nnoremap <buffer><silent> <F6> :GoDebugPrint<CR>
+            nnoremap <buffer><silent> <F9> :GoDebugBreakpoint<CR>
+            nnoremap <buffer><silent> <F10> :GoDebugNext<CR>
+            nnoremap <buffer><silent> <F11> :GoDebugStep<CR>
+            nnoremap <buffer><silent> <F12> :GoDebugStop<CR>
+        endfunction
+
+        augroup vim_go_hook_add
+            autocmd FileType go :call s:vim_go_keymap()
+        augroup END
+      ]]
+
+  use 'terryma/vim-multiple-cursors'
+
+  use 'osyo-manga/vim-over'
+  api.nvim_set_keymap("n", "<Leader>o", ":OverCommandLine<CR>", { noremap = true, silent = true })
+
+  use 'terryma/vim-expand-region'
+  api.nvim_set_keymap("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+  api.nvim_set_keymap("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+
+  use 'sheerun/vim-polyglot'
+  vim.g.vim_json_syntax_conceal = 0
+
+  use 'tpope/vim-fugitive'
+
+  use 'deris/vim-shot-f'
+
+  use 'machakann/vim-highlightedyank'
+
+  use 'simeji/winresizer'
+  vim.g.winresizer_vert_resize = 1
+  vim.g.winresizer_horiz_resize = 1
+
+  use 'Yggdroot/indentLine'
+  vim.g.indentLine_showFirstIndentLevel = 1
+  vim.g.indentLine_bufNameExclude = "_.*"
+  vim.g.indentLine_bufTypeExluce = "help,terminal"
+  vim.g.indentLine_fileTypeExluce = "help"
+  vim.g.indentLine_color_term = 238
+  vim.g.indentLine_color_gui = '#676767'
+  vim.g.indentLine_setConceal = 0
+
+  use 'andymass/vim-matchup'
+  vim.g.loaded_matchit = 1
+
+  use 'tpope/vim-surround'
+
+  use 'easymotion/vim-easymotion'
+  api.nvim_set_keymap("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
+
+  use 'junegunn/vim-easy-align'
+  api.nvim_set_keymap("n", "ga", "<Plug>(EasyAlign)", { noremap = true, silent = true })
+  api.nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", { noremap = true, silent = true })
+  vim.cmd "let g:easy_align_ignore_groups = []"
+
+end)
+
+--     Plug 'tomtom/tcomment_vim'
+--         vnoremap ? :'<,'>TComment<CR>
+--
+--     Plug 'previm/previm'
+--       if system('uname -a | grep microsoft') != ""
+--         let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
+--         let g:previm_wsl_mode = 1
+--       endif
+--
+--     Plug 'tyru/open-browser.vim'
+--
+--     Plug 'ctrlpvim/ctrlp.vim'
+--       let g:ctrlp_map = '<C-p>'
+--       let g:ctrlp_cmd = 'CtrlP'
+--       let g:ctrlp_working_path_mode = 'ra'
+--       let g:ctrlp_custom_ignore = {
+--         \ 'dir':  '\v[\/]\.(git|hg|svn)$|node_modules',
+--         \ 'file': '\v\.(exe|so|dll)$',
+--         \ 'link': 'some_bad_symbolic_links',
+--         \ }
+--     Plug 'mattn/ctrlp-matchfuzzy'
+--       let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+--
+--     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+--     Plug 'junegunn/fzf.vim'
+--       command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+--       command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+--       command! -bang -nargs=* Rg
+--           \ call fzf#vim#grep(
+--           \ 'rg --column --line-number --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
+--           \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+--           \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+--           \ <bang>0)
+--       let g:fzf_layout = { 'down': '~40%' }
+--       nnoremap <silent> <Leader>p :GFiles<CR>
+--       nnoremap <silent> <Leader>f m:Files<CR>
+--       nnoremap <silent> <Leader>g :Rg<CR>
+--       " nnoremap <silent> <Leader>b :Buffers<CR>
+--       " nnoremap <silent> <Leader>x :Commands<CR>
+--
+--     Plug 'rhysd/git-messenger.vim'
+--       nmap <Leader>gm <Plug>(git-messenger)
+--       let g:git_messenger_include_diff = 'current'
+--       let g:git_messenger_always_into_popup = v:true
+--       let g:git_messenger_into_popup_after_show = v:true
+--
+--     Plug 'mattn/emmet-vim'
+--
+--     Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
+--       let g:rainbow_active = 0
+--       let g:rainbow_conf = {
+--                   \    'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
+--                   \   'separately': {
+--                   \       'nerdtree': 0,
+--                   \   },
+--                   \ }
+--
+--     Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
+--       let g:vim_markdown_conceal = 0
+--       let g:vim_markdown_folding_disabled = 1
+--
+--     Plug 'cohama/lexima.vim'
+--     Plug 'prabirshrestha/vim-lsp'
+--     Plug 'mattn/vim-lsp-settings'
+--     Plug 'prabirshrestha/async.vim'
+--     Plug 'prabirshrestha/asyncomplete.vim'
+--     Plug 'prabirshrestha/asyncomplete-lsp.vim'
+--     Plug 'SirVer/ultisnips'
+--     Plug 'thomasfaingnaert/vim-lsp-snippets'
+--     Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+--       inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+--       inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+--       inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
+--       let g:lsp_settings = {
+--             \  'efm-langserver': {
+--             \    'disabled': v:false
+--             \  },
+--             \  'pyls-all': {
+--             \    'disabled': v:true
+--             \  },
+--             \  'pyls': {
+--             \    'disabled': v:true
+--             \  },
+--             \  'pyls-ms': {
+--             \    'disabled': v:true
+--             \  },
+--             \  'jedi-language-server': {
+--             \    'disabled': v:true
+--             \  },
+--             \  'zls': {
+--             \    'zip_lib_path': '/usr/loca/zig/lib',
+--             \    'zip_exe_path': '/usr/loca/zig/zig'
+--             \  }
+--             \}
+--
+--       let g:lsp_diagnostics_enabled = 1
+--       let g:lsp_diagnostics_echo_cursor = 1
+--       let g:lsp_diagnostics_float_cursor = 0
+--       let g:lsp_diagnostics_float_delay = 200
+--       let g:lsp_settings_filetype_python = "pyright-langserver"
+--       let g:UltiSnipsExpandTrigger="<tab>"
+--       let g:UltiSnipsJumpForwardTrigger="<tab>"
+--       let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+--
+--       function! s:on_lsp_buffer_enabled() abort
+--           setlocal omnifunc=lsp#complete
+--           setlocal signcolumn=yes
+--           if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+--           nmap <buffer> gd <plug>(lsp-definition)
+--           nmap <buffer> gr <plug>(lsp-references)
+--           nmap <buffer> gi <plug>(lsp-implementation)
+--           nmap <buffer> gt <plug>(lsp-type-definition)
+--           nmap <buffer> <leader>rn <plug>(lsp-rename)
+--           nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+--           nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+--           nmap <buffer> K <plug>(lsp-hover)
+--           nmap <buffer> <C-l><C-l> <plug>(lsp-document-diagnostics)
+--           let g:lsp_format_sync_timeout = 1000
+--           autocmd! BufWritePre *.rs,*.go,*.py,*.c,*.ts,*.js call execute('LspDocumentFormatSync')
+--       endfunction
+--
+--       augroup lsp_install
+--           au!
+--           " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+--           autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+--       augroup END
+-- call plug#end()

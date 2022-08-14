@@ -49,6 +49,7 @@ set wildmenu
 set wildmode=full
 set wildoptions=pum
 
+"" for tmux 24bit color
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 let &t_ti.="\e[1 q"
@@ -113,8 +114,6 @@ nnoremap   <Up>     <nop>
 nnoremap   <Down>   <nop>
 nnoremap   <Left>   <nop>
 nnoremap   <Right>  <nop>
-" nnoremap   <C-[>    <nop>
-" nnoremap   <Esc>    <nop>
 
 tnoremap <C-j><C-j> <C-\><C-n>
 
@@ -129,7 +128,6 @@ command! W :w
 command! Wq :wq
 command! WQ :wq
 command! Term :bo terminal ++rows=20
-
 
 if has('terminal')
   function! s:set_default_ansi_colors() abort
@@ -244,17 +242,36 @@ if !isdirectory(expand(s:vim_plug_root))
 endif
 
 call plug#begin(s:vim_plug_plugins)
-    let g:netrw_liststyle=1   " ファイルツリーの表示形式、1にするとls -laのような表示になります
-    let g:netrw_banner=0      " ヘッダを非表示にする
+    let g:netrw_liststyle=3
+    let g:netrw_banner=0
+    let g:netrw_winsize=35
     let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
-    " let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S" "日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-    let g:netrw_timefmt="%Y/%m/%d(%a)" "日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-    let g:netrw_preview=1      " プレビューウィンドウを垂直分割で表示する
+    " "%Y/%m/%d(%a) %H:%M:%S"
+    let g:netrw_timefmt="%Y/%m/%d(%a)" " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+    let g:netrw_browse_split=4
+    let g:netrw_alto=1
+    let g:netrw_preview=1 " プレビューウィンドウを垂直分割で表示する
+    "Netrw を toggle する関数を設定
+    "元処理と異なり Vex を呼び出すことで左 window に表示
+    let g:NetrwIsOpen=0
+    function! ToggleNetrw()
+        if g:NetrwIsOpen
+            let i = bufnr("$")
+            while (i >= 1)
+                if (getbufvar(i, "&filetype") == "netrw")
+                    silent exe "bwipeout " . i
+                endif
+                let i-=1
+            endwhile
+            let g:NetrwIsOpen=0
+        else
+            let g:NetrwIsOpen=1
+            silent Vex
+        endif
+    endfunction
+    nnoremap <silent> <Leader>n :call ToggleNetrw()<CR>
 
-    nnoremap <silent> <Leader>n :e .<CR>
-    " nnoremap <silent> <Leader>h :NERDTreeFocus<CR>
-
-    Plug 'kaicataldo/material.vim'
+   Plug 'kaicataldo/material.vim'
       let g:material_terminal_italics = 0
       let g:material_theme_style = 'palenight'
 
@@ -349,8 +366,9 @@ call plug#begin(s:vim_plug_plugins)
       let g:vimfiler_force_overwrite_statusline = 0
       let g:vimshell_force_overwrite_statusline = 0
 
-    Plug 'buoto/gotests-vim'
     Plug 'ziglang/zig.vim'
+
+    Plug 'buoto/gotests-vim'
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
       let g:go_highlight_methods = 1
       let g:go_highlight_structs = 1
@@ -435,10 +453,6 @@ call plug#begin(s:vim_plug_plugins)
     "      autocmd FileType nerdtree nmap <buffer> <C-p> k
     "  augroup END
 
-    Plug 'rhysd/vim-color-spring-night'
-      let g:spring_night_kill_italic = 1
-      let g:spring_night_high_contrast = 1
-
     Plug 'deris/vim-shot-f'
 
     Plug 'machakann/vim-highlightedyank'
@@ -449,9 +463,9 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'Yggdroot/indentLine'
       let g:indentLine_showFirstIndentLevel = 1
-      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', '_defx.*']
-      let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'defx', 'terminal']
-      let g:indentLine_fileTypeExluce = ['help', 'nerdtree', 'defx']
+      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*', 'NetrwTreeListing.*']
+      let g:indentLine_bufTypeExluce = ['help', "netrw", 'terminal']
+      let g:indentLine_fileTypeExluce = ['help']
       let g:indentLine_color_term = 238
       let g:indentLine_color_gui = '#676767'
       let g:indentLine_setConceal = 0
@@ -489,6 +503,7 @@ call plug#begin(s:vim_plug_plugins)
         \ 'file': '\v\.(exe|so|dll)$',
         \ 'link': 'some_bad_symbolic_links',
         \ }
+
     Plug 'mattn/ctrlp-matchfuzzy'
       let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 
@@ -504,7 +519,7 @@ call plug#begin(s:vim_plug_plugins)
           \ <bang>0)
       let g:fzf_layout = { 'down': '~40%' }
       nnoremap <silent> <Leader>p :GFiles<CR>
-      nnoremap <silent> <Leader>f m:Files<CR>
+      nnoremap <silent> <Leader>f :Files<CR>
       nnoremap <silent> <Leader>g :Rg<CR>
       " nnoremap <silent> <Leader>b :Buffers<CR>
       " nnoremap <silent> <Leader>x :Commands<CR>
@@ -592,7 +607,6 @@ call plug#begin(s:vim_plug_plugins)
 
       augroup lsp_install
           au!
-          " call s:on_lsp_buffer_enabled only for languages that has the server registered.
           autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
       augroup END
 
