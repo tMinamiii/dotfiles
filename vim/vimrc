@@ -561,33 +561,46 @@ call plug#begin(s:vim_plug_plugins)
       imap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
       imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
       imap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
+
       let g:lsp_settings = {
-            \  'efm-langserver': {
-            \    'disabled': v:false
-            \  },
-            \  'pyls-all': {
-            \    'disabled': v:true
-            \  },
-            \  'pyls': {
-            \    'disabled': v:true
-            \  },
-            \  'pyls-ms': {
-            \    'disabled': v:true
-            \  },
-            \  'jedi-language-server': {
-            \    'disabled': v:true
-            \  },
-            \  'zls': {
-            \    'zip_lib_path': '/usr/loca/zig/lib',
-            \    'zip_exe_path': '/usr/loca/zig/zig'
-            \  }
-            \}
+      \    'golangci-lint-langserver': {
+      \         'name': 'golangci-lint-langserver',
+      \         'cmd': {server_info->['golangci-lint-langserver']},
+      \         'initialization_options': {'command': ['golangci-lint', 'run', '--fast', '--issues-exit-code=1', '--out-format', 'json']},
+      \         'whitelist': ['go']
+      \    }
+      \ }
+
+      " let g:lsp_settings = {
+      "      \  'efm-langserver': {
+      "      \    'disabled': v:false
+      "      \  },
+      "      \  'pyls-all': {
+      "      \    'disabled': v:true
+      "      \  },
+      "      \  'pyls': {
+      "      \    'disabled': v:true
+      "      \  },
+      "      \  'pyls-ms': {
+      "      \    'disabled': v:true
+      "      \  },
+      "      \  'jedi-language-server': {
+      "      \    'disabled': v:true
+      "      \  },
+      "      \  'zls': {
+      "      \    'zip_lib_path': '/usr/loca/zig/lib',
+      "      \    'zip_exe_path': '/usr/loca/zig/zig'
+      "      \  }
+      "      \}
 
       let g:lsp_diagnostics_enabled = 1
       let g:lsp_diagnostics_echo_cursor = 1
-      let g:lsp_diagnostics_float_cursor = 0
+      let g:lsp_diagnostics_float_cursor = 1
       let g:lsp_diagnostics_float_delay = 200
-      let g:lsp_settings_filetype_python = "pyright-langserver"
+
+      let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+      " let g:lsp_settings_filetype_go = ['golangci-lint-langserver']
+      let g:lsp_settings_filetype_python = ['pyright-langserver']
       let g:UltiSnipsExpandTrigger="<tab>"
       let g:UltiSnipsJumpForwardTrigger="<tab>"
       let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -603,8 +616,9 @@ call plug#begin(s:vim_plug_plugins)
           nmap <buffer> <leader>rn <plug>(lsp-rename)
           nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
           nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-          nmap <buffer> K <plug>(lsp-hover)
-          nmap <buffer> <C-l><C-l> <plug>(lsp-document-diagnostics)
+          " nmap <buffer> K <plug>(lsp-hover)
+          " nmap <buffer> <C-l><C-l> <plug>(lsp-document-diagnostics)
+          nmap <buffer> <C-l><C-l> <plug>(lsp-hover)
           let g:lsp_format_sync_timeout = 1000
           autocmd! BufWritePre *.rs,*.go,*.py,*.c,*.ts,*.js call execute('LspDocumentFormatSync')
       endfunction
@@ -613,7 +627,10 @@ call plug#begin(s:vim_plug_plugins)
           au!
           autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
       augroup END
-
+      " let g:lsp_log_verbose = 1
+      " let g:lsp_log_file = expand('~/vim-lsp.log')
+      " for asyncomplete.vim log
+      " let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 call plug#end()
 
 
