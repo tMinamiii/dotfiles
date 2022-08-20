@@ -1,4 +1,6 @@
 #!/bin/zsh
+#
+zmodload zsh/zprof && zprof
 
 set bell-style none
 skip_global_compinit=1
@@ -6,9 +8,10 @@ setopt no_beep
 
 export HISTFILE=${HOME}/.zsh_history
 
-export HISTSIZE=100000
-export SAVEHIST=100000
+export HISTSIZE=1000000
+export SAVEHIST=1000000
 setopt hist_ignore_dups
+
 # setopt share_history
 setopt EXTENDED_HISTORY
 setopt hist_ignore_all_dups
@@ -324,9 +327,9 @@ export ZINIT="$HOME/.local/share/zinit"
 export ENHANCD_COMMAND=cdd
 
 ### Added by Zinit's installer
-if [[ ! -f $ZINIT/zinit.git/zinit.zsh ]]; then
+if [[ ! -f "$ZINIT/zinit.git/zinit.zsh" ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$ZINIT" && command chmod g-rwX "$ZINIT"
+    command mkdir -p $ZINIT && command chmod g-rwX $ZINIT
     command git clone https://github.com/zdharma-continuum/zinit "$ZINIT/zinit.git" && \
         print -P "%F{33} %F{34}Installation successful.%f%b" || \
         print -P "%F{160} The clone has failed.%f%b"
@@ -339,7 +342,7 @@ autoload -Uz _zinit
 zinit light dracula/zsh
 zinit light zsh-users/zsh-autosuggestions
 zinit light b4b4r07/enhancd
-zinit light marlonrichert/zsh-autocomplete
+# marlonrichert/zsh-autocomplete
 
 ### Bind keys ###
 zle -N ghq-fzf
@@ -362,5 +365,9 @@ if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="${HOME}/.sdkman"
-[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+# export SDKMAN_DIR="${HOME}/.sdkman"
+# [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+
+if (which zprof > /dev/null 2>&1) ;then
+  zprof
+fi
