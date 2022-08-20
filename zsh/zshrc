@@ -318,7 +318,7 @@ function ghq-fzf() {
 [ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
 
 ### anyenv ###
-# [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init - --no-rehash)"
+# [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init -)"
 function anyenv-cache() {
     [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
     anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
@@ -329,28 +329,21 @@ if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
     source $XDG_CACHE_HOME/anyenv/init.zsh
 fi
 
-export ZINIT="$HOME/.zinit"
+export ZNAP="$HOME/.znap"
 export ENHANCD_COMMAND=cdd
 
-### zinit ###
-#
-if [[ ! -f $ZINIT/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-    command mkdir -p "$ZINIT" && command chmod g-rwX "$ZINIT"
-    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f"
-fi
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-autoload -Uz edit-command-line
-(( ${+_comps} )) && _comps[zinit]=_zinit
+[[ -f $ZNAP/zsh-snap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git $ZNAP/zsh-snap
 
-zinit light zsh-users/zsh-autosuggestions
-# zinit light zdharma/fast-syntax-highlighting
-zinit light dracula/zsh
-zinit light b4b4r07/enhancd
-zinit light marlonrichert/zsh-autocomplete
+source $ZNAP/zsh-snap/znap.zsh
+
+# `znap source` automatically downloads and starts your plugins.
+znap source marlonrichert/zsh-autocomplete
+znap source zsh-users/zsh-autosuggestions
+znap source dracula/zsh
+znap source b4b4r07/enhancd
+# znap source zsh-users/zsh-syntax-highlighting
 
 ### Bind keys ###
 zle -N ghq-fzf
