@@ -53,8 +53,6 @@ export PATH=$PATH:"${HOME}/zls"
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
-
-
 if uname -a | grep -sq "Ubuntu"; then
   # export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
   # PATH="$JAVA_HOME/bin:$PATH"
@@ -329,21 +327,26 @@ if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
     source $XDG_CACHE_HOME/anyenv/init.zsh
 fi
 
-export ZNAP="$HOME/.znap"
+export ZINIT="$HOME/.local/share/zinit"
 export ENHANCD_COMMAND=cdd
 
-[[ -f $ZNAP/zsh-snap/znap.zsh ]] ||
-    git clone --depth 1 -- \
-        https://github.com/marlonrichert/zsh-snap.git $ZNAP/zsh-snap
+### Added by Zinit's installer
+if [[ ! -f $ZINIT/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$ZINIT" && command chmod g-rwX "$ZINIT"
+    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
 
-source $ZNAP/zsh-snap/znap.zsh
+source "$ZINIT/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# `znap source` automatically downloads and starts your plugins.
-znap source marlonrichert/zsh-autocomplete
-znap source zsh-users/zsh-autosuggestions
-znap source dracula/zsh
-znap source b4b4r07/enhancd
-# znap source zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light dracula/zsh
+zinit light b4b4r07/enhancd
+zinit light marlonrichert/zsh-autocomplete
 
 ### Bind keys ###
 zle -N ghq-fzf
@@ -368,3 +371,5 @@ fi
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+
+
