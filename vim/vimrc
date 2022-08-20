@@ -592,7 +592,9 @@ call plug#begin(s:vim_plug_plugins)
       "      \    'zip_exe_path': '/usr/loca/zig/zig'
       "      \  }
       "      \}
-
+      "
+      let g:lsp_hover_ui = 'float'
+      let g:lsp_preview_float = 1
       let g:lsp_diagnostics_enabled = 1
       let g:lsp_diagnostics_echo_cursor = 1
       let g:lsp_diagnostics_float_cursor = 1
@@ -616,9 +618,9 @@ call plug#begin(s:vim_plug_plugins)
           nmap <buffer> <leader>rn <plug>(lsp-rename)
           nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
           nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-          " nmap <buffer> K <plug>(lsp-hover)
-          " nmap <buffer> <C-l><C-l> <plug>(lsp-document-diagnostics)
-          nmap <buffer> <C-l><C-l> <plug>(lsp-hover)
+          nmap <buffer> K <plug>(lsp-hover)
+          nmap <buffer> <C-l><C-l> <plug>(lsp-document-diagnostics)
+
           let g:lsp_format_sync_timeout = 1000
           autocmd! BufWritePre *.rs,*.go,*.py,*.c,*.ts,*.js call execute('LspDocumentFormatSync')
       endfunction
