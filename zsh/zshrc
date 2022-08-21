@@ -52,7 +52,6 @@ export DOTFILES="$HOME/dotfiles"
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
-source "$WORK_ZSH/work.zsh"
 if uname -a | grep -sq "Ubuntu"; then
   # export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
   # PATH="$JAVA_HOME/bin:$PATH"
@@ -72,6 +71,7 @@ elif [ "$(uname)" = "Darwin" ]; then
     command mkdir -p $WORK_ZSH && command chmod g-rwX $WORK_ZSH
     command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "$WORK_ZSH"
   fi
+  source "$WORK_ZSH/work.zsh"
 
 elif [ -n "$WSL_DISTRO_NAME" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"
