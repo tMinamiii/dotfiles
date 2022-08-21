@@ -250,8 +250,8 @@ endif
 
 call plug#begin(s:vim_plug_plugins)
     Plug 'preservim/nerdtree'
-      nnoremap <silent><Leader>n :NERDTreeToggle<CR>
-      nnoremap <silent><Leader>h :NERDTreeFind<CR>
+      nmap <silent><Leader>n :NERDTreeToggle<CR>
+      nmap <silent><Leader>h :NERDTreeFind<CR>
       let g:NERDTreeWinSize = 35
       let g:NERDTreeLimitedSyntax = 1
       let g:NERDTreeQuitOnOpen = 0
@@ -433,7 +433,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'honza/vim-snippets'
 
     Plug 'liuchengxu/vista.vim'
-      nnoremap <silent> <C-f><C-v> :<C-u>Vista vim_lsp<CR>
+      nmap <silent> <C-f><C-v> :<C-u>Vista vim_lsp<CR>
       let g:vista_close_on_jump = 1
       let g:vista_icon_indent = ['`-> ', '|-> ']
       let g:vista#renderer#enable_icon = 0
@@ -448,7 +448,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'terryma/vim-multiple-cursors'
 
     Plug 'osyo-manga/vim-over'
-      nnoremap <silent> <Leader>o :OverCommandLine<CR>
+      nmap <silent> <Leader>o :OverCommandLine<CR>
 
     Plug 'sheerun/vim-polyglot'
       let g:vim_json_syntax_conceal = 0
@@ -478,15 +478,15 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'tpope/vim-surround'
 
     Plug 'easymotion/vim-easymotion'
-    nnoremap <Leader> <Plug>(easymotion-prefix)
+    nmap <Leader> <Plug>(easymotion-prefix)
 
     Plug 'junegunn/vim-easy-align'
-      nnoremap ga <Plug>(EasyAlign)
-      xnoremap ga <Plug>(EasyAlign)
+      nmap ga <Plug>(EasyAlign)
+      xmap ga <Plug>(EasyAlign)
       let g:easy_align_ignore_groups = []
 
     Plug 'tomtom/tcomment_vim'
-      vnoremap ? :'<,'>TComment<CR>
+      vmap ? :'<,'>TComment<CR>
 
     Plug 'previm/previm'
       if IsWSL()
@@ -527,7 +527,7 @@ call plug#begin(s:vim_plug_plugins)
       nmap <silent> <Leader>x :Commands<CR>
 
     Plug 'rhysd/git-messenger.vim'
-      nnoremap <Leader>gm <Plug>(git-messenger)
+      nmap <Leader>gm <Plug>(git-messenger)
       let g:git_messenger_include_diff = 'current'
       let g:git_messenger_always_into_popup = v:true
       let g:git_messenger_into_popup_after_show = v:true
@@ -559,8 +559,8 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
         " Expand
-        " inoremap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-        " snoremap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+        " imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+        " smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 
         " Expand or jump
         imap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
@@ -580,9 +580,9 @@ call plug#begin(s:vim_plug_plugins)
         " xmap S <Plug>(vsnip-cut-text)
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
-      inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-      inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-      inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+      imap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+      imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+      imap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
       let g:lsp_settings = {
       \    'efm-langserver': {
       \      'disabled': v:false
