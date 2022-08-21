@@ -1,6 +1,6 @@
 set encoding=utf-8
 scriptencoding utf-8
-set completeopt+=noselect
+set completeopt+=menuone,noinsert,noselect
 
 """"" [検索系]
 set ignorecase                  " 大文字小文字を区別しない
@@ -546,25 +546,32 @@ call plug#begin(s:vim_plug_plugins)
       let g:vim_markdown_conceal = 0
       let g:vim_markdown_folding_disabled = 1
 
-    Plug 'cohama/lexima.vim'
 
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-    Plug 'SirVer/ultisnips'
-    Plug 'thomasfaingnaert/vim-lsp-snippets'
-    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+    Plug 'jiangmiao/auto-pairs'
+    " Plug 'cohama/lexima.vim'
+    " Plug 'SirVer/ultisnips'
+    " Plug 'thomasfaingnaert/vim-lsp-snippets'
+    " Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+      " let g:UltiSnipsExpandTrigger="<tab>"
+      " let g:UltiSnipsJumpForwardTrigger="<tab>"
+      " let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
-      imap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-      imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-      imap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
-
+      inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+      inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+      inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
       let g:lsp_settings = {
+      \    'efm-langserver': {
+      \      'disabled': v:false
+      \    },
       \    'golangci-lint-langserver': {
       \         'name': 'golangci-lint-langserver',
+      \         'url': 'https://github.com/tMinamiii/golangci-lint-langserver',
       \         'cmd': {server_info->['golangci-lint-langserver']},
       \         'initialization_options': {'command': ['golangci-lint', 'run', '--fast', '--issues-exit-code=1', '--out-format', 'json']},
       \         'whitelist': ['go']
@@ -572,27 +579,11 @@ call plug#begin(s:vim_plug_plugins)
       \ }
 
       " let g:lsp_settings = {
-      "      \  'efm-langserver': {
-      "      \    'disabled': v:false
-      "      \  },
-      "      \  'pyls-all': {
-      "      \    'disabled': v:true
-      "      \  },
-      "      \  'pyls': {
-      "      \    'disabled': v:true
-      "      \  },
-      "      \  'pyls-ms': {
-      "      \    'disabled': v:true
-      "      \  },
-      "      \  'jedi-language-server': {
-      "      \    'disabled': v:true
-      "      \  },
       "      \  'zls': {
       "      \    'zip_lib_path': '/usr/loca/zig/lib',
       "      \    'zip_exe_path': '/usr/loca/zig/zig'
       "      \  }
       "      \}
-      "
       let g:lsp_hover_ui = 'float'
       let g:lsp_preview_float = 1
       let g:lsp_diagnostics_enabled = 1
@@ -601,11 +592,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:lsp_diagnostics_float_delay = 200
 
       let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
-      " let g:lsp_settings_filetype_go = ['golangci-lint-langserver']
-      let g:lsp_settings_filetype_python = ['pyright-langserver']
-      let g:UltiSnipsExpandTrigger="<tab>"
-      let g:UltiSnipsJumpForwardTrigger="<tab>"
-      let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+      let g:lsp_settings_filetype_python = ['pyls-ms', 'pyright-langserver']
 
       function! s:on_lsp_buffer_enabled() abort
           setlocal omnifunc=lsp#complete
