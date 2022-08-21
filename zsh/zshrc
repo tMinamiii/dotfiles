@@ -47,9 +47,12 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$PATH:"/usr/local/go/bin"
 export PATH=$PATH:"${HOME}/go/bin"
 export PATH=$PATH:"${HOME}/zls"
+export DOTFILES="$HOME/dotfiles"
+
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
+source "$WORK_ZSH/work.zsh"
 if uname -a | grep -sq "Ubuntu"; then
   # export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
   # PATH="$JAVA_HOME/bin:$PATH"
@@ -63,119 +66,12 @@ elif [ "$(uname)" = "Darwin" ]; then
   export PATH="/usr/local/sbin":$PATH
   export PATH=$PATH:/Users/takahiro.minami/Library/Android/sdk/platform-tools
   export DBC_USER="takahiro.minami@every.tv"
-  alias openaws="open https://everytv.awsapps.com/start#/"
-  alias ubuntu="ssh -o ServerAliveInterval=60 tminamiii@192.168.56.100"
-  function ec2() {
-    if [ -z "$1" ]; then
-      local username="delish"
-    elif [ "$1" = "d" ]; then
-      local username="delish"
-    elif [ "$1" = "u" ]; then
-      local username="ubuntu"
-    else
-      local username=$1
-    fi
-    local src=$(aws ec2 describe-instances --query 'Reservations[*].[[Instances[*].[InstanceId, PublicDnsName, PublicIpAddress, [Tags[?Key==`Name`].Value][0][0]]]]' --output text | grep -v None | grep -v 'ECS Instance' | grep -v 'worker' | fzf ); \
-    local name=$(echo ${src} | awk '{print $4}'); \
-    local ipaddr=$(echo ${src} | awk '{print $3}'); \
-    if echo ${name} | grep -sq "dev"; then
-      ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ${username}@${ipaddr}
-    else
-      ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ${username}@${ipaddr}
-    fi
-  }
 
-  function ecs-ec2() {
-    local src=$(aws ec2 describe-instances --query 'Reservations[*].[[Instances[*].[InstanceId, PublicDnsName, PublicIpAddress, [Tags[?Key==`Name`].Value][0][0]]]]' --output text | grep -v None | grep 'ECS Instance' | fzf ); \
-    local name=$(echo ${src} | awk '{print $7}'); \
-    local ipaddr=$(echo ${src} | awk '{print $3}'); \
-    if echo ${name} | grep -sq "dev"; then
-      ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr}
-    else
-      ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ec2-user@${ipaddr}
-    fi
-  }
-
-  function tailf-mydev() {
-    local cluster="dev-delish"; \
-    local service_name="t-minami-dev-delish-server"; \
-    local task_arn=$(aws ecs list-tasks --cluster "${cluster}" --service-name ${service_name} --output text | awk 'NR==1' | awk '{print $2}'); \
-    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn'); \
-    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text); \
-    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp'); \
-    local dockerps=$(ssh -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr} docker ps | grep t-minami | awk '{print $1}'); \
-    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr} tail -f /var/log/delish-fluentd/delish-api-${dockerps}.log
-  }
-
-  function tailf-dev() {
-    local cluster="dev-delish"; \
-    local service_name="dev-delish-server3"; \
-    local task_arn=$(aws ecs list-tasks --cluster "${cluster}" --service-name ${service_name} --output text | awk 'NR==1' | awk '{print $2}'); \
-    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn'); \
-    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text); \
-    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp'); \
-    local dockerps=$(ssh -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr} docker ps | grep "delish-server:develop" | awk '{print $1}'); \
-    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr} tail -f /var/log/delish-fluentd/delish-api-${dockerps}.log
-  }
-
-  function dev-delish() {
-    local cluster="dev-delish"; \
-    local service_name=$(echo "dev-delish-server3\nt-minami-dev-delish-server\n" | fzf); \
-    local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf); \
-    local task_arn=$(echo ${task_arns} | awk '{print $2}'); \
-    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn'); \
-    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text); \
-    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp'); \
-    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr}
-  }
-
-  function dev-delish-payment() {
-    local cluster="dev-delish-payment"; \
-    local service_name="dev-delish-payment"; \
-    local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf); \
-    local task_arn=$(echo ${task_arns} | awk '{print $2}'); \
-    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn'); \
-    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text); \
-    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp'); \
-    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-dev.pem ec2-user@${ipaddr}
-  }
-
-  function prd-delish-es() {
-    local cluster="delish-es2"; \
-    local service_name="delish-es-daemon"; \
-    local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf); \
-    local task_arn=$(echo ${task_arns} | awk '{print $2}'); \
-    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn'); \
-    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text | fzf); \
-    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp'); \
-    echo $ipaddr
-    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ec2-user@${ipaddr}
-  }
-
-
-  function prd-delish() {
-    local cluster="delish2"; \
-    local service_name="delish-server3"; \
-    local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf); \
-    local task_arn=$(echo ${task_arns} | awk '{print $2}'); \
-    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn'); \
-    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text | fzf); \
-    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp'); \
-    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ec2-user@${ipaddr}
-  }
-
-  function prd-delish-payment() {
-    local cluster="delish-payment"; \
-    local service_name="delish-payment"; \
-    local task_arns=$(aws ecs list-tasks --cluster "${cluster}" --service-name "${service_name}" --output text | fzf); \
-    local task_arn=$(echo ${task_arns} | awk '{print $2}'); \
-    local server_container_instance_arn=$(aws ecs describe-tasks --cluster "${cluster}" --tasks "${task_arn}" | jq -r '.tasks[0].containerInstanceArn'); \
-    local ec2_instance_id=$(aws ecs describe-container-instances --cluster "${cluster}" --container-instances "${server_container_instance_arn}" --query 'containerInstances[*].[[ec2InstanceId]]' --output text | fzf); \
-    local ipaddr=$(aws ec2 describe-instances --instance-ids "${ec2_instance_id}" | jq -r '.[][0].Instances[0].NetworkInterfaces[0].Association.PublicIp'); \
-    ssh -o ServerAliveInterval=60 -i ~/.ssh/delish-production.pem ec2-user@${ipaddr}
-  }
-
-  export REDIS_CLUSTER_IP=127.0.0.1
+  export WORK_ZSH="$HOME/.local/share/work/work.git"
+  if [[ ! -f "$WORK_ZSH/work.zsh" ]]; then
+    command mkdir -p $WORK_ZSH && command chmod g-rwX $WORK_ZSH
+    command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "$WORK_ZSH"
+  fi
 
 elif [ -n "$WSL_DISTRO_NAME" ]; then
   PATH="/mnt/c/Windows/System32:$PATH"

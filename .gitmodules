@@ -1,3 +1,12 @@
 [submodule "vim/coc"]
 	path = vim/coc
 	url = git@gist.github.com:df71bd188855f4c0e63a1a23b1923e94.git
+[submodule "zsh/work.zsh"]
+	path = zsh/work.zsh
+	url = git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git
+[submodule "zsh/adb0e6dbed1ec82a2de645040485c525"]
+	path = zsh/adb0e6dbed1ec82a2de645040485c525
+	url = git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git
+[submodule "zsh/work"]
+	path = zsh/work
+	url = git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git
