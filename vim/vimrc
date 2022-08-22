@@ -48,6 +48,7 @@ set termguicolors
 set wildmenu
 set wildmode=full
 set wildoptions=pum
+set pumheight=10
 
 "" for tmux 24bit color
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -109,16 +110,16 @@ vnoremap  <Down>   <nop>
 vnoremap  <Left>   <nop>
 vnoremap  <Right>  <nop>
 
-inoremap  <C-h> <BS>
-inoremap  <C-l> <DEL>
+inoremap  <C-h>    <BS>
+inoremap  <C-l>    <DEL>
 inoremap  <C-c>    <nop>
 inoremap  <Up>     <nop>
 inoremap  <Down>   <nop>
 inoremap  <Left>   <nop>
 inoremap  <Right>  <nop>
 
-nnoremap  <C-k> {
-nnoremap  <C-j> }
+nnoremap   <C-k>   {
+nnoremap   <C-j>   }
 nnoremap   <C-c>    <nop>
 nnoremap   <Up>     <nop>
 nnoremap   <Down>   <nop>
