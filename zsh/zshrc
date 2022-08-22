@@ -236,7 +236,7 @@ autoload -Uz _zinit
 zinit light dracula/zsh
 zinit light zsh-users/zsh-autosuggestions
 zinit light b4b4r07/enhancd
-# zinit light marlonrichert/zsh-autocomplete
+zinit light marlonrichert/zsh-autocomplete
 
 ### Bind keys ###
 zle -N ghq-fzf
