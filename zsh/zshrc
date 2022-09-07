@@ -118,15 +118,16 @@ else
   alias grep='grep --color'
   alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 
-  alias eee='GGG="goooo$3zzzzz" echo ${GGG}'
   alias build-vim='sudo echo "start" && make clean && make distclean  && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make -j12 && sudo make install'
   alias make-vim='build-vim'
   alias build-nvim='sudo echo "start" && sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
   alias make-nvim='build-nvim'
   function go-update() {
-    GOGZ="go${1}.linux-amd64.tar.gz"
+    LATEST_GO_VERSION=$(curl -s 'https://go.dev/dl/?mode=json' | jq -r '[.[]][0].version')
+    echo "Update to ${LATEST_GO_VERSION}"
+    GOGZ="${LATEST_GO_VERSION}.linux-amd64.tar.gz"
     cd /tmp
-    sudo curl -OL https://go.dev/dl/${GOGZ} && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf ${GOGZ} && sudo rm ${GOGZ} && echo "$(go version) installed !!"
+    sudo curl -OL https://go.dev/dl/${GOGZ} && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf ${GOGZ} && sudo rm ${GOGZ} && echo "Installed $(go version) !!!"
     cd - > /dev/null
   }
 
