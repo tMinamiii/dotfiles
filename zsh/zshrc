@@ -45,6 +45,7 @@ export DENO_INSTALL="${HOME}/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$PATH:"/usr/local/go/bin"
+export PATH=$PATH:"/usr/local/protobuf/bin"
 export PATH=$PATH:"${HOME}/go/bin"
 export PATH=$PATH:"${HOME}/zls"
 export DOTFILES="$HOME/dotfiles"
@@ -122,14 +123,7 @@ else
   alias make-vim='build-vim'
   alias build-nvim='sudo echo "start" && sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
   alias make-nvim='build-nvim'
-  function go-update() {
-    LATEST_GO_VERSION=$(curl -s 'https://go.dev/dl/?mode=json' | jq -r '[.[]][0].version')
-    echo "Update to ${LATEST_GO_VERSION}"
-    GOGZ="${LATEST_GO_VERSION}.linux-amd64.tar.gz"
-    cd /tmp
-    sudo curl -OL https://go.dev/dl/${GOGZ} && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf ${GOGZ} && sudo rm ${GOGZ} && echo "Installed $(go version) !!!"
-    cd - > /dev/null
-  }
+  alias go-update='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tMinamiii/go-update/master/install.sh)"'
 
   alias t='tail -f'
   if [ -n "$WSL_DISTRO_NAME" ]; then
