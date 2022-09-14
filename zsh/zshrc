@@ -123,7 +123,6 @@ else
   alias make-vim='build-vim'
   alias build-nvim='sudo echo "start" && sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
   alias make-nvim='build-nvim'
-  alias go-update='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tMinamiii/go-update/master/install.sh)"'
 
   alias t='tail -f'
   if [ -n "$WSL_DISTRO_NAME" ]; then
@@ -170,14 +169,15 @@ alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset
 alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias dus='du --max-depth=1 -h | sort -nr'
 alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
+alias go-update='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tMinamiii/go-update/master/install.sh)"'
 # echo 70 > /sys/class/power_supply/BAT0/charge_start_threshold
 # echo 85 > /sys/class/power_supply/BAT0/charge_stop_threshold
 # docker
 alias docker-ps='docker ps -a'
 alias docker-rm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
 alias docker-prune='docker system prune --volumes'
-alias dc='docker compose'
-alias d-c='docker-compose'
+alias dc='docker compose '
+alias d-c='docker-compose '
 
 # raspi
 alias pi1='ssh ubuntu@172.16.27.10'
