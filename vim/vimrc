@@ -392,7 +392,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'ziglang/zig.vim'
 
     Plug 'buoto/gotests-vim'
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
+    Plug 'fatih/vim-go' ", { 'do': ':GoUpdateBinaries', 'for': 'go' }
       let g:go_highlight_methods = 1
       let g:go_highlight_structs = 1
       let g:go_highlight_operators = 1
@@ -590,15 +590,15 @@ call plug#begin(s:vim_plug_plugins)
       let g:lsp_settings = {
       \    'efm-langserver': {
       \      'disabled': v:false
+      \    },
+      \    'golangci-lint-langserver': {
+      \         'name': 'golangci-lint-langserver',
+      \         'url': 'https://github.com/tMinamiii/golangci-lint-langserver',
+      \         'cmd': {server_info->['golangci-lint-langserver']},
+      \         'initialization_options': {'command': ['golangci-lint', 'run', '--fast', '--issues-exit-code=1', '--out-format', 'json']},
+      \         'whitelist': ['go']
       \    }
       \ }
-      " \    'golangci-lint-langserver': {
-      " \         'name': 'golangci-lint-langserver',
-      " \         'url': 'https://github.com/tMinamiii/golangci-lint-langserver',
-      " \         'cmd': {server_info->['golangci-lint-langserver']},
-      " \         'initialization_options': {'command': ['golangci-lint', 'run', '--fast', '--issues-exit-code=1', '--out-format', 'json']},
-      " \         'whitelist': ['go']
-      " \    }
       " let g:lsp_settings = {
       "      \  'zls': {
       "      \    'zip_lib_path': '/usr/loca/zig/lib',
