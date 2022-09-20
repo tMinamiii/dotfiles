@@ -31,6 +31,7 @@ export ANYENV_ROOT="$HOME/.anyenv"
 export XDG_CACHE_HOME="$HOME/.cache"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
 export PHPENV_ROOT="$HOME/.anyenv/envs/phpenv"
+export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export GTAGSLABEL=pygments
 
 export GO111MODULE=on
@@ -38,41 +39,35 @@ export TERM=xterm-256color
 export PIPENV_VENV_IN_PROJECT=true
 export FZF_DEFAULT_OPTS='--height 40% --border'
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
+export DOTFILES="$HOME/dotfiles"
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export DENO_INSTALL="${HOME}/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$PATH:"/usr/local/go/bin"
-export PATH=$PATH:"/usr/local/protobuf/bin"
-export PATH=$PATH:"${HOME}/go/bin"
-export PATH=$PATH:"${HOME}/zls"
-export PATH="$PATH:$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin"
-export DOTFILES="$HOME/dotfiles"
 
+export PATH="/usr/local/bin":"/usr/local/sbin":$PATH
+export PATH="$DENO_INSTALL/bin":$PATH
+export PATH="$HOME/.cargo/bin":$PATH
+export PATH="/usr/local/go/bin":"$HOME/go/bin":$PATH
+export PATH="/usr/local/protobuf/bin":$PATH
+export PATH="${HOME}/zls":$PATH
+export PATH="$PATH:$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin"
+export PATH="$JAVA_HOME/bin":$PATH
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
 if uname -a | grep -sq "Linux"; then
   if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    PATH="/mnt/c/Windows/System32:$PATH"
-    export PATH="$JAVA_HOME/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
-
+    export PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
     ## WSL genie for daemonize docker
     # if [[ ! -v INSIDE_GENIE ]]; then
     #   exec /usr/bin/genie -s
     # fi
   fi
-
-  export JAVA_HOME=$HOME/.sdkman/candidates/java/current
-  export PATH=$JAVA_HOME/bin:$PATH
-  export PATH=$PATH:"/usr/local/bin"
-  export PATH=$PATH:"/usr/local/go/bin":"$HOME/go/bin"
-  export PATH=$PATH:"/usr/local/zig"
-  export PATH=$PATH:"/usr/local/flutter/bin"
-  export PATH=$PATH:"/usr/local/android-studio/bin"
+  export PATH="/usr/local/zig":$PATH
+  export PATH="/usr/local/flutter/bin":$PATH
+  export PATH="/usr/local/android-studio/bin":$PATH
   export ANDROID_SDK_ROOT="${HOME}/Android/Sdk"
-  export PATH=$PATH:"${ANDROID_SDK_ROOT}/bin"
-  export PATH=$PATH:"${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin"
+  export PATH="${ANDROID_SDK_ROOT}/bin":$PATH
+  export PATH="${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin":$PATH
 
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls --color'
@@ -100,10 +95,7 @@ if uname -a | grep -sq "Linux"; then
 
 elif [[ "$(uname)" = "Darwin" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-  export JAVA_HOME=$HOME/.sdkman/candidates/java/current
-  export PATH=$JAVA_HOME/bin:$PATH
-  export PATH="/usr/local/sbin":$PATH
-  export PATH=$PATH:/Users/takahiro.minami/Library/Android/sdk/platform-tools
+  export PATH="/Users/takahiro.minami/Library/Android/sdk/platform-tools":$PATH
   export DBC_USER="takahiro.minami@every.tv"
 
   export WORK_ZSH="$HOME/.local/share/work/work.git"
