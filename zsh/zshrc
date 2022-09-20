@@ -18,7 +18,7 @@ setopt hist_verify
 setopt hist_no_store
 setopt inc_append_history
 
-[ "$TMUX" != "" ] && export TERM="screen-256color"
+[[ "$TMUX" != "" ]] && export TERM="screen-256color"
 export MANPATH="/usr/local/man:$MANPATH"
 
 export LC_CTYPE=en_US.UTF-8
@@ -34,7 +34,6 @@ export PHPENV_ROOT="$HOME/.anyenv/envs/phpenv"
 export GTAGSLABEL=pygments
 
 export GO111MODULE=on
-
 export TERM=xterm-256color
 export PIPENV_VENV_IN_PROJECT=true
 export FZF_DEFAULT_OPTS='--height 40% --border'
@@ -48,18 +47,58 @@ export PATH=$PATH:"/usr/local/go/bin"
 export PATH=$PATH:"/usr/local/protobuf/bin"
 export PATH=$PATH:"${HOME}/go/bin"
 export PATH=$PATH:"${HOME}/zls"
+export PATH="$PATH:$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin"
 export DOTFILES="$HOME/dotfiles"
-
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
-if uname -a | grep -sq "Ubuntu"; then
-  # export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
-  # PATH="$JAVA_HOME/bin:$PATH"
+if uname -a | grep -sq "Linux"; then
+  if [[ -n "$WSL_DISTRO_NAME" ]]; then
+    PATH="/mnt/c/Windows/System32:$PATH"
+    export PATH="$JAVA_HOME/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
+
+    ## WSL genie for daemonize docker
+    # if [[ ! -v INSIDE_GENIE ]]; then
+    #   exec /usr/bin/genie -s
+    # fi
+  fi
+
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
-  export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
   export PATH=$JAVA_HOME/bin:$PATH
-elif [ "$(uname)" = "Darwin" ]; then
+  export PATH=$PATH:"/usr/local/bin"
+  export PATH=$PATH:"/usr/local/go/bin":"$HOME/go/bin"
+  export PATH=$PATH:"/usr/local/zig"
+  export PATH=$PATH:"/usr/local/flutter/bin"
+  export PATH=$PATH:"/usr/local/android-studio/bin"
+  export ANDROID_SDK_ROOT="${HOME}/Android/Sdk"
+  export PATH=$PATH:"${ANDROID_SDK_ROOT}/bin"
+  export PATH=$PATH:"${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin"
+
+  # ls, the common ones I use a lot shortened for rapid fire usage
+  alias ls='ls --color'
+  alias l='ls -lFh --color'     #size,show type,human readable
+  alias la='ls -lAFh --color'   #long list,show almost all,show type,human readable
+  alias lr='ls -tRFh --color'   #sorted by date,recursive,show type,human readable
+  alias lt='ls -ltFh --color'   #long list,sorted by date,show type,human readable
+  alias ll='ls -l --color'      #long list
+  alias grep='grep --color'
+  alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
+  alias t='tail -f'
+
+  alias build-vim='sudo echo "start" && make clean && make distclean  && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make -j12 && sudo make install'
+  alias make-vim='build-vim'
+  alias build-nvim='sudo echo "start" && sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
+  alias make-nvim='build-nvim'
+
+  if [[ -n "$WSL_DISTRO_NAME" ]]; then
+    alias open='wsl-open'
+  else
+    alias open='xdg-open'
+  fi
+
+  eval `ssh-agent` > /dev/null 2>&1
+
+elif [[ "$(uname)" = "Darwin" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
   export JAVA_HOME=$HOME/.sdkman/candidates/java/current
   export PATH=$JAVA_HOME/bin:$PATH
@@ -74,30 +113,6 @@ elif [ "$(uname)" = "Darwin" ]; then
   fi
   source "$WORK_ZSH/work.zsh"
 
-elif [ -n "$WSL_DISTRO_NAME" ]; then
-  PATH="/mnt/c/Windows/System32:$PATH"
-  export ANDROID_SDK_ROOT="${HOME}/Android/Sdk"
-  export JAVA_HOME=$HOME/.sdkman/candidates/java/current
-  export PATH="$JAVA_HOME/bin:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
-  export PATH=$PATH:"/usr/local/bin"
-  export PATH=$PATH:"/usr/local/go/bin":"$HOME/go/bin"
-  export PATH=$PATH:"/usr/local/zig"
-  export PATH=$PATH:"/usr/local/flutter/bin"
-  export PATH=$PATH:"/usr/local/android-studio/bin"
-  export PATH=$PATH:"${ANDROID_SDK_ROOT}/bin"
-  export PATH=$PATH:"${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin"
-
-  eval `ssh-agent` > /dev/null 2>&1
-  ## WSL genie for daemonize docker
-  # if [[ ! -v INSIDE_GENIE ]]; then
-  #   exec /usr/bin/genie -s
-  # fi
-fi
-
-export PATH="$PATH:$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin"
-#:$GOBIN:$HOME/go/bin:/usr/local/go/bin
-
-if [ "$(uname)" = "Darwin" ]; then
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls -G'
   alias l='ls -lFhG'     #size,show type,human readable
@@ -108,29 +123,9 @@ if [ "$(uname)" = "Darwin" ]; then
   alias grep='grep -G'
   alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
   alias t='tail -f'
-else
-  # ls, the common ones I use a lot shortened for rapid fire usage
-  alias ls='ls --color'
-  alias l='ls -lFh --color'     #size,show type,human readable
-  alias la='ls -lAFh --color'   #long list,show almost all,show type,human readable
-  alias lr='ls -tRFh --color'   #sorted by date,recursive,show type,human readable
-  alias lt='ls -ltFh --color'   #long list,sorted by date,show type,human readable
-  alias ll='ls -l --color'      #long list
-  alias grep='grep --color'
-  alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
-
-  alias build-vim='sudo echo "start" && make clean && make distclean  && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make -j12 && sudo make install'
-  alias make-vim='build-vim'
-  alias build-nvim='sudo echo "start" && sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
-  alias make-nvim='build-nvim'
-
-  alias t='tail -f'
-  if [ -n "$WSL_DISTRO_NAME" ]; then
-    alias open='wsl-open'
-  else
-    alias open='xdg-open'
-  fi
 fi
+
+
 alias zshrc='${=EDITOR} ~/.zshrc' # Quick access to the ~/.zshrc file
 alias vimrc='${=EDITOR} ~/.vim/vimrc' # Quick access to the ~/.zshrc file
 alias dot='cd ~/dotfiles' # Quick access to the ~/.zshrc file
@@ -170,8 +165,10 @@ alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%
 alias dus='du --max-depth=1 -h | sort -nr'
 alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
 alias go-update='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tMinamiii/go-update/master/install.sh)"'
+
 # echo 70 > /sys/class/power_supply/BAT0/charge_start_threshold
 # echo 85 > /sys/class/power_supply/BAT0/charge_stop_threshold
+
 # docker
 alias docker-ps='docker ps -a'
 alias docker-rm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
@@ -195,9 +192,9 @@ alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout priv
 function ghq-fzf() {
   local src=$(ghq list | fzf )
   local root_list=($(ghq root --all))
-  if [ -n "$src" ]; then
+  if [[ -n "$src" ]]; then
     for root in $root_list; do
-      if [ -e "${root}/${src}" ]; then
+      if [[ -e "${root}/${src}" ]]; then
         BUFFER="cd ${root}/${src}"
         zle accept-line
       fi
@@ -206,8 +203,8 @@ function ghq-fzf() {
   zle -R -c
 }
 
-[ -f "$(which hub)" ] && eval "$(hub alias -s)"
-[ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
+[[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
+[[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
 
 ### anyenv ###
 # [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init -)"
@@ -251,14 +248,14 @@ bindkey '^[' autosuggest-accept
 bindkey '^x^e' edit-command-line
 
 ### FZF
-if [ -f ~/.fzf.zsh ]; then
+if [[ -f ~/.fzf.zsh ]]; then
   source ~/.fzf.zsh
 else
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
 fi
 
-if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
+if [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
   zcompile ~/.zshrc
 fi
 
