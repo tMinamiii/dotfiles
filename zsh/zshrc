@@ -180,6 +180,7 @@ alias ide="$HOME/dotfiles/tmux/ide.sh"
 ### ghq + fzf
 alias github='gh-open $(repos)'
 alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout private.key -out public.crt'
+alias golanci-lint-update='curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin $(curl --silent "https://api.github.com/repos/golangci/golangci-lint/releases/latest" | jq -r .tag_name)'
 
 function ghq-fzf() {
   local src=$(ghq list | fzf )
