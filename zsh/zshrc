@@ -163,7 +163,7 @@ alias dus='du --max-depth=1 -h | sort -nr'
 alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
 alias go-up='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tMinamiii/go-update/master/install.sh)"'
 alias deno-up='deno upgrade'
-alias rust-up='rust update'
+alias rust-up='rustup update'
 
 # echo 70 > /sys/class/power_supply/BAT0/charge_start_threshold
 # echo 85 > /sys/class/power_supply/BAT0/charge_stop_threshold
