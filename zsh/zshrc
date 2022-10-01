@@ -18,6 +18,8 @@ setopt hist_verify
 setopt hist_no_store
 setopt inc_append_history
 
+zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
+
 [[ "$TMUX" != "" ]] && export TERM="screen-256color"
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -43,31 +45,33 @@ export DOTFILES="$HOME/dotfiles"
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export DENO_INSTALL="${HOME}/.deno"
-
+export DISPLAY=:0.0
 export PATH="/usr/local/bin":"/usr/local/sbin":$PATH
-export PATH="$DENO_INSTALL/bin":$PATH
-export PATH="$HOME/.cargo/bin":$PATH
-export PATH="/usr/local/go/bin":"$HOME/go/bin":$PATH
-export PATH="/usr/local/protobuf/bin":$PATH
-export PATH="${HOME}/zls":$PATH
-export PATH="$PATH:$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin"
-export PATH="$JAVA_HOME/bin":$PATH
-zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
+PATH="$DENO_INSTALL/bin":$PATH
+PATH="$HOME/.cargo/bin":$PATH
+PATH="/usr/local/go/bin":"$HOME/go/bin":$PATH
+PATH="/usr/local/protobuf/bin":$PATH
+PATH="${HOME}/zls":$PATH
+PATH="$PATH:$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin"
+PATH="$JAVA_HOME/bin":$PATH
 
 if uname -a | grep -sq "Linux"; then
   if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    export PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
+    PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
     ## WSL genie for daemonize docker
     # if [[ ! -v INSIDE_GENIE ]]; then
     #   exec /usr/bin/genie -s
     # fi
   fi
-  export PATH="/usr/local/zig":$PATH
-  export PATH="/usr/local/flutter/bin":$PATH
-  export PATH="/usr/local/android-studio/bin":$PATH
-  export ANDROID_SDK_ROOT="${HOME}/Android/Sdk"
-  export PATH="${ANDROID_SDK_ROOT}/bin":$PATH
-  export PATH="${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin":$PATH
+
+  PATH="/snap/bin":$PATH
+  PATH="/usr/local/zig":$PATH
+  PATH="/usr/local/flutter/bin":$PATH
+  PATH="/usr/local/android-studio/bin":$PATH
+
+  android_sdk_root="${HOME}/Android/Sdk"
+  PATH="${android_sdk_root}/bin":$PATH
+  PATH="${android_sdk_root}/cmdline-tools/latest/bin":$PATH
 
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls --color'
@@ -95,15 +99,16 @@ if uname -a | grep -sq "Linux"; then
 
 elif [[ "$(uname)" = "Darwin" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-  export PATH="/Users/takahiro.minami/Library/Android/sdk/platform-tools":$PATH
   export DBC_USER="takahiro.minami@every.tv"
 
-  export WORK_ZSH="$HOME/.local/share/work/work.git"
-  if [[ ! -f "$WORK_ZSH/work.zsh" ]]; then
-    command mkdir -p $WORK_ZSH && command chmod g-rwX $WORK_ZSH
-    command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "$WORK_ZSH"
+  PATH="/Users/takahiro.minami/Library/Android/sdk/platform-tools":$PATH
+
+  work_zsh="$HOME/.local/share/work/work.git"
+  if [[ ! -f "$work_zsh/work.zsh" ]]; then
+    command mkdir -p $work_zsh && command chmod g-rwX $work_zsh
+    command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "$work_zsh"
   fi
-  source "$WORK_ZSH/work.zsh"
+  source "$work_zsh/work.zsh"
 
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls -G'
@@ -156,7 +161,9 @@ alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset
 alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias dus='du --max-depth=1 -h | sort -nr'
 alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
-alias go-update='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tMinamiii/go-update/master/install.sh)"'
+alias go-up='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tMinamiii/go-update/master/install.sh)"'
+alias deno-up='deno upgrade'
+alias rust-up='rust update'
 
 # echo 70 > /sys/class/power_supply/BAT0/charge_start_threshold
 # echo 85 > /sys/class/power_supply/BAT0/charge_stop_threshold
