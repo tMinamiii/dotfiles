@@ -43,6 +43,7 @@ set scrolloff=20                 " 3行残して画面スクロールする
 set shell=zsh
 set noequalalways
 set ttyfast
+set lazyredraw
 set ambiwidth=single
 set termguicolors
 set wildmenu
