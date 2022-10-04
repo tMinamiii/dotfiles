@@ -160,9 +160,13 @@ alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset
 alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias dus='du --max-depth=1 -h | sort -nr'
 alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
-alias go-up='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/tMinamiii/go-update/master/install.sh)"'
+
 alias deno-up='deno upgrade'
 alias rust-up='rustup update'
+if [[ ! -f "$HOME/go/bin/go-update" ]]; then
+  command go install github.com/tMinamiii/go-update@latest
+fi
+alias go-up='sudo $(which go-update)'
 
 # echo 70 > /sys/class/power_supply/BAT0/charge_start_threshold
 # echo 85 > /sys/class/power_supply/BAT0/charge_stop_threshold
