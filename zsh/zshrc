@@ -66,7 +66,6 @@ if uname -a | grep -sq "Linux"; then
 
   PATH="/snap/bin":$PATH
   PATH="/usr/local/zig":$PATH
-  PATH="/usr/local/flutter/bin":$PATH
   PATH="/usr/local/android-studio/bin":$PATH
 
   android_sdk_root="${HOME}/Android/Sdk"
