@@ -32,7 +32,6 @@ export SHELL=/bin/zsh
 export ANYENV_ROOT="$HOME/.anyenv"
 export XDG_CACHE_HOME="$HOME/.cache"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
-export PHPENV_ROOT="$HOME/.anyenv/envs/phpenv"
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export GTAGSLABEL=pygments
 
@@ -51,8 +50,11 @@ PATH="$DENO_INSTALL/bin":$PATH
 PATH="$HOME/.cargo/bin":$PATH
 PATH="/usr/local/go/bin":"$HOME/go/bin":$PATH
 PATH="/usr/local/protobuf/bin":$PATH
-PATH="${HOME}/zls":$PATH
-PATH="$PATH:$HOME/.anyenv/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/bin"
+PATH="$HOME/zls":$PATH
+PATH="$HOME/.anyenv/bin":$PATH
+PATH="$HOME/.local/bin":$PATH
+PATH="$HOME/.cargo/bin":$PATH
+PATH="$HOME/bin":$PATH
 PATH="$JAVA_HOME/bin":$PATH
 
 if uname -a | grep -sq "Linux"; then
@@ -102,10 +104,14 @@ elif [[ "$(uname)" = "Darwin" ]]; then
   # Homebrew for M1 mac
   if [[ -f "/opt/homebrew/bin/brew" ]]; then
     eval $(/opt/homebrew/bin/brew shellenv)
+    PATH=$PATH:"/opt/homebrew/bin/"
+    export LDFLAGS="-L/opt/homebrew/opt/zlib/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/zlib/include"
+    export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig"
   fi
 
   export DBC_USER="takahiro.minami@every.tv"
-  PATH="/Users/takahiro.minami/Library/Android/sdk/platform-tools":$PATH
+  PATH=$PATH:"/Users/takahiro.minami/Library/Android/sdk/platform-tools"
 
   work_zsh="$HOME/.local/share/work/work.git"
   if [[ ! -f "$work_zsh/work.zsh" ]]; then
