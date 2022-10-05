@@ -98,8 +98,13 @@ if uname -a | grep -sq "Linux"; then
 
 elif [[ "$(uname)" = "Darwin" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-  export DBC_USER="takahiro.minami@every.tv"
 
+  # Homebrew for M1 mac
+  if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval $(/opt/homebrew/bin/brew shellenv)
+  fi
+
+  export DBC_USER="takahiro.minami@every.tv"
   PATH="/Users/takahiro.minami/Library/Android/sdk/platform-tools":$PATH
 
   work_zsh="$HOME/.local/share/work/work.git"
