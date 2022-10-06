@@ -51,34 +51,33 @@ export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export DENO_INSTALL="${HOME}/.deno"
 export DISPLAY=:0.0
-export PATH="/usr/local/bin":"/usr/local/sbin":$PATH
-export PATH=$PATH:"$DENO_INSTALL/bin"
-export PATH=$PATH:"$HOME/.cargo/bin"
-export PATH=$PATH:"/usr/local/go/bin":"$HOME/go/bin"
-export PATH=$PATH:"/usr/local/protobuf/bin"
-export PATH=$PATH:"$HOME/zls"
-export PATH=$PATH:"$HOME/.anyenv/bin"
-export PATH=$PATH:"$HOME/.local/bin"
-export PATH=$PATH:"$HOME/.cargo/bin"
-export PATH=$PATH:"$HOME/bin"
-export PATH=$PATH:"$JAVA_HOME/bin"
+export PATH="/usr/local/bin":"/usr/local/sbin":"/usr/local/go/bin":"$HOME/go/bin":$PATH
+export PATH="$DENO_INSTALL/bin":$PATH
+export PATH="$HOME/.cargo/bin":$PATH
+export PATH="/usr/local/protobuf/bin":$PATH
+export PATH="$HOME/zls":$PATH
+export PATH="$HOME/.anyenv/bin":$PATH
+export PATH="$HOME/.local/bin":$PATH
+export PATH="$HOME/.cargo/bin":$PATH
+export PATH="$HOME/bin":$PATH
+export PATH="$JAVA_HOME/bin":$PATH
 
 if uname -a | grep -sq "Linux"; then
   if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    export PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
+    export PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
     ## WSL genie for daemonize docker
     # if [[ ! -v INSIDE_GENIE ]]; then
     #   exec /usr/bin/genie -s
     # fi
   fi
 
-  export ATH=$PATH:"/snap/bin"
-  export ATH=$PATH:"/usr/local/zig"
-  export ATH=$PATH:"/usr/local/android-studio/bin"
+  export PATH="/snap/bin":$PATH
+  export PATH="/usr/local/zig":$PATH
+  export PATH="/usr/local/android-studio/bin":$PATH
 
   android_sdk_root="${HOME}/Android/Sdk"
-  export PATH=$PATH:"${android_sdk_root}/bin"
-  export PATH=$PATH:"${android_sdk_root}/cmdline-tools/latest/bin"
+  export PATH=$PATH:"${android_sdk_root}/bin":$PATH
+  export PATH=$PATH:"${android_sdk_root}/cmdline-tools/latest/bin":$PATH
 
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls --color'
@@ -108,7 +107,7 @@ elif [[ "$(uname)" = "Darwin" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
   export DBC_USER="takahiro.minami@every.tv"
-  export PATH=$PATH:"/Users/takahiro.minami/Library/Android/sdk/platform-tools"
+  export PATH="/Users/takahiro.minami/Library/Android/sdk/platform-tools":$PATH
 
   work_zsh="$HOME/.local/share/work/work.git"
   if [[ ! -f "$work_zsh/work.zsh" ]]; then
