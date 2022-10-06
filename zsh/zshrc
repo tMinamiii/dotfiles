@@ -20,6 +20,12 @@ setopt inc_append_history
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
+# Homebrew for M1 mac
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+  [[ -f "/opt/homebrew/bin/anyenv" ]] && eval "$(anyenv init -)"
+fi
+
 [[ "$TMUX" != "" ]] && export TERM="screen-256color"
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -46,33 +52,33 @@ export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export DENO_INSTALL="${HOME}/.deno"
 export DISPLAY=:0.0
 export PATH="/usr/local/bin":"/usr/local/sbin":$PATH
-PATH="$DENO_INSTALL/bin":$PATH
-PATH="$HOME/.cargo/bin":$PATH
-PATH="/usr/local/go/bin":"$HOME/go/bin":$PATH
-PATH="/usr/local/protobuf/bin":$PATH
-PATH="$HOME/zls":$PATH
-PATH="$HOME/.anyenv/bin":$PATH
-PATH="$HOME/.local/bin":$PATH
-PATH="$HOME/.cargo/bin":$PATH
-PATH="$HOME/bin":$PATH
-PATH="$JAVA_HOME/bin":$PATH
+export PATH=$PATH:"$DENO_INSTALL/bin"
+export PATH=$PATH:"$HOME/.cargo/bin"
+export PATH=$PATH:"/usr/local/go/bin":"$HOME/go/bin"
+export PATH=$PATH:"/usr/local/protobuf/bin"
+export PATH=$PATH:"$HOME/zls"
+export PATH=$PATH:"$HOME/.anyenv/bin"
+export PATH=$PATH:"$HOME/.local/bin"
+export PATH=$PATH:"$HOME/.cargo/bin"
+export PATH=$PATH:"$HOME/bin"
+export PATH=$PATH:"$JAVA_HOME/bin"
 
 if uname -a | grep -sq "Linux"; then
   if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
+    export PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
     ## WSL genie for daemonize docker
     # if [[ ! -v INSIDE_GENIE ]]; then
     #   exec /usr/bin/genie -s
     # fi
   fi
 
-  PATH="/snap/bin":$PATH
-  PATH="/usr/local/zig":$PATH
-  PATH="/usr/local/android-studio/bin":$PATH
+  export ATH=$PATH:"/snap/bin"
+  export ATH=$PATH:"/usr/local/zig"
+  export ATH=$PATH:"/usr/local/android-studio/bin"
 
   android_sdk_root="${HOME}/Android/Sdk"
-  PATH="${android_sdk_root}/bin":$PATH
-  PATH="${android_sdk_root}/cmdline-tools/latest/bin":$PATH
+  export PATH=$PATH:"${android_sdk_root}/bin"
+  export PATH=$PATH:"${android_sdk_root}/cmdline-tools/latest/bin"
 
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls --color'
@@ -101,17 +107,8 @@ if uname -a | grep -sq "Linux"; then
 elif [[ "$(uname)" = "Darwin" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-  # Homebrew for M1 mac
-  if [[ -f "/opt/homebrew/bin/brew" ]]; then
-    eval $(/opt/homebrew/bin/brew shellenv)
-    PATH=$PATH:"/opt/homebrew/bin/"
-    export LDFLAGS="-L/opt/homebrew/opt/zlib/lib"
-    export CPPFLAGS="-I/opt/homebrew/opt/zlib/include"
-    export PKG_CONFIG_PATH="/opt/homebrew/opt/zlib/lib/pkgconfig"
-  fi
-
   export DBC_USER="takahiro.minami@every.tv"
-  PATH=$PATH:"/Users/takahiro.minami/Library/Android/sdk/platform-tools"
+  export PATH=$PATH:"/Users/takahiro.minami/Library/Android/sdk/platform-tools"
 
   work_zsh="$HOME/.local/share/work/work.git"
   if [[ ! -f "$work_zsh/work.zsh" ]]; then
@@ -221,7 +218,6 @@ function ghq-fzf() {
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
 
 ### anyenv ###
-# [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init -)"
 function anyenv-cache() {
     [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
     anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
