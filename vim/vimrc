@@ -218,7 +218,8 @@ if has('nvim')
   if exists('$VIRTUAL_ENV')
     let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
   else
-    let g:python3_host_prog=sort(split(glob($PYENV_ROOT.'/versions/3*/bin/python')))[-1]
+    let s:python3_version=system('cat $PYENV_ROOT/version | tr -d "\n"')
+    let g:python3_host_prog=$PYENV_ROOT.'/versions/'.s:python3_version.'/bin/python'
   endif
 
   let s:vim_plug_root = '~/.cache/nvim/plugged'

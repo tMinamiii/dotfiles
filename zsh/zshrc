@@ -128,7 +128,6 @@ elif [[ "$(uname)" = "Darwin" ]]; then
   alias t='tail -f'
 fi
 
-
 alias zshrc='${=EDITOR} ~/.zshrc' # Quick access to the ~/.zshrc file
 alias vimrc='${=EDITOR} ~/.vim/vimrc' # Quick access to the ~/.zshrc file
 alias dot='cd ~/dotfiles' # Quick access to the ~/.zshrc file
@@ -221,7 +220,6 @@ fi
 
 
 ## tools
-
 if [[ -x "$HOME/go/bin" ]]; then
   local gobin="$HOME/go/bin"
   [[ ! -f "$gobin/go-update" ]] && go install github.com/tMinamiii/go-update@latest
@@ -249,7 +247,6 @@ fi
 if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
   local version=$(cat "$HOME/.anyenv/envs/nodenv/version")
   local root="$HOME/.anyenv/envs/nodenv/versions/$version"
-  local bin="/home/tminamiii/.anyenv/envs/nodenv/versions/14.17.3/bin"
   [[ -n "$WSL_DISTRO_NAME" ]] && [[ ! -f "$root/bin/wsl-open" ]] && npm i -g wsl-open
   [[ ! -f "$root/bin/prettier" ]] && npm i -g prettier
   [[ ! -f "$root/bin/textlint" ]] && npm i -g textlint
