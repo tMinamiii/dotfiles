@@ -170,20 +170,12 @@ alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
 
 alias deno-up='deno upgrade'
 alias rust-up='rustup update'
-if [[ ! -f "$HOME/go/bin/go-update" ]]; then
-  command go install github.com/tMinamiii/go-update@latest
-fi
 alias go-up='sudo $(which go-update)'
-
-# echo 70 > /sys/class/power_supply/BAT0/charge_start_threshold
-# echo 85 > /sys/class/power_supply/BAT0/charge_stop_threshold
 
 # docker
 alias docker-ps='docker ps -a'
 alias docker-rm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
 alias docker-prune='docker system prune --volumes'
-alias dc='docker compose '
-alias d-c='docker-compose '
 
 # raspi
 alias pi1='ssh ubuntu@172.16.27.10'
@@ -225,6 +217,50 @@ function anyenv-cache() {
 if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
     [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
     source $XDG_CACHE_HOME/anyenv/init.zsh
+fi
+
+
+## tools
+
+if [[ -x "$HOME/go/bin" ]]; then
+  local gobin="$HOME/go/bin"
+  [[ ! -f "$gobin/go-update" ]] && go install github.com/tMinamiii/go-update@latest
+  [[ ! -f "$gobin/gup" ]] && go install github.com/nao1215/gup@latest
+  [[ ! -f "$gobin/ghq" ]] && go install github.com/x-motemen/ghq@latest
+  [[ ! -f "$gobin/air" ]] && go install github.com/cosmtrek/air@latest
+fi
+
+if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
+  local version=$(cat "$HOME/.anyenv/envs/pyenv/version")
+  local root="$HOME/.anyenv/envs/pyenv/versions/$version"
+  local site="$root/lib/python$(echo $version | cut -f 1-2 -d '.')/site-packages"
+  [[ ! -f "$root/bin/pipenv" ]] && pip install pipenv
+  [[ ! -f "$root/bin/poetry" ]] && pip install poetry
+  [[ ! -f "$root/bin/ipython" ]] && pip install ipython
+  [[ ! -f "$root/bin/black" ]] && pip install black
+  [[ ! -f "$root/bin/flake8" ]] && pip install flake8
+  [[ ! -f "$root/bin/mypy" ]] && pip install mypy
+  [[ ! -f "$root/bin/autopep8" ]] && pip install autopep8
+  [[ ! -f "$root/bin/pycodestyle" ]] && pip install pycodestyle
+  [[ ! -x "$site/pynvim" ]] && pip install pynvim
+  [[ ! -x "$site/neovim" ]] && pip install neovim
+fi
+
+if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
+  local version=$(cat "$HOME/.anyenv/envs/nodenv/version")
+  local root="$HOME/.anyenv/envs/nodenv/versions/$version"
+  local bin="/home/tminamiii/.anyenv/envs/nodenv/versions/14.17.3/bin"
+  [[ -n "$WSL_DISTRO_NAME" ]] && [[ ! -f "$root/bin/wsl-open" ]] && npm i -g wsl-open
+  [[ ! -f "$root/bin/prettier" ]] && npm i -g prettier
+  [[ ! -f "$root/bin/textlint" ]] && npm i -g textlint
+  [[ ! -f "$root/bin/zenn" ]] && npm i -g zenn-cli
+  [[ ! -f "$root/bin/neovim-node-host" ]] && npm i -g neovim
+fi
+
+if [[ -x "$HOME/.anyenv/envs/rbenv" ]]; then
+  local version=$(cat "$HOME/.anyenv/envs/rbenv/version")
+  local root="$HOME/.anyenv/envs/rbenv/versions/$version"
+  [[ ! -f "$root/bin/neovim-ruby-host" ]] && gem install neovim
 fi
 
 export ZINIT="$HOME/.local/share/zinit"
@@ -273,5 +309,5 @@ if [[ -f "$HOME/.cargo/env" ]]; then
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="${HOME}/.sdkman"
-[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+# export SDKMAN_DIR="${HOME}/.sdkman"
+# [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
