@@ -248,6 +248,7 @@ if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
   local version=$(cat "$HOME/.anyenv/envs/nodenv/version")
   local root="$HOME/.anyenv/envs/nodenv/versions/$version"
   [[ -n "$WSL_DISTRO_NAME" ]] && [[ ! -f "$root/bin/wsl-open" ]] && npm i -g wsl-open
+  [[ ! -f "$root/bin/yarn" ]] && npm i -g yarn
   [[ ! -f "$root/bin/prettier" ]] && npm i -g prettier
   [[ ! -f "$root/bin/textlint" ]] && npm i -g textlint
   [[ ! -f "$root/bin/zenn" ]] && npm i -g zenn-cli
