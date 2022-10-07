@@ -49,9 +49,24 @@ bindkey '^[' autosuggest-accept
 bindkey '^x^e' edit-command-line
 
 # Homebrew for M1 mac
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
-  eval $(/opt/homebrew/bin/brew shellenv)
-  [[ -f "/opt/homebrew/bin/anyenv" ]] && eval "$(anyenv init -)"
+[[ -f "/opt/homebrew/bin/brew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
+
+### anyenv ###
+if [[ -f "/opt/homebrew/bin/anyenv" ]]; then
+  eval "$(anyenv init -)"
+elif [[ -f "$HOME/.anyenv/bin/anyenv" ]]; then
+
+  export PATH="$HOME/.anyenv/bin":$PATH
+
+  function anyenv-cache() {
+    [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
+    anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
+  }
+
+  if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
+      [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
+      source $XDG_CACHE_HOME/anyenv/init.zsh
+  fi
 fi
 
 ### FZF
@@ -64,21 +79,12 @@ else
   ~/.fzf/install
 fi
 
-### anyenv ###
-# [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init -)"
-function anyenv-cache() {
-    [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
-    anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
-}
-
-if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
-    [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
-    source $XDG_CACHE_HOME/anyenv/init.zsh
-fi
-
 [[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+export SDKMAN_DIR="${HOME}/.sdkman"
+[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 if [[ "$TMUX" != "" ]]; then
   export TERM="screen-256color"
@@ -113,7 +119,6 @@ export PATH="$DENO_INSTALL/bin":$PATH
 export PATH="$HOME/.cargo/bin":$PATH
 export PATH="/usr/local/protobuf/bin":$PATH
 export PATH="$HOME/zls":$PATH
-export PATH="$HOME/.anyenv/bin":$PATH
 export PATH="$HOME/.local/bin":$PATH
 export PATH="$HOME/.cargo/bin":$PATH
 export PATH="$HOME/bin":$PATH
@@ -303,6 +308,4 @@ function ghq-fzf() {
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="${HOME}/.sdkman"
-# [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+
