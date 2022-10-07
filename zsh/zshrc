@@ -1,13 +1,10 @@
 #!/bin/zsh
 
-zmodload zsh/zprof && zprof
-
 set bell-style none
 skip_global_compinit=1
 setopt no_beep
 
 export HISTFILE=${HOME}/.zsh_history
-
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 setopt hist_ignore_dups
@@ -22,13 +19,73 @@ setopt inc_append_history
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
+### Zinit's installer
+
+export ZINIT="$HOME/.local/share/zinit"
+export ENHANCD_COMMAND=cdd
+if [[ ! -f "$ZINIT/zinit.git/zinit.zsh" ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p $ZINIT && command chmod g-rwX $ZINIT
+    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$ZINIT/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+zinit light dracula/zsh
+zinit light zsh-users/zsh-autosuggestions
+zinit light b4b4r07/enhancd
+# zinit light marlonrichert/zsh-autocomplete
+
+### Bind keys ###
+zle -N ghq-fzf
+zle -N edit-command-line
+bindkey -e
+bindkey '^G' ghq-fzf
+bindkey '^[' autosuggest-accept
+bindkey '^x^e' edit-command-line
+
 # Homebrew for M1 mac
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
   eval $(/opt/homebrew/bin/brew shellenv)
   [[ -f "/opt/homebrew/bin/anyenv" ]] && eval "$(anyenv init -)"
 fi
 
-[[ "$TMUX" != "" ]] && export TERM="screen-256color"
+### FZF
+export FZF_DEFAULT_OPTS='--height 40% --border'
+
+if [[ -f ~/.fzf.zsh ]]; then
+  source ~/.fzf.zsh
+else
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+
+### anyenv ###
+# [ -f ~/.anyenv/bin/anyenv ] && eval "$(anyenv init -)"
+function anyenv-cache() {
+    [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
+    anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
+}
+
+if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
+    [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
+    source $XDG_CACHE_HOME/anyenv/init.zsh
+fi
+
+[[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
+[[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+if [[ "$TMUX" != "" ]]; then
+  export TERM="screen-256color"
+else
+  export TERM=xterm-256color
+fi
+
 export MANPATH="/usr/local/man:$MANPATH"
 
 export LC_CTYPE=en_US.UTF-8
@@ -40,13 +97,11 @@ export SHELL=/bin/zsh
 export ANYENV_ROOT="$HOME/.anyenv"
 export XDG_CACHE_HOME="$HOME/.cache"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
+export PHPENV_ROOT="$HOME/.anyenv/envs/phpenv"
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
-export GTAGSLABEL=pygments
 
 export GO111MODULE=on
-export TERM=xterm-256color
 export PIPENV_VENV_IN_PROJECT=true
-export FZF_DEFAULT_OPTS='--height 45% --border'
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 export DOTFILES="$HOME/dotfiles"
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
@@ -65,18 +120,18 @@ export PATH="$HOME/bin":$PATH
 export PATH="$JAVA_HOME/bin":$PATH
 
 if uname -a | grep -sq "Linux"; then
-  if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    export PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
-  fi
-
   export PATH="/snap/bin":$PATH
   export PATH="/usr/local/zig":$PATH
   export PATH="/usr/local/android-studio/bin":$PATH
+  export PATH="/usr/local/flutter/bin":$PATH
 
   android_sdk_root="${HOME}/Android/Sdk"
   export PATH=$PATH:"${android_sdk_root}/bin":$PATH
   export PATH=$PATH:"${android_sdk_root}/cmdline-tools/latest/bin":$PATH
 
+  if [[ -n "$WSL_DISTRO_NAME" ]]; then
+    export PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
+  fi
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls --color'
   alias l='ls -lFh --color'     #size,show type,human readable
@@ -188,17 +243,6 @@ alias github='gh-open $(repos)'
 alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout private.key -out public.crt'
 alias golanci-lint-update='curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin $(curl --silent "https://api.github.com/repos/golangci/golangci-lint/releases/latest" | jq -r .tag_name)'
 
-### anyenv ###
-function anyenv-cache() {
-    [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
-    anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
-}
-
-if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
-    [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
-    source $XDG_CACHE_HOME/anyenv/init.zsh
-fi
-
 ## tools
 function tools() {
   if [[ -x "$HOME/go/bin" ]]; then
@@ -243,15 +287,6 @@ function tools() {
   fi
 }
 
-### FZF
-if [[ -f ~/.fzf.zsh ]]; then
-  source ~/.fzf.zsh
-else
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
-fi
-
-### ghq + fzf
 function ghq-fzf() {
   local src=$(ghq list | fzf )
   local root_list=($(ghq root --all))
@@ -266,46 +301,8 @@ function ghq-fzf() {
   zle -R -c
 }
 
-export ZINIT="$HOME/.local/share/zinit"
-export ENHANCD_COMMAND=cdd
-
-### Added by Zinit's installer
-if [[ ! -f "$ZINIT/zinit.git/zinit.zsh" ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p $ZINIT && command chmod g-rwX $ZINIT
-    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$ZINIT/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-zinit light dracula/zsh
-zinit light zsh-users/zsh-autosuggestions
-zinit light b4b4r07/enhancd
-# zinit light marlonrichert/zsh-autocomplete
-
-### Bind keys ###
-zle -N ghq-fzf
-zle -N edit-command-line
-bindkey -e
-bindkey '^G' ghq-fzf
-bindkey '^[' autosuggest-accept
-bindkey '^x^e' edit-command-line
-
-
-[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
-[[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
-[[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
-
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 # export SDKMAN_DIR="${HOME}/.sdkman"
 # [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
-
-if (which zprof > /dev/null 2>&1) ;then
-  zprof
-fi
