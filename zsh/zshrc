@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+zmodload zsh/zprof && zprof
+
 set bell-style none
 skip_global_compinit=1
 setopt no_beep
@@ -44,7 +46,7 @@ export GTAGSLABEL=pygments
 export GO111MODULE=on
 export TERM=xterm-256color
 export PIPENV_VENV_IN_PROJECT=true
-export FZF_DEFAULT_OPTS='--height 40% --border'
+export FZF_DEFAULT_OPTS='--height 45% --border'
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 export DOTFILES="$HOME/dotfiles"
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
@@ -65,10 +67,6 @@ export PATH="$JAVA_HOME/bin":$PATH
 if uname -a | grep -sq "Linux"; then
   if [[ -n "$WSL_DISTRO_NAME" ]]; then
     export PATH="/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/":$PATH
-    ## WSL genie for daemonize docker
-    # if [[ ! -v INSIDE_GENIE ]]; then
-    #   exec /usr/bin/genie -s
-    # fi
   fi
 
   export PATH="/snap/bin":$PATH
@@ -101,7 +99,7 @@ if uname -a | grep -sq "Linux"; then
     alias open='xdg-open'
   fi
 
-  eval `ssh-agent` > /dev/null 2>&1
+  # eval `ssh-agent` > /dev/null 2>&1
 
 elif [[ "$(uname)" = "Darwin" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -185,11 +183,75 @@ alias pi3='ssh ubuntu@172.16.27.12'
 alias py-setup='curl -sSfL https://git.io/Ju0Rv | bash'
 alias ts-setup='curl -sSfL https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/typescript/install.sh | sh'
 alias ide="$HOME/dotfiles/tmux/ide.sh"
-### ghq + fzf
+
 alias github='gh-open $(repos)'
 alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout private.key -out public.crt'
 alias golanci-lint-update='curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin $(curl --silent "https://api.github.com/repos/golangci/golangci-lint/releases/latest" | jq -r .tag_name)'
 
+### anyenv ###
+function anyenv-cache() {
+    [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
+    anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
+}
+
+if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
+    [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
+    source $XDG_CACHE_HOME/anyenv/init.zsh
+fi
+
+## tools
+function tools() {
+  if [[ -x "$HOME/go/bin" ]]; then
+    local gobindir="$HOME/go/bin"
+    [[ ! -f "$gobindir/go-update" ]] && go install github.com/tMinamiii/go-update@latest
+    [[ ! -f "$gobindir/gup" ]] && go install github.com/nao1215/gup@latest
+    [[ ! -f "$gobindir/ghq" ]] && go install github.com/x-motemen/ghq@latest
+    [[ ! -f "$gobindir/air" ]] && go install github.com/cosmtrek/air@latest
+  fi
+
+  if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
+    local pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
+    local pyroot="$HOME/.anyenv/envs/pyenv/versions/$pyversion"
+    local pysite="$pyroot/lib/python$(echo $pyversion | cut -f 1-2 -d '.')/site-packages"
+    [[ ! -f "$pyroot/bin/pipenv" ]] && pip install pipenv
+    [[ ! -f "$pyroot/bin/poetry" ]] && pip install poetry
+    [[ ! -f "$pyroot/bin/ipython" ]] && pip install ipython
+    [[ ! -f "$pyroot/bin/black" ]] && pip install black
+    [[ ! -f "$pyroot/bin/flake8" ]] && pip install flake8
+    [[ ! -f "$pyroot/bin/mypy" ]] && pip install mypy
+    [[ ! -f "$pyroot/bin/autopep8" ]] && pip install autopep8
+    [[ ! -f "$pyroot/bin/pycodestyle" ]] && pip install pycodestyle
+    [[ ! -x "$pysite/pynvim" ]] && pip install pynvim
+    [[ ! -x "$pysite/neovim" ]] && pip install neovim
+  fi
+
+  if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
+    local ndversion=$(cat "$HOME/.anyenv/envs/nodenv/version")
+    local ndroot="$HOME/.anyenv/envs/nodenv/versions/$ndversion"
+    [[ -n "$WSL_DISTRO_NAME" ]] && [[ ! -f "$ndroot/bin/wsl-open" ]] && npm i -g wsl-open
+    [[ ! -f "$ndroot/bin/yarn" ]] && npm i -g yarn
+    [[ ! -f "$ndroot/bin/prettier" ]] && npm i -g prettier
+    [[ ! -f "$ndroot/bin/textlint" ]] && npm i -g textlint
+    [[ ! -f "$ndroot/bin/zenn" ]] && npm i -g zenn-cli
+    [[ ! -f "$ndroot/bin/neovim-node-host" ]] && npm i -g neovim
+  fi
+
+  if [[ -x "$HOME/.anyenv/envs/rbenv" ]]; then
+    local rbversion=$(cat "$HOME/.anyenv/envs/rbenv/version")
+    local rbroot="$HOME/.anyenv/envs/rbenv/versions/$rbversion"
+    [[ ! -f "$rbroot/bin/neovim-ruby-host" ]] && gem install neovim
+  fi
+}
+
+### FZF
+if [[ -f ~/.fzf.zsh ]]; then
+  source ~/.fzf.zsh
+else
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+
+### ghq + fzf
 function ghq-fzf() {
   local src=$(ghq list | fzf )
   local root_list=($(ghq root --all))
@@ -203,63 +265,6 @@ function ghq-fzf() {
   fi
   zle -R -c
 }
-
-[[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
-[[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
-
-### anyenv ###
-function anyenv-cache() {
-    [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
-    anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
-}
-
-if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
-    [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
-    source $XDG_CACHE_HOME/anyenv/init.zsh
-fi
-
-
-## tools
-if [[ -x "$HOME/go/bin" ]]; then
-  local gobin="$HOME/go/bin"
-  [[ ! -f "$gobin/go-update" ]] && go install github.com/tMinamiii/go-update@latest
-  [[ ! -f "$gobin/gup" ]] && go install github.com/nao1215/gup@latest
-  [[ ! -f "$gobin/ghq" ]] && go install github.com/x-motemen/ghq@latest
-  [[ ! -f "$gobin/air" ]] && go install github.com/cosmtrek/air@latest
-fi
-
-if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
-  local version=$(cat "$HOME/.anyenv/envs/pyenv/version")
-  local root="$HOME/.anyenv/envs/pyenv/versions/$version"
-  local site="$root/lib/python$(echo $version | cut -f 1-2 -d '.')/site-packages"
-  [[ ! -f "$root/bin/pipenv" ]] && pip install pipenv
-  [[ ! -f "$root/bin/poetry" ]] && pip install poetry
-  [[ ! -f "$root/bin/ipython" ]] && pip install ipython
-  [[ ! -f "$root/bin/black" ]] && pip install black
-  [[ ! -f "$root/bin/flake8" ]] && pip install flake8
-  [[ ! -f "$root/bin/mypy" ]] && pip install mypy
-  [[ ! -f "$root/bin/autopep8" ]] && pip install autopep8
-  [[ ! -f "$root/bin/pycodestyle" ]] && pip install pycodestyle
-  [[ ! -x "$site/pynvim" ]] && pip install pynvim
-  [[ ! -x "$site/neovim" ]] && pip install neovim
-fi
-
-if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
-  local version=$(cat "$HOME/.anyenv/envs/nodenv/version")
-  local root="$HOME/.anyenv/envs/nodenv/versions/$version"
-  [[ -n "$WSL_DISTRO_NAME" ]] && [[ ! -f "$root/bin/wsl-open" ]] && npm i -g wsl-open
-  [[ ! -f "$root/bin/yarn" ]] && npm i -g yarn
-  [[ ! -f "$root/bin/prettier" ]] && npm i -g prettier
-  [[ ! -f "$root/bin/textlint" ]] && npm i -g textlint
-  [[ ! -f "$root/bin/zenn" ]] && npm i -g zenn-cli
-  [[ ! -f "$root/bin/neovim-node-host" ]] && npm i -g neovim
-fi
-
-if [[ -x "$HOME/.anyenv/envs/rbenv" ]]; then
-  local version=$(cat "$HOME/.anyenv/envs/rbenv/version")
-  local root="$HOME/.anyenv/envs/rbenv/versions/$version"
-  [[ ! -f "$root/bin/neovim-ruby-host" ]] && gem install neovim
-fi
 
 export ZINIT="$HOME/.local/share/zinit"
 export ENHANCD_COMMAND=cdd
@@ -290,22 +295,17 @@ bindkey '^G' ghq-fzf
 bindkey '^[' autosuggest-accept
 bindkey '^x^e' edit-command-line
 
-### FZF
-if [[ -f ~/.fzf.zsh ]]; then
-  source ~/.fzf.zsh
-else
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
-fi
 
-if [[ ~/.zshrc -nt ~/.zshrc.zwc ]]; then
-  zcompile ~/.zshrc
-fi
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+[[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
+[[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
 
-if [[ -f "$HOME/.cargo/env" ]]; then
-  source "$HOME/.cargo/env"
-fi
+[[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 # export SDKMAN_DIR="${HOME}/.sdkman"
 # [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+
+if (which zprof > /dev/null 2>&1) ;then
+  zprof
+fi
