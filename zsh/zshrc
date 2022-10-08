@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+# zmodload zsh/zprof && zprof
+
 set bell-style none
 skip_global_compinit=1
 setopt no_beep
@@ -171,6 +173,8 @@ alias github='gh-open $(repos)'
 alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout private.key -out public.crt'
 alias golanci-lint-update='curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin $(curl --silent "https://api.github.com/repos/golangci/golangci-lint/releases/latest" | jq -r .tag_name)'
 
+alias zsh-bench='time ( zsh -i -c exit )'
+
 # functions
 function tools() {
   if [[ -x "$HOME/go/bin" ]]; then
@@ -270,8 +274,11 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light dracula/zsh
-zinit light zsh-users/zsh-autosuggestions
 zinit light b4b4r07/enhancd
+
+zinit ice wait
+zinit light zsh-users/zsh-autosuggestions
+
 # zinit light marlonrichert/zsh-autocomplete
 
 ### Bind keys ###
@@ -294,7 +301,6 @@ if uname -a | grep -sq "Linux"; then
   PATH=$PATH:"/usr/local/android-studio/bin"
 
   PATH="/usr/local/flutter/bin":$PATH
-  PATH="/usr/local/zig":$PATH
   PATH="/snap/bin":$PATH
 elif [[ "$(uname)" = "Darwin" ]]; then
   PATH=$PATH:"/Users/takahiro.minami/Library/Android/sdk/platform-tools"
@@ -335,3 +341,6 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
+# if (which zprof > /dev/null 2>&1) ;then
+#   zprof
+# fi
