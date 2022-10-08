@@ -52,6 +52,10 @@ bindkey '^x^e' edit-command-line
 [[ -f "/opt/homebrew/bin/brew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
 
 ### anyenv ###
+export ANYENV_ROOT="$HOME/.anyenv"
+export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
+export XDG_CACHE_HOME="$HOME/.cache"
+
 if [[ -f "/opt/homebrew/bin/anyenv" ]]; then
   eval "$(anyenv init -)"
 elif [[ -f "$HOME/.anyenv/bin/anyenv" ]]; then
@@ -83,7 +87,9 @@ fi
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
+## sdkman
 export SDKMAN_DIR="${HOME}/.sdkman"
+export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 if [[ "$TMUX" != "" ]]; then
@@ -100,11 +106,6 @@ export ARCHFLAGS="-arch $(uname -m)"
 
 export EDITOR="vim"
 export SHELL=/bin/zsh
-export ANYENV_ROOT="$HOME/.anyenv"
-export XDG_CACHE_HOME="$HOME/.cache"
-export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
-export PHPENV_ROOT="$HOME/.anyenv/envs/phpenv"
-export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 
 export GO111MODULE=on
 export PIPENV_VENV_IN_PROJECT=true
