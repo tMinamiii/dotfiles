@@ -265,34 +265,7 @@ call plug#begin(s:vim_plug_plugins)
           autocmd FileType nerdtree nmap <buffer> <C-n> j
           autocmd FileType nerdtree nmap <buffer> <C-p> k
       augroup END
-    " let g:netrw_liststyle=3
-    " let g:netrw_banner=0
-    " let g:netrw_winsize=30
-    " let g:netrw_sizestyle="H" " サイズを(K,M,G)で表示する
-    " let g:netrw_timefmt="%Y/%m/%d(%a)" " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する %Y/%m/%d(%a) %H:%M:%S"
-    " let g:netrw_browse_split=4
-    " let g:netrw_alto=1
-    " let g:netrw_preview=1 " プレビューウィンドウを垂直分割で表示する
-    " augroup netrw_setup | au!
-    "     au FileType netrw nmap <silent> <buffer> l <CR>
-    " augroup END
-    " let g:NetrwIsOpen=0
-    " function! ToggleNetrw()
-    "     if g:NetrwIsOpen
-    "         let i = bufnr("$")
-    "         while (i >= 1)
-    "             if (getbufvar(i, "&filetype") == "netrw")
-    "                 silent exe "bwipeout " . i
-    "             endif
-    "             let i-=1
-    "         endwhile
-    "         let g:NetrwIsOpen=0
-    "     else
-    "         let g:NetrwIsOpen=1
-    "         silent Vex
-    "     endif
-    " endfunction
-    " nnoremap <silent> <Leader>n :call ToggleNetrw()<CR>
+
    Plug 'rhysd/vim-color-spring-night'
       let g:spring_night_kill_italic = 1
 
@@ -537,8 +510,6 @@ call plug#begin(s:vim_plug_plugins)
       let g:git_messenger_include_diff = 'current'
       let g:git_messenger_always_into_popup = v:true
       let g:git_messenger_into_popup_after_show = v:true
-
-    " nmap <silent><Leader>gm :call setbufvar(winbufnr(popup_atcursor(split(system("git log -n 1 -L " . line(".") . ",+1:" . expand("%:p")), "\n"), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
 
     Plug 'mattn/emmet-vim'
 
