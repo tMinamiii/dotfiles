@@ -25,14 +25,14 @@ zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 [[ -f "/opt/homebrew/bin/brew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
 
 ### FZF
-export FZF_DEFAULT_OPTS='--height 40% --border'
-
 if [[ -f ~/.fzf.zsh ]]; then
   source ~/.fzf.zsh
 else
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
 fi
+
+export FZF_DEFAULT_OPTS='--height 40% --border --info=inline'
 
 [[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
@@ -293,7 +293,15 @@ bindkey '^x^e' edit-command-line
 export PATH=$PATH
 if uname -a | grep -sq "Linux"; then
   # WSL windows paths
-  [[ -n "$WSL_DISTRO_NAME" ]] && PATH=$PATH:"/mnt/c/Windows/System32":"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
+  if [[ -n "$WSL_DISTRO_NAME" ]]; then
+    PATH=$PATH:"/mnt/c/Windows/System32"
+    PATH=$PATH:"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
+    PATH=$PATH:"/mnt/c/Users/tminamiii/AppData/Local/Programs/Microsoft VS Code/bin"
+    PATH=$PATH:"/mnt/c/Program Files/Docker/Docker/resources/bin"
+    PATH=$PATH:"/mnt/c/ProgramData/DockerDesktop/version-bin"
+    # PATH=$PATH:"/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+    # PATH=$PATH:"/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR"
+  fi
 
   android_sdk_root="${HOME}/Android/Sdk"
   PATH=$PATH:"${android_sdk_root}/bin"
