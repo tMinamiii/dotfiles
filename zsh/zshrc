@@ -228,16 +228,7 @@ function tools() {
     [[ ! -f "$rbroot/bin/neovim-ruby-host" ]] && gem install neovim
   fi
 
-  if [[  -n "$WSL_DISTRO_NAME" ]]; then
-    local win32yankdir="/mnt/c/win32yank"
-    [[ ! -d "$win32yankdir" ]] && mkdir -p $win32yankdir
-    if [[ ! -f  "$win32yankdir/win32yank.exe" ]]; then
-      local win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
-      curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$win32yankv_version/win32yank-x86.zip"
-      unzip -q -f win32yank-x86.zip win32yank.exe -d $win32yankdir
-      rm -f win32yank-x86.zip
-    fi
-  fi
+
 }
 
 function tools-up() {
@@ -264,10 +255,12 @@ function tools-up() {
   fi
 
   if [[  -n "$WSL_DISTRO_NAME" ]]; then
+    echo "Update win32yank.exe"
+    local win32yank_dir="/mnt/c/win32yank"
     local win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
     curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$win32yankv_version/win32yank-x86.zip"
-    unzip -q -f win32yank-x86.zip win32yank.exe -d "/mnt/c/win32yank"
-    rm -f win32yank-x86.zip
+    trap 'rm -f win32yank-x86.zip' EXIT
+    unzip -u -q win32yank-x86.zip win32yank.exe -d $win32yank_dir
   fi
 }
 
@@ -285,6 +278,23 @@ function ghq-fzf() {
   fi
   zle -R -c
 }
+
+## install win32yank
+function install-win32yank() {
+  if [[  -n "$WSL_DISTRO_NAME" ]]; then
+    local WIN32YANK_DIR="/mnt/c/win32yank"
+    [[ ! -d "$WIN32YANK_DIR" ]] && mkdir -p $WIN32YANK_DIR
+    if [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]]; then
+      trap 'rm -f win32yank-x86.zip' EXIT
+
+      echo "Install win32yank"
+      local WIN32YANK_VERSION=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
+      curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$WIN32YANK_VERSION/win32yank-x86.zip"
+      unzip -q -u win32yank-x86.zip win32yank.exe -d $WIN32YANK_DIR
+    fi
+  fi
+}
+[[  -n "$WSL_DISTRO_NAME" ]] && install-win32yank
 
 ### Zinit's installer
 
@@ -378,7 +388,7 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 ## omajinai
-echo "yes" | fzf --select-1 --exit-0 && clear
+# echo "yes" | fzf --select-1 --exit-0 && clear
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
