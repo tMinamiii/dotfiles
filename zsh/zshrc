@@ -451,6 +451,7 @@ if [[ ! -x "$HOME/.anyenv/bin/anyenv" ]]; then
   $ANYENV_ROOT/bin/anyenv install nodenv
   $ANYENV_ROOT/bin/anyenv install rbenv
   $ANYENV_ROOT/bin/anyenv install tfenv
+  anyenv-cache
 fi
 
 if [[ -x "$ANYENV_ROOT/bin/anyenv" ]]; then
