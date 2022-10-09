@@ -13,13 +13,10 @@ sudo apt-get install -y \
     bzip2 \
     cmake \
     cproto \
-    curl \
     dconf-cli \
-    direnv \
     file \
     g++ \
     gettext \
-    git \
     htop \
     libacl1-dev \
     libbz2-dev \
@@ -31,8 +28,10 @@ sudo apt-get install -y \
     liblua5.2-0 \
     liblua5.2-dev \
     libluajit-5.1-dev \
+    liblzma-dev \
     libncurses-dev \
     libncurses5-dev \
+    libncursesw5-dev \
     libperl-dev \
     libreadline-dev \
     libsqlite3-dev \
@@ -40,9 +39,12 @@ sudo apt-get install -y \
     libtinfo-dev \
     libtool \
     libtool-bin \
+    libxml2-dev \
+    libxmlsec1-dev \
     libxmu-dev \
     libxpm-dev \
     libyaml-dev \
+    llvm
     locales \
     lua5.2 \
     luajit \
@@ -54,18 +56,9 @@ sudo apt-get install -y \
     python-dev \
     python3-dev \
     ruby-dev \
-    ripgrep \
-    hub \
     software-properties-common \
-    tmux \
+    tk-dev \
     tree \
-    unzip \
-    wget \
     xz-utils \
     zlib1g-dev \
     zsh
-
-# python
-sudo apt-get update; sudo apt-get install make build-essential libssl-dev zlib1g-dev \
-libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev

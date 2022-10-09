@@ -1,19 +1,16 @@
-unlink ~/.zshrc
-unlink ~/.zshenv
-unlink ~/.vim
-unlink ~/.config/nvim
-unlink ~/.tmux.conf
-unlink "$HOME/.config/efm-langserver/config.yaml"
+#!/bin/bash
 
-if uname | grep -sq "Darwin"; then
-  unlink  ~/Library/Fonts/Cica*.ttf
-else
-  unlink ~/.fonts
-fi
+set -Ce
+
+[[ -e "$HOME/.zshrc" ]] && unlink ~/.zshrc
+[[ -e "$HOME/.vim" ]] && unlink ~/.vim
+[[ -e "$HOME/.config/nvim" ]] && unlink ~/.config/nvim
+[[ -e "$HOME/.tmux.conf" ]] && unlink ~/.tmux.conf
+[[ -e "$HOME/.config/efm-langserver/config.yaml" ]] && unlink "$HOME/.config/efm-langserver/config.yaml"
 
 if uname -a | grep -sq "Ubuntu"; then
-  unlink ~/.xprofile
-  unlink ~/.xsessionrc
-  unlink ~/.xkb
+[[ -e "$HOME/.xprofile" ]] && unlink ~/.xprofile
+[[ -e "$HOME/.xsessionrc" ]] && unlink ~/.xsessionrc
+[[ -e "$HOME/.xkb" ]] && unlink ~/.xkb
 fi
 

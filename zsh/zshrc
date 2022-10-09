@@ -7,8 +7,8 @@ skip_global_compinit=1
 setopt no_beep
 
 export HISTFILE=${HOME}/.zsh_history
-export HISTSIZE=1000000
-export SAVEHIST=1000000
+export HISTSIZE=100000
+export SAVEHIST=100000
 setopt hist_ignore_dups
 
 # setopt share_history
@@ -21,13 +21,18 @@ setopt inc_append_history
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
-[[ ! -d "$HOME/.local/bin" ]] || mkdir -p "$HOME/.local/bin"
-[[ ! -d "$HOME/bin" ]] || mkdir -p "$HOME/bin"
+[[ ! -d "$HOME/.local/bin" ]] && mkdir -p "$HOME/.local/bin"
+[[ ! -d "$HOME/bin" ]] && mkdir -p "$HOME/bin"
+[[ ! -d "$HOME/.cache" ]] && mkdir -p "$HOME/.cache"
+[[ ! -d "$HOME/.config" ]] && mkdir -p "$HOME/.config"
 
 # Homebrew for M1 mac
 [[ -f "/opt/homebrew/bin/brew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
 
 ### FZF
+export FZF_DEFAULT_OPTS='--height 40% --border --info=inline'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!\.git/*"'
+
 if [[ -f ~/.fzf.zsh ]]; then
   source ~/.fzf.zsh
 else
@@ -35,22 +40,73 @@ else
   ~/.fzf/install
 fi
 
-export FZF_DEFAULT_OPTS='--height 40% --border --info=inline'
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!\.git/*"'
+### curl
+if [[ ! -f "$(which curl)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install curl
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install curl -y
+fi
+
+### wget
+if [[ ! -f "$(which wget)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install wget
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install wget -y
+fi
+
+### curl
+if [[ ! -f "$(which curl)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install curl
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install curl -y
+fi
+
+### git
+if [[ ! -f "$(which git)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install git
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install git -y
+fi
 
 ### RipGrep
 if [[ ! -f "$(which rg)" ]]; then
   [[ "$(uname)" = "Darwin" ]] && brew install ripgrep
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install ripgrep
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install ripgrep -y
 fi
 
 ### jq
 if [[ ! -f "$(which jq)" ]]; then
   [[ "$(uname)" = "Darwin" ]] && brew install jq
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install jq
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install jq -y
 fi
 
-[[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
+### direnv
+if [[ ! -f "$(which direnv)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install direnv
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install direnv -y
+fi
+
+### tmux
+if [[ ! -f "$(which tmux)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install tmux
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install tmux -y
+fi
+
+### unzip
+if [[ ! -f "$(which unzip)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install unzip
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install unzip -y
+fi
+
+### gh
+if [[ ! -f "$(which gh)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install gh
+  if [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]]; then
+    type -p curl >/dev/null || sudo apt install curl -y
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && sudo apt update \
+    && sudo apt install gh -y
+  fi
+fi
+
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
@@ -61,7 +117,6 @@ else
 fi
 
 export MANPATH="/usr/local/man:$MANPATH"
-
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export ARCHFLAGS="-arch $(uname -m)"
@@ -69,6 +124,7 @@ export ARCHFLAGS="-arch $(uname -m)"
 export EDITOR="vim"
 export SHELL=/bin/zsh
 
+export CACHE_HOME="$HOME/.cache"
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export GO111MODULE=on
 export PIPENV_VENV_IN_PROJECT=true
@@ -168,7 +224,7 @@ alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
 
 alias deno-up='deno upgrade'
 alias rust-up='rustup update'
-alias go-up='sudo $(which go-update)'
+alias go-up='sudo $(which go-update) '
 
 # docker
 alias docker-ps='docker ps -a'
@@ -213,6 +269,7 @@ function tools() {
     [[ ! -f "$pyroot/bin/mypy" ]] && pip install mypy
     [[ ! -f "$pyroot/bin/autopep8" ]] && pip install autopep8
     [[ ! -f "$pyroot/bin/pycodestyle" ]] && pip install pycodestyle
+    [[ ! -d "$pysite/matplotlib" ]] && pip install matplotlib
     [[ ! -d "$pysite/pynvim" ]] && pip install --no-binary greenlet pynvim
     [[ ! -d "$pysite/neovim" ]] && pip install --no-binary greenlet neovim
   fi
@@ -248,7 +305,7 @@ function tools-up() {
   if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
     pip install -U --no-binary greenlet pynvim
     pip install -U --no-binary greenlet neovim
-    pip install -U pipenv poetry ipython black flake8 mypy autopep8 pycodestyle
+    pip install -U pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib
   fi
 
   if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
@@ -379,26 +436,26 @@ PATH="$HOME/.anyenv/bin":$PATH
 # anyenv
 export ANYENV_ROOT="$HOME/.anyenv"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
-export XDG_CACHE_HOME="$HOME/.cache"
-if [[ -f "/opt/homebrew/bin/anyenv" ]]; then
-  eval "$(anyenv init -)"
-elif [[ -f "$HOME/.anyenv/bin/anyenv" ]]; then
-  function anyenv-cache() {
-    [[ -d $XDG_CACHE_HOME/anyenv ]] || mkdir -p $XDG_CACHE_HOME/anyenv
-    anyenv init - --no-rehash > $XDG_CACHE_HOME/anyenv/init.zsh
-  }
 
-  if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
-      [[ -f $XDG_CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
-      source $XDG_CACHE_HOME/anyenv/init.zsh
-  fi
+function anyenv-cache() {
+  [[ -d $CACHE_HOME/anyenv ]] || mkdir -p $CACHE_HOME/anyenv
+  anyenv init - --no-rehash > $CACHE_HOME/anyenv/init.zsh
+}
+
+if [[ ! -x "$HOME/.anyenv/bin/anyenv" ]]; then
+  git clone https://github.com/anyenv/anyenv ~/.anyenv
+fi
+
+if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
+    [[ -f $CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
+    source $CACHE_HOME/anyenv/init.zsh
 fi
 
 ## sdkman
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
-## omajinai
+## fzf rendering speed up omajinai
 echo "yes" | fzf --select-1 --exit-0 && clear
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc

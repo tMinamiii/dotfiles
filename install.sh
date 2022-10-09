@@ -2,66 +2,39 @@
 
 set -Ce
 
-if [ ! -e "$HOME/.config" ]; then
-  mkdir "$HOME/.config"
-fi
+[[ ! -e "$HOME/.config" ]] && mkdir "$HOME/.config"
 
-##### initialize #####
-if [ -e "$HOME/.zshrc" ]; then
-  unlink "$HOME/.zshrc"
-fi
-if [ -e "$HOME/.vim" ]; then
-  unlink "$HOME/.vim"
-fi
-if [ -e "$HOME/.config/nvim" ]; then
-  unlink "$HOME/.config/nvim"
-fi
-if [ -e "$HOME/.tmux.conf" ]; then
-  unlink "$HOME/.tmux.conf"
-fi
-
-ARGS=$*
-
-if echo "$ARGS" | grep -sq "\\-\\-gui"; then
-  if uname | grep -sq "Darwin"; then
-    unlink  "$HOME/Library/Fonts/Cica*.ttf"
-  else
-    unlink "$HOME/.fonts"
-  fi
-
-  if grep -sq "Ubuntu" /etc/os-release; then
-    unlink "$HOME/.xprofile"
-    unlink "$HOME/.xsessionrc"
-    unlink "$HOME/.xkb"
-  fi
-fi
+[[ -e "$HOME/.zshrc" ]] && unlink "$HOME/.zshrc"
+[[ -e "$HOME/.vim" ]] && unlink "$HOME/.vim"
+[[ -e "$HOME/.config/nvim" ]] && unlink "$HOME/.config/nvim"
+[[ -e "$HOME/.tmux.conf" ]] && unlink "$HOME/.tmux.conf"
 
 ##### zsh setup #####
-if [ -e "$HOME/.zsh" ]; then
-  mv "$HOME/.zsh" "$HOME/dotzshbk"
-fi
-
-if [ -e "$HOME/.zshrc" ]; then
-  mv "$HOME/.zshrc" "$HOME/dotzshrcbk"
-fi
-
+[[ -e "$HOME/.zsh" ]] && mv "$HOME/.zsh" "$HOME/dotzshbk"
+[[ -e "$HOME/.zshrc" ]] && mv "$HOME/.zshrc" "$HOME/dotzshrcbk"
+[[ ! -e "$HOME/.config/efm-langserver" ]] && mkdir "$HOME/.config/efm-langserver"
 
 ln -s "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
-# ln -s "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
-
-###### vim setup ######
-
-if [ ! -e "$HOME/.config/efm-langserver" ]; then
-  mkdir "$HOME/.config/efm-langserver"
-fi
-
 ln -s "$HOME/dotfiles/vim" "$HOME/.vim"
 ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
 ln -s "$HOME/dotfiles/vim/efm-config.yaml" "$HOME/.config/efm-langserver/config.yaml"
-
-###### tmux ######
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
-# ln -s "$HOME/dotfiles/tmux" "$HOME/.tmux.d"
+
+# ARGS=$*
+#
+# if echo "$ARGS" | grep -sq "\\-\\-gui"; then
+#   if uname | grep -sq "Darwin"; then
+#     unlink  "$HOME/Library/Fonts/Cica*.ttf"
+#   else
+#     unlink "$HOME/.fonts"
+#   fi
+#
+#   if grep -sq "Ubuntu" /etc/os-release; then
+#     unlink "$HOME/.xprofile"
+#     unlink "$HOME/.xsessionrc"
+#     unlink "$HOME/.xkb"
+#   fi
+# fi
 
 # if grep -sq "Ubuntu" /etc/os-release; then
 #   if [ -z "$WSL_DISTRO_NAME" ]; then
