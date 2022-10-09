@@ -39,7 +39,7 @@ function install-go(){
 }
 
 if IsMacOS; then
-    brew install openssl readline sqlite3 xz zlib tcl-tk rust rustup deno jq
+    brew install openssl readline sqlite3 xz zlib tcl-tk rust rustup deno jq bat
 elif IsUbuntu; then
     sudo apt-get update
     sudo apt-get upgrade -y
@@ -47,6 +47,7 @@ elif IsUbuntu; then
         apt-utils \
         autoconf \
         automake \
+        bat \
         bison \
         build-essential \
         bzip2 \
