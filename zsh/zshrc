@@ -325,12 +325,12 @@ if uname -a | grep -sq "Linux"; then
   if [[ -n "$WSL_DISTRO_NAME" ]]; then
     # PATH=$PATH:"/mnt/c/Windows/System32"
     # PATH=$PATH:"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
+    # PATH=$PATH:"/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
+    # PATH=$PATH:"/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR"
     PATH=$PATH:"/mnt/c/win32yank/"
     PATH=$PATH:"/mnt/c/Users/tminamiii/AppData/Local/Programs/Microsoft VS Code/bin"
     PATH=$PATH:"/mnt/c/Program Files/Docker/Docker/resources/bin"
     PATH=$PATH:"/mnt/c/ProgramData/DockerDesktop/version-bin"
-    # PATH=$PATH:"/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
-    # PATH=$PATH:"/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR"
   fi
 
   android_sdk_root="${HOME}/Android/Sdk"
