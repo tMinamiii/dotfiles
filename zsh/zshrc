@@ -313,9 +313,11 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light dracula/zsh
+
+zinit ice wait"!0" silent
 zinit light b4b4r07/enhancd
 
-zinit ice wait
+zinit ice wait"!0" silent atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
 # zinit light marlonrichert/zsh-autocomplete
@@ -388,7 +390,7 @@ export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
 ## omajinai
-# echo "yes" | fzf --select-1 --exit-0 && clear
+echo "yes" | fzf --select-1 --exit-0 && clear
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
