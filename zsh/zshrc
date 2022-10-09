@@ -441,11 +441,19 @@ function anyenv-cache() {
 }
 
 if [[ ! -x "$HOME/.anyenv/bin/anyenv" ]]; then
-  git clone https://github.com/anyenv/anyenv ~/.anyenv
+  git clone https://github.com/anyenv/anyenv $HOME/.anyenv
+  mkdir -p $($ANYENV_ROOT/bin/anyenv root)/plugins
+  git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update
+
+  $HOME/.anyenv/bin/anyenv init
+  $ANYENV_ROOT/bin/anyenv install pyenv
+  $ANYENV_ROOT/bin/anyenv install nodenv
+  $ANYENV_ROOT/bin/anyenv install rbenv
+  $ANYENV_ROOT/bin/anyenv install tfenv
 fi
 
-if [[ -x $ANYENV_ROOT/bin/anyenv ]]; then
-    [[ -f $CACHE_HOME/anyenv/init.zsh ]] || anyenv-cache
+if [[ -x "$ANYENV_ROOT/bin/anyenv" ]]; then
+    [[ -f "$CACHE_HOME/anyenv/init.zsh" ]] || anyenv-cache
     source $CACHE_HOME/anyenv/init.zsh
 fi
 
