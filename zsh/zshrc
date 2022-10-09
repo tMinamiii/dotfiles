@@ -40,64 +40,76 @@ else
   ~/.fzf/install
 fi
 
+function IsUbuntu() {
+  [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]
+}
+
+function IsWSL() {
+  [[  -n "$WSL_DISTRO_NAME" ]]
+}
+
+function IsMacOS() {
+  [[ "$(uname)" = "Darwin" ]]
+}
+
 ### curl
 if [[ ! -f "$(which curl)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install curl
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install curl -y
+  IsMacOS && brew install curl
+  IsUbuntu && sudo apt install curl -y
 fi
 
 ### wget
 if [[ ! -f "$(which wget)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install wget
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install wget -y
+  IsMacOS && brew install wget
+  IsUbuntu && sudo apt install wget -y
 fi
 
 ### curl
 if [[ ! -f "$(which curl)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install curl
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install curl -y
+  IsMacOS && brew install curl
+  IsUbuntu && sudo apt install curl -y
 fi
 
 ### git
 if [[ ! -f "$(which git)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install git
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install git -y
+  IsMacOS && brew install git
+  IsUbuntu && sudo apt install git -y
 fi
 
 ### RipGrep
 if [[ ! -f "$(which rg)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install ripgrep
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install ripgrep -y
+  IsMacOS && brew install ripgrep
+  IsUbuntu && sudo apt install ripgrep -y
 fi
 
 ### jq
 if [[ ! -f "$(which jq)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install jq
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install jq -y
+  IsMacOS && brew install jq
+  IsUbuntu && sudo apt install jq -y
 fi
 
 ### direnv
 if [[ ! -f "$(which direnv)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install direnv
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install direnv -y
+  IsMacOS && brew install direnv
+  IsUbuntu && sudo apt install direnv -y
 fi
 
 ### tmux
 if [[ ! -f "$(which tmux)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install tmux
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install tmux -y
+  IsMacOS && brew install tmux
+  IsUbuntu && sudo apt install tmux -y
 fi
 
 ### unzip
 if [[ ! -f "$(which unzip)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install unzip
-  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install unzip -y
+  IsMacOS && brew install unzip
+  IsUbuntu && sudo apt install unzip -y
 fi
 
 ### gh
 if [[ ! -f "$(which gh)" ]]; then
-  [[ "$(uname)" = "Darwin" ]] && brew install gh
-  if [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]]; then
+  IsMacOS && brew install gh
+  if IsUbuntu; then
     type -p curl >/dev/null || sudo apt install curl -y
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
     && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -151,7 +163,7 @@ if uname -a | grep -sq "Linux"; then
   alias build-nvim='sudo echo "start" && sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
   alias make-nvim='build-nvim'
 
-  if [[ -n "$WSL_DISTRO_NAME" ]]; then
+  if IsWSL; then
     alias open='wsl-open'
   else
     alias open='xdg-open'
@@ -159,7 +171,7 @@ if uname -a | grep -sq "Linux"; then
 
   # eval `ssh-agent` > /dev/null 2>&1
 
-elif [[ "$(uname)" = "Darwin" ]]; then
+elif IsMacOS; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
   export DBC_USER="takahiro.minami@every.tv"
@@ -277,7 +289,7 @@ function tools() {
   if [[ -d "$HOME/.anyenv/envs/nodenv" ]]; then
     local ndversion=$(cat "$HOME/.anyenv/envs/nodenv/version")
     local ndroot="$HOME/.anyenv/envs/nodenv/versions/$ndversion"
-    [[ -n "$WSL_DISTRO_NAME" ]] && [[ ! -f "$ndroot/bin/wsl-open" ]] && npm i -g wsl-open
+    IsWSL && [[ ! -f "$ndroot/bin/wsl-open" ]] && npm i -g wsl-open
     [[ ! -f "$ndroot/bin/yarn" ]] && npm i -g yarn
     [[ ! -f "$ndroot/bin/prettier" ]] && npm i -g prettier
     [[ ! -f "$ndroot/bin/textlint" ]] && npm i -g textlint
@@ -305,7 +317,7 @@ function tools-up() {
   fi
 
   if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
-    [[ -n "$WSL_DISTRO_NAME" ]] && npm i -g wsl-open
+    IsWSL && npm i -g wsl-open
     npm update -g npm
     npm update -g
   fi
@@ -315,7 +327,7 @@ function tools-up() {
     gem update
   fi
 
-  if [[  -n "$WSL_DISTRO_NAME" ]]; then
+  if IsWSL; then
     echo "Update win32yank.exe"
     local win32yank_dir="/mnt/c/win32yank"
     local win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
@@ -343,7 +355,7 @@ function ghq-fzf() {
 
 ## install win32yank
 function install-win32yank() {
-  if [[  -n "$WSL_DISTRO_NAME" ]]; then
+  if IsWSL; then
     local WIN32YANK_DIR="/mnt/c/win32yank"
     [[ ! -d "$WIN32YANK_DIR" ]] && mkdir -p $WIN32YANK_DIR
     if [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]]; then
@@ -356,7 +368,7 @@ function install-win32yank() {
     fi
   fi
 }
-[[  -n "$WSL_DISTRO_NAME" ]] && install-win32yank
+IsWSL && install-win32yank
 
 ### Zinit's installer
 
@@ -399,7 +411,7 @@ bindkey '^x^e' edit-command-line
 export PATH=$PATH
 if uname -a | grep -sq "Linux"; then
   # WSL windows paths
-  if [[ -n "$WSL_DISTRO_NAME" ]]; then
+  if IsWSL; then
     # PATH=$PATH:"/mnt/c/Windows/System32"
     # PATH=$PATH:"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
     # PATH=$PATH:"/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
@@ -417,7 +429,7 @@ if uname -a | grep -sq "Linux"; then
 
   PATH="/usr/local/flutter/bin":$PATH
   PATH="/snap/bin":$PATH
-elif [[ "$(uname)" = "Darwin" ]]; then
+elif IsMacOS; then
   PATH=$PATH:"/Users/takahiro.minami/Library/Android/sdk/platform-tools"
 fi
 

@@ -8,9 +8,9 @@ set -Ce
 [[ -e "$HOME/.tmux.conf" ]] && unlink ~/.tmux.conf
 [[ -e "$HOME/.config/efm-langserver/config.yaml" ]] && unlink "$HOME/.config/efm-langserver/config.yaml"
 
-if uname -a | grep -sq "Ubuntu"; then
-[[ -e "$HOME/.xprofile" ]] && unlink ~/.xprofile
-[[ -e "$HOME/.xsessionrc" ]] && unlink ~/.xsessionrc
-[[ -e "$HOME/.xkb" ]] && unlink ~/.xkb
+if [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]; then
+    [[ -e "$HOME/.xprofile" ]] && unlink ~/.xprofile
+    [[ -e "$HOME/.xsessionrc" ]] && unlink ~/.xsessionrc
+    [[ -e "$HOME/.xkb" ]] && unlink ~/.xkb
 fi
 
