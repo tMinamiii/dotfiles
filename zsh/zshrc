@@ -354,6 +354,9 @@ fi
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
+## omajinai
+echo "yes" | fzf --select-1 --exit-0 && clear
+
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
 # if (which zprof > /dev/null 2>&1) ;then
