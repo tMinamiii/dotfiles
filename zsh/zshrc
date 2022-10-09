@@ -21,6 +21,9 @@ setopt inc_append_history
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
+[[ ! -d "$HOME/.local/bin" ]] || mkdir -p "$HOME/.local/bin"
+[[ ! -d "$HOME/bin" ]] || mkdir -p "$HOME/bin"
+
 # Homebrew for M1 mac
 [[ -f "/opt/homebrew/bin/brew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
 
@@ -184,7 +187,7 @@ alias zsh-bench='time ( zsh -i -c exit )'
 
 # functions
 function tools() {
-  if [[ -x "$HOME/go/bin" ]]; then
+  if [[ -d "$HOME/go/bin" ]]; then
     local gobindir="$HOME/go/bin"
     [[ ! -f "$gobindir/go-update" ]] && go install github.com/tMinamiii/go-update@latest
     [[ ! -f "$gobindir/gup" ]] && go install github.com/nao1215/gup@latest
@@ -192,7 +195,7 @@ function tools() {
     [[ ! -f "$gobindir/air" ]] && go install github.com/cosmtrek/air@latest
   fi
 
-  if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
+  if [[ -d "$HOME/.anyenv/envs/pyenv" ]]; then
     local pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
     local pyroot="$HOME/.anyenv/envs/pyenv/versions/$pyversion"
     local pysite="$pyroot/lib/python$(echo $pyversion | cut -f 1-2 -d '.')/site-packages"
@@ -204,11 +207,11 @@ function tools() {
     [[ ! -f "$pyroot/bin/mypy" ]] && pip install mypy
     [[ ! -f "$pyroot/bin/autopep8" ]] && pip install autopep8
     [[ ! -f "$pyroot/bin/pycodestyle" ]] && pip install pycodestyle
-    [[ ! -x "$pysite/pynvim" ]] && pip install --no-binary greenlet pynvim
-    [[ ! -x "$pysite/neovim" ]] && pip install --no-binary greenlet neovim
+    [[ ! -d "$pysite/pynvim" ]] && pip install --no-binary greenlet pynvim
+    [[ ! -d "$pysite/neovim" ]] && pip install --no-binary greenlet neovim
   fi
 
-  if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
+  if [[ -d "$HOME/.anyenv/envs/nodenv" ]]; then
     local ndversion=$(cat "$HOME/.anyenv/envs/nodenv/version")
     local ndroot="$HOME/.anyenv/envs/nodenv/versions/$ndversion"
     [[ -n "$WSL_DISTRO_NAME" ]] && [[ ! -f "$ndroot/bin/wsl-open" ]] && npm i -g wsl-open
@@ -219,10 +222,21 @@ function tools() {
     [[ ! -f "$ndroot/bin/neovim-node-host" ]] && npm i -g neovim
   fi
 
-  if [[ -x "$HOME/.anyenv/envs/rbenv" ]]; then
+  if [[ -d "$HOME/.anyenv/envs/rbenv" ]]; then
     local rbversion=$(cat "$HOME/.anyenv/envs/rbenv/version")
     local rbroot="$HOME/.anyenv/envs/rbenv/versions/$rbversion"
     [[ ! -f "$rbroot/bin/neovim-ruby-host" ]] && gem install neovim
+  fi
+
+  if [[  -n "$WSL_DISTRO_NAME" ]]; then
+    local win32yankdir="/mnt/c/win32yank"
+    [[ ! -d "$win32yankdir" ]] && mkdir -p $win32yankdir
+    if [[ ! -f  "$win32yankdir/win32yank.exe" ]]; then
+      local win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
+      curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$win32yankv_version/win32yank-x86.zip"
+      unzip -q -f win32yank-x86.zip win32yank.exe -d $win32yankdir
+      rm -f win32yank-x86.zip
+    fi
   fi
 }
 
@@ -248,7 +262,15 @@ function tools-up() {
   if [[ -x "$HOME/.anyenv/envs/rbenv" ]]; then
     gem install neovim
   fi
+
+  if [[  -n "$WSL_DISTRO_NAME" ]]; then
+    local win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
+    curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$win32yankv_version/win32yank-x86.zip"
+    unzip -q -f win32yank-x86.zip win32yank.exe -d "/mnt/c/win32yank"
+    rm -f win32yank-x86.zip
+  fi
 }
+
 
 function ghq-fzf() {
   local src=$(ghq list | fzf )
@@ -301,8 +323,9 @@ export PATH=$PATH
 if uname -a | grep -sq "Linux"; then
   # WSL windows paths
   if [[ -n "$WSL_DISTRO_NAME" ]]; then
-    PATH=$PATH:"/mnt/c/Windows/System32"
-    PATH=$PATH:"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
+    # PATH=$PATH:"/mnt/c/Windows/System32"
+    # PATH=$PATH:"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
+    PATH=$PATH:"/mnt/c/win32yank/"
     PATH=$PATH:"/mnt/c/Users/tminamiii/AppData/Local/Programs/Microsoft VS Code/bin"
     PATH=$PATH:"/mnt/c/Program Files/Docker/Docker/resources/bin"
     PATH=$PATH:"/mnt/c/ProgramData/DockerDesktop/version-bin"
