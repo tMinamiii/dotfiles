@@ -52,12 +52,6 @@ function IsMacOS() {
   [[ "$(uname)" = "Darwin" ]]
 }
 
-### curl
-if [[ ! -f "$(which curl)" ]]; then
-  IsMacOS && brew install curl
-  IsUbuntu && sudo apt install curl -y
-fi
-
 ### wget
 if [[ ! -f "$(which wget)" ]]; then
   IsMacOS && brew install wget
@@ -433,7 +427,6 @@ elif IsMacOS; then
   PATH=$PATH:"/Users/takahiro.minami/Library/Android/sdk/platform-tools"
 fi
 
-PATH="$HOME/zls":$PATH
 PATH="$HOME/bin":$PATH
 PATH="$HOME/.local/bin":$PATH
 PATH="$JAVA_HOME/bin":$PATH

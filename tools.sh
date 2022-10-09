@@ -3,7 +3,7 @@
 set -Ceu
 
 if [[ "$(uname)" = "Darwin" ]]; then
-    brew install openssl readline sqlite3 xz zlib tcl-tk
+    brew install openssl readline sqlite3 xz zlib tcl-tk rust rustup deno
 elif [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]; then
     sudo apt-get update
     sudo apt-get upgrade -y
