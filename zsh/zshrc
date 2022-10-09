@@ -294,13 +294,11 @@ function tools() {
 
 function tools-up() {
   if [[ -x "$HOME/go/bin" ]]; then
-    go install github.com/tMinamiii/go-update@latest
-    go install github.com/nao1215/gup@latest
-    go install github.com/x-motemen/ghq@latest
-    go install github.com/cosmtrek/air@latest
+    gup update
   fi
 
   if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
+    pip install -U pip
     pip install -U --no-binary greenlet pynvim
     pip install -U --no-binary greenlet neovim
     pip install -U pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib
@@ -308,17 +306,20 @@ function tools-up() {
 
   if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
     [[ -n "$WSL_DISTRO_NAME" ]] && npm i -g wsl-open
-    npm i -g yarn prettier textlint zenn-cli neovim
+    npm update -g npm
+    npm update -g
   fi
 
   if [[ -x "$HOME/.anyenv/envs/rbenv" ]]; then
-    gem install neovim
+    gem update --system
+    gem update
   fi
 
   if [[  -n "$WSL_DISTRO_NAME" ]]; then
     echo "Update win32yank.exe"
     local win32yank_dir="/mnt/c/win32yank"
     local win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
+    rm -rf $win32yank_dir
     curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$win32yankv_version/win32yank-x86.zip"
     trap 'rm -f win32yank-x86.zip' EXIT
     unzip -u -q win32yank-x86.zip win32yank.exe -d $win32yank_dir
