@@ -44,6 +44,12 @@ if [[ ! -f "$(which rg)" ]]; then
   [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install ripgrep
 fi
 
+### jq
+if [[ ! -f "$(which jq)" ]]; then
+  [[ "$(uname)" = "Darwin" ]] && brew install jq
+  [[ $(cat /etc/os-release | grep 'NAME="Ubuntu"') != "" ]] && sudo apt install jq
+fi
+
 [[ -f "$(which hub)" ]] && eval "$(hub alias -s)"
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
@@ -313,6 +319,9 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light dracula/zsh
+
+zinit ice wait"!0" blockf silent
+zinit light "zsh-users/zsh-completions"
 
 zinit ice wait"!0" silent
 zinit light b4b4r07/enhancd
