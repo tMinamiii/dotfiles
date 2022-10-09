@@ -2,9 +2,45 @@
 
 set -Ceu
 
-if [[ "$(uname)" = "Darwin" ]]; then
-    brew install openssl readline sqlite3 xz zlib tcl-tk rust rustup deno
-elif [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]; then
+function IsUbuntu() {
+  [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]
+}
+
+function IsMacOS() {
+  [[ "$(uname)" = "Darwin" ]]
+}
+
+function install-go(){
+    LATEST_GO_VERSION=$(curl -s 'https://go.dev/dl/?mode=json' | jq -r '[.[]][0].version')
+
+    ARCH=""
+    if [[ "$(uname -m)" = "x86_64" ]]; then
+        ARCH="amd64"
+    elif uname -m | grep -sq "arm64"; then
+        ARCH="arm64"
+    else
+        exit
+    fi
+
+    OS=""
+    if IsMacOS; then
+        OS="darwin"
+    elif IsUbuntu; then
+        OS="linux"
+    else
+        exit
+    fi
+
+    GOGZ="${LATEST_GO_VERSION}.${OS}-${ARCH}.tar.gz"
+
+    trap 'rm ${GOPKG}' EXIT
+    sudo curl -OL --progress-bar "https://go.dev/dl/${GOGZ}"
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "${GOGZ}"
+}
+
+if IsMacOS; then
+    brew install openssl readline sqlite3 xz zlib tcl-tk rust rustup deno jq
+elif IsUbuntu; then
     sudo apt-get update
     sudo apt-get upgrade -y
     sudo apt-get install -y \
@@ -64,6 +100,11 @@ elif [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]; then
         tree \
         xz-utils \
         zlib1g-dev \
+        jq \
         zsh
+
+    curl -fsSL https://deno.land/install.sh | sh
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
+install-go
