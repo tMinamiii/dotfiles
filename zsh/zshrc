@@ -290,8 +290,6 @@ function tools() {
     local rbroot="$HOME/.anyenv/envs/rbenv/versions/$rbversion"
     [[ ! -f "$rbroot/bin/neovim-ruby-host" ]] && gem install neovim
   fi
-
-
 }
 
 function tools-up() {
