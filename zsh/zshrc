@@ -317,6 +317,23 @@ function tools-up() {
   fi
 }
 
+function python-update() {
+  local latest=$(pyenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
+  local current=$(cat "$HOME/.anyenv/envs/pyenv/version")
+  [[ $latest != $current ]] && pyenv install $latest && pyenv global $latest && pyenv rehash
+}
+
+function node-update() {
+  local latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS | head -1 | cut -f 3 -d " " | tr -d '\n ')
+  local current=$(cat "$HOME/.anyenv/envs/nodenv/version")
+  [[ $latest != $current ]] && nodenv install $latest && nodenv global $latest && nodenv rehash
+}
+
+function ruby-update() {
+  local latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
+  local current=$(cat "$HOME/.anyenv/envs/rbenv/version")
+ [[ $latest != $current ]] &&  rbenv install $latest && rbenv global $latest && rbenv rehash
+}
 
 function ghq-fzf() {
   local src=$(ghq list | fzf )
