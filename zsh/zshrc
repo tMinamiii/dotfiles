@@ -32,7 +32,6 @@ export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export EDITOR="vim"
 export SHELL=/bin/zsh
-
 [[ ! -d "$HOME/.local/bin" ]] && mkdir -p "$HOME/.local/bin"
 [[ ! -d "$HOME/bin" ]] && mkdir -p "$HOME/bin"
 [[ ! -d "$HOME/.cache" ]] && mkdir -p "$HOME/.cache"
@@ -340,7 +339,7 @@ function ghq-fzf() {
   zle -R -c
 }
 
-## install win32yank
+### Install win32yank ###
 function install-win32yank() {
   if IsWSL; then
     local WIN32YANK_DIR="/mnt/c/win32yank"
@@ -357,8 +356,7 @@ function install-win32yank() {
 }
 IsWSL && install-win32yank
 
-### Zinit's installer
-
+### Zinit's installer ###
 export ZINIT="$HOME/.local/share/zinit"
 export ENHANCD_COMMAND=cdd
 if [[ ! -f "$ZINIT/zinit.git/zinit.zsh" ]]; then
@@ -394,7 +392,7 @@ bindkey '^G' ghq-fzf
 bindkey '^[' autosuggest-accept
 bindkey '^x^e' edit-command-line
 
-# PATH
+### PATH ###
 if uname -a | grep -sq "Linux"; then
   # WSL windows paths
   if IsWSL; then
@@ -406,6 +404,7 @@ if uname -a | grep -sq "Linux"; then
     PATH=$PATH:"/mnt/c/Users/tminamiii/AppData/Local/Programs/Microsoft VS Code/bin"
     PATH=$PATH:"/mnt/c/Program Files/Docker/Docker/resources/bin"
     PATH=$PATH:"/mnt/c/ProgramData/DockerDesktop/version-bin"
+    export CHROME_EXECUTABLE="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
   fi
 
   android_sdk_root="${HOME}/Android/Sdk"
@@ -429,7 +428,7 @@ PATH="/usr/local/protobuf/bin":$PATH
 PATH="/usr/local/go/bin":$PATH
 PATH="$HOME/.anyenv/bin":$PATH
 
-## install programming languages
+### install programming languages ###
 function install-go(){
     local LATEST_GO_VERSION=$(curl -s 'https://go.dev/dl/?mode=json' | jq -r '[.[]][0].version')
 
@@ -449,10 +448,19 @@ function install-go(){
       && sudo tar -C /usr/local -xzf "${GOGZ}"
 }
 
-[[ ! -d "/usr/local/go" ]] && install-go
+[[ ! -f "/usr/local/go/bin/go" ]] && install-go
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+if [[ ! -f $(which flutter) ]]; then
+  IsMacOS; brew instal flutter
+  IsUbuntu && sudo snap install flutter --classic
+fi
+if [[ ! -f $(which zig) ]]; then
+  IsMacOS; brew instal zig
+  IsUbuntu && sudo snap install zig --classic --beta
+fi
 
+### anyenv ###
 export ANYENV_ROOT="$HOME/.anyenv"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
 
