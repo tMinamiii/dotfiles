@@ -27,7 +27,7 @@ set signcolumn=yes
 set number                      " 行番号の表示
 set nowrap                      " 長いテキストの折り返し
 set textwidth=0                 " 自動的に改行が入るのを無効化
-" set novisualbell                " 前時代的スクリーンベルを無効化
+set novisualbell                " 前時代的スクリーンベルを無効化
 set display=lastline
 set softtabstop=0
 set showtabline=0               " 常にタブラインを表示
