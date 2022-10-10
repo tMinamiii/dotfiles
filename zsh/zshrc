@@ -334,11 +334,11 @@ function ghq-fzf() {
 
 ### Install win32yank ###
 function install-win32yank() {
-  if IsWSL; then
+  local WIN32YANK_DIR="/mnt/c/win32yank"
+  if IsWSL && [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]]; then
     echo "Install win32yank"
 
     trap 'rm -f win32yank-x86.zip' EXIT
-    local WIN32YANK_DIR="/mnt/c/win32yank"
     local WIN32YANK_VERSION=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
     [[ ! -d "$WIN32YANK_DIR" ]] && mkdir -p $WIN32YANK_DIR
     curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$WIN32YANK_VERSION/win32yank-x86.zip" \
@@ -346,17 +346,17 @@ function install-win32yank() {
   fi
 }
 
-IsWSL && [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]] && install-win32yank
+install-win32yank
 
 ### Zinit's installer ###
 export ZINIT="$HOME/.local/share/zinit"
 export ENHANCD_COMMAND=cdd
 if [[ ! -f "$ZINIT/zinit.git/zinit.zsh" ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p $ZINIT && command chmod g-rwX $ZINIT
-    command git clone https://github.com/zdharma-continuum/zinit "$ZINIT/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
+  print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+  command mkdir -p $ZINIT && command chmod g-rwX $ZINIT
+  command git clone https://github.com/zdharma-continuum/zinit "$ZINIT/zinit.git" && \
+    print -P "%F{33} %F{34}Installation successful.%f%b" || \
+    print -P "%F{160} The clone has failed.%f%b"
 fi
 
 source "$ZINIT/zinit.git/zinit.zsh"
