@@ -243,6 +243,7 @@ function tools() {
   if [[ -d "$HOME/go/bin" ]]; then
     local gobindir="$HOME/go/bin"
     [[ ! -f "$gobindir/go-update" ]] && go install github.com/tMinamiii/go-update@latest
+    [[ ! -f "$gobindir/lgotm" ]] && go install github.com/tMinamiii/lgotm@latest
     [[ ! -f "$gobindir/gup" ]] && go install github.com/nao1215/gup@latest
     [[ ! -f "$gobindir/ghq" ]] && go install github.com/x-motemen/ghq@latest
     [[ ! -f "$gobindir/air" ]] && go install github.com/cosmtrek/air@latest
