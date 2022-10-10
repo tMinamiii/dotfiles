@@ -58,55 +58,55 @@ fi
 
 ### wget
 if [[ ! -f "$(which wget)" ]]; then
-  IsMacOS && brew install wget
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install wget
   IsUbuntu && sudo apt install wget -y
 fi
 
 ### curl
 if [[ ! -f "$(which curl)" ]]; then
-  IsMacOS && brew install curl
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install curl
   IsUbuntu && sudo apt install curl -y
 fi
 
 ### git
 if [[ ! -f "$(which git)" ]]; then
-  IsMacOS && brew install git
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install git
   IsUbuntu && sudo apt install git -y
 fi
 
 ### RipGrep
 if [[ ! -f "$(which rg)" ]]; then
-  IsMacOS && brew install ripgrep
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install ripgrep
   IsUbuntu && sudo apt install ripgrep -y
 fi
 
 ### jq
 if [[ ! -f "$(which jq)" ]]; then
-  IsMacOS && brew install jq
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install jq
   IsUbuntu && sudo apt install jq -y
 fi
 
 ### direnv
 if [[ ! -f "$(which direnv)" ]]; then
-  IsMacOS && brew install direnv
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install direnv
   IsUbuntu && sudo apt install direnv -y
 fi
 
 ### tmux
 if [[ ! -f "$(which tmux)" ]]; then
-  IsMacOS && brew install tmux
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install tmux
   IsUbuntu && sudo apt install tmux -y
 fi
 
 ### unzip
 if [[ ! -f "$(which unzip)" ]]; then
-  IsMacOS && brew install unzip
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install unzip
   IsUbuntu && sudo apt install unzip -y
 fi
 
 ### gh
 if [[ ! -f "$(which gh)" ]]; then
-  IsMacOS && brew install gh
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install gh
   if IsUbuntu; then
     type -p curl >/dev/null || sudo apt install curl -y
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -459,11 +459,11 @@ function install-go(){
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 if [[ ! -f $(which flutter) ]]; then
-  IsMacOS && brew instal flutter
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew instal flutter
   IsUbuntu && sudo snap install flutter --classic
 fi
 if [[ ! -f $(which zig) ]]; then
-  IsMacOS && brew instal zig
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew instal zig
   IsUbuntu && sudo snap install zig --classic --beta
 fi
 
