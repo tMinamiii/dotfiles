@@ -2,6 +2,10 @@
 
 # zmodload zsh/zprof && zprof
 
+function IsUbuntu() { [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
+function IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] }
+function IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
+
 set bell-style none
 skip_global_compinit=1
 setopt no_beep
@@ -32,6 +36,7 @@ export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
 export EDITOR="vim"
 export SHELL=/bin/zsh
+
 [[ ! -d "$HOME/.local/bin" ]] && mkdir -p "$HOME/.local/bin"
 [[ ! -d "$HOME/bin" ]] && mkdir -p "$HOME/bin"
 [[ ! -d "$HOME/.cache" ]] && mkdir -p "$HOME/.cache"
@@ -50,18 +55,6 @@ else
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
 fi
-
-function IsUbuntu() {
-  [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]
-}
-
-function IsWSL() {
-  [[  -n "$WSL_DISTRO_NAME" ]]
-}
-
-function IsMacOS() {
-  [[ "$(uname)" = "Darwin" ]]
-}
 
 ### wget
 if [[ ! -f "$(which wget)" ]]; then
@@ -117,10 +110,10 @@ if [[ ! -f "$(which gh)" ]]; then
   if IsUbuntu; then
     type -p curl >/dev/null || sudo apt install curl -y
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-    && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-    && sudo apt update \
-    && sudo apt install gh -y
+      && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+      && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+      && sudo apt update \
+      && sudo apt install gh -y
   fi
 fi
 
@@ -342,19 +335,18 @@ function ghq-fzf() {
 ### Install win32yank ###
 function install-win32yank() {
   if IsWSL; then
-    local WIN32YANK_DIR="/mnt/c/win32yank"
-    [[ ! -d "$WIN32YANK_DIR" ]] && mkdir -p $WIN32YANK_DIR
-    if [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]]; then
-      echo "Install win32yank"
-      trap 'rm -f win32yank-x86.zip' EXIT
+    echo "Install win32yank"
 
-      local WIN32YANK_VERSION=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
-      curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$WIN32YANK_VERSION/win32yank-x86.zip" \
-        && unzip -q -u win32yank-x86.zip win32yank.exe -d $WIN32YANK_DIR
-    fi
+    trap 'rm -f win32yank-x86.zip' EXIT
+    local WIN32YANK_DIR="/mnt/c/win32yank"
+    local WIN32YANK_VERSION=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
+    [[ ! -d "$WIN32YANK_DIR" ]] && mkdir -p $WIN32YANK_DIR
+    curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$WIN32YANK_VERSION/win32yank-x86.zip" \
+      && unzip -q -u win32yank-x86.zip win32yank.exe -d $WIN32YANK_DIR
   fi
 }
-IsWSL && install-win32yank
+
+IsWSL && [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]] && install-win32yank
 
 ### Zinit's installer ###
 export ZINIT="$HOME/.local/share/zinit"
@@ -398,8 +390,6 @@ if uname -a | grep -sq "Linux"; then
   if IsWSL; then
     # PATH=$PATH:"/mnt/c/Windows/System32"
     # PATH=$PATH:"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
-    # PATH=$PATH:"/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common"
-    # PATH=$PATH:"/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR"
     PATH=$PATH:"/mnt/c/win32yank/"
     PATH=$PATH:"/mnt/c/Users/tminamiii/AppData/Local/Programs/Microsoft VS Code/bin"
     PATH=$PATH:"/mnt/c/Program Files/Docker/Docker/resources/bin"
@@ -407,9 +397,8 @@ if uname -a | grep -sq "Linux"; then
     export CHROME_EXECUTABLE="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
   fi
 
-  android_sdk_root="${HOME}/Android/Sdk"
-  PATH=$PATH:"${android_sdk_root}/bin"
-  PATH=$PATH:"${android_sdk_root}/cmdline-tools/latest/bin"
+  PATH=$PATH:"${HOME}/Android/Sdk/bin"
+  PATH=$PATH:"${HOME}/Android/Sdk/cmdline-tools/latest/bin"
   PATH=$PATH:"/usr/local/android-studio/bin"
 
   PATH="/usr/local/flutter/bin":$PATH
@@ -452,11 +441,11 @@ function install-go(){
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 if [[ ! -f $(which flutter) ]]; then
-  IsMacOS; brew instal flutter
+  IsMacOS && brew instal flutter
   IsUbuntu && sudo snap install flutter --classic
 fi
 if [[ ! -f $(which zig) ]]; then
-  IsMacOS; brew instal zig
+  IsMacOS && brew instal zig
   IsUbuntu && sudo snap install zig --classic --beta
 fi
 
