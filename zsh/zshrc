@@ -21,6 +21,7 @@ setopt inc_append_history
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
+export PATH=$PATH
 export TERM=xterm-256color
 [[ "$TMUX" != "" ]] && TERM="screen-256color"
 export ARCHFLAGS="-arch $(uname -m)"
@@ -152,11 +153,8 @@ if uname -a | grep -sq "Linux"; then
   alias build-nvim='sudo echo "start" && sudo rm -rf .deps build && sudo make clean && sudo make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
   alias make-nvim='build-nvim'
 
-  if IsWSL; then
-    alias open='wsl-open'
-  else
-    alias open='xdg-open'
-  fi
+  alias open='xdg-open'
+  IsWSL && alias open='wsl-open'
 
   # eval `ssh-agent` > /dev/null 2>&1
 
@@ -320,10 +318,10 @@ function tools-up() {
     echo "Update win32yank.exe"
     local win32yank_dir="/mnt/c/win32yank"
     local win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
-    rm -rf $win32yank_dir
-    curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$win32yankv_version/win32yank-x86.zip"
     trap 'rm -f win32yank-x86.zip' EXIT
-    unzip -u -q win32yank-x86.zip win32yank.exe -d $win32yank_dir
+    curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$win32yankv_version/win32yank-x86.zip" \
+      && rm -rf $win32yank_dir \
+      && unzip -u -q win32yank-x86.zip win32yank.exe -d $win32yank_dir
   fi
 }
 
@@ -348,12 +346,12 @@ function install-win32yank() {
     local WIN32YANK_DIR="/mnt/c/win32yank"
     [[ ! -d "$WIN32YANK_DIR" ]] && mkdir -p $WIN32YANK_DIR
     if [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]]; then
+      echo "Install win32yank"
       trap 'rm -f win32yank-x86.zip' EXIT
 
-      echo "Install win32yank"
       local WIN32YANK_VERSION=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
-      curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$WIN32YANK_VERSION/win32yank-x86.zip"
-      unzip -q -u win32yank-x86.zip win32yank.exe -d $WIN32YANK_DIR
+      curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$WIN32YANK_VERSION/win32yank-x86.zip" \
+        && unzip -q -u win32yank-x86.zip win32yank.exe -d $WIN32YANK_DIR
     fi
   fi
 }
@@ -397,7 +395,6 @@ bindkey '^[' autosuggest-accept
 bindkey '^x^e' edit-command-line
 
 # PATH
-export PATH=$PATH
 if uname -a | grep -sq "Linux"; then
   # WSL windows paths
   if IsWSL; then
@@ -447,11 +444,12 @@ function install-go(){
     local GOGZ="${LATEST_GO_VERSION}.${OS}-${ARCH}.tar.gz"
 
     trap 'rm ${GOPKG}' EXIT
-    sudo curl -OL --progress-bar "https://go.dev/dl/${GOGZ}"
-    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "${GOGZ}"
+    sudo curl -OL --progress-bar "https://go.dev/dl/${GOGZ}" \
+      && sudo rm -rf /usr/local/go \
+      && sudo tar -C /usr/local -xzf "${GOGZ}"
 }
 
-[[ ! -f $(which go) ]] && install-go
+[[ ! -d "/usr/local/go" ]] && install-go
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
@@ -464,16 +462,15 @@ function anyenv-cache() {
 }
 
 if [[ ! -x "$HOME/.anyenv/bin/anyenv" ]]; then
-  git clone https://github.com/anyenv/anyenv $HOME/.anyenv
-  mkdir -p $($ANYENV_ROOT/bin/anyenv root)/plugins
-  git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update
-
-  $HOME/.anyenv/bin/anyenv init
-  $ANYENV_ROOT/bin/anyenv install pyenv
-  $ANYENV_ROOT/bin/anyenv install nodenv
-  $ANYENV_ROOT/bin/anyenv install rbenv
-  $ANYENV_ROOT/bin/anyenv install tfenv
-  anyenv-cache
+  git clone https://github.com/anyenv/anyenv $HOME/.anyenv \
+    && mkdir -p $($ANYENV_ROOT/bin/anyenv root)/plugins \
+    && git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update \
+    && $HOME/.anyenv/bin/anyenv init \
+    && $ANYENV_ROOT/bin/anyenv install pyenv \
+    && $ANYENV_ROOT/bin/anyenv install nodenv \
+    && $ANYENV_ROOT/bin/anyenv install rbenv \
+    && $ANYENV_ROOT/bin/anyenv install tfenv \
+    && anyenv-cache
 fi
 
 if [[ -x "$ANYENV_ROOT/bin/anyenv" ]]; then
