@@ -21,6 +21,17 @@ setopt inc_append_history
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
+export TERM=xterm-256color
+[[ "$TMUX" != "" ]] && TERM="screen-256color"
+export ARCHFLAGS="-arch $(uname -m)"
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export DISPLAY=:0.0
+export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
+export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
+export EDITOR="vim"
+export SHELL=/bin/zsh
+
 [[ ! -d "$HOME/.local/bin" ]] && mkdir -p "$HOME/.local/bin"
 [[ ! -d "$HOME/bin" ]] && mkdir -p "$HOME/bin"
 [[ ! -d "$HOME/.cache" ]] && mkdir -p "$HOME/.cache"
@@ -116,30 +127,14 @@ fi
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-if [[ "$TMUX" != "" ]]; then
-  export TERM="screen-256color"
-else
-  export TERM=xterm-256color
-fi
-
 export MANPATH="/usr/local/man:$MANPATH"
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export ARCHFLAGS="-arch $(uname -m)"
-
-export EDITOR="vim"
-export SHELL=/bin/zsh
-
-export CACHE_HOME="$HOME/.cache"
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export GO111MODULE=on
 export PIPENV_VENV_IN_PROJECT=true
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 export DOTFILES="$HOME/dotfiles"
-export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
-export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
-export DENO_INSTALL="${HOME}/.deno"
-export DISPLAY=:0.0
+export CACHE_HOME="$HOME/.cache"
+
 if uname -a | grep -sq "Linux"; then
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls --color'
@@ -430,7 +425,7 @@ fi
 PATH="$HOME/bin":$PATH
 PATH="$HOME/.local/bin":$PATH
 PATH="$JAVA_HOME/bin":$PATH
-PATH="$DENO_INSTALL/bin":$PATH
+PATH="$HOME/.deno/bin":$PATH
 PATH="$HOME/.cargo/bin":$PATH
 PATH="$HOME/go/bin":$PATH
 PATH="/usr/local/protobuf/bin":$PATH
@@ -460,7 +455,6 @@ function install-go(){
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# anyenv
 export ANYENV_ROOT="$HOME/.anyenv"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
 
