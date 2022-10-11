@@ -2,6 +2,7 @@
 
 # zmodload zsh/zprof && zprof
 
+
 IsUbuntu() { [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
 IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] }
 IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
@@ -496,12 +497,10 @@ fi
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
 
-## fzf rendering speed up omajinai
-echo "yes" | fzf --select-1 --exit-0 && clear
-
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
-clear
+## fzf rendering speed up omajinai
+echo "" | fzf --select-1 --exit-0 --print0
 
 # if (which zprof > /dev/null 2>&1) ;then
 #   zprof
