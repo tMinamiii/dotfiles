@@ -2,9 +2,9 @@
 
 # zmodload zsh/zprof && zprof
 
-function IsUbuntu() { [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
-function IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] }
-function IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
+IsUbuntu() { [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
+IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] }
+IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
 
 set bell-style none
 skip_global_compinit=1
@@ -238,7 +238,7 @@ alias golanci-lint-update='curl -sSfL https://raw.githubusercontent.com/golangci
 alias zsh-bench='time ( zsh -i -c exit )'
 
 # functions
-function tools() {
+tools() {
   if [[ -d "$HOME/go/bin" ]]; then
     local gobindir="$HOME/go/bin"
     [[ ! -f "$gobindir/go-update" ]] && go install github.com/tMinamiii/go-update@latest
@@ -283,7 +283,7 @@ function tools() {
   fi
 }
 
-function tools-up() {
+tools-up() {
   if [[ -x "$HOME/go/bin" ]]; then
     gup update
   fi
@@ -317,25 +317,25 @@ function tools-up() {
   fi
 }
 
-function python-update() {
+python-update() {
   local latest=$(pyenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
   local current=$(cat "$HOME/.anyenv/envs/pyenv/version")
   [[ $latest != $current ]] && pyenv install $latest && pyenv global $latest && pyenv rehash
 }
 
-function node-update() {
+node-update() {
   local latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS | head -1 | cut -f 3 -d " " | tr -d '\n ')
   local current=$(cat "$HOME/.anyenv/envs/nodenv/version")
   [[ $latest != $current ]] && nodenv install $latest && nodenv global $latest && nodenv rehash
 }
 
-function ruby-update() {
+ruby-update() {
   local latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
   local current=$(cat "$HOME/.anyenv/envs/rbenv/version")
  [[ $latest != $current ]] &&  rbenv install $latest && rbenv global $latest && rbenv rehash
 }
 
-function ghq-fzf() {
+ghq-fzf() {
   local src=$(ghq list | fzf )
   local root_list=($(ghq root --all))
   if [[ -n "$src" ]]; then
@@ -350,7 +350,7 @@ function ghq-fzf() {
 }
 
 ### Install win32yank ###
-function install-win32yank() {
+install-win32yank() {
   local WIN32YANK_DIR="/mnt/c/win32yank"
   if IsWSL && [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]]; then
     echo "Install win32yank"
@@ -435,7 +435,7 @@ PATH="/usr/local/go/bin":$PATH
 PATH="$HOME/.anyenv/bin":$PATH
 
 ### install programming languages ###
-function install-go(){
+install-go(){
     local LATEST_GO_VERSION=$(curl -s 'https://go.dev/dl/?mode=json' | jq -r '[.[]][0].version')
 
     local ARCH=""
@@ -470,7 +470,7 @@ fi
 export ANYENV_ROOT="$HOME/.anyenv"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
 
-function anyenv-cache() {
+anyenv-cache() {
   [[ -d $CACHE_HOME/anyenv ]] || mkdir -p $CACHE_HOME/anyenv
   anyenv init - --no-rehash > $CACHE_HOME/anyenv/init.zsh
 }
@@ -501,6 +501,10 @@ echo "yes" | fzf --select-1 --exit-0 && clear
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
+clear
+
 # if (which zprof > /dev/null 2>&1) ;then
 #   zprof
 # fi
+
+
