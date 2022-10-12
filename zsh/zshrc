@@ -4,7 +4,7 @@
 
 
 IsUbuntu() { [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
-IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] }
+IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]}
 IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
 
 set bell-style none
@@ -332,8 +332,9 @@ node-update() {
 
 ruby-update() {
   local latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
+  IsMacOS && latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | grep "2." | tail -1 | tr -d '\n ')
   local current=$(cat "$HOME/.anyenv/envs/rbenv/version")
- [[ $latest != $current ]] &&  rbenv install $latest && rbenv global $latest && rbenv rehash
+  [[ $latest != $current ]] &&  rbenv install $latest && rbenv global $latest && rbenv rehash
 }
 
 ghq-fzf() {
