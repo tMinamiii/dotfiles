@@ -99,10 +99,17 @@ if [[ ! -f "$(which tmux)" ]]; then
   IsUbuntu && sudo apt install tmux -y
 fi
 
+
 ### unzip
 if [[ ! -f "$(which unzip)" ]]; then
   IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install unzip
   IsUbuntu && sudo apt install unzip -y
+fi
+
+### html-xml-utils
+if [[ ! -f "$(which hxselect)" ]]; then
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install html-xml-utils
+  IsUbuntu && sudo apt install html-xml-utils -y
 fi
 
 ### gh
@@ -281,6 +288,7 @@ tools() {
     local rbversion=$(cat "$HOME/.anyenv/envs/rbenv/version")
     local rbroot="$HOME/.anyenv/envs/rbenv/versions/$rbversion"
     [[ ! -f "$rbroot/bin/neovim-ruby-host" ]] && gem install neovim
+    [[ ! -f "$rbroot/bin/apiary" ]] && gem install apiaryio
   fi
 }
 
