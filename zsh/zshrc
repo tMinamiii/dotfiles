@@ -3,8 +3,8 @@
 # zmodload zsh/zprof && zprof
 
 
-IsUbuntu() { [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
-IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]}
+IsUbuntu() { [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
+IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] && [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]}
 IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
 
 set bell-style none
