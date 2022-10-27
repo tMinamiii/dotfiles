@@ -269,8 +269,8 @@ tools() {
     [[ ! -f "$pyroot/bin/autopep8" ]] && pip install autopep8
     [[ ! -f "$pyroot/bin/pycodestyle" ]] && pip install pycodestyle
     [[ ! -d "$pysite/matplotlib" ]] && pip install matplotlib
-    [[ ! -d "$pysite/pynvim" ]] && pip install --no-binary greenlet pynvim
-    [[ ! -d "$pysite/neovim" ]] && pip install --no-binary greenlet neovim
+    [[ ! -d "$pysite/pynvim" ]] && pip install pynvim
+    [[ ! -d "$pysite/neovim" ]] && pip install neovim
   fi
 
   if [[ -d "$HOME/.anyenv/envs/nodenv" ]]; then
@@ -299,9 +299,7 @@ tools-up() {
 
   if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
     pip install -U pip
-    pip install -U --no-binary greenlet pynvim
-    pip install -U --no-binary greenlet neovim
-    pip install -U pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib
+    pip install -U neovim pynvim pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib
   fi
 
   if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
