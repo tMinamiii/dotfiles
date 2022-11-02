@@ -331,7 +331,7 @@ python-update() {
 }
 
 node-update() {
-  local latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS | head -1 | cut -f 3 -d " " | tr -d '\n ')
+  local latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS |  cut -f 3 -d " " | sort | tail -1 | tr -d '\n')
   local current=$(cat "$HOME/.anyenv/envs/nodenv/version")
   [[ $latest != $current ]] && nodenv install $latest && nodenv global $latest && nodenv rehash
 }
