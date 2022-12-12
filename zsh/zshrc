@@ -257,6 +257,7 @@ tools() {
     [[ ! -f "$gobindir/air" ]] && go install github.com/cosmtrek/air@latest
     [[ ! -f "$gobindir/sql-migrate" ]] && go install github.com/rubenv/sql-migrate/...@latest
     [[ ! -f "$gobindir/golint" ]] && go install golang.org/x/lint/golint@latest
+    [[ ! -f "$gobindir/gore" ]] && go install github.com/x-motemen/gore/cmd/gore@latest && go install github.com/mdempsky/gocode@latest
   fi
 
   if [[ -d "$HOME/.anyenv/envs/pyenv" ]]; then
