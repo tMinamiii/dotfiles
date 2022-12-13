@@ -393,6 +393,7 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light dracula/zsh
+zinit light wbingli/zsh-wakatime
 
 zinit ice wait"!0" blockf silent
 zinit light "zsh-users/zsh-completions"
