@@ -132,7 +132,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export GO111MODULE=on
 export PIPENV_VENV_IN_PROJECT=true
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
+# export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp.json"
 export DOTFILES="$HOME/dotfiles"
 export CACHE_HOME="$HOME/.cache"
 
@@ -520,3 +520,9 @@ echo "" | fzf --select-1 --exit-0 --print0
 # fi
 
 
+
+# The next line updates PATH for the Google Cloud SDK.
+# if [ -f '/Users/takahiro.minami/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takahiro.minami/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+# if [ -f '/Users/takahiro.minami/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takahiro.minami/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
