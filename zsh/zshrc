@@ -246,7 +246,7 @@ alias golanci-lint-update='curl -sSfL https://raw.githubusercontent.com/golangci
 
 alias zsh-bench='time ( zsh -i -c exit )'
 alias tenki='curl wttr.in/Tokyo '
-alias ipaddr='curl ifconfig/me'
+alias ipaddr='curl ifconfig.me'
 
 # functions
 tools() {
