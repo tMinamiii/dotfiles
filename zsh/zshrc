@@ -245,6 +245,8 @@ alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout priv
 alias golanci-lint-update='curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin $(curl --silent "https://api.github.com/repos/golangci/golangci-lint/releases/latest" | jq -r .tag_name)'
 
 alias zsh-bench='time ( zsh -i -c exit )'
+alias tenki='curl wttr.in/Tokyo '
+alias ipaddr='curl ifconfig.me'
 
 # functions
 tools() {
