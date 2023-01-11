@@ -306,7 +306,7 @@ tools-up() {
 
   if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
     pip install -U pip
-    pip install -U neovim pynvim pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib
+    pip install -U neovim pynvim pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pre-commit
   fi
 
   if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
