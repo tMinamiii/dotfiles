@@ -266,6 +266,7 @@ tools() {
     local pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
     local pyroot="$HOME/.anyenv/envs/pyenv/versions/$pyversion"
     local pysite="$pyroot/lib/python$(echo $pyversion | cut -f 1-2 -d '.')/site-packages"
+    [[ ! -f "$pyroot/bin/pre-commit" ]] && pip install pre-commit
     [[ ! -f "$pyroot/bin/pipenv" ]] && pip install pipenv
     [[ ! -f "$pyroot/bin/poetry" ]] && pip install poetry
     [[ ! -f "$pyroot/bin/ipython" ]] && pip install ipython
@@ -444,6 +445,7 @@ PATH="$JAVA_HOME/bin":$PATH
 PATH="$HOME/.deno/bin":$PATH
 PATH="$HOME/.cargo/bin":$PATH
 PATH="$HOME/go/bin":$PATH
+PATH="$HOME/nix":$PATH
 PATH="/usr/local/protobuf/bin":$PATH
 PATH="/usr/local/go/bin":$PATH
 PATH="$HOME/.anyenv/bin":$PATH

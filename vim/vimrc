@@ -587,7 +587,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
       let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
       let g:lsp_settings_filetype_rust = ['rust-analyzer']
-      let g:lsp_settings_filetype_python = ['pyls-ms', 'pyright-langserver']
+      let g:lsp_settings_filetype_python = ['pyright-langserver']
 
       function! s:on_lsp_buffer_enabled() abort
           setlocal omnifunc=lsp#complete
