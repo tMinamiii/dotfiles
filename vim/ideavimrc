@@ -1,0 +1,31 @@
+set visualbell
+set clipboard+=unnamed
+set noerrorbells
+set smartcase
+set ignorecase
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
+set surround
+set commentary
+
+" leaders
+let mapleader = "\<space>" " Use space as leader key
+let maplocalleader = "," " Use , as local leader key
+
+" lsp
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gr :action FindUsages<CR>
+nnoremap <c-n> <down>
+nnoremap <c-p> <up>
+
+" easy window navigation
+" nnoremap <c-l> <c-w>l
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-h> <c-w>h
+" nnoremap <c-k> <c-w>k
+
+" fuzzyfinder
+nnoremap <leader>g :action SearchEverywhere<cr>
+
+" comment
+" nnoremap <leader>c<space> :action CommentByLineComment<cr>
