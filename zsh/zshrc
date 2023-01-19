@@ -266,6 +266,7 @@ tools() {
     local pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
     local pyroot="$HOME/.anyenv/envs/pyenv/versions/$pyversion"
     local pysite="$pyroot/lib/python$(echo $pyversion | cut -f 1-2 -d '.')/site-packages"
+    [[ ! -f "$pyroot/bin/pre-commit" ]] && pip install pre-commit
     [[ ! -f "$pyroot/bin/pipenv" ]] && pip install pipenv
     [[ ! -f "$pyroot/bin/poetry" ]] && pip install poetry
     [[ ! -f "$pyroot/bin/ipython" ]] && pip install ipython
@@ -305,7 +306,7 @@ tools-up() {
 
   if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
     pip install -U pip
-    pip install -U neovim pynvim pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib
+    pip install -U neovim pynvim pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pre-commit
   fi
 
   if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
