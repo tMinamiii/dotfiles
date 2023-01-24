@@ -5,6 +5,7 @@ set smartcase
 set ignorecase
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'preservim/nerdtree'
 set surround
 set commentary
 
@@ -18,12 +19,15 @@ nnoremap gr :action FindUsages<CR>
 nnoremap <c-n> <down>
 nnoremap <c-p> <up>
 
+" nnoremap  :NERDTree<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
+
 " easy window navigation
 " nnoremap <c-l> <c-w>l
 " nnoremap <c-j> <c-w>j
 " nnoremap <c-h> <c-w>h
 " nnoremap <c-k> <c-w>k
-
+inoremap <c-]> <esc>
 " fuzzyfinder
 nnoremap <leader>g :action SearchEverywhere<cr>
 
