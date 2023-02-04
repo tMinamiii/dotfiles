@@ -528,3 +528,10 @@ echo "" | fzf --select-1 --exit-0 --print0
 
 # The next line enables shell command completion for gcloud.
 # if [ -f '/Users/takahiro.minami/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takahiro.minami/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# bun completions
+[ -s "/home/tminamiii/.bun/_bun" ] && source "/home/tminamiii/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
