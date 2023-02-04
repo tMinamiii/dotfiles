@@ -285,6 +285,7 @@ tools() {
     local ndroot="$HOME/.anyenv/envs/nodenv/versions/$ndversion"
     IsWSL && [[ ! -f "$ndroot/bin/wsl-open" ]] && npm i -g wsl-open
     [[ ! -f "$ndroot/bin/yarn" ]] && npm i -g yarn
+    [[ ! -f "$ndroot/bin/npm-check-updates" ]] && npm i -g npm-check-updates
     [[ ! -f "$ndroot/bin/prettier" ]] && npm i -g prettier
     [[ ! -f "$ndroot/bin/textlint" ]] && npm i -g textlint
     [[ ! -f "$ndroot/bin/zenn" ]] && npm i -g zenn-cli
