@@ -6,7 +6,7 @@ set -Ce
 
 [[ -e "$HOME/.zshrc" ]] && unlink "$HOME/.zshrc"
 [[ -e "$HOME/.vim" ]] && unlink "$HOME/.vim"
-[[ -e "$HOME/.ideavimrc" ]] && unlink "$HOME/.ideavimrc"
+[[ -e "$HOME/.config/.ideavimrc" ]] && unlink "$HOME/.config/.ideavimrc"
 [[ -e "$HOME/.config/nvim" ]] && unlink "$HOME/.config/nvim"
 [[ -e "$HOME/.tmux.conf" ]] && unlink "$HOME/.tmux.conf"
 
