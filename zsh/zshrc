@@ -266,6 +266,7 @@ tools() {
     local pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
     local pyroot="$HOME/.anyenv/envs/pyenv/versions/$pyversion"
     local pysite="$pyroot/lib/python$(echo $pyversion | cut -f 1-2 -d '.')/site-packages"
+    pip install -U pip
     [[ ! -f "$pyroot/bin/pre-commit" ]] && pip install pre-commit
     [[ ! -f "$pyroot/bin/pipenv" ]] && pip install pipenv
     [[ ! -f "$pyroot/bin/poetry" ]] && pip install poetry
@@ -277,7 +278,7 @@ tools() {
     [[ ! -f "$pyroot/bin/pycodestyle" ]] && pip install pycodestyle
     [[ ! -d "$pysite/matplotlib" ]] && pip install matplotlib
     [[ ! -d "$pysite/pynvim" ]] && pip install pynvim
-    [[ ! -d "$pysite/neovim" ]] && pip install neovim
+    [[ ! -d "$pysite/neovim" ]] && pip install --use-pep517 neovim
   fi
 
   if [[ -d "$HOME/.anyenv/envs/nodenv" ]]; then
