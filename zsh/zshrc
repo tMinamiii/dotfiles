@@ -248,18 +248,30 @@ alias zsh-bench='time ( zsh -i -c exit )'
 alias tenki='curl wttr.in/Tokyo '
 alias ipaddr='curl ifconfig.me'
 
-# functions
+### functions
+go-install() {
+  local gobindir="$HOME/go/bin"
+  [[ ! -f "$gobindir/$1" ]] && go install $2
+}
+
 tools() {
   if [[ -d "$HOME/go/bin" ]]; then
-    local gobindir="$HOME/go/bin"
-    [[ ! -f "$gobindir/go-update" ]] && go install github.com/tMinamiii/go-update@latest
-    [[ ! -f "$gobindir/lgtm" ]] && go install github.com/tMinamiii/lgtm@latest
-    [[ ! -f "$gobindir/gup" ]] && go install github.com/nao1215/gup@latest
-    [[ ! -f "$gobindir/ghq" ]] && go install github.com/x-motemen/ghq@latest
-    [[ ! -f "$gobindir/air" ]] && go install github.com/cosmtrek/air@latest
-    [[ ! -f "$gobindir/sql-migrate" ]] && go install github.com/rubenv/sql-migrate/...@latest
-    [[ ! -f "$gobindir/golint" ]] && go install golang.org/x/lint/golint@latest
-    [[ ! -f "$gobindir/gore" ]] && go install github.com/x-motemen/gore/cmd/gore@latest && go install github.com/mdempsky/gocode@latest
+    go-install go-update    github.com/tMinamiii/go-update@latest
+    go-install lgtm         github.com/tMinamiii/lgtm@latest
+    go-install ghq          github.com/x-motemen/ghq@latest
+    go-install air          github.com/cosmtrek/air@latest
+    go-install gotests      github.com/cweill/gotests@latest
+    go-install gomodifytags github.com/fatih/gomodifytags@latest
+    go-install impl         github.com/josharian/impl@latest
+    go-install goplay       github.com/haya14busa/goplay/cmd/goplay@latest
+    go-install dlv          github.com/go-delve/delve/cmd/dlv@latest
+    go-install staticcheck  honnef.co/go/tools/cmd/staticcheck@latest
+    go-install gopls        golang.org/x/tools/gopls@latest
+    go-install sql-migrate  github.com/rubenv/sql-migrate/...@latest
+    go-install golint       golang.org/x/lint/golint@latest
+    go-install gore         github.com/x-motemen/gore/cmd/gore@latest
+    go-install gocode       github.com/mdempsky/gocode@latest
+    go-install gup          githubb.com/nao1215/gup@latest
   fi
 
   if [[ -d "$HOME/.anyenv/envs/pyenv" ]]; then
