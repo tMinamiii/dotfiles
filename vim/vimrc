@@ -529,7 +529,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    Plug 'cohama/lexima.vim'
+    " Plug 'cohama/lexima.vim'
     Plug 'rafamadriz/friendly-snippets'
     Plug 'golang/vscode-go'
     Plug 'hrsh7th/vim-vsnip'
