@@ -9,6 +9,7 @@ set -Ce
 [[ -e "$HOME/.config/.ideavimrc" ]] && unlink "$HOME/.config/.ideavimrc"
 [[ -e "$HOME/.config/nvim" ]] && unlink "$HOME/.config/nvim"
 [[ -e "$HOME/.tmux.conf" ]] && unlink "$HOME/.tmux.conf"
+[[ -e "$HOME/.ssh/config" ]] && unlink "$HOME/.ssh/config"
 
 ##### zsh setup #####
 [[ -e "$HOME/.zsh" ]] && mv "$HOME/.zsh" "$HOME/dotzshbk"
@@ -21,6 +22,7 @@ ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
 ln -s "$HOME/dotfiles/vim/ideavimrc" "$HOME/.config/.ideavimrc"
 ln -s "$HOME/dotfiles/vim/efm-config.yaml" "$HOME/.config/efm-langserver/config.yaml"
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
+ln -s "$HOME/dotfiles/ssh/confgi" "$HOME/.ssh/config"
 
 # ARGS=$*
 #
