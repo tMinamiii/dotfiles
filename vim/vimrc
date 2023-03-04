@@ -67,10 +67,6 @@ function! IsTMUX()
     return exists('$TMUX')
 endfunction
 
-function! IsHyper()
-    return $TERM_PROGRAM==? 'hyper'
-endfunction
-
 let mapleader = "\<Space>"
 
 "---------------------------------------------------------------------------"
@@ -363,7 +359,108 @@ call plug#begin(s:vim_plug_plugins)
       let g:vimfiler_force_overwrite_statusline = 0
       let g:vimshell_force_overwrite_statusline = 0
 
-    Plug 'ziglang/zig.vim'
+    Plug 'liuchengxu/vista.vim'
+      nmap <silent> <C-f><C-v> :<C-u>Vista vim_lsp<CR>
+      let g:vista_close_on_jump = 1
+      let g:vista_icon_indent = ['`-> ', '|-> ']
+      let g:vista#renderer#enable_icon = 0
+      let g:vista#renderer#icons = {
+                  \   'function': 'func',
+                  \   'variable': 'var',
+                  \   'field': 'field',
+                  \   'struct': 'struct',
+                  \   'constant': 'const',
+                   \  }
+
+    Plug 'terryma/vim-multiple-cursors'
+
+    Plug 'osyo-manga/vim-over'
+      nmap <silent> <Leader>o :OverCommandLine<CR>
+
+    Plug 'sheerun/vim-polyglot'
+      let g:vim_json_syntax_conceal = 0
+
+    Plug 'tpope/vim-fugitive'
+
+    Plug 'deris/vim-shot-f'
+
+    Plug 'machakann/vim-highlightedyank'
+
+    Plug 'simeji/winresizer'
+      let g:winresizer_vert_resize = 1
+      let g:winresizer_horiz_resize = 1
+
+    Plug 'Yggdroot/indentLine'
+      let g:indentLine_showFirstIndentLevel = 1
+      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
+      let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'terminal']
+      let g:indentLine_fileTypeExluce = ['help', 'nerdtree']
+      let g:indentLine_color_term = 238
+      let g:indentLine_color_gui = '#676767'
+      let g:indentLine_setConceal = 0
+
+    Plug 'andymass/vim-matchup'
+      let g:loaded_matchit = 1
+
+    Plug 'tpope/vim-surround'
+
+    Plug 'easymotion/vim-easymotion'
+      nmap <Leader> <Plug>(easymotion-prefix)
+
+    " Plug 'junegunn/vim-easy-align'
+    "   nmap ga <Plug>(EasyAlign)
+    "   xmap ga <Plug>(EasyAlign)
+    "   let g:easy_align_ignore_groups = []
+
+    Plug 'tomtom/tcomment_vim'
+      vmap ? :'<,'>TComment<CR>
+
+    Plug 'previm/previm'
+      if IsWSL()
+        let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
+        let g:previm_wsl_mode = 1
+      endif
+
+    Plug 'tyru/open-browser.vim'
+
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+      command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+      command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+      command! -bang -nargs=* Rg
+          \ call fzf#vim#grep(
+          \ 'rg --column --line-number -g "!.git" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
+          \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+          \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+          \ <bang>0)
+      let g:fzf_layout = { 'down': '~40%' }
+      nmap <silent> <C-p> :GFiles<CR>
+      nmap <silent> <Leader>f :Files<CR>
+      nmap <silent> <Leader>g :Rg<CR>
+      nmap <silent> <Leader>b :Buffers<CR>
+      nmap <silent> <Leader>x :Commands<CR>
+
+    Plug 'rhysd/git-messenger.vim'
+      nmap <Leader>gm <Plug>(git-messenger)
+      let g:git_messenger_include_diff = 'current'
+      let g:git_messenger_always_into_popup = v:true
+      let g:git_messenger_into_popup_after_show = v:true
+
+
+    Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
+      let g:rainbow_active = 0
+      let g:rainbow_conf = {
+                  \    'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
+                  \   'separately': {
+                  \       'nerdtree': 0,
+                  \   },
+                  \ }
+
+    Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
+      let g:vim_markdown_conceal = 0
+      let g:vim_markdown_folding_disabled = 1
+
+
 
     Plug 'buoto/gotests-vim'
     Plug 'fatih/vim-go' ", { 'do': ':GoUpdateBinaries', 'for': 'go' }
@@ -408,157 +505,16 @@ call plug#begin(s:vim_plug_plugins)
           autocmd FileType go :call s:vim_go_keymap()
       augroup END
 
-    Plug 'honza/vim-snippets'
-
-    Plug 'liuchengxu/vista.vim'
-      nmap <silent> <C-f><C-v> :<C-u>Vista vim_lsp<CR>
-      let g:vista_close_on_jump = 1
-      let g:vista_icon_indent = ['`-> ', '|-> ']
-      let g:vista#renderer#enable_icon = 0
-      let g:vista#renderer#icons = {
-                  \   'function': 'func',
-                  \   'variable': 'var',
-                  \   'field': 'field',
-                  \   'struct': 'struct',
-                  \   'constant': 'const',
-                  \  }
-
-    Plug 'terryma/vim-multiple-cursors'
-
-    Plug 'osyo-manga/vim-over'
-      nmap <silent> <Leader>o :OverCommandLine<CR>
-
-    Plug 'sheerun/vim-polyglot'
-      let g:vim_json_syntax_conceal = 0
-
-    Plug 'tpope/vim-fugitive'
-
-    Plug 'deris/vim-shot-f'
-
-    Plug 'machakann/vim-highlightedyank'
-
-    Plug 'simeji/winresizer'
-      let g:winresizer_vert_resize = 1
-      let g:winresizer_horiz_resize = 1
-
-    Plug 'Yggdroot/indentLine'
-      let g:indentLine_showFirstIndentLevel = 1
-      let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
-      let g:indentLine_bufTypeExluce = ['help', 'nerdtree', 'terminal']
-      let g:indentLine_fileTypeExluce = ['help', 'nerdtree']
-      let g:indentLine_color_term = 238
-      let g:indentLine_color_gui = '#676767'
-      let g:indentLine_setConceal = 0
-
-    Plug 'andymass/vim-matchup'
-      let g:loaded_matchit = 1
-
-    Plug 'tpope/vim-surround'
-
-    Plug 'easymotion/vim-easymotion'
-    nmap <Leader> <Plug>(easymotion-prefix)
-
-    Plug 'junegunn/vim-easy-align'
-      nmap ga <Plug>(EasyAlign)
-      xmap ga <Plug>(EasyAlign)
-      let g:easy_align_ignore_groups = []
-
-    Plug 'tomtom/tcomment_vim'
-      vmap ? :'<,'>TComment<CR>
-
-    Plug 'previm/previm'
-      if IsWSL()
-        let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
-        let g:previm_wsl_mode = 1
-      endif
-
-    Plug 'tyru/open-browser.vim'
-
-    Plug 'ctrlpvim/ctrlp.vim'
-      let g:ctrlp_map = '<C-p>'
-      let g:ctrlp_cmd = 'CtrlP'
-      let g:ctrlp_working_path_mode = 'ra'
-      let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\v[\/]\.(git|hg|svn)$|node_modules',
-        \ 'file': '\v\.(exe|so|dll)$',
-        \ 'link': 'some_bad_symbolic_links',
-        \ }
-
-    Plug 'mattn/ctrlp-matchfuzzy'
-      let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
-
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-      command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-      command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-      command! -bang -nargs=* Rg
-          \ call fzf#vim#grep(
-          \ 'rg --column --line-number -g "!.git" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
-          \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-          \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-          \ <bang>0)
-      let g:fzf_layout = { 'down': '~40%' }
-      nmap <silent> <Leader>p :GFiles<CR>
-      nmap <silent> <Leader>f :Files<CR>
-      nmap <silent> <Leader>g :Rg<CR>
-      nmap <silent> <Leader>b :Buffers<CR>
-      nmap <silent> <Leader>x :Commands<CR>
-
-    Plug 'rhysd/git-messenger.vim'
-      nmap <Leader>gm <Plug>(git-messenger)
-      let g:git_messenger_include_diff = 'current'
-      let g:git_messenger_always_into_popup = v:true
-      let g:git_messenger_into_popup_after_show = v:true
-
-    Plug 'mattn/emmet-vim'
-
-    Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
-      let g:rainbow_active = 0
-      let g:rainbow_conf = {
-                  \    'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
-                  \   'separately': {
-                  \       'nerdtree': 0,
-                  \   },
-                  \ }
-
-    Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
-      let g:vim_markdown_conceal = 0
-      let g:vim_markdown_folding_disabled = 1
-
 
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    " Plug 'cohama/lexima.vim'
-    Plug 'rafamadriz/friendly-snippets'
-    Plug 'golang/vscode-go'
-    Plug 'hrsh7th/vim-vsnip'
-    Plug 'hrsh7th/vim-vsnip-integ'
-        " Expand
-        " imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-        " smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
-        " Expand or jump
-        imap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-        smap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-        " Jump forward or backward
-        imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-        smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-        imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-        smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-        " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-        " See https://github.com/hrsh7th/vim-vsnip/pull/50
-        " nmap s <Plug>(vsnip-select-text)
-        " xmap s <Plug>(vsnip-select-text)
-        " nmap S <Plug>(vsnip-cut-text)
-        " xmap S <Plug>(vsnip-cut-text)
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
       imap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
       imap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
       imap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
       let g:lsp_settings = {
       \    'efm-langserver': {
       \      'disabled': v:false
@@ -576,14 +532,8 @@ call plug#begin(s:vim_plug_plugins)
       \         'initialization_options': {'command': ['golangci-lint', 'run', '--fast', '--issues-exit-code=1', '--out-format', 'json']},
       \         'whitelist': ['go']
       \    }
-      \}
+      \  }
 
-      " let g:lsp_settings = {
-      "      \  'zls': {
-      "      \    'zip_lib_path': '/usr/loca/zig/lib',
-      "      \    'zip_exe_path': '/usr/loca/zig/zig'
-      "      \  }
-      "      \}
       let g:lsp_hover_ui = 'float'
       let g:lsp_preview_float = 1
       let g:lsp_diagnostics_enabled = 1
@@ -592,7 +542,8 @@ call plug#begin(s:vim_plug_plugins)
       let g:lsp_diagnostics_float_delay = 1000
       let g:lsp_diagnostics_virtual_text_enabled = 0
       let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
-      let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+      " let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+      let g:lsp_settings_filetype_go = ['gopls']
       let g:lsp_settings_filetype_rust = ['rust-analyzer']
       let g:lsp_settings_filetype_python = ['pyright-langserver']
 
@@ -622,6 +573,55 @@ call plug#begin(s:vim_plug_plugins)
       " let g:lsp_log_file = expand('~/vim-lsp.log')
       " for asyncomplete.vim log
       " let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+
+      "" SLOW
+      "" Plug 'mattn/emmet-vim'
+      """""""""""""""""""""""""
+
+      "" Brackets
+      "" Plug 'cohama/lexima.vim'
+
+      "" Plug 'ctrlpvim/ctrlp.vim'
+      ""   let g:ctrlp_map = '<C-p>'
+      ""   let g:ctrlp_cmd = 'CtrlP'
+      ""   let g:ctrlp_working_path_mode = 'ra'
+      ""   let g:ctrlp_custom_ignore = {
+      ""     \ 'dir':  '\v[\/]\.(git|hg|svn)$|node_modules',
+      ""     \ 'file': '\v\.(exe|so|dll)$',
+      ""     \ 'link': 'some_bad_symbolic_links',
+      ""     \ }
+
+      "" Plug 'mattn/ctrlp-matchfuzzy'
+      ""   let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+
+      "" SNIPPETS
+      """""""""""
+      "" Plug 'honza/vim-snippets'
+      "" Plug 'rafamadriz/friendly-snippets'
+      "" Plug 'golang/vscode-go'
+      "" Plug 'hrsh7th/vim-vsnip'
+      "" Plug 'hrsh7th/vim-vsnip-integ'
+      ""     " Expand
+      ""     " imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+      ""     " smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+      ""     " Expand or jump
+      ""     imap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+      ""     smap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+      ""     " Jump forward or backward
+      ""     imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+      ""     smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+      ""     imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+      ""     smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+      ""     " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+      ""     " See https://github.com/hrsh7th/vim-vsnip/pull/50
+      ""     " nmap s <Plug>(vsnip-select-text)
+      ""     " xmap s <Plug>(vsnip-select-text)
+      ""     " nmap S <Plug>(vsnip-cut-text)
+      ""     " xmap S <Plug>(vsnip-cut-text)
+
 call plug#end()
 
 

@@ -224,6 +224,7 @@ alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
 alias deno-up='deno upgrade'
 alias rust-up='rustup update'
 alias go-up='sudo $(which go-update) '
+alias go-mod-init='go mod init $(pwd | sed -r "s/(^.*?)(github\.com\/.*?\/.*$)/\2/")'
 
 # docker
 alias docker-ps='docker ps -a'
