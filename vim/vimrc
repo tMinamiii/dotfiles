@@ -263,7 +263,6 @@ call plug#begin(s:vim_plug_plugins)
 
    Plug 'rhysd/vim-color-spring-night'
       let g:spring_night_kill_italic = 1
-
    Plug 'kaicataldo/material.vim'
       let g:material_terminal_italics = 0
       let g:material_theme_style = 'palenight'
@@ -412,15 +411,14 @@ call plug#begin(s:vim_plug_plugins)
     "   xmap ga <Plug>(EasyAlign)
     "   let g:easy_align_ignore_groups = []
 
-    Plug 'tomtom/tcomment_vim'
-      vmap ? :'<,'>TComment<CR>
+    " Plug 'tomtom/tcomment_vim'
+    "   vmap ? :'<,'>TComment<CR>
 
     Plug 'previm/previm'
       if IsWSL()
         let g:previm_open_cmd = '/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe'
         let g:previm_wsl_mode = 1
       endif
-
     Plug 'tyru/open-browser.vim'
 
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -450,7 +448,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
       let g:rainbow_active = 0
       let g:rainbow_conf = {
-                  \    'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
+                  \   'guifgs': ['darkorange2', 'orchid3', 'seagreen3'],
                   \   'separately': {
                   \       'nerdtree': 0,
                   \   },
@@ -459,8 +457,6 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
       let g:vim_markdown_conceal = 0
       let g:vim_markdown_folding_disabled = 1
-
-
 
     Plug 'buoto/gotests-vim'
     Plug 'fatih/vim-go' ", { 'do': ':GoUpdateBinaries', 'for': 'go' }
@@ -596,31 +592,31 @@ call plug#begin(s:vim_plug_plugins)
 
       "" SNIPPETS
       """""""""""
-      "" Plug 'honza/vim-snippets'
-      "" Plug 'rafamadriz/friendly-snippets'
-      "" Plug 'golang/vscode-go'
-      "" Plug 'hrsh7th/vim-vsnip'
-      "" Plug 'hrsh7th/vim-vsnip-integ'
-      ""     " Expand
-      ""     " imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-      ""     " smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+      " Plug 'honza/vim-snippets'
+      " Plug 'rafamadriz/friendly-snippets'
+      Plug 'golang/vscode-go'
+      Plug 'hrsh7th/vim-vsnip'
+      Plug 'hrsh7th/vim-vsnip-integ'
+          " Expand
+          " imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+          " smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 
-      ""     " Expand or jump
-      ""     imap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-      ""     smap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+          " Expand or jump
+          imap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+          smap <expr> <C-l> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 
-      ""     " Jump forward or backward
-      ""     imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-      ""     smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-      ""     imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-      ""     smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+          " Jump forward or backward
+          imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+          smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+          imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+          smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
-      ""     " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-      ""     " See https://github.com/hrsh7th/vim-vsnip/pull/50
-      ""     " nmap s <Plug>(vsnip-select-text)
-      ""     " xmap s <Plug>(vsnip-select-text)
-      ""     " nmap S <Plug>(vsnip-cut-text)
-      ""     " xmap S <Plug>(vsnip-cut-text)
+          " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+          " See https://github.com/hrsh7th/vim-vsnip/pull/50
+          " nmap s <Plug>(vsnip-select-text)
+          " xmap s <Plug>(vsnip-select-text)
+          " nmap S <Plug>(vsnip-cut-text)
+          " xmap S <Plug>(vsnip-cut-text)
 
 call plug#end()
 
