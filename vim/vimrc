@@ -248,6 +248,7 @@ if !isdirectory(expand(s:vim_plug_root))
 endif
 
 call plug#begin(s:vim_plug_plugins)
+    Plug 'wakatime/vim-wakatime'
     Plug 'preservim/nerdtree'
       nmap <silent><Leader>n :NERDTreeToggle<CR>
       nmap <silent><Leader>h :NERDTreeFind<CR>
