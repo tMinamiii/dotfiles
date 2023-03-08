@@ -412,7 +412,7 @@ source "$ZINIT/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit light obolevn/wakatime-zsh-plugin
+zinit light sobolevn/wakatime-zsh-plugin
 zinit light dracula/zsh
 
 zinit ice wait"!0" blockf silent
