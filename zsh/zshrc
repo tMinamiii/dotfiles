@@ -2,7 +2,6 @@
 
 # zmodload zsh/zprof && zprof
 
-
 IsUbuntu() { [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
 IsWSL() { [[  -n "${WSL_DISTRO_NAME}" ]] && [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]}
 IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
@@ -215,6 +214,15 @@ go-install() {
   [[ ! -f "${gobindir}/$1" ]] && go install $2
 }
 
+pip-update() {
+  pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
+  pyroot="${HOME}/.anyenv/envs/pyenv/versions/${pyversion}"
+  pysite="${pyroot}/lib/python$(echo ${pyversion} | cut -f 1-2 -d '.')/site-packages"
+  candidates="pre-commit pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pynvim neovim"
+  pip install -U pip
+  pip install -U $(echo ${candidates})
+}
+
 tools() {
   if [[ -d "${HOME}/go/bin" ]]; then
     go-install go-update    github.com/tMinamiii/go-update@latest
@@ -239,34 +247,15 @@ tools() {
   fi
 
   if [[ -d "$HOME/.anyenv/envs/pyenv" ]]; then
-    pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
-    pyroot="${HOME}/.anyenv/envs/pyenv/versions/${pyversion}"
-    pysite="${pyroot}/lib/python$(echo ${pyversion} | cut -f 1-2 -d '.')/site-packages"
-    pip install -U pip
-    [[ ! -f "${pyroot}/bin/pre-commit" ]] && pip install pre-commit
-    [[ ! -f "${pyroot}/bin/pipenv" ]] && pip install pipenv
-    [[ ! -f "${pyroot}/bin/poetry" ]] && pip install poetry
-    [[ ! -f "${pyroot}/bin/ipython" ]] && pip install ipython
-    [[ ! -f "${pyroot}/bin/black" ]] && pip install black
-    [[ ! -f "${pyroot}/bin/flake8" ]] && pip install flake8
-    [[ ! -f "${pyroot}/bin/mypy" ]] && pip install mypy
-    [[ ! -f "${pyroot}/bin/autopep8" ]] && pip install autopep8
-    [[ ! -f "${pyroot}/bin/pycodestyle" ]] && pip install pycodestyle
-    [[ ! -d "${pysite}/matplotlib" ]] && pip install matplotlib
-    [[ ! -d "${pysite}/pynvim" ]] && pip install --use-pep517 pynvim
-    [[ ! -d "${pysite}/neovim" ]] && pip install --use-pep517 neovim
+    pip-update
   fi
 
   if [[ -d "${HOME}/.anyenv/envs/nodenv" ]]; then
     ndversion=$(cat "${HOME}/.anyenv/envs/nodenv/version")
     ndroot="${HOME}/.anyenv/envs/nodenv/versions/${ndversion}"
-    IsWSL && [[ ! -f "$ndroot/bin/wsl-open" ]] && npm i -g wsl-open
-    [[ ! -f "${ndroot}/bin/yarn" ]] && npm i -g yarn
-    [[ ! -f "${ndroot}/bin/npm-check-updates" ]] && npm i -g npm-check-updates
-    [[ ! -f "${ndroot}/bin/prettier" ]] && npm i -g prettier
-    [[ ! -f "${ndroot}/bin/textlint" ]] && npm i -g textlint
-    [[ ! -f "${ndroot}/bin/zenn" ]] && npm i -g zenn-cli
-    [[ ! -f "${ndroot}/bin/neovim-node-host" ]] && npm i -g neovim
+    mods="yarn npm-check-updates prettier textlint zenn-cli neovim"
+    IsWSL && "$mods wsl-open"
+    npm i -g $(echo ${mods})
   fi
 
   if [[ -d "${HOME}/.anyenv/envs/rbenv" ]]; then
@@ -283,9 +272,7 @@ tools-up() {
   fi
 
   if [[ -x "${HOME}/.anyenv/envs/pyenv" ]]; then
-    pip install -U pip
-    pip install --use-pep517 -U neovim pynvim
-    pip install -U pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pre-commit
+    pip-update
   fi
 
   if [[ -x "${HOME}/.anyenv/envs/nodenv" ]]; then
