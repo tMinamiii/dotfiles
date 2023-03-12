@@ -552,7 +552,7 @@ call plug#begin(s:vim_plug_plugins)
           nmap <buffer> gr <plug>(lsp-references)
           nmap <buffer> gi <plug>(lsp-implementation)
           nmap <buffer> gt <plug>(lsp-type-definition)
-          nmap <buffer> <Leader>rn <plug>(lsp-rename)
+          nmap <buffer> <f2> <plug>(lsp-rename)
           nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
           nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
           nmap <buffer> K <plug>(lsp-hover)
@@ -576,7 +576,7 @@ call plug#begin(s:vim_plug_plugins)
       """""""""""""""""""""""""
 
       "" Brackets
-      Plug 'cohama/lexima.vim'
+      " Plug 'cohama/lexima.vim'
 
       "" Plug 'ctrlpvim/ctrlp.vim'
       ""   let g:ctrlp_map = '<C-p>'
@@ -593,8 +593,6 @@ call plug#begin(s:vim_plug_plugins)
 
       "" SNIPPETS
       """""""""""
-      " Plug 'honza/vim-snippets'
-      " Plug 'rafamadriz/friendly-snippets'
       Plug 'golang/vscode-go'
       Plug 'hrsh7th/vim-vsnip'
       Plug 'hrsh7th/vim-vsnip-integ'
