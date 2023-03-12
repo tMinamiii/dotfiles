@@ -58,72 +58,31 @@ else
   ~/.fzf/install
 fi
 
-### wget
-if [[ ! -f "$(which wget)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install wget
-  IsUbuntu && sudo apt install wget -y
-fi
-
-### curl
-if [[ ! -f "$(which curl)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install curl
-  IsUbuntu && sudo apt install curl -y
-fi
-
-### git
-if [[ ! -f "$(which git)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install git
-  IsUbuntu && sudo apt install git -y
-fi
-
-### RipGrep
-if [[ ! -f "$(which rg)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install ripgrep
-  IsUbuntu && sudo apt install ripgrep -y
-fi
-
-### jq
-if [[ ! -f "$(which jq)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install jq
-  IsUbuntu && sudo apt install jq -y
-fi
-
-### direnv
-if [[ ! -f "$(which direnv)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install direnv
-  IsUbuntu && sudo apt install direnv -y
-fi
-
-### tmux
-if [[ ! -f "$(which tmux)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install tmux
-  IsUbuntu && sudo apt install tmux -y
-fi
-
-
-### unzip
-if [[ ! -f "$(which unzip)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install unzip
-  IsUbuntu && sudo apt install unzip -y
-fi
-
-### html-xml-utils
-if [[ ! -f "$(which hxselect)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install html-xml-utils
-  IsUbuntu && sudo apt install html-xml-utils -y
-fi
-
-### gh
+local tools=""
+[[ ! -f "$(which wget)" ]] && tools="${tools} wget"
+[[ ! -f "$(which curl)" ]] && tools="${tools} curl"
+[[ ! -f "$(which git)" ]] && tools="${tools} git"
+[[ ! -f "$(which rg)" ]] && tools="${tools} ripgrep"
+[[ ! -f "$(which jq)" ]] && tools="${tools} jq"
+[[ ! -f "$(which direnv)" ]] && tools="${tools} direnv"
+[[ ! -f "$(which tmux)" ]] && tools="${tools} tmux"
+[[ ! -f "$(which unzip)" ]] && tools="${tools} unzip"
+[[ ! -f "$(which hxselect)" ]] && tools="${tools} html-xml-utils"
 if [[ ! -f "$(which gh)" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install gh
+  IsMacOS && tools="${tools} gh"
   if IsUbuntu; then
     type -p curl >/dev/null || sudo apt install curl -y
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
       && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
       && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-      && sudo apt update \
-      && sudo apt install gh -y
+      && sudo apt update
+      tools="${tools} gh"
   fi
+fi
+
+if [[ ${tools} != "" ]]; then
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install tmux
+  IsUbuntu && sudo apt install tmux -y
 fi
 
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
