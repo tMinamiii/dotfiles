@@ -4,7 +4,7 @@
 
 
 IsUbuntu() { [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
-IsWSL() { [[  -n "$WSL_DISTRO_NAME" ]] && [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]}
+IsWSL() { [[  -n "${WSL_DISTRO_NAME}" ]] && [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]}
 IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
 
 set bell-style none
@@ -28,7 +28,7 @@ zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
 export PATH=$PATH
 export TERM=xterm-256color
-[[ "$TMUX" != "" ]] && TERM="screen-256color"
+[[ "${TMUX}" != "" ]] && TERM="screen-256color"
 export ARCHFLAGS="-arch $(uname -m)"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -39,10 +39,10 @@ export EDITOR="vim"
 export SHELL=/bin/zsh
 export GOPRIVATE=github.com/tMinamiii/,github.com/everytv
 
-[[ ! -d "$HOME/.local/bin" ]] && mkdir -p "$HOME/.local/bin"
-[[ ! -d "$HOME/bin" ]] && mkdir -p "$HOME/bin"
-[[ ! -d "$HOME/.cache" ]] && mkdir -p "$HOME/.cache"
-[[ ! -d "$HOME/.config" ]] && mkdir -p "$HOME/.config"
+[[ ! -d "${HOME}/.local/bin" ]] && mkdir -p "${HOME}/.local/bin"
+[[ ! -d "${HOME}/bin" ]] && mkdir -p "${HOME}/bin"
+[[ ! -d "${HOME}/.cache" ]] && mkdir -p "${HOME}/.cache"
+[[ ! -d "${HOME}/.config" ]] && mkdir -p "${HOME}/.config"
 
 # Homebrew for M1 mac
 [[ -f "/opt/homebrew/bin/brew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
@@ -80,15 +80,15 @@ if [[ ! -f "$(which gh)" ]]; then
   fi
 fi
 
-if [[ ${tools} != "" ]]; then
+if [[ "${tools}" != "" ]]; then
   IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install tmux
   IsUbuntu && sudo apt install tmux -y
 fi
 
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
-[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
-export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/man:${MANPATH}"
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
 export GO111MODULE=on
 export PIPENV_VENV_IN_PROJECT=true
@@ -123,10 +123,10 @@ elif IsMacOS; then
 
   export DBC_USER="takahiro.minami@every.tv"
 
-  work_zsh="$HOME/.local/share/work/work.git"
-  if [[ ! -f "$work_zsh/work.zsh" ]]; then
-    command mkdir -p $work_zsh && command chmod g-rwX $work_zsh
-    command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "$work_zsh"
+  work_zsh="${HOME}/.local/share/work/work.git"
+  if [[ ! -f "${work_zsh}/work.zsh" ]]; then
+    command mkdir -p ${work_zsh} && command chmod g-rwX ${work_zsh}
+    command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "${work_zsh}"
   fi
   source "$work_zsh/work.zsh"
 
@@ -211,12 +211,12 @@ alias ipaddr='curl ifconfig.me'
 
 ### functions
 go-install() {
-  local gobindir="$HOME/go/bin"
-  [[ ! -f "$gobindir/$1" ]] && go install $2
+  local gobindir="${HOME}/go/bin"
+  [[ ! -f "${gobindir}/$1" ]] && go install $2
 }
 
 tools() {
-  if [[ -d "$HOME/go/bin" ]]; then
+  if [[ -d "${HOME}/go/bin" ]]; then
     go-install go-update    github.com/tMinamiii/go-update@latest
     go-install lgtm         github.com/tMinamiii/lgtm@latest
     go-install ghq          github.com/x-motemen/ghq@latest
@@ -232,105 +232,106 @@ tools() {
     go-install golint       golang.org/x/lint/golint@latest
     go-install gore         github.com/x-motemen/gore/cmd/gore@latest
     go-install gocode       github.com/mdempsky/gocode@latest
+    go-install gqlgen       github.com/99designs/gqlgen@latest
     go-install gup          githubb.com/nao1215/gup@latest
   fi
 
   if [[ -d "$HOME/.anyenv/envs/pyenv" ]]; then
-    local pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
-    local pyroot="$HOME/.anyenv/envs/pyenv/versions/$pyversion"
-    local pysite="$pyroot/lib/python$(echo $pyversion | cut -f 1-2 -d '.')/site-packages"
+    pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
+    pyroot="${HOME}/.anyenv/envs/pyenv/versions/${pyversion}"
+    pysite="${pyroot}/lib/python$(echo ${pyversion} | cut -f 1-2 -d '.')/site-packages"
     pip install -U pip
-    [[ ! -f "$pyroot/bin/pre-commit" ]] && pip install pre-commit
-    [[ ! -f "$pyroot/bin/pipenv" ]] && pip install pipenv
-    [[ ! -f "$pyroot/bin/poetry" ]] && pip install poetry
-    [[ ! -f "$pyroot/bin/ipython" ]] && pip install ipython
-    [[ ! -f "$pyroot/bin/black" ]] && pip install black
-    [[ ! -f "$pyroot/bin/flake8" ]] && pip install flake8
-    [[ ! -f "$pyroot/bin/mypy" ]] && pip install mypy
-    [[ ! -f "$pyroot/bin/autopep8" ]] && pip install autopep8
-    [[ ! -f "$pyroot/bin/pycodestyle" ]] && pip install pycodestyle
-    [[ ! -d "$pysite/matplotlib" ]] && pip install matplotlib
-    [[ ! -d "$pysite/pynvim" ]] && pip install --use-pep517 pynvim
-    [[ ! -d "$pysite/neovim" ]] && pip install --use-pep517 neovim
+    [[ ! -f "${pyroot}/bin/pre-commit" ]] && pip install pre-commit
+    [[ ! -f "${pyroot}/bin/pipenv" ]] && pip install pipenv
+    [[ ! -f "${pyroot}/bin/poetry" ]] && pip install poetry
+    [[ ! -f "${pyroot}/bin/ipython" ]] && pip install ipython
+    [[ ! -f "${pyroot}/bin/black" ]] && pip install black
+    [[ ! -f "${pyroot}/bin/flake8" ]] && pip install flake8
+    [[ ! -f "${pyroot}/bin/mypy" ]] && pip install mypy
+    [[ ! -f "${pyroot}/bin/autopep8" ]] && pip install autopep8
+    [[ ! -f "${pyroot}/bin/pycodestyle" ]] && pip install pycodestyle
+    [[ ! -d "${pysite}/matplotlib" ]] && pip install matplotlib
+    [[ ! -d "${pysite}/pynvim" ]] && pip install --use-pep517 pynvim
+    [[ ! -d "${pysite}/neovim" ]] && pip install --use-pep517 neovim
   fi
 
-  if [[ -d "$HOME/.anyenv/envs/nodenv" ]]; then
-    local ndversion=$(cat "$HOME/.anyenv/envs/nodenv/version")
-    local ndroot="$HOME/.anyenv/envs/nodenv/versions/$ndversion"
+  if [[ -d "${HOME}/.anyenv/envs/nodenv" ]]; then
+    ndversion=$(cat "${HOME}/.anyenv/envs/nodenv/version")
+    ndroot="${HOME}/.anyenv/envs/nodenv/versions/${ndversion}"
     IsWSL && [[ ! -f "$ndroot/bin/wsl-open" ]] && npm i -g wsl-open
-    [[ ! -f "$ndroot/bin/yarn" ]] && npm i -g yarn
-    [[ ! -f "$ndroot/bin/npm-check-updates" ]] && npm i -g npm-check-updates
-    [[ ! -f "$ndroot/bin/prettier" ]] && npm i -g prettier
-    [[ ! -f "$ndroot/bin/textlint" ]] && npm i -g textlint
-    [[ ! -f "$ndroot/bin/zenn" ]] && npm i -g zenn-cli
-    [[ ! -f "$ndroot/bin/neovim-node-host" ]] && npm i -g neovim
+    [[ ! -f "${ndroot}/bin/yarn" ]] && npm i -g yarn
+    [[ ! -f "${ndroot}/bin/npm-check-updates" ]] && npm i -g npm-check-updates
+    [[ ! -f "${ndroot}/bin/prettier" ]] && npm i -g prettier
+    [[ ! -f "${ndroot}/bin/textlint" ]] && npm i -g textlint
+    [[ ! -f "${ndroot}/bin/zenn" ]] && npm i -g zenn-cli
+    [[ ! -f "${ndroot}/bin/neovim-node-host" ]] && npm i -g neovim
   fi
 
-  if [[ -d "$HOME/.anyenv/envs/rbenv" ]]; then
-    local rbversion=$(cat "$HOME/.anyenv/envs/rbenv/version")
-    local rbroot="$HOME/.anyenv/envs/rbenv/versions/$rbversion"
-    [[ ! -f "$rbroot/bin/neovim-ruby-host" ]] && gem install neovim
-    [[ ! -f "$rbroot/bin/apiary" ]] && gem install apiaryio
+  if [[ -d "${HOME}/.anyenv/envs/rbenv" ]]; then
+    rbversion=$(cat "${HOME}/.anyenv/envs/rbenv/version")
+    rbroot="${HOME}/.anyenv/envs/rbenv/versions/${rbversion}"
+    [[ ! -f "${rbroot}/bin/neovim-ruby-host" ]] && gem install neovim
+    [[ ! -f "${rbroot}/bin/apiary" ]] && gem install apiaryio
   fi
 }
 
 tools-up() {
-  if [[ -x "$HOME/go/bin" ]]; then
+  if [[ -x "${HOME}/go/bin" ]]; then
     gup update
   fi
 
-  if [[ -x "$HOME/.anyenv/envs/pyenv" ]]; then
+  if [[ -x "${HOME}/.anyenv/envs/pyenv" ]]; then
     pip install -U pip
     pip install --use-pep517 -U neovim pynvim
     pip install -U pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pre-commit
   fi
 
-  if [[ -x "$HOME/.anyenv/envs/nodenv" ]]; then
+  if [[ -x "${HOME}/.anyenv/envs/nodenv" ]]; then
     IsWSL && npm i -g wsl-open
     npm update -g npm
     npm update -g
   fi
 
-  if [[ -x "$HOME/.anyenv/envs/rbenv" ]]; then
+  if [[ -x "${HOME}/.anyenv/envs/rbenv" ]]; then
     gem update --system
     gem update
   fi
 
   if IsWSL; then
     echo "Update win32yank.exe"
-    local win32yank_dir="/mnt/c/win32yank"
-    local win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
+    win32yank_dir="/mnt/c/win32yank"
+    win32yankv_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
     trap 'rm -f win32yank-x86.zip' EXIT
-    curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$win32yankv_version/win32yank-x86.zip" \
-      && rm -rf $win32yank_dir \
-      && unzip -u -q win32yank-x86.zip win32yank.exe -d $win32yank_dir
+    curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/${win32yankv_version}/win32yank-x86.zip" \
+      && rm -rf ${win32yank_dir} \
+      && unzip -u -q win32yank-x86.zip win32yank.exe -d ${win32yank_dir}
   fi
 }
 
 python-update() {
-  local latest=$(pyenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
-  local current=$(cat "$HOME/.anyenv/envs/pyenv/version")
-  [[ $latest != $current ]] && pyenv install $latest && pyenv global $latest && pyenv rehash
+  latest=$(pyenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
+  current=$(cat "${HOME}/.anyenv/envs/pyenv/version")
+  [[ ${latest} != ${current} ]] && pyenv install ${latest} && pyenv global ${latest} && pyenv rehash
 }
 
 node-update() {
-  local latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS |  cut -f 3 -d " " | sort | tail -1 | tr -d '\n')
-  local current=$(cat "$HOME/.anyenv/envs/nodenv/version")
-  [[ $latest != $current ]] && nodenv install $latest && nodenv global $latest && nodenv rehash
+  latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS |  cut -f 3 -d " " | sort | tail -1 | tr -d '\n')
+  current=$(cat "${HOME}/.anyenv/envs/nodenv/version")
+  [[ ${latest} != ${current} ]] && nodenv install ${latest} && nodenv global ${latest} && nodenv rehash
 }
 
 ruby-update() {
-  local latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
+  latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
   IsMacOS && latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | grep "2." | tail -1 | tr -d '\n ')
-  local current=$(cat "$HOME/.anyenv/envs/rbenv/version")
-  [[ $latest != $current ]] &&  rbenv install $latest && rbenv global $latest && rbenv rehash
+  current=$(cat "${HOME}/.anyenv/envs/rbenv/version")
+  [[ ${latest} != ${current} ]] &&  rbenv install ${latest} && rbenv global ${latest} && rbenv rehash
 }
 
 ghq-fzf() {
-  local src=$(ghq list | fzf )
-  local root_list=($(ghq root --all))
-  if [[ -n "$src" ]]; then
-    for root in $root_list; do
+  src=$(ghq list | fzf )
+  root_list=($(ghq root --all))
+  if [[ -n "${src}" ]]; then
+    for root in ${root_list}; do
       if [[ -e "${root}/${src}" ]]; then
         BUFFER="cd ${root}/${src}"
         zle accept-line
@@ -342,32 +343,32 @@ ghq-fzf() {
 
 ### Install win32yank ###
 install-win32yank() {
-  local WIN32YANK_DIR="/mnt/c/win32yank"
-  if IsWSL && [[ ! -f "$WIN32YANK_DIR/win32yank.exe" ]]; then
+  win32yank_dir="/mnt/c/win32yank"
+  if IsWSL && [[ ! -f "${win32yank_dir}/win32yank.exe" ]]; then
     echo "Install win32yank"
 
     trap 'rm -f win32yank-x86.zip' EXIT
-    local WIN32YANK_VERSION=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
-    [[ ! -d "$WIN32YANK_DIR" ]] && mkdir -p $WIN32YANK_DIR
-    curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/$WIN32YANK_VERSION/win32yank-x86.zip" \
-      && unzip -q -u win32yank-x86.zip win32yank.exe -d $WIN32YANK_DIR
+    win32yank_version=$(curl -s https://api.github.com/repos/equalsraf/win32yank/tags | jq -r '.[0].name')
+    [[ ! -d "${win32yank_dir}" ]] && mkdir -p ${win32yank_dir}
+    curl -OL -# "https://github.com/equalsraf/win32yank/releases/download/${win32yank_version}/win32yank-x86.zip" \
+      && unzip -q -u win32yank-x86.zip win32yank.exe -d ${win32yank_dir}
   fi
 }
 
 install-win32yank
 
 ### Zinit's installer ###
-export ZINIT="$HOME/.local/share/zinit"
+export ZINIT="${HOME}/.local/share/zinit"
 export ENHANCD_COMMAND=cdd
-if [[ ! -f "$ZINIT/zinit.git/zinit.zsh" ]]; then
+if [[ ! -f "${ZINIT}/zinit.git/zinit.zsh" ]]; then
   print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-  command mkdir -p $ZINIT && command chmod g-rwX $ZINIT
-  command git clone https://github.com/zdharma-continuum/zinit "$ZINIT/zinit.git" && \
+  command mkdir -p ${ZINIT} && command chmod g-rwX ${ZINIT}
+  command git clone https://github.com/zdharma-continuum/zinit "${ZINIT}/zinit.git" && \
     print -P "%F{33} %F{34}Installation successful.%f%b" || \
     print -P "%F{160} The clone has failed.%f%b"
 fi
 
-source "$ZINIT/zinit.git/zinit.zsh"
+source "${ZINIT}/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -399,53 +400,33 @@ if uname -a | grep -sq "Linux"; then
   if IsWSL; then
     # PATH=$PATH:"/mnt/c/Windows/System32"
     # PATH=$PATH:"/mnt/c/Windows/System32/WindowsPowerShell/v1.0/"
-    PATH=$PATH:"/mnt/c/win32yank/"
-    PATH=$PATH:"/mnt/c/Users/tminamiii/AppData/Local/Programs/Microsoft VS Code/bin"
-    PATH=$PATH:"/mnt/c/Program Files/Docker/Docker/resources/bin"
-    PATH=$PATH:"/mnt/c/ProgramData/DockerDesktop/version-bin"
+    PATH=${PATH}:"/mnt/c/win32yank/"
+    PATH=${PATH}:"/mnt/c/Users/tminamiii/AppData/Local/Programs/Microsoft VS Code/bin"
+    PATH=${PATH}:"/mnt/c/Program Files/Docker/Docker/resources/bin"
+    PATH=${PATH}:"/mnt/c/ProgramData/DockerDesktop/version-bin"
     export CHROME_EXECUTABLE="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
   fi
 
-  PATH=$PATH:"${HOME}/Android/Sdk/bin"
-  PATH=$PATH:"${HOME}/Android/Sdk/cmdline-tools/latest/bin"
-  PATH=$PATH:"/usr/local/android-studio/bin"
+  PATH=${PATH}:"${HOME}/Android/Sdk/bin"
+  PATH=${PATH}:"${HOME}/Android/Sdk/cmdline-tools/latest/bin"
+  PATH=${PATH}:"/usr/local/android-studio/bin"
 
-  PATH="/usr/local/flutter/bin":$PATH
-  PATH="/snap/bin":$PATH
+  PATH="/usr/local/flutter/bin":${PATH}
+  PATH="/snap/bin":${PATH}
 elif IsMacOS; then
   PATH=$PATH:"/Users/takahiro.minami/Library/Android/sdk/platform-tools"
 fi
 
-PATH="$HOME/bin":$PATH
-PATH="$HOME/.local/bin":$PATH
-PATH="$JAVA_HOME/bin":$PATH
-PATH="$HOME/.deno/bin":$PATH
-PATH="$HOME/.cargo/bin":$PATH
-PATH="$HOME/go/bin":$PATH
-PATH="$HOME/nix":$PATH
-PATH="/usr/local/protobuf/bin":$PATH
-PATH="/usr/local/go/bin":$PATH
-PATH="$HOME/.anyenv/bin":$PATH
-
-### install programming languages ###
-install-go(){
-    local LATEST_GO_VERSION=$(curl -s 'https://go.dev/dl/?mode=json' | jq -r '[.[]][0].version')
-
-    local ARCH=""
-    [[ "$(uname -m)" = "x86_64" ]] && ARCH="amd64"
-    [[ "$(uname -m)" = "arm64" ]] && ARCH="arm64"
-
-    local OS=""
-    IsMacOS && OS="darwin"
-    IsUbuntu && OS="linux"
-
-    local GOGZ="${LATEST_GO_VERSION}.${OS}-${ARCH}.tar.gz"
-
-    trap 'rm ${GOPKG}' EXIT
-    sudo curl -OL --progress-bar "https://go.dev/dl/${GOGZ}" \
-      && sudo rm -rf /usr/local/go \
-      && sudo tar -C /usr/local -xzf "${GOGZ}"
-}
+PATH="${HOME}/bin":${PATH}
+PATH="${HOME}/.local/bin":${PATH}
+PATH="${JAVA_HOME}/bin":${PATH}
+PATH="${HOME}/.deno/bin":${PATH}
+PATH="${HOME}/.cargo/bin":${PATH}
+PATH="${HOME}/go/bin":${PATH}
+PATH="${HOME}/nix":${PATH}
+PATH="/usr/local/protobuf/bin":${PATH}
+PATH="/usr/local/go/bin":${PATH}
+PATH="${HOME}/.anyenv/bin":${PATH}
 
 [[ ! -f "/usr/local/go/bin/go" ]] && install-go
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
@@ -464,25 +445,25 @@ export ANYENV_ROOT="$HOME/.anyenv"
 export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
 
 anyenv-cache() {
-  [[ -d $CACHE_HOME/anyenv ]] || mkdir -p $CACHE_HOME/anyenv
-  anyenv init - --no-rehash > $CACHE_HOME/anyenv/init.zsh
+  [[ -d ${CACHE_HOME}/anyenv ]] || mkdir -p ${CACHE_HOME}/anyenv
+  anyenv init - --no-rehash > ${CACHE_HOME}/anyenv/init.zsh
 }
 
-if [[ ! -x "$HOME/.anyenv/bin/anyenv" ]]; then
-  git clone https://github.com/anyenv/anyenv $HOME/.anyenv \
+if [[ ! -x "${HOME}/.anyenv/bin/anyenv" ]]; then
+  git clone https://github.com/anyenv/anyenv ${HOME}/.anyenv \
     && mkdir -p $($ANYENV_ROOT/bin/anyenv root)/plugins \
     && git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update \
-    && $HOME/.anyenv/bin/anyenv init \
-    && $ANYENV_ROOT/bin/anyenv install pyenv \
-    && $ANYENV_ROOT/bin/anyenv install nodenv \
-    && $ANYENV_ROOT/bin/anyenv install rbenv \
-    && $ANYENV_ROOT/bin/anyenv install tfenv \
+    && ${HOME}/.anyenv/bin/anyenv init \
+    && ${ANYENV_ROOT}/bin/anyenv install pyenv \
+    && ${ANYENV_ROOT}/bin/anyenv install nodenv \
+    && ${ANYENV_ROOT}/bin/anyenv install rbenv \
+    && ${ANYENV_ROOT}/bin/anyenv install tfenv \
     && anyenv-cache
 fi
 
-if [[ -x "$ANYENV_ROOT/bin/anyenv" ]]; then
-    [[ -f "$CACHE_HOME/anyenv/init.zsh" ]] || anyenv-cache
-    source $CACHE_HOME/anyenv/init.zsh
+if [[ -x "${ANYENV_ROOT}/bin/anyenv" ]]; then
+    [[ -f "${CACHE_HOME}/anyenv/init.zsh" ]] || anyenv-cache
+    source ${CACHE_HOME}/anyenv/init.zsh
 fi
 
 ## sdkman
