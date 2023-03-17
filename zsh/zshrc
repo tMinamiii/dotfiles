@@ -11,8 +11,8 @@ skip_global_compinit=1
 setopt no_beep
 
 export HISTFILE=${HOME}/.zsh_history
-export HISTSIZE=100000
-export SAVEHIST=100000
+export HISTSIZE=1000000
+export SAVEHIST=1000000
 setopt hist_ignore_dups
 
 # setopt share_history
@@ -57,7 +57,7 @@ else
   ~/.fzf/install
 fi
 
-local tools=""
+tools=""
 [[ ! -f "$(which wget)" ]] && tools="${tools} wget"
 [[ ! -f "$(which curl)" ]] && tools="${tools} curl"
 [[ ! -f "$(which git)" ]] && tools="${tools} git"
@@ -80,8 +80,8 @@ if [[ ! -f "$(which gh)" ]]; then
 fi
 
 if [[ "${tools}" != "" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install tmux
-  IsUbuntu && sudo apt install tmux -y
+  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install ${tools}
+  IsUbuntu && sudo apt install ${tools} -y
 fi
 
 [[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
