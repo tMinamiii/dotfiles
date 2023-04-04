@@ -245,8 +245,6 @@ if !isdirectory(expand(s:vim_plug_root))
   call system('mkdir -p ' . s:vim_plug_root . 'vim-plug')
   call system('git clone https://github.com/junegunn/vim-plug.git ' . s:vim_plug_root . '/vim-plug/autoload')
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-else
-   autocmd VimEnter * PlugUpdate q
 endif
 
 call plug#begin(s:vim_plug_plugins)
