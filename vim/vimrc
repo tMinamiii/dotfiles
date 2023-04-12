@@ -132,6 +132,9 @@ command! W :w
 command! Wq :wq
 command! WQ :wq
 command! T :bo terminal ++rows=20
+command! Pu :PlugUpdate
+command! Pug :PlugUpgrade
+command! Pc :PlugUpgrade
 
 if has('terminal')
   function! s:set_default_ansi_colors() abort
