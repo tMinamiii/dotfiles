@@ -143,6 +143,7 @@ fi
 
 alias zshrc='${=EDITOR} ~/.zshrc' # Quick access to the ~/.zshrc file
 alias vimrc='${=EDITOR} ~/.vim/vimrc' # Quick access to the ~/.zshrc file
+alias gitignore='${=EDITOR} ~/.config/git/ignore'
 alias dot='cd ~/dotfiles' # Quick access to the ~/.zshrc file
 
 # Command line head / tail shortcuts
