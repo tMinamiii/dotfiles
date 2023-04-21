@@ -192,6 +192,10 @@ alias docker-rm='docker stop $(docker ps -aq) && docker rm $(docker ps -aq)'
 alias docker-prune='docker stop $(docker ps -aq) || docker rm $(docker ps -aq) || docker system prune --volumes'
 alias docker-rmi='docker rmi -f $(docker images -q)'
 
+matrix() {
+  echo -e "\033[32"; while :; do printf '%*c' $(($(od -An -N2 -i /dev/urandom | head -n 1) % 30 + 1)) $(($(od -An -N2 -i /dev/urandom | head -n 1) % 2 * 176 + 34)); done
+}
+
 # raspi
 alias pi1='ssh ubuntu@172.16.27.10'
 alias pi2='ssh ubuntu@172.16.27.11'
