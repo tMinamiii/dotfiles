@@ -133,7 +133,7 @@ command! Wq :wq
 command! WQ :wq
 command! T :bo terminal ++rows=20
 command! Pu :PlugUpdate
-command! Pug :PlugUpgrade
+command! Pg :PlugUpgrade
 command! Pc :PlugUpgrade
 
 if has('terminal')
