@@ -1,3 +1,10 @@
-export GOPATH="/Users/takahiro.minami/go"
-export GOROOT="/Users/takahiro.minami/sdk/go1.18.1"
-export PATH="/Users/takahiro.minami/sdk/go1.18.1/bin:$PATH"
+GO_VERSION="go$(cat .go-version)"
+
+export GOPATH="${HOME}/go"
+export GOROOT="${HOME}/sdk/${GO_VERSION}"
+export PATH="${HOME}/sdk/${GO_VERSION}/bin:$PATH"
+
+if [ ! -d ${GOROOT} ]; then
+  go install golang.org/dl/${GO_VERSION}@latest
+  ${GO_VERSION} download
+fi
