@@ -215,6 +215,11 @@ alias tenki='curl wttr.in/Tokyo '
 alias ipaddr='curl ifconfig.me'
 
 ### functions
+gosdk() {
+  go install golang.org/dl/go$1@latest
+  ${HOME}/go/bin/go$1 download
+}
+
 go-install() {
   local gobindir="${HOME}/go/bin"
   [[ ! -f "${gobindir}/$1" ]] && go install $2
