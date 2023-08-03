@@ -485,3 +485,7 @@ if [ -f '/Users/takahiro.minami/Downloads/google-cloud-sdk 2/path.zsh.inc' ]; th
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/takahiro.minami/Downloads/google-cloud-sdk 2/completion.zsh.inc' ]; then . '/Users/takahiro.minami/Downloads/google-cloud-sdk 2/completion.zsh.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
