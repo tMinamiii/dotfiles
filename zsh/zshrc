@@ -95,6 +95,10 @@ export PIPENV_VENV_IN_PROJECT=true
 export DOTFILES="$HOME/dotfiles"
 export CACHE_HOME="$HOME/.cache"
 
+s3zgrep() {
+  aws s3 cp $1 - | zgrep -a $2
+}
+
 if uname -a | grep -sq "Linux"; then
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls --color'
