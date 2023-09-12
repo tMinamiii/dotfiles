@@ -259,6 +259,7 @@ tools() {
     go-install gup          githubb.com/nao1215/gup@latest
     go-install sqlboiler    github.com/volatiletech/sqlboiler/v4@latest
     go-install sqlboiler-sqlite3 github.com/volatiletech/sqlboiler/v4/drivers/sqlboiler-sqlite3@latest
+    go-install gonew        golang.org/x/tools/cmd/gonew@latest
   fi
 
   if [[ -d "$HOME/.anyenv/envs/pyenv" ]]; then
