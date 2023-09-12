@@ -111,7 +111,8 @@ if uname -a | grep -sq "Linux"; then
   alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
   alias t='tail -f'
 
-  alias build-vim='sudo echo "start" && make clean && make distclean  && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make -j12 && sudo make install'
+  # alias build-vim='sudo echo "start" && make clean && make distclean  && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make -j12 && sudo make install'
+  alias build-vim='sudo echo "start" && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make -j12 && sudo make install'
   alias make-vim='build-vim'
   alias build-nvim='sudo echo "start" && rm -rf build .deps && make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
   alias make-nvim='build-nvim'
