@@ -1,10 +1,24 @@
-GO_VERSION="go$(cat .go-version)"
+export GO_VERSION
+
+go_version_path=$(find . -name .go-version)
+if [ -e "${go_version_path}" ]; then
+    GO_VERSION=$(cat ${go_version_path})
+else
+    gomod_path=$(find . -name go.mod -print -quit)
+    go_major_version=$(cat ${gomod_path} | grep -E "^go [1-9]\.[0-9]+$" | cut -f 2 -d " ")
+    # use go.mod
+    GO_VERSION=$(curl -s -XGET "https://go.dev/dl/?mode=json" | jq ".[] | select  (.version | startswith(\"go${go_major_version}\")) | .files[] | select (.os == \"darwin\" and .arch == \"$(uname -m)\") | select(.filename | endswith(\"tar.gz\")) | .version" | tr -d '"')
+fi
+
+if [ -d "${HOME}/sdk/${GO_VERSION}" ]; then
+    export PATH="${HOME}/sdk/${GO_VERSION}/bin:$PATH"
+    export GOROOT="${HOME}/sdk/${GO_VERSION}"
+    exit 0
+fi
+
+/usr/local/go/bin/go install golang.org/dl/${GO_VERSION}@latest
+${GO_VERSION} download
 
 export GOPATH="${HOME}/go"
-export GOROOT="${HOME}/sdk/${GO_VERSION}"
 export PATH="${HOME}/sdk/${GO_VERSION}/bin:$PATH"
-
-if [ ! -d ${GOROOT} ]; then
-  go install golang.org/dl/${GO_VERSION}@latest
-  ${GO_VERSION} download
-fi
+export GOROOT="${HOME}/sdk/${GO_VERSION}"
