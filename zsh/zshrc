@@ -67,6 +67,7 @@ tools=""
 [[ ! -f "$(which tmux)" ]] && tools="${tools} tmux"
 [[ ! -f "$(which unzip)" ]] && tools="${tools} unzip"
 [[ ! -f "$(which hxselect)" ]] && tools="${tools} html-xml-utils"
+[[ ! -f "$(which whois)" ]] && tools="${tools} whois"
 if [[ ! -f "$(which gh)" ]]; then
   IsMacOS && tools="${tools} gh"
   if IsUbuntu; then
