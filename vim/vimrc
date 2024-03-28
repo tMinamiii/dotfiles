@@ -461,7 +461,7 @@ call plug#begin(s:vim_plug_plugins)
     Plug 'plasticboy/vim-markdown', {'for' : ['markdown','mkd']}
       let g:vim_markdown_conceal = 0
       let g:vim_markdown_folding_disabled = 1
-
+    Plug 'rust-lang/rust.vim'
     Plug 'buoto/gotests-vim'
     Plug 'fatih/vim-go' ", { 'do': ':GoUpdateBinaries', 'for': 'go' }
       let g:go_highlight_methods = 1
@@ -543,7 +543,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
       " let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
       let g:lsp_settings_filetype_go = ['gopls']
-      let g:lsp_settings_filetype_rust = ['rust-analyzer']
+      let g:lsp_settings_filetype_rust = ['rust-analyzer', 'rls']
       let g:lsp_settings_filetype_python = ['pyright-langserver']
 
       function! s:on_lsp_buffer_enabled() abort
