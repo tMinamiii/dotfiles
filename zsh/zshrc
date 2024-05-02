@@ -235,7 +235,7 @@ pip-update() {
   pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
   pyroot="${HOME}/.anyenv/envs/pyenv/versions/${pyversion}"
   pysite="${pyroot}/lib/python$(echo ${pyversion} | cut -f 1-2 -d '.')/site-packages"
-  candidates="pre-commit pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pynvim neovim"
+  candidates="pre-commit pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pynvim neovim uv ruff"
   pip install -U pip
   pip install -U $(echo ${candidates})
 }
@@ -496,3 +496,5 @@ if [ -f '/Users/takahiro.minami/Downloads/google-cloud-sdk 2/completion.zsh.inc'
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# . "$HOME/.asdf/asdf.sh"
