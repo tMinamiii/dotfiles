@@ -220,6 +220,8 @@ alias zsh-bench='time ( zsh -i -c exit )'
 alias tenki='curl wttr.in/Tokyo '
 alias ipaddr='curl ifconfig.me'
 
+alias monitor='ssh -i ~/.ssh/gcp otherthan_new@100.92.113.120'
+
 ### functions
 gosdk() {
   go install golang.org/dl/go$1@latest
