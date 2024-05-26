@@ -211,6 +211,9 @@ alias deno-up='deno upgrade'
 alias rust-up='rustup update'
 alias go-up='sudo $(which go-update) '
 alias go-mod-init='go mod init $(pwd | sed -r "s/(^.*?)(github\.com\/.*?\/.*$)/\2/")'
+alias python-up='mise use --global python'
+alias node-up='mise use --global node@lts'
+alias ruby-up='mise use --global ruby'
 
 # docker
 alias docker-ps='docker ps -a'
@@ -283,17 +286,17 @@ tools() {
     go-install gonew        golang.org/x/tools/cmd/gonew@latest
   fi
 
-  if [[ -d "$HOME/.anyenv/envs/pyenv" ]]; then
+  if [[ -d "${MISE_ROOT}/python" ]]; then
     pip-update
   fi
 
-  if [[ -d "${HOME}/.anyenv/envs/nodenv" ]]; then
+  if [[ -d "${MISE_ROOT}/node" ]]; then
     mods="yarn npm-check-updates prettier textlint zenn-cli neovim"
     IsWSL && "$mods wsl-open"
     npm i -g $(echo ${mods})
   fi
 
-  if [[ -d "${HOME}/.anyenv/envs/rbenv" ]]; then
+  if [[ -d "${MISE_ROOT}/ruby" ]]; then
     gem install neovim
   fi
 }
@@ -327,30 +330,6 @@ tools-up() {
       && rm -rf ${win32yank_dir} \
       && unzip -u -q win32yank-x86.zip win32yank.exe -d ${win32yank_dir}
   fi
-}
-
-python-update() {
-  # latest=$(pyenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
-  # current=$(cat "${HOME}/.anyenv/envs/pyenv/version")
-  # [[ ${latest} != ${current} ]] && pyenv install ${latest} && pyenv global ${latest} && pyenv rehash
-  mise use --global python
-}
-
-node-update() {
-  # latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS |  cut -f 3 -d " " | sort --version-sort | tail -1 | tr -d '\n')
-  # current=$(cat "${HOME}/.anyenv/envs/nodenv/version")
-  # [[ ${latest} != ${current} ]] && nodenv install ${latest} && nodenv global ${latest} && nodenv rehash
-
-  mise use --global node@lts
-}
-
-ruby-update() {
-  # latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
-  # IsMacOS && latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | grep "2." | tail -1 | tr -d '\n ')
-  # current=$(cat "${HOME}/.anyenv/envs/rbenv/version")
-  # [[ ${latest} != ${current} ]] &&  rbenv install ${latest} && rbenv global ${latest} && rbenv rehash
-
-  mise use --global ruby
 }
 
 ghq-fzf() {
@@ -456,40 +435,6 @@ PATH="/usr/local/go/bin":${PATH}
 [[ ! -f "/usr/local/go/bin/go" ]] && install-go
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-if [[ ! -f $(which flutter) ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew instal flutter
-  IsUbuntu && sudo snap install flutter --classic
-fi
-if [[ ! -f $(which zig) ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew instal zig
-  IsUbuntu && sudo snap install zig --classic --beta
-fi
-
-### anyenv ###
-# export ANYENV_ROOT="$HOME/.anyenv"
-# export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
-#
-# anyenv-cache() {
-#   [[ -d ${CACHE_HOME}/anyenv ]] || mkdir -p ${CACHE_HOME}/anyenv
-#   anyenv init - --no-rehash > ${CACHE_HOME}/anyenv/init.zsh
-# }
-
-# if [[ ! -x "${HOME}/.anyenv/bin/anyenv" ]]; then
-#   git clone https://github.com/anyenv/anyenv ${HOME}/.anyenv \
-#     && mkdir -p $($ANYENV_ROOT/bin/anyenv root)/plugins \
-#     && git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update \
-#     && ${HOME}/.anyenv/bin/anyenv init \
-#     && ${ANYENV_ROOT}/bin/anyenv install pyenv \
-#     && ${ANYENV_ROOT}/bin/anyenv install nodenv \
-#     && ${ANYENV_ROOT}/bin/anyenv install rbenv \
-#     && ${ANYENV_ROOT}/bin/anyenv install tfenv \
-#     && anyenv-cache
-# fi
-
-# if [[ -x "${ANYENV_ROOT}/bin/anyenv" ]]; then
-#     [[ -f "${CACHE_HOME}/anyenv/init.zsh" ]] || anyenv-cache
-#     source ${CACHE_HOME}/anyenv/init.zsh
-# fi
 
 ## sdkman
 export SDKMAN_DIR="${HOME}/.sdkman"
