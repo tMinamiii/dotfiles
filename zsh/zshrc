@@ -112,8 +112,27 @@ if uname -a | grep -sq "Linux"; then
   alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
   alias t='tail -f'
 
-  # alias build-vim='sudo echo "start" && make clean && make distclean  && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make -j12 && sudo make install'
-  alias build-vim='sudo echo "start" && ./configure  --prefix=/usr/local/ --with-features=huge --enable-multibyte --enable-gpm --enable-cscope --enable-perlinterp --enable-python3interp --with-python3-command=$(echo $HOME)/.anyenv/envs/pyenv/shims/python --enable-rubyinterp --enable-luainterp --enable-acl --enable-fontset --enable-xim --enable-terminal --enable-fail-if-missing --with-luajit --with-x && make -j12 && sudo make install'
+  alias build-vim='sudo echo "start" \
+      && ./configure  \
+        --prefix=/usr/local/ \
+        --with-features=huge \
+        --enable-multibyte \
+        --enable-gpm \
+        --enable-cscope \
+        --enable-perlinterp \
+        --enable-python3interp vi_cv_path_python3=/usr/bin/python3 \
+        --with-python-config-dir=/usr/lib/python3.10/config-3.10-x86_64-linux-gnu/ \
+        --enable-rubyinterp \
+        --enable-luainterp \
+        --enable-acl \
+        --enable-fontset \
+        --enable-xim \
+        --enable-terminal \
+        --enable-fail-if-missing \
+        --with-luajit \
+        --with-x \
+      && make -j12 \
+      && sudo make install'
   alias make-vim='build-vim'
   alias build-nvim='sudo echo "start" && rm -rf build .deps && make CMAKE_BUILD_TYPE=Release -j12 && sudo make CMAKE_INSTALL_PREFIX=/usr/local install'
   alias make-nvim='build-nvim'
@@ -234,14 +253,12 @@ go-install() {
 }
 
 pip-update() {
-  pyversion=$(cat "$HOME/.anyenv/envs/pyenv/version")
-  pyroot="${HOME}/.anyenv/envs/pyenv/versions/${pyversion}"
-  pysite="${pyroot}/lib/python$(echo ${pyversion} | cut -f 1-2 -d '.')/site-packages"
   candidates="pre-commit pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pynvim neovim uv ruff"
   pip install -U pip
   pip install -U $(echo ${candidates})
 }
 
+MISE_ROOT=${HOME}/.local/share/mise/installs
 tools() {
   if [[ -d "${HOME}/go/bin" ]]; then
     go-install go-update    github.com/tMinamiii/go-update@latest
@@ -271,18 +288,13 @@ tools() {
   fi
 
   if [[ -d "${HOME}/.anyenv/envs/nodenv" ]]; then
-    ndversion=$(cat "${HOME}/.anyenv/envs/nodenv/version")
-    ndroot="${HOME}/.anyenv/envs/nodenv/versions/${ndversion}"
     mods="yarn npm-check-updates prettier textlint zenn-cli neovim"
     IsWSL && "$mods wsl-open"
     npm i -g $(echo ${mods})
   fi
 
   if [[ -d "${HOME}/.anyenv/envs/rbenv" ]]; then
-    rbversion=$(cat "${HOME}/.anyenv/envs/rbenv/version")
-    rbroot="${HOME}/.anyenv/envs/rbenv/versions/${rbversion}"
-    [[ ! -f "${rbroot}/bin/neovim-ruby-host" ]] && gem install neovim
-    [[ ! -f "${rbroot}/bin/apiary" ]] && gem install apiaryio
+    gem install neovim
   fi
 }
 
@@ -291,17 +303,17 @@ tools-up() {
     gup update
   fi
 
-  if [[ -x "${HOME}/.anyenv/envs/pyenv" ]]; then
+  if [[ -x "${MISE_ROOT}/python" ]]; then
     pip-update
   fi
 
-  if [[ -x "${HOME}/.anyenv/envs/nodenv" ]]; then
+  if [[ -x "${MISE_ROOT}/node" ]]; then
     IsWSL && npm i -g wsl-open
     npm update -g npm
     npm update -g
   fi
 
-  if [[ -x "${HOME}/.anyenv/envs/rbenv" ]]; then
+  if [[ -x "${MISE_ROOT}/ruby" ]]; then
     gem update --system
     gem update
   fi
@@ -318,22 +330,27 @@ tools-up() {
 }
 
 python-update() {
-  latest=$(pyenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
-  current=$(cat "${HOME}/.anyenv/envs/pyenv/version")
-  [[ ${latest} != ${current} ]] && pyenv install ${latest} && pyenv global ${latest} && pyenv rehash
+  # latest=$(pyenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
+  # current=$(cat "${HOME}/.anyenv/envs/pyenv/version")
+  # [[ ${latest} != ${current} ]] && pyenv install ${latest} && pyenv global ${latest} && pyenv rehash
+  mise use --global python
 }
 
 node-update() {
-  latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS |  cut -f 3 -d " " | sort --version-sort | tail -1 | tr -d '\n')
-  current=$(cat "${HOME}/.anyenv/envs/nodenv/version")
-  [[ ${latest} != ${current} ]] && nodenv install ${latest} && nodenv global ${latest} && nodenv rehash
+  # latest=$(curl --silent "https://api.github.com/repos/nodejs/node/releases" | jq -r '[.[]][].name' | grep LTS |  cut -f 3 -d " " | sort --version-sort | tail -1 | tr -d '\n')
+  # current=$(cat "${HOME}/.anyenv/envs/nodenv/version")
+  # [[ ${latest} != ${current} ]] && nodenv install ${latest} && nodenv global ${latest} && nodenv rehash
+
+  mise use --global node@lts
 }
 
 ruby-update() {
-  latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
-  IsMacOS && latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | grep "2." | tail -1 | tr -d '\n ')
-  current=$(cat "${HOME}/.anyenv/envs/rbenv/version")
-  [[ ${latest} != ${current} ]] &&  rbenv install ${latest} && rbenv global ${latest} && rbenv rehash
+  # latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | tail -1 | tr -d '\n ')
+  # IsMacOS && latest=$(rbenv install --list | sed -e '/^.*[a-zA-Z].*$/d' | grep "2." | tail -1 | tr -d '\n ')
+  # current=$(cat "${HOME}/.anyenv/envs/rbenv/version")
+  # [[ ${latest} != ${current} ]] &&  rbenv install ${latest} && rbenv global ${latest} && rbenv rehash
+
+  mise use --global ruby
 }
 
 ghq-fzf() {
@@ -435,7 +452,6 @@ PATH="${HOME}/go/bin":${PATH}
 PATH="${HOME}/nix":${PATH}
 PATH="/usr/local/protobuf/bin":${PATH}
 PATH="/usr/local/go/bin":${PATH}
-PATH="${HOME}/.anyenv/bin":${PATH}
 
 [[ ! -f "/usr/local/go/bin/go" ]] && install-go
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
@@ -450,30 +466,30 @@ if [[ ! -f $(which zig) ]]; then
 fi
 
 ### anyenv ###
-export ANYENV_ROOT="$HOME/.anyenv"
-export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
+# export ANYENV_ROOT="$HOME/.anyenv"
+# export PYENV_ROOT="$HOME/.anyenv/envs/pyenv"
+#
+# anyenv-cache() {
+#   [[ -d ${CACHE_HOME}/anyenv ]] || mkdir -p ${CACHE_HOME}/anyenv
+#   anyenv init - --no-rehash > ${CACHE_HOME}/anyenv/init.zsh
+# }
 
-anyenv-cache() {
-  [[ -d ${CACHE_HOME}/anyenv ]] || mkdir -p ${CACHE_HOME}/anyenv
-  anyenv init - --no-rehash > ${CACHE_HOME}/anyenv/init.zsh
-}
+# if [[ ! -x "${HOME}/.anyenv/bin/anyenv" ]]; then
+#   git clone https://github.com/anyenv/anyenv ${HOME}/.anyenv \
+#     && mkdir -p $($ANYENV_ROOT/bin/anyenv root)/plugins \
+#     && git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update \
+#     && ${HOME}/.anyenv/bin/anyenv init \
+#     && ${ANYENV_ROOT}/bin/anyenv install pyenv \
+#     && ${ANYENV_ROOT}/bin/anyenv install nodenv \
+#     && ${ANYENV_ROOT}/bin/anyenv install rbenv \
+#     && ${ANYENV_ROOT}/bin/anyenv install tfenv \
+#     && anyenv-cache
+# fi
 
-if [[ ! -x "${HOME}/.anyenv/bin/anyenv" ]]; then
-  git clone https://github.com/anyenv/anyenv ${HOME}/.anyenv \
-    && mkdir -p $($ANYENV_ROOT/bin/anyenv root)/plugins \
-    && git clone https://github.com/znz/anyenv-update.git $(anyenv root)/plugins/anyenv-update \
-    && ${HOME}/.anyenv/bin/anyenv init \
-    && ${ANYENV_ROOT}/bin/anyenv install pyenv \
-    && ${ANYENV_ROOT}/bin/anyenv install nodenv \
-    && ${ANYENV_ROOT}/bin/anyenv install rbenv \
-    && ${ANYENV_ROOT}/bin/anyenv install tfenv \
-    && anyenv-cache
-fi
-
-if [[ -x "${ANYENV_ROOT}/bin/anyenv" ]]; then
-    [[ -f "${CACHE_HOME}/anyenv/init.zsh" ]] || anyenv-cache
-    source ${CACHE_HOME}/anyenv/init.zsh
-fi
+# if [[ -x "${ANYENV_ROOT}/bin/anyenv" ]]; then
+#     [[ -f "${CACHE_HOME}/anyenv/init.zsh" ]] || anyenv-cache
+#     source ${CACHE_HOME}/anyenv/init.zsh
+# fi
 
 ## sdkman
 export SDKMAN_DIR="${HOME}/.sdkman"
@@ -499,4 +515,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# . "$HOME/.asdf/asdf.sh"
+eval "$(/home/tminamiii/.local/bin/mise activate zsh)"
