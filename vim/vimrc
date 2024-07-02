@@ -463,7 +463,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:vim_markdown_folding_disabled = 1
     Plug 'rust-lang/rust.vim'
     Plug 'buoto/gotests-vim'
-    Plug 'fatih/vim-go' ", { 'do': ':GoUpdateBinaries', 'for': 'go' }
+    Plug 'fatih/vim-go', { 'tag': 'v1.28' } ", { 'do': ':GoUpdateBinaries', 'for': 'go' }
       let g:go_highlight_methods = 1
       let g:go_highlight_structs = 1
       let g:go_highlight_operators = 1
@@ -476,19 +476,22 @@ call plug#begin(s:vim_plug_plugins)
       let g:go_highlight_variable_declarations = 1
       let g:go_highlight_variable_assignments = 1
 
-      let g:go_echo_command_info = 0
+      let g:go_code_completion_enabled = 0
       let g:go_def_mapping_enabled = 0
-      let g:go_gocode_propose_builtins = 0
-      let g:go_echo_go_info = 0
-
+      let g:go_def_mapping_enabled = 0
       let g:go_diagnostics_enabled = 0
-      let g:go_metalinter_autosave = 0
-
-      "" format ""
+      let g:go_doc_keywordprg_enabled = 0
+      let g:go_echo_command_info = 0
+      let g:go_echo_go_info = 0
       let g:go_fmt_autosave = 0
+      let g:go_gocode_propose_builtins = 0
+      let g:go_gopls_enabled = 0
+      let g:go_imports_autosave = 0
+      let g:go_jump_to_error = 0
+      let g:go_metalinter_autosave = 0
+      let g:go_term_enabled = 0
       let g:go_term_height = 15
       let g:go_term_mode = 'on | belowright split'
-      let g:go_term_enabled = 0
 
       function! s:vim_go_keymap()
           nmap <buffer><silent> <Leader><C-r> :GoRun<CR>
