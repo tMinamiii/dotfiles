@@ -478,7 +478,6 @@ call plug#begin(s:vim_plug_plugins)
 
       let g:go_code_completion_enabled = 0
       let g:go_def_mapping_enabled = 0
-      let g:go_def_mapping_enabled = 0
       let g:go_diagnostics_enabled = 0
       let g:go_doc_keywordprg_enabled = 0
       let g:go_echo_command_info = 0
@@ -489,6 +488,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:go_imports_autosave = 0
       let g:go_jump_to_error = 0
       let g:go_metalinter_autosave = 0
+      let g:go_textobj_enabled = 0
       let g:go_term_enabled = 0
       let g:go_term_height = 15
       let g:go_term_mode = 'on | belowright split'
