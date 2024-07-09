@@ -292,7 +292,7 @@ tools() {
 
   if [[ -d "${MISE_ROOT}/node" ]]; then
     mods="yarn npm-check-updates prettier textlint zenn-cli neovim typescript ts-node"
-    IsWSL && "$mods wsl-open"
+    IsWSL && mods="${mods} wsl-open"
     npm i -g $(echo ${mods})
   fi
 
