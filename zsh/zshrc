@@ -284,6 +284,7 @@ tools() {
     go-install sqlboiler    github.com/volatiletech/sqlboiler/v4@latest
     go-install sqlboiler-sqlite3 github.com/volatiletech/sqlboiler/v4/drivers/sqlboiler-sqlite3@latest
     go-install gonew        golang.org/x/tools/cmd/gonew@latest
+    go-install eg           golang.org/x/tools/cmd/eg@latest
   fi
 
   if [[ -d "${MISE_ROOT}/python" ]]; then
