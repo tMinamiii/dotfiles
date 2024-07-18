@@ -13,7 +13,8 @@ opt.switchbuf = "useopen" -- 新しく開く代わりにすでに開いてある
 opt.showmatch = true -- 対応する括弧などをハイライト表示する
 opt.matchtime = 2 -- 対応括弧のハイライト表示を3秒にする
 
-opt.clipboard:append({ unnamedplus = true, unnamed = true })
+-- opt.clipboard:append({ unnamedplus = true, unnamed = true })
+opt.clipboard = "unnamedplus"
 opt.updatetime = 500
 opt.shortmess:append({ c = true })
 opt.signcolumn = "yes"
