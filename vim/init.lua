@@ -185,14 +185,11 @@ require('packer').startup(function(use)
 
   use 'vscode-neovim/vscode-multi-cursor.nvim'
 
-  use 'terryma/vim-multiple-cursors'
-
   use { "kylechui/nvim-surround", tag = "*" }
 
   use 'kaicataldo/material.vim'
   vim.g.material_terminal_italics = 0
   vim.g.material_theme_style = 'palenight'
-
 
   use 'osyo-manga/vim-over'
   vim.keymap.set("n", "<Leader>o", ":OverCommandLine<CR>", { noremap = true, silent = true })
@@ -207,11 +204,6 @@ require('packer').startup(function(use)
   use 'tpope/vim-fugitive'
 
   use 'deris/vim-shot-f'
-
-  use 'machakann/vim-highlightedyank'
-
-  use 'andymass/vim-matchup'
-  vim.g.loaded_matchit = 1
 
   use 'easymotion/vim-easymotion'
   vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
