@@ -180,13 +180,16 @@ end
 require('packer').startup(function(use)
   use "wbthomason/packer.nvim"
 
+  use 'vscode-neovim/vscode-multi-cursor.nvim'
+
+  use 'terryma/vim-multiple-cursors'
+
   use { "kylechui/nvim-surround", tag = "*" }
 
   use 'kaicataldo/material.vim'
   vim.g.material_terminal_italics = 0
   vim.g.material_theme_style = 'palenight'
 
-  use 'terryma/vim-multiple-cursors'
 
   use 'osyo-manga/vim-over'
   vim.keymap.set("n", "<Leader>o", ":OverCommandLine<CR>", { noremap = true, silent = true })
@@ -213,6 +216,13 @@ require('packer').startup(function(use)
 end)
 
 require("nvim-surround").setup()
+
+require('vscode-multi-cursor').setup { -- Config is optional
+  -- Whether to set default mappings
+  default_mappings = true,
+  -- If set to true, only multiple cursors will be created without multiple selections
+  no_selection = false
+}
 
 if vim.g.vscode then
   vim.keymap.set("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
