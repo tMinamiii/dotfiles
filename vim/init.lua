@@ -191,9 +191,6 @@ require('packer').startup(function(use)
   vim.g.material_terminal_italics = 0
   vim.g.material_theme_style = 'palenight'
 
-  use 'osyo-manga/vim-over'
-  vim.keymap.set("n", "<Leader>o", ":OverCommandLine<CR>", { noremap = true, silent = true })
-
   use 'terryma/vim-expand-region'
   vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
   vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
@@ -201,12 +198,10 @@ require('packer').startup(function(use)
   use 'sheerun/vim-polyglot'
   vim.g.vim_json_syntax_conceal = 0
 
-  use 'tpope/vim-fugitive'
-
   use 'deris/vim-shot-f'
 
   use 'easymotion/vim-easymotion'
-  vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
+  -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 
 end)
 
