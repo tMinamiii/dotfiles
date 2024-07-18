@@ -123,9 +123,11 @@ vim.api.nvim_create_user_command("WQ", ":wq", {})
 vim.api.nvim_create_user_command("Term", ":bo terminal ++rows=20", {})
 
 -- バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
-vim.cmd [[colorscheme material]]
-vim.cmd [[cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/']]
-vim.cmd [[cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?']]
+vim.cmd [[
+cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
+]]
+
 vim.cmd [[
 augroup filetypes
   autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile
@@ -157,10 +159,7 @@ augroup indentsize
   autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
 
-if exists('$VIRTUAL_ENV')
-  let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
-endif
-
+colorscheme material
 hi! Normal guibg=NONE ctermbg=NONE
 ]]
 
