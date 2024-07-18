@@ -160,6 +160,8 @@ augroup END
 if exists('$VIRTUAL_ENV')
   let g:python3_host_prog=$VIRTUAL_ENV.'/bin/python'
 endif
+
+hi! Normal guibg=NONE ctermbg=NONE
 ]]
 
 if vim.fn.has("wsl") == 1 then
@@ -179,6 +181,8 @@ end
 
 require('packer').startup(function(use)
   use "wbthomason/packer.nvim"
+
+  use 'folke/flash.nvim'
 
   use 'vscode-neovim/vscode-multi-cursor.nvim'
 
