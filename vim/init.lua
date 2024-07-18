@@ -1,50 +1,49 @@
-local opt = vim.opt
 
-opt.encoding = "utf-8"
-opt.completeopt:append({ "noselect" })
+vim.opt.encoding = "utf-8"
+vim.opt.completeopt:append({ "noselect" })
 
-opt.ignorecase = true -- 大文字小文字を区別しない
-opt.smartcase = true -- 検索文字に大文字がある場合は大文字小文字を区別
-opt.incsearch = true -- インクリメンタルサーチ
-opt.hlsearch = true -- 検索マッチテキストをハイライト
+vim.opt.ignorecase = true -- 大文字小文字を区別しない
+vim.opt.smartcase = true -- 検索文字に大文字がある場合は大文字小文字を区別
+vim.opt.incsearch = true -- インクリメンタルサーチ
+vim.opt.hlsearch = true -- 検索マッチテキストをハイライト
 
-opt.hidden = true -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
-opt.switchbuf = "useopen" -- 新しく開く代わりにすでに開いてあるバッファを開く
-opt.showmatch = true -- 対応する括弧などをハイライト表示する
-opt.matchtime = 2 -- 対応括弧のハイライト表示を3秒にする
+vim.opt.hidden = true -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
+vim.opt.switchbuf = "useopen" -- 新しく開く代わりにすでに開いてあるバッファを開く
+vim.opt.showmatch = true -- 対応する括弧などをハイライト表示する
+vim.opt.matchtime = 2 -- 対応括弧のハイライト表示を3秒にする
 
--- opt.clipboard:append({ unnamedplus = true, unnamed = true })
-opt.clipboard = "unnamedplus"
-opt.updatetime = 500
-opt.shortmess:append({ c = true })
-opt.signcolumn = "yes"
+vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamed"
+vim.opt.updatetime = 500
+vim.opt.shortmess:append({ c = true })
+vim.opt.signcolumn = "yes"
 
-opt.number = true -- 行番号の表示
-opt.textwidth = 0 -- 自動的に改行が入るのを無効化
-opt.display = "lastline"
-opt.softtabstop = 0
-opt.showtabline = 0 -- 常にタブラインを表示
-opt.laststatus = 2
-opt.cmdheight = 1
-opt.whichwrap = "b,s,<,>,[,]" -- wrapするカッコ一覧
-opt.list = true -- 不可視文字の可視化
-opt.listchars:append({ tab = [[| ]], trail = "￭", extends = "❯", precedes = "❮" })
-opt.ttimeout = nil
-opt.ttimeoutlen = 10
-opt.scrolloff = 10 -- 3行残して画面スクロールする
-opt.shell = "zsh"
-opt.ttyfast = true
-opt.ambiwidth = "single"
-opt.termguicolors = true
-opt.wildmenu = true
-opt.wildmode = "full"
-opt.wildoptions = "pum"
+vim.opt.number = true -- 行番号の表示
+vim.opt.textwidth = 0 -- 自動的に改行が入るのを無効化
+vim.opt.display = "lastline"
+vim.opt.softtabstop = 0
+vim.opt.showtabline = 0 -- 常にタブラインを表示
+vim.opt.laststatus = 2
+vim.opt.cmdheight = 1
+vim.opt.whichwrap = "b,s,<,>,[,]" -- wrapするカッコ一覧
+vim.opt.list = true -- 不可視文字の可視化
+vim.opt.listchars:append({ tab = [[| ]], trail = "￭", extends = "❯", precedes = "❮" })
+vim.opt.ttimeout = nil
+vim.opt.ttimeoutlen = 10
+vim.opt.scrolloff = 10 -- 3行残して画面スクロールする
+vim.opt.shell = "zsh"
+vim.opt.ttyfast = true
+vim.opt.ambiwidth = "single"
+vim.opt.termguicolors = true
+vim.opt.wildmenu = true
+vim.opt.wildmode = "full"
+vim.opt.wildoptions = "pum"
 
-opt.expandtab = true -- タブをスペースにする
-opt.tabstop = 2
-opt.shiftwidth = 2
-opt.conceallevel = 2
-opt.concealcursor = "nc"
+vim.opt.expandtab = true -- タブをスペースにする
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.conceallevel = 2
+vim.opt.concealcursor = "nc"
 
 -----------------------------------------------------------------------------"
 -- Commands \ Modes | Normal | Insert | Command | Visual | Select | Operator |
@@ -167,12 +166,12 @@ if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
       name = 'win32yank-wsl',
       copy = {
-          ['+'] =  'win32yank.exe -i --crlf',
-          ['*'] =  'win32yank.exe -i --crlf',
+          ['+'] = '/mnt/c/win32yank/win32yank.exe -i --crlf',
+          ['*'] = '/mnt/c/win32yank/win32yank.exe -i --crlf',
       },
       paste = {
-          ['+'] = 'win32yank.exe -o --lf',
-          ['*'] = 'win32yank.exe -o --lf',
+          ['+'] = '/mnt/c/win32yank/win32yank.exe -o --lf',
+          ['*'] = '/mnt/c/win32yank/win32yank.exe -o --lf',
       },
       cache_enabled = true,
   }
