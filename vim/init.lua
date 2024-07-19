@@ -59,15 +59,6 @@ vim.opt.concealcursor = "nc"
 -- cmap / cnoremap  |    -   |   -    |    @    |   -    |   -    |    -     |
 -----------------------------------------------------------------------------"
 
--- vim.cmd [[
--- let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
--- let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
--- let &t_ti.="\e[1 q"
--- let &t_SI.="\e[5 q"
--- let &t_EI.="\e[1 q"
--- let &t_te.="\e[0 q"
--- ]]
-
 vim.g.netrw_liststyle = 1 -- " ファイルツリーの表示形式、1にするとls -laのような表示になります
 vim.g.netrw_banner = 0 -- " ヘッダを非表示にする
 vim.g.netrw_sizestyle = "H" -- " サイズを(K,M,G)で表示する
@@ -194,6 +185,8 @@ require('packer').startup(function(use)
   use 'terryma/vim-expand-region'
   vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
   vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+
+  use 'machakann/vim-highlightedyank'
 
   use 'sheerun/vim-polyglot'
   vim.g.vim_json_syntax_conceal = 0
