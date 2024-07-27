@@ -104,7 +104,6 @@ vim.keymap.set("n", "<Left>", "<nop>", { noremap = true })
 vim.keymap.set("n", "<Right>", "<nop>", { noremap = true })
 vim.keymap.set("n", "<C-[>", "<nop>", { noremap = true })
 vim.keymap.set("n", "<Esc>", "<nop>", { noremap = true })
-
 -- easymotion
 -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 vim.api.nvim_create_user_command("Q", ":q", {})
@@ -223,5 +222,10 @@ if vim.g.vscode then
   vim.keymap.set("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
   vim.keymap.set("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
   vim.keymap.set("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
+
+  vim.keymap.set("n", "<C-w><C-h>", "<nop>", { noremap = true })
+  vim.keymap.set("n", "<C-w><C-j>", "<nop>", { noremap = true })
+  vim.keymap.set("n", "<C-w><C-k>", "<nop>", { noremap = true })
+  vim.keymap.set("n", "<C-w><C-l>", "<nop>", { noremap = true })
 end
 
