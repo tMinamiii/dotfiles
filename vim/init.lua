@@ -42,7 +42,7 @@ vim.opt.wildoptions = "pum"
 vim.opt.expandtab = true -- タブをスペースにする
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 0
 vim.opt.concealcursor = "nc"
 
 -----------------------------------------------------------------------------"
