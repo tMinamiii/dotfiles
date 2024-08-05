@@ -148,9 +148,6 @@ augroup indentsize
   autocmd FileType markdown   setlocal shiftwidth=2 tabstop=2 conceallevel=0
   autocmd FileType gitconfig  setlocal noexpandtab
 augroup END
-
-colorscheme material
-hi! Normal guibg=NONE ctermbg=NONE
 ]]
 
 if vim.fn.has("wsl") == 1 then
@@ -170,13 +167,13 @@ end
 
 if vim.g.vscode then
   require('packer').startup(function(use)
-    use "wbthomason/packer.nvim"
+    use 'wbthomason/packer.nvim'
 
     use 'folke/flash.nvim'
 
     use 'vscode-neovim/vscode-multi-cursor.nvim'
 
-    use { "kylechui/nvim-surround", tag = "*" }
+    use { 'kylechui/nvim-surround', tag = "*" }
 
     use 'kaicataldo/material.vim'
     vim.g.material_terminal_italics = 0
@@ -188,86 +185,162 @@ if vim.g.vscode then
 
     use 'machakann/vim-highlightedyank'
 
-    use 'sheerun/vim-polyglot'
-    vim.g.vim_json_syntax_conceal = 0
-
     use 'deris/vim-shot-f'
 
     use 'easymotion/vim-easymotion'
     -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 
+    vim.keymap.set("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
+    vim.keymap.set("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
+    vim.keymap.set("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
+    vim.keymap.set("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
+
+    vim.keymap.set("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
+    vim.keymap.set("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
+
+    vim.keymap.set("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
+    vim.keymap.set("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
+    vim.keymap.set("n", "<leader>f", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
+    vim.keymap.set("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
+    vim.keymap.set("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
+    vim.keymap.set("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
+    vim.keymap.set("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
+
+    vim.keymap.set("n", "<C-w><C-h>", "<nop>", { noremap = true })
+    vim.keymap.set("n", "<C-w><C-j>", "<nop>", { noremap = true })
+    vim.keymap.set("n", "<C-w><C-k>", "<nop>", { noremap = true })
+    vim.keymap.set("n", "<C-w><C-l>", "<nop>", { noremap = true })
   end)
 else
   require('packer').startup(function(use)
-    use "wbthomason/packer.nvim"
+    use 'wbthomason/packer.nvim'
 
-    use { "kylechui/nvim-surround", tag = "*" }
+    use { 'kylechui/nvim-surround', tag = "*" }
 
     use 'kaicataldo/material.vim'
-    vim.g.material_terminal_italics = 0
-    vim.g.material_theme_style = 'palenight'
+      vim.g.material_terminal_italics = 0
+      vim.g.material_theme_style = 'palenight'
 
     use 'terryma/vim-expand-region'
-    vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-    vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+      vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+      vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
     use 'machakann/vim-highlightedyank'
-
-    use 'sheerun/vim-polyglot'
-    vim.g.vim_json_syntax_conceal = 0
 
     use 'deris/vim-shot-f'
 
     use 'easymotion/vim-easymotion'
     -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use { 'neoclide/coc.nvim', branch = 'release' }
+      vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', {silent = true})
+      vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
+      vim.keymap.set('n', 'gr', '<Plug>(coc-references)', {silent = true})
+      vim.keymap.set('n', 'gt', '<Plug>(coc-type-definition)', {silent = true})
+      vim.keymap.set('n', 'gp', '<Plug>(coc-peek-definition)', {silent = true})
+      vim.keymap.set("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
+      vim.keymap.set("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
+
+      local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+      vim.keymap.set("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+      vim.keymap.set("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
+      vim.keymap.set("i", "<c-space>", "coc#refresh()", {silent = true, expr = true})
+      -- Use K to show documentation in preview window
+      function _G.show_docs()
+          local cw = vim.fn.expand('<cword>')
+          if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
+              vim.api.nvim_command('h ' .. cw)
+          elseif vim.api.nvim_eval('coc#rpc#ready()') then
+              vim.fn.CocActionAsync('doHover')
+          else
+              vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
+          end
+      end
+      vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
+      -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
+      vim.api.nvim_create_augroup("CocGroup", {})
+      vim.api.nvim_create_autocmd("CursorHold", {
+          group = "CocGroup",
+          command = "silent call CocActionAsync('highlight')",
+          desc = "Highlight symbol under cursor on CursorHold"
+      })
+
+      vim.g.coc_global_extensions = {
+            'coc-deno',
+            'coc-docker',
+            'coc-eslint',
+            'coc-git',
+            'coc-json',
+            'coc-lua',
+            'coc-markdownlint',
+            'coc-pyright',
+            'coc-sh',
+            -- 'coc-sql',
+            -- 'coc-sqlfluff',
+            'coc-tsserver',
+            'coc-vimlsp',
+            'coc-xml',
+            'coc-yaml'
+          }
+
+      -- autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+      vim.api.nvim_create_autocmd("BufWritePre", {
+          pattern = "*.go",
+          command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
+      })
+
+    use 'fannheyward/coc-marketplace'
+
+
+    use { 'nvim-treesitter/nvim-treesitter' }
 
     use 'preservim/nerdtree'
-    vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
-    vim.keymap.set("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
-    vim.g.NERDTreeWinSize = 35
-    vim.g.NERDTreeLimitedSyntax = 1
-    vim.g.NERDTreeQuitOnOpen = 0
-    vim.cmd[[
-    augroup nerdtree_hook_add
-        autocmd FileType nerdtree nmap <buffer> l o
-        autocmd FileType nerdtree nmap <buffer> <C-0> o
-        autocmd FileType nerdtree nmap <buffer> <C-n> j
-        autocmd FileType nerdtree nmap <buffer> <C-p> k
-    augroup END
-    ]]
+      vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
+      vim.g.NERDTreeWinSize = 35
+      vim.g.NERDTreeLimitedSyntax = 1
+      vim.g.NERDTreeQuitOnOpen = 0
+      vim.cmd[[
+      augroup nerdtree_hook_add
+          autocmd FileType nerdtree nmap <buffer> l o
+          autocmd FileType nerdtree nmap <buffer> <C-0> o
+          autocmd FileType nerdtree nmap <buffer> <C-n> j
+          autocmd FileType nerdtree nmap <buffer> <C-p> k
+      augroup END
+      ]]
 
     use {
       'junegunn/fzf.vim',
       requires = { 'junegunn/fzf', run = ':call fzf#install()' }
     }
-    vim.cmd[[
-      " command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-      " command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-      command! -bang -nargs=* Rg
-          \ call fzf#vim#grep(
-          \ 'rg --column --line-number -g "!.git" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
-          \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-          \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-          \ <bang>0)
-    ]]
-    vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-    vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-    -- vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always'.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
+      vim.cmd[[
+        " command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+        " command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+        command! -bang -nargs=* Rg
+            \ call fzf#vim#grep(
+            \ 'rg --column --line-number -g "!.git" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
+            \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+            \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+            \ <bang>0)
+      ]]
+      vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+      vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+      -- vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always'.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
 
-    vim.g.fzf_layout = { down = '~40%' }
-    vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
-    vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
-    vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
-    vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
-    vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
+      vim.g.fzf_layout = { down = '~40%' }
+      vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
+
   end)
 end
 
-require("nvim-surround").setup()
 
 if vim.g.vscode then
+  require("nvim-surround").setup()
+
   require('vscode-multi-cursor').setup { -- Config is optional
     -- Whether to set default mappings
     default_mappings = true,
@@ -275,27 +348,9 @@ if vim.g.vscode then
     no_selection = false
   }
 
-  vim.keymap.set("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
-  vim.keymap.set("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
-  vim.keymap.set("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
-  vim.keymap.set("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
-
-  vim.keymap.set("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
-  vim.keymap.set("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
-
-  vim.keymap.set("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
-  vim.keymap.set("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
-  vim.keymap.set("n", "<leader>f", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
-  vim.keymap.set("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
-  vim.keymap.set("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
-  vim.keymap.set("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
-  vim.keymap.set("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
-
-  vim.keymap.set("n", "<C-w><C-h>", "<nop>", { noremap = true })
-  vim.keymap.set("n", "<C-w><C-j>", "<nop>", { noremap = true })
-  vim.keymap.set("n", "<C-w><C-k>", "<nop>", { noremap = true })
-  vim.keymap.set("n", "<C-w><C-l>", "<nop>", { noremap = true })
 else
+  require("nvim-surround").setup()
+
   require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
     ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
@@ -331,3 +386,7 @@ else
   }
 end
 
+vim.cmd[[
+colorscheme material
+hi! Normal guibg=NONE ctermbg=NONE
+]]
