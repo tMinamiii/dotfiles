@@ -194,7 +194,6 @@ if vim.g.vscode then
     vim.keymap.set("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
     vim.keymap.set("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
     vim.keymap.set("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
-
     vim.keymap.set("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
     vim.keymap.set("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
 
@@ -233,13 +232,17 @@ else
 
     use 'tpope/vim-fugitive'
 
-    use 'mfussenegger/nvim-dap'
-    use 'leoluz/nvim-dap-go'
-
     use 'easymotion/vim-easymotion'
     -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 
     use { 'neoclide/coc.nvim', branch = 'release' }
+
+      local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+      vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+      vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
+      vim.keymap.set("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+      vim.keymap.set("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
+
       vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', {silent = true})
       vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
       vim.keymap.set('n', 'gr', '<Plug>(coc-references)', {silent = true})
@@ -248,10 +251,10 @@ else
       vim.keymap.set("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
       vim.keymap.set("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
 
-      local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
-      vim.keymap.set("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
-      vim.keymap.set("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
-      vim.keymap.set("i", "<c-space>", "coc#refresh()", {silent = true, expr = true})
+      -- Formatting selected code
+      vim.keymap.set("x", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
+      vim.keymap.set("n", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
+
       -- Use K to show documentation in preview window
       function _G.show_docs()
           local cw = vim.fn.expand('<cword>')
@@ -273,22 +276,22 @@ else
       })
 
       vim.g.coc_global_extensions = {
-            'coc-deno',
-            'coc-docker',
-            'coc-eslint',
-            'coc-git',
-            'coc-json',
-            'coc-lua',
-            'coc-markdownlint',
-            'coc-marketplace',
-            'coc-pyright',
-            'coc-sh',
-            'coc-sql',
-            'coc-tsserver',
-            'coc-vimlsp',
-            'coc-xml',
-            'coc-yaml'
-          }
+        'coc-deno',
+        'coc-docker',
+        'coc-eslint',
+        'coc-git',
+        'coc-json',
+        'coc-lua',
+        'coc-markdownlint',
+        'coc-marketplace',
+        'coc-pyright',
+        'coc-sh',
+        'coc-sql',
+        'coc-tsserver',
+        'coc-vimlsp',
+        'coc-xml',
+        'coc-yaml'
+      }
 
       -- autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
       vim.api.nvim_create_autocmd("BufWritePre", {
@@ -331,100 +334,8 @@ else
       vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
       vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
       vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
-
-    use 'itchyny/lightline.vim'
-      vim.g.lightline = {
-                  colorscheme='material',
-                  active={
-                    left={{ 'mode', 'paste' }, {'fugitive', 'filename', 'modified', 'readonly' }},
-                    right={{ 'percent' }, { 'fileformat', 'fileencoding', 'filetype' }}
-                  },
-                  inactive={
-                      left={{ 'filename' }},
-                      right={{ 'lineinfo' }, { 'percent' }}
-                  },
-                  tabline={left={{'buffers'}}, right={{'close'}}},
-                  component_function={
-                    fugitive='LightlineFugitive',
-                    filename='LightlineFilename',
-                    fileformat='LightlineFileformat',
-                    filetype='LightlineFiletype',
-                    fileencoding='LightlineFileencoding',
-                    mode='LightlineMode',
-                  },
-                  component_expand={
-                    buffers='lightline#bufferline#buffers',
-                  },
-                  component_type={
-                    syntastic='error',
-                    buffers='tabsel',
-                  },
-                  subseparator={ left='|', right='|' }
-                  }
-      vim.cmd[[
-        function! LightlineModified()
-            return &filetype =~? 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-        endfunction
-
-        function! LightlineReadonly()
-            return &filetype !~? 'help' && &readonly ? 'RO' : ''
-        endfunction
-
-        function! LightlineFilename()
-            let fname = expand('%:t')
-            return fname ==? '__Tagbar__' ? g:lightline.fname :
-                    \ fname =~? '__Gundo\|NERD_tree' ? '' :
-                    \ ('' !=? LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-                    \ ('' !=? fname ? fname : '[No Name]') .
-                    \ ('' !=? LightlineModified() ? ' ' . LightlineModified() : '')
-        endfunction
-
-        function! LightlineFugitive()
-            try
-                if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
-                    let mark = ''  " edit here for cool mark
-                    let branch = fugitive#head()
-                    return branch !=# '' ? mark.branch : ''
-                endif
-            catch
-            endtry
-            return ''
-        endfunction
-
-        function! LightlineFileformat()
-            return winwidth(0) > 70 ? &fileformat : ''
-        endfunction
-
-        function! LightlineFiletype()
-            return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-        endfunction
-
-        function! LightlineFileencoding()
-            return winwidth(-1) > 70 ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
-        endfunction
-
-        function! LightlineMode()
-            let fname = expand('%:t')
-            return fname ==? '__Tagbar__' ? 'Tagbar' :
-                        \ fname ==? '__Gundo__' ? 'Gundo' :
-                        \ fname ==? '__Gundo_Preview__' ? 'Gundo Preview' :
-                        \ fname =~? 'NERD_tree' ? 'NERDTree' :
-                        \ winwidth(0) > 60 ? lightline#mode() : ''
-        endfunction
-
-
-        function! TagbarStatusFunc(current, sort, fname, ...) abort
-            let g:lightline.fname = a:fname
-            return lightline#statusline(0)
-        endfunction
-      ]]
-      vim.g.tagbar_status_func = 'TagbarStatusFunc'
-      vim.g.unite_force_overwrite_statusline = 0
-      vim.g.vimfiler_force_overwrite_statusline = 0
-      vim.g.vimshell_force_overwrite_statusline = 0
   end)
 end
-
 
 if vim.g.vscode then
   require("nvim-surround").setup()
@@ -435,11 +346,8 @@ if vim.g.vscode then
     -- If set to true, only multiple cursors will be created without multiple selections
     no_selection = false
   }
-
 else
   require("nvim-surround").setup()
-
-  require('dap-go').setup()
 
   require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
