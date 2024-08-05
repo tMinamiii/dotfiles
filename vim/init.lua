@@ -221,6 +221,8 @@ else
       vim.g.material_terminal_italics = 0
       vim.g.material_theme_style = 'palenight'
 
+    use 'terryma/vim-multiple-cursors'
+
     use 'terryma/vim-expand-region'
       vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
       vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
@@ -228,6 +230,8 @@ else
     use 'machakann/vim-highlightedyank'
 
     use 'deris/vim-shot-f'
+
+    use 'tpope/vim-fugitive'
 
     use 'easymotion/vim-easymotion'
     -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
@@ -275,8 +279,7 @@ else
             'coc-markdownlint',
             'coc-pyright',
             'coc-sh',
-            -- 'coc-sql',
-            -- 'coc-sqlfluff',
+            'coc-sqlfluff',
             'coc-tsserver',
             'coc-vimlsp',
             'coc-xml',
@@ -313,27 +316,108 @@ else
       'junegunn/fzf.vim',
       requires = { 'junegunn/fzf', run = ':call fzf#install()' }
     }
-      vim.cmd[[
-        " command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-        " command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-        command! -bang -nargs=* Rg
-            \ call fzf#vim#grep(
-            \ 'rg --column --line-number -g "!.git" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
-            \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-            \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-            \ <bang>0)
-      ]]
+      vim.g.fzf_layout = { down = '~40%' }
+
       vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
       vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-      -- vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always'.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
+      vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
 
-      vim.g.fzf_layout = { down = '~40%' }
       vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
       vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
       vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
       vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
       vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
 
+    use 'itchyny/lightline.vim'
+      vim.g.lightline = {
+                  colorscheme='material',
+                  active={
+                    left={{ 'mode', 'paste' }, {'fugitive', 'filename', 'modified', 'readonly' }},
+                    right={{ 'percent' }, { 'fileformat', 'fileencoding', 'filetype' }}
+                  },
+                  inactive={
+                      left={{ 'filename' }},
+                      right={{ 'lineinfo' }, { 'percent' }}
+                  },
+                  tabline={left={{'buffers'}}, right={{'close'}}},
+                  component_function={
+                    fugitive='LightlineFugitive',
+                    filename='LightlineFilename',
+                    fileformat='LightlineFileformat',
+                    filetype='LightlineFiletype',
+                    fileencoding='LightlineFileencoding',
+                    mode='LightlineMode',
+                  },
+                  component_expand={
+                    buffers='lightline#bufferline#buffers',
+                  },
+                  component_type={
+                    syntastic='error',
+                    buffers='tabsel',
+                  },
+                  subseparator={ left='|', right='|' }
+                  }
+      vim.cmd[[
+        function! LightlineModified()
+            return &filetype =~? 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+        endfunction
+
+        function! LightlineReadonly()
+            return &filetype !~? 'help' && &readonly ? 'RO' : ''
+        endfunction
+
+        function! LightlineFilename()
+            let fname = expand('%:t')
+            return fname ==? '__Tagbar__' ? g:lightline.fname :
+                    \ fname =~? '__Gundo\|NERD_tree' ? '' :
+                    \ ('' !=? LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+                    \ ('' !=? fname ? fname : '[No Name]') .
+                    \ ('' !=? LightlineModified() ? ' ' . LightlineModified() : '')
+        endfunction
+
+        function! LightlineFugitive()
+            try
+                if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &filetype !~? 'vimfiler' && exists('*fugitive#head')
+                    let mark = ''  " edit here for cool mark
+                    let branch = fugitive#head()
+                    return branch !=# '' ? mark.branch : ''
+                endif
+            catch
+            endtry
+            return ''
+        endfunction
+
+        function! LightlineFileformat()
+            return winwidth(0) > 70 ? &fileformat : ''
+        endfunction
+
+        function! LightlineFiletype()
+            return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+        endfunction
+
+        function! LightlineFileencoding()
+            return winwidth(-1) > 70 ? (&fileencoding !=# '' ? &fileencoding : &encoding) : ''
+        endfunction
+
+        function! LightlineMode()
+            let fname = expand('%:t')
+            return fname ==? '__Tagbar__' ? 'Tagbar' :
+                        \ fname ==? '__Gundo__' ? 'Gundo' :
+                        \ fname ==? '__Gundo_Preview__' ? 'Gundo Preview' :
+                        \ fname =~? 'NERD_tree' ? 'NERDTree' :
+                        \ winwidth(0) > 60 ? lightline#mode() : ''
+        endfunction
+
+
+        function! TagbarStatusFunc(current, sort, fname, ...) abort
+            let g:lightline.fname = a:fname
+            return lightline#statusline(0)
+        endfunction
+      ]]
+      vim.g.tagbar_status_func = 'TagbarStatusFunc'
+      vim.g.unite_force_overwrite_statusline = 0
+      vim.g.vimfiler_force_overwrite_statusline = 0
+      vim.g.vimshell_force_overwrite_statusline = 0
   end)
 end
 

@@ -360,19 +360,6 @@ call plug#begin(s:vim_plug_plugins)
       let g:vimfiler_force_overwrite_statusline = 0
       let g:vimshell_force_overwrite_statusline = 0
 
-    Plug 'liuchengxu/vista.vim'
-      nmap <silent> <C-f><C-v> :<C-u>Vista vim_lsp<CR>
-      let g:vista_close_on_jump = 1
-      let g:vista_icon_indent = ['`-> ', '|-> ']
-      let g:vista#renderer#enable_icon = 0
-      let g:vista#renderer#icons = {
-                  \   'function': 'func',
-                  \   'variable': 'var',
-                  \   'field': 'field',
-                  \   'struct': 'struct',
-                  \   'constant': 'const',
-                   \  }
-
     Plug 'terryma/vim-multiple-cursors'
 
     Plug 'osyo-manga/vim-over'
