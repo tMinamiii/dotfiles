@@ -168,45 +168,113 @@ if vim.fn.has("wsl") == 1 then
   }
 end
 
-require('packer').startup(function(use)
-  use "wbthomason/packer.nvim"
+if vim.g.vscode then
+  require('packer').startup(function(use)
+    use "wbthomason/packer.nvim"
 
-  use 'folke/flash.nvim'
+    use 'folke/flash.nvim'
 
-  use 'vscode-neovim/vscode-multi-cursor.nvim'
+    use 'vscode-neovim/vscode-multi-cursor.nvim'
 
-  use { "kylechui/nvim-surround", tag = "*" }
+    use { "kylechui/nvim-surround", tag = "*" }
 
-  use 'kaicataldo/material.vim'
-  vim.g.material_terminal_italics = 0
-  vim.g.material_theme_style = 'palenight'
+    use 'kaicataldo/material.vim'
+    vim.g.material_terminal_italics = 0
+    vim.g.material_theme_style = 'palenight'
 
-  use 'terryma/vim-expand-region'
-  vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-  vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+    use 'terryma/vim-expand-region'
+    vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+    vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
-  use 'machakann/vim-highlightedyank'
+    use 'machakann/vim-highlightedyank'
 
-  use 'sheerun/vim-polyglot'
-  vim.g.vim_json_syntax_conceal = 0
+    use 'sheerun/vim-polyglot'
+    vim.g.vim_json_syntax_conceal = 0
 
-  use 'deris/vim-shot-f'
+    use 'deris/vim-shot-f'
 
-  use 'easymotion/vim-easymotion'
-  -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
+    use 'easymotion/vim-easymotion'
+    -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 
-end)
+  end)
+else
+  require('packer').startup(function(use)
+    use "wbthomason/packer.nvim"
+
+    use { "kylechui/nvim-surround", tag = "*" }
+
+    use 'kaicataldo/material.vim'
+    vim.g.material_terminal_italics = 0
+    vim.g.material_theme_style = 'palenight'
+
+    use 'terryma/vim-expand-region'
+    vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+    vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+
+    use 'machakann/vim-highlightedyank'
+
+    use 'sheerun/vim-polyglot'
+    vim.g.vim_json_syntax_conceal = 0
+
+    use 'deris/vim-shot-f'
+
+    use 'easymotion/vim-easymotion'
+    -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
+
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+
+    use 'preservim/nerdtree'
+    vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
+    vim.g.NERDTreeWinSize = 35
+    vim.g.NERDTreeLimitedSyntax = 1
+    vim.g.NERDTreeQuitOnOpen = 0
+    vim.cmd[[
+    augroup nerdtree_hook_add
+        autocmd FileType nerdtree nmap <buffer> l o
+        autocmd FileType nerdtree nmap <buffer> <C-0> o
+        autocmd FileType nerdtree nmap <buffer> <C-n> j
+        autocmd FileType nerdtree nmap <buffer> <C-p> k
+    augroup END
+    ]]
+
+    use {
+      'junegunn/fzf.vim',
+      requires = { 'junegunn/fzf', run = ':call fzf#install()' }
+    }
+    vim.cmd[[
+      " command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+      " command! -bang -nargs=? -complete=dir GFiles call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+      command! -bang -nargs=* Rg
+          \ call fzf#vim#grep(
+          \ 'rg --column --line-number -g "!.git" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
+          \ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+          \         : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+          \ <bang>0)
+    ]]
+    vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+    vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+    -- vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always'.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
+
+    vim.g.fzf_layout = { down = '~40%' }
+    vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
+  end)
+end
 
 require("nvim-surround").setup()
 
-require('vscode-multi-cursor').setup { -- Config is optional
-  -- Whether to set default mappings
-  default_mappings = true,
-  -- If set to true, only multiple cursors will be created without multiple selections
-  no_selection = false
-}
-
 if vim.g.vscode then
+  require('vscode-multi-cursor').setup { -- Config is optional
+    -- Whether to set default mappings
+    default_mappings = true,
+    -- If set to true, only multiple cursors will be created without multiple selections
+    no_selection = false
+  }
+
   vim.keymap.set("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
   vim.keymap.set("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
   vim.keymap.set("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
@@ -227,5 +295,39 @@ if vim.g.vscode then
   vim.keymap.set("n", "<C-w><C-j>", "<nop>", { noremap = true })
   vim.keymap.set("n", "<C-w><C-k>", "<nop>", { noremap = true })
   vim.keymap.set("n", "<C-w><C-l>", "<nop>", { noremap = true })
+else
+  require('nvim-treesitter.configs').setup {
+    -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+
+    -- Install parsers synchronously (only applied to `ensure_installed`)
+    sync_install = false,
+
+    -- Automatically install missing parsers when entering buffer
+    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+    auto_install = true,
+
+    ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+    -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+    highlight = {
+      enable = true,
+
+      -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+      disable = function(lang, buf)
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+              return true
+          end
+      end,
+
+      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+      -- Using this option may slow down your editor, and you may see some duplicate highlights.
+      -- Instead of true it can also be a list of languages
+      additional_vim_regex_highlighting = false,
+    },
+  }
 end
 
