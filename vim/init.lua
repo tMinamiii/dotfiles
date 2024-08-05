@@ -159,198 +159,145 @@ if vim.fn.has("wsl") == 1 then
   }
 end
 
+local sep = vim.loop.os_uname().sysname == 'Windows_NT' and [[\]] or [[/]]
+local function join(...)
+  return table.concat({ ... }, sep)
+end
+
+local home = os.getenv 'HOME'
+local len = #home
+
+local homepath = join(home, '.config', 'config-name')
+local cachepath = join(home, '.cache', 'config-name')
+
+-- Add path locations for configuration
+local rtp = { homepath, cachepath }
+
+-- Add paths that dont start with home.
+for _, p in ipairs(vim.opt.runtimepath:get()) do
+  if p:sub(1, len) ~= home then
+    rtp[#rtp + 1] = p
+  end
+end
+
+vim.opt.runtimepath = rtp
+
+-- Packer paths and files
+local pack_path = join(cachepath, 'site')
+local package_root = join(pack_path, 'pack')
+local compile_path = join(cachepath, 'plugin', 'packer_compiled.lua')
+local package_root_vscode = join(pack_path, 'pack_vscode')
+local compile_path_vscode = join(cachepath, 'plugin', 'packer_compiled_vscode.lua')
+vim.g.loaded_remote_plugins = 1
+
+vim.opt.packpath:prepend(pack_path)
+
+local packer_bootstrap = false
+local packer_install_path = join(package_root, 'packer', 'start', 'packer.nvim')
+if vim.fn.isdirectory(packer_install_path) == 0 then
+  vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_install_path }
+  vim.cmd.packadd 'packer.nvim'
+  packer_bootstrap = true
+end
+
 if vim.g.vscode then
-  require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
+  require('packer').startup {
+    function(use)
+      use 'wbthomason/packer.nvim'
 
-    use 'folke/flash.nvim'
+      use { 'kylechui/nvim-surround', tag = "*" }
 
-    use 'vscode-neovim/vscode-multi-cursor.nvim'
+      use 'kaicataldo/material.vim'
+        vim.g.material_terminal_italics = 0
+        vim.g.material_theme_style = 'palenight'
 
-    use { 'kylechui/nvim-surround', tag = "*" }
+      use 'terryma/vim-expand-region'
+        vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+        vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
-    use 'kaicataldo/material.vim'
-      vim.g.material_terminal_italics = 0
-      vim.g.material_theme_style = 'palenight'
+      use 'machakann/vim-highlightedyank'
 
-    use 'terryma/vim-expand-region'
-      vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-      vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+      use 'deris/vim-shot-f'
 
-    use 'machakann/vim-highlightedyank'
+      use 'easymotion/vim-easymotion'
 
-    use 'deris/vim-shot-f'
+      --- vscode ---
+      use 'folke/flash.nvim'
 
-    use 'easymotion/vim-easymotion'
-
-    -- VSCode keymap
-    vim.keymap.set("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
-    vim.keymap.set("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
-    vim.keymap.set("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
-    vim.keymap.set("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
-    vim.keymap.set("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
-    vim.keymap.set("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
-
-    vim.keymap.set("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
-    vim.keymap.set("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
-    vim.keymap.set("n", "<leader>f", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
-    vim.keymap.set("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
-    vim.keymap.set("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
-    vim.keymap.set("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
-    vim.keymap.set("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
-
-    vim.keymap.set("n", "<C-w><C-h>", "<nop>", { noremap = true })
-    vim.keymap.set("n", "<C-w><C-j>", "<nop>", { noremap = true })
-    vim.keymap.set("n", "<C-w><C-k>", "<nop>", { noremap = true })
-    vim.keymap.set("n", "<C-w><C-l>", "<nop>", { noremap = true })
-  end)
+      use 'vscode-neovim/vscode-multi-cursor.nvim'
+    end,
+    config = {
+      package_root = package_root_vscode,
+      compile_path = compile_path_vscode,
+    },
+  }
 else
-  require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
+  require('packer').startup {
+    function(use)
+      use 'wbthomason/packer.nvim'
 
-    use { 'kylechui/nvim-surround', tag = "*" }
+      use { 'kylechui/nvim-surround', tag = "*" }
 
-    use 'kaicataldo/material.vim'
-      vim.g.material_terminal_italics = 0
-      vim.g.material_theme_style = 'palenight'
+      use 'kaicataldo/material.vim'
+        vim.g.material_terminal_italics = 0
+        vim.g.material_theme_style = 'palenight'
 
-    use 'terryma/vim-multiple-cursors'
+      use 'terryma/vim-expand-region'
+        vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+        vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
-    use 'terryma/vim-expand-region'
-      vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-      vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+      use 'machakann/vim-highlightedyank'
 
-    use 'machakann/vim-highlightedyank'
+      use 'deris/vim-shot-f'
 
-    use 'deris/vim-shot-f'
+      use 'easymotion/vim-easymotion'
 
-    use 'tpope/vim-fugitive'
+      --- neovim ---
+      use { 'terryma/vim-multiple-cursors' }
 
-    use 'easymotion/vim-easymotion'
-    -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
-    --
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-    }
+      use { 'tpope/vim-fugitive' }
 
-    use 'rhysd/git-messenger.vim'
-      vim.keymap.set("n", "<Leader>gm", "<Plug>(git-messenger)", { noremap = true, silent = true })
+      use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+      }
+
+      use { 'rhysd/git-messenger.vim' }
       vim.g.git_messenger_include_diff = 'current'
       vim.g.git_messenger_always_into_popup = true
       vim.g.git_messenger_into_popup_after_show = true
 
-    use 'mechatroner/rainbow_csv'
+      use { 'mechatroner/rainbow_csv' }
       vim.g.rainbow_active = 0
       vim.g.rainbow_conf = {
         guifgs = {'darkorange2', 'orchid3', 'seagreen3'},
         separately = { nerdtree=0 }
       }
 
-    use {
+      use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
             ts_update()
-        end,
-    }
-
-    use 'preservim/nerdtree'
-      vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
-      vim.g.NERDTreeWinSize = 35
-      vim.g.NERDTreeLimitedSyntax = 1
-      vim.g.NERDTreeQuitOnOpen = 0
-      vim.api.nvim_create_augroup('nerdtree_hook', {})
-      vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> l o' })
-      vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-0> o' })
-      vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-n> j' })
-      vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-p> k' })
-
-    use {
-      'junegunn/fzf.vim',
-      requires = { 'junegunn/fzf', run = ':call fzf#install()' }
-    }
-      vim.g.fzf_layout = { down = '~40%' }
-
-      vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-      vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-      vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
-
-      vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
-
-    use 'fannheyward/coc-marketplace'
-
-    use { 'neoclide/coc.nvim', branch = 'release' }
-
-      local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
-      vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
-      vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
-      vim.keymap.set("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
-      vim.keymap.set("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
-
-      vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', {silent = true})
-      vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
-      vim.keymap.set('n', 'gr', '<Plug>(coc-references)', {silent = true})
-      vim.keymap.set('n', 'gt', '<Plug>(coc-type-definition)', {silent = true})
-      vim.keymap.set('n', 'gp', '<Plug>(coc-peek-definition)', {silent = true})
-      vim.keymap.set("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
-      vim.keymap.set("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
-
-      -- Formatting selected code
-      vim.keymap.set("x", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
-      vim.keymap.set("n", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
-
-      -- Use K to show documentation in preview window
-      function _G.show_docs()
-          local cw = vim.fn.expand('<cword>')
-          if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-              vim.api.nvim_command('h ' .. cw)
-          elseif vim.api.nvim_eval('coc#rpc#ready()') then
-              vim.fn.CocActionAsync('doHover')
-          else
-              vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
-          end
-      end
-
-      vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
-
-      -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
-      vim.api.nvim_create_augroup("CocGroup", {})
-      vim.api.nvim_create_autocmd("CursorHold", {
-          group = "CocGroup",
-          command = "silent call CocActionAsync('highlight')",
-          desc = "Highlight symbol under cursor on CursorHold"
-      })
-
-      vim.g.coc_global_extensions = {
-        'coc-deno',
-        'coc-docker',
-        'coc-eslint',
-        'coc-git',
-        'coc-json',
-        'coc-lua',
-        'coc-markdownlint',
-        'coc-marketplace',
-        'coc-pyright',
-        'coc-sh',
-        'coc-sql',
-        'coc-tsserver',
-        'coc-vimlsp',
-        'coc-xml',
-        'coc-yaml'
+        end
       }
 
-      -- autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-      vim.api.nvim_create_autocmd("BufWritePre", {
-          pattern = "*.go",
-          command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
-      })
-  end)
+      use { 'preservim/nerdtree' }
+
+      use {
+        'junegunn/fzf.vim',
+        requires = { 'junegunn/fzf', run = ':call fzf#install()' }
+      }
+
+      use { 'fannheyward/coc-marketplace' }
+
+      use { 'neoclide/coc.nvim', branch = 'release' }
+    end,
+    config = {
+      package_root = package_root,
+      compile_path = compile_path,
+    },
+  }
 end
 
 if vim.g.vscode then
@@ -362,6 +309,27 @@ if vim.g.vscode then
     -- If set to true, only multiple cursors will be created without multiple selections
     no_selection = false
   }
+
+  -- VSCode keymap
+  vim.keymap.set("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
+  vim.keymap.set("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
+  vim.keymap.set("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
+  vim.keymap.set("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
+  vim.keymap.set("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
+  vim.keymap.set("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
+
+  vim.keymap.set("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
+  vim.keymap.set("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
+  vim.keymap.set("n", "<leader>f", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
+  vim.keymap.set("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
+  vim.keymap.set("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
+  vim.keymap.set("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
+  vim.keymap.set("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
+
+  vim.keymap.set("n", "<C-w><C-h>", "<nop>", { noremap = true })
+  vim.keymap.set("n", "<C-w><C-j>", "<nop>", { noremap = true })
+  vim.keymap.set("n", "<C-w><C-k>", "<nop>", { noremap = true })
+  vim.keymap.set("n", "<C-w><C-l>", "<nop>", { noremap = true })
 else
   require("nvim-surround").setup()
 
@@ -439,6 +407,107 @@ else
       additional_vim_regex_highlighting = false,
     },
   }
+
+  ---------------------
+  --- git-messenger ---
+  ---------------------
+  vim.keymap.set("n", "<Leader>gm", "<Plug>(git-messenger)", { noremap = true, silent = true })
+
+  ----------------
+  --- nerdtree ---
+  ----------------
+  vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
+  vim.g.NERDTreeWinSize = 35
+  vim.g.NERDTreeLimitedSyntax = 1
+  vim.g.NERDTreeQuitOnOpen = 0
+  vim.api.nvim_create_augroup('nerdtree_hook', {})
+  vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> l o' })
+  vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-0> o' })
+  vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-n> j' })
+  vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-p> k' })
+
+  ---------
+  -- fzf --
+  ---------
+  vim.g.fzf_layout = { down = '~40%' }
+
+  vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+  vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+  vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
+
+  vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
+
+  -----------
+  --- coc ---
+  -----------
+  local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+  vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+  vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
+  vim.keymap.set("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+  vim.keymap.set("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
+
+  vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', {silent = true})
+  vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
+  vim.keymap.set('n', 'gr', '<Plug>(coc-references)', {silent = true})
+  vim.keymap.set('n', 'gt', '<Plug>(coc-type-definition)', {silent = true})
+  vim.keymap.set('n', 'gp', '<Plug>(coc-peek-definition)', {silent = true})
+  vim.keymap.set("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
+  vim.keymap.set("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
+
+  -- Formatting selected code
+  vim.keymap.set("x", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
+  vim.keymap.set("n", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
+
+  -- Use K to show documentation in preview window
+  function _G.show_docs()
+      local cw = vim.fn.expand('<cword>')
+      if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
+          vim.api.nvim_command('h ' .. cw)
+      elseif vim.api.nvim_eval('coc#rpc#ready()') then
+          vim.fn.CocActionAsync('doHover')
+      else
+          vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
+      end
+  end
+
+  vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
+
+  -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
+  vim.api.nvim_create_augroup("CocGroup", {})
+  vim.api.nvim_create_autocmd("CursorHold", {
+      group = "CocGroup",
+      command = "silent call CocActionAsync('highlight')",
+      desc = "Highlight symbol under cursor on CursorHold"
+  })
+
+  vim.g.coc_global_extensions = {
+    'coc-deno',
+    'coc-docker',
+    'coc-eslint',
+    'coc-git',
+    'coc-json',
+    'coc-lua',
+    'coc-markdownlint',
+    'coc-marketplace',
+    'coc-pyright',
+    'coc-sh',
+    'coc-sql',
+    'coc-tsserver',
+    'coc-vimlsp',
+    'coc-xml',
+    'coc-yaml'
+  }
+
+  -- autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+  vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "*.go",
+      command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
+  })
 end
 
 vim.cmd[[colorscheme material]]

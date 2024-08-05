@@ -5,8 +5,12 @@
       "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"],
       "initializationOptions": {
-        "usePlaceholders": false
+        "usePlaceholders": false,
+        "staticcheck": true
       }
     }
   },
+  "inlayHint.enable": true,
+  "inlayHint.display": true,
+  "inlayHint.position": "inline",
 }
