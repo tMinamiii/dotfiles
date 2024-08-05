@@ -118,37 +118,31 @@ cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 ]]
 
-vim.cmd [[
-augroup filetypes
-  autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile
-  autocmd BufRead,BufNewFile *php_cs*    setfiletype php
-  autocmd BufRead,BufNewFile *zshrc      setfiletype zsh
-  autocmd BufRead,BufNewFile *zsh        setfiletype zsh
-  autocmd BufRead,BufNewFile *.mjs       setfiletype javascript
-  autocmd BufRead,BufNewFile *.csv       setfiletype csv
-  autocmd BufRead,BufNewFile .env*       setfiletype sh
-  autocmd BufWritePre        * :%s/\s\+$//ge
-  autocmd BufWritePre        * :%s/\r//ge
-augroup END
+vim.api.nvim_create_augroup('filetypes', {})
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*Dockerfile', command = 'setfiletype dockerfile' })
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = { '*zshrc', '*zsh' }, command = 'setfiletype zsh' })
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*.mjs', command = 'setfiletype javascript' })
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*.csv', command = 'setfiletype csv' })
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '.env.*', command = 'setfiletype sh' })
+vim.api.nvim_create_autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\s\\+$//ge' })
+vim.api.nvim_create_autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\r//ge' })
 
-augroup indentsize
-  autocmd FileType sh         setlocal shiftwidth=2 tabstop=2
-  autocmd FileType vue        setlocal shiftwidth=2 tabstop=2
-  autocmd FileType blade      setlocal shiftwidth=2 tabstop=2
-  autocmd FileType yaml       setlocal shiftwidth=2 tabstop=2
-  autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-  autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
-  autocmd FileType json       setlocal shiftwidth=2 tabstop=2
-  autocmd FileType html       setlocal shiftwidth=2 tabstop=2
-  autocmd FileType go         setlocal shiftwidth=4 tabstop=4 noexpandtab
-  autocmd FileType vim        setlocal shiftwidth=2 tabstop=2
-  autocmd FileType python     setlocal shiftwidth=4 tabstop=4
-  autocmd FileType c          setlocal shiftwidth=4 tabstop=4
-  autocmd FileType make       setlocal shiftwidth=4 tabstop=4 noexpandtab
-  autocmd FileType markdown   setlocal shiftwidth=2 tabstop=2 conceallevel=0
-  autocmd FileType gitconfig  setlocal noexpandtab
-augroup END
-]]
+vim.api.nvim_create_augroup('indent', {})
+vim.api.nvim_create_autocmd('FileType', {
+  group = 'indent',
+  pattern = { 'sh','vue','yaml', 'javascript', 'typescript', 'json', 'html', 'vim', 'markdown' },
+  command = 'setlocal shiftwidth=2 tabstop=2'
+})
+vim.api.nvim_create_autocmd('FileType', {
+  group = 'indent',
+  pattern = { 'python','c' },
+  command = 'setlocal shiftwidth=4 tabstop=4'
+})
+vim.api.nvim_create_autocmd('FileType', {
+  group = 'indent',
+  pattern = { 'go','make' },
+  command = 'setlocal shiftwidth=4 tabstop=4 noexpandtab'
+})
 
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
@@ -176,20 +170,20 @@ if vim.g.vscode then
     use { 'kylechui/nvim-surround', tag = "*" }
 
     use 'kaicataldo/material.vim'
-    vim.g.material_terminal_italics = 0
-    vim.g.material_theme_style = 'palenight'
+      vim.g.material_terminal_italics = 0
+      vim.g.material_theme_style = 'palenight'
 
     use 'terryma/vim-expand-region'
-    vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-    vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+      vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+      vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
     use 'machakann/vim-highlightedyank'
 
     use 'deris/vim-shot-f'
 
     use 'easymotion/vim-easymotion'
-    -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 
+    -- VSCode keymap
     vim.keymap.set("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
     vim.keymap.set("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
     vim.keymap.set("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
@@ -234,6 +228,56 @@ else
 
     use 'easymotion/vim-easymotion'
     -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
+    --
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
+    use 'rhysd/git-messenger.vim'
+      vim.keymap.set("n", "<Leader>gm", "<Plug>(git-messenger)", { noremap = true, silent = true })
+      vim.g.git_messenger_include_diff = 'current'
+      vim.g.git_messenger_always_into_popup = true
+      vim.g.git_messenger_into_popup_after_show = true
+
+    use 'mechatroner/rainbow_csv'
+      vim.g.rainbow_active = 0
+      vim.g.rainbow_conf = {
+        guifgs = {'darkorange2', 'orchid3', 'seagreen3'},
+        separately = { nerdtree=0 }
+      }
+
+    use 'nvim-treesitter/nvim-treesitter'
+
+    use 'preservim/nerdtree'
+      vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
+      vim.g.NERDTreeWinSize = 35
+      vim.g.NERDTreeLimitedSyntax = 1
+      vim.g.NERDTreeQuitOnOpen = 0
+      vim.api.nvim_create_augroup('nerdtree_hook', {})
+      vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> l o' })
+      vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-0> o' })
+      vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-n> j' })
+      vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-p> k' })
+
+    use {
+      'junegunn/fzf.vim',
+      requires = { 'junegunn/fzf', run = ':call fzf#install()' }
+    }
+      vim.g.fzf_layout = { down = '~40%' }
+
+      vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+      vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+      vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
+
+      vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
+
+    use 'fannheyward/coc-marketplace'
 
     use { 'neoclide/coc.nvim', branch = 'release' }
 
@@ -266,7 +310,9 @@ else
               vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
           end
       end
+
       vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
+
       -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
       vim.api.nvim_create_augroup("CocGroup", {})
       vim.api.nvim_create_autocmd("CursorHold", {
@@ -298,42 +344,6 @@ else
           pattern = "*.go",
           command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
       })
-
-    use 'fannheyward/coc-marketplace'
-
-
-    use { 'nvim-treesitter/nvim-treesitter' }
-
-    use 'preservim/nerdtree'
-      vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
-      vim.g.NERDTreeWinSize = 35
-      vim.g.NERDTreeLimitedSyntax = 1
-      vim.g.NERDTreeQuitOnOpen = 0
-      vim.cmd[[
-      augroup nerdtree_hook_add
-          autocmd FileType nerdtree nmap <buffer> l o
-          autocmd FileType nerdtree nmap <buffer> <C-0> o
-          autocmd FileType nerdtree nmap <buffer> <C-n> j
-          autocmd FileType nerdtree nmap <buffer> <C-p> k
-      augroup END
-      ]]
-
-    use {
-      'junegunn/fzf.vim',
-      requires = { 'junegunn/fzf', run = ':call fzf#install()' }
-    }
-      vim.g.fzf_layout = { down = '~40%' }
-
-      vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-      vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-      vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
-
-      vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
   end)
 end
 
@@ -348,6 +358,47 @@ if vim.g.vscode then
   }
 else
   require("nvim-surround").setup()
+
+  require('lualine').setup {
+    options = {
+      icons_enabled = true,
+      theme = 'auto',
+      component_separators = { left = '', right = ''},
+      section_separators = { left = '', right = ''},
+      disabled_filetypes = {
+        statusline = {},
+        winbar = {},
+      },
+      ignore_focus = {},
+      always_divide_middle = true,
+      globalstatus = false,
+      refresh = {
+        statusline = 1000,
+        tabline = 1000,
+        winbar = 1000,
+      }
+    },
+    sections = {
+      lualine_a = {'mode'},
+      lualine_b = {'branch', 'diff', 'diagnostics'},
+      lualine_c = {'filename'},
+      lualine_x = {'encoding', 'fileformat', 'filetype'},
+      lualine_y = {'progress'},
+      lualine_z = {'location'}
+    },
+    inactive_sections = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = {'filename'},
+      lualine_x = {'location'},
+      lualine_y = {},
+      lualine_z = {}
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
+  }
 
   require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
@@ -384,7 +435,6 @@ else
   }
 end
 
-vim.cmd[[
-colorscheme material
-hi! Normal guibg=NONE ctermbg=NONE
-]]
+vim.cmd[[colorscheme material]]
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+
