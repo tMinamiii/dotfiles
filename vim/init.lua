@@ -233,6 +233,9 @@ else
 
     use 'tpope/vim-fugitive'
 
+    use 'mfussenegger/nvim-dap'
+    use 'leoluz/nvim-dap-go'
+
     use 'easymotion/vim-easymotion'
     -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 
@@ -435,6 +438,8 @@ if vim.g.vscode then
 
 else
   require("nvim-surround").setup()
+
+  require('dap-go').setup()
 
   require('nvim-treesitter.configs').setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
