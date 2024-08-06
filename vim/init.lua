@@ -525,13 +525,14 @@ else
     'coc-lua',
     'coc-markdownlint',
     'coc-marketplace',
+    'coc-pairs',
     'coc-pyright',
     'coc-sh',
     'coc-sql',
     'coc-tsserver',
     'coc-vimlsp',
     'coc-xml',
-    'coc-yaml'
+    'coc-yaml',
   }
 
   -- autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
