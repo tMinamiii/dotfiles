@@ -1,49 +1,55 @@
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+local user_command = vim.api.nvim_create_user_command
+local keyset = vim.keymap.set
+local command = vim.api.nvim_command
+local opt = vim.opt
 
-vim.opt.encoding = "utf-8"
-vim.opt.completeopt:append({ "noselect" })
+opt.encoding = "utf-8"
+opt.completeopt:append({ "noselect" })
 
-vim.opt.ignorecase = true -- 大文字小文字を区別しない
-vim.opt.smartcase = true -- 検索文字に大文字がある場合は大文字小文字を区別
-vim.opt.incsearch = true -- インクリメンタルサーチ
-vim.opt.hlsearch = true -- 検索マッチテキストをハイライト
+opt.ignorecase = true -- 大文字小文字を区別しない
+opt.smartcase = true -- 検索文字に大文字がある場合は大文字小文字を区別
+opt.incsearch = true -- インクリメンタルサーチ
+opt.hlsearch = true -- 検索マッチテキストをハイライト
 
-vim.opt.hidden = true -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
-vim.opt.switchbuf = "useopen" -- 新しく開く代わりにすでに開いてあるバッファを開く
-vim.opt.showmatch = true -- 対応する括弧などをハイライト表示する
-vim.opt.matchtime = 2 -- 対応括弧のハイライト表示を3秒にする
+opt.hidden = true -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
+opt.switchbuf = "useopen" -- 新しく開く代わりにすでに開いてあるバッファを開く
+opt.showmatch = true -- 対応する括弧などをハイライト表示する
+opt.matchtime = 2 -- 対応括弧のハイライト表示を3秒にする
 
-vim.opt.clipboard = "unnamedplus"
+opt.clipboard = "unnamedplus"
 -- vim.opt.clipboard = "unnamed"
-vim.opt.updatetime = 500
-vim.opt.shortmess:append({ c = true })
-vim.opt.signcolumn = "yes"
+opt.updatetime = 500
+opt.shortmess:append({ c = true })
+opt.signcolumn = "yes"
 
-vim.opt.number = true -- 行番号の表示
-vim.opt.textwidth = 0 -- 自動的に改行が入るのを無効化
-vim.opt.display = "lastline"
-vim.opt.softtabstop = 0
-vim.opt.showtabline = 0 -- 常にタブラインを表示
-vim.opt.laststatus = 2
-vim.opt.cmdheight = 1
-vim.opt.whichwrap = "b,s,<,>,[,]" -- wrapするカッコ一覧
-vim.opt.list = true -- 不可視文字の可視化
-vim.opt.listchars:append({ tab = [[| ]], trail = "￭", extends = "❯", precedes = "❮" })
-vim.opt.ttimeout = nil
-vim.opt.ttimeoutlen = 10
-vim.opt.scrolloff = 10 -- 3行残して画面スクロールする
-vim.opt.shell = "zsh"
-vim.opt.ttyfast = true
-vim.opt.ambiwidth = "single"
-vim.opt.termguicolors = true
-vim.opt.wildmenu = true
-vim.opt.wildmode = "full"
-vim.opt.wildoptions = "pum"
+opt.number = true -- 行番号の表示
+opt.textwidth = 0 -- 自動的に改行が入るのを無効化
+opt.display = "lastline"
+opt.softtabstop = 0
+opt.showtabline = 0 -- 常にタブラインを表示
+opt.laststatus = 2
+opt.cmdheight = 1
+opt.whichwrap = "b,s,<,>,[,]" -- wrapするカッコ一覧
+opt.list = true -- 不可視文字の可視化
+opt.listchars:append({ tab = [[| ]], trail = "￭", extends = "❯", precedes = "❮" })
+opt.ttimeout = nil
+opt.ttimeoutlen = 10
+opt.scrolloff = 10 -- 3行残して画面スクロールする
+opt.shell = "zsh"
+opt.ttyfast = true
+opt.ambiwidth = "single"
+opt.termguicolors = true
+opt.wildmenu = true
+opt.wildmode = "full"
+opt.wildoptions = "pum"
 
-vim.opt.expandtab = true -- タブをスペースにする
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.conceallevel = 0
-vim.opt.concealcursor = "nc"
+opt.expandtab = true -- タブをスペースにする
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.conceallevel = 0
+opt.concealcursor = "nc"
 
 -----------------------------------------------------------------------------"
 -- Commands \ Modes | Normal | Insert | Command | Visual | Select | Operator |
@@ -66,51 +72,51 @@ vim.g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを y
 vim.g.netrw_preview = 1 -- " プレビューウィンドウを垂直分割で表示する
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<M-n>", ":bn<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<M-d>", ":bd<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "[b", ":bprevious<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "]b", ":bnext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "[B", ":bfirst<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "]B", ":blast<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "j", "gj", { noremap = true, silent = true })
-vim.keymap.set("n", "k", "gk", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-k>", "{", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-j>", "}", { noremap = true, silent = true })
+keyset("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
+keyset("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
+keyset("n", "<M-n>", ":bn<CR>", { noremap = true, silent = true })
+keyset("n", "<M-d>", ":bd<CR>", { noremap = true, silent = true })
+keyset("n", "[b", ":bprevious<CR>", { noremap = true, silent = true })
+keyset("n", "]b", ":bnext<CR>", { noremap = true, silent = true })
+keyset("n", "[B", ":bfirst<CR>", { noremap = true, silent = true })
+keyset("n", "]B", ":blast<CR>", { noremap = true, silent = true })
+keyset("n", "j", "gj", { noremap = true, silent = true })
+keyset("n", "k", "gk", { noremap = true, silent = true })
+keyset("n", "<C-k>", "{", { noremap = true, silent = true })
+keyset("n", "<C-j>", "}", { noremap = true, silent = true })
 
 --  vim strict mode
-vim.keymap.set("v", "<C-c>", "<nop>", { noremap = true })
-vim.keymap.set("v", "<Up>", "<nop>", { noremap = true })
-vim.keymap.set("v", "<Down>", "<nop>", { noremap = true })
-vim.keymap.set("v", "<Left>", "<nop>", { noremap = true })
-vim.keymap.set("v", "<Right>", "<nop>", { noremap = true })
+keyset("v", "<C-c>", "<nop>", { noremap = true })
+keyset("v", "<Up>", "<nop>", { noremap = true })
+keyset("v", "<Down>", "<nop>", { noremap = true })
+keyset("v", "<Left>", "<nop>", { noremap = true })
+keyset("v", "<Right>", "<nop>", { noremap = true })
 
-vim.keymap.set("i", "<C-c>", "<nop>", { noremap = true })
-vim.keymap.set("i", "<Up>", "<nop>", { noremap = true })
-vim.keymap.set("i", "<Down>", "<nop>", { noremap = true })
-vim.keymap.set("i", "<Left>", "<nop>", { noremap = true })
-vim.keymap.set("i", "<Right>", "<nop>", { noremap = true })
-vim.keymap.set("i", "<BS>", "<nop>", { noremap = true })
-vim.keymap.set("i", "<C-h>", "<BS>", { noremap = true })
-vim.keymap.set("i", "<C-l>", "<DEL>", { noremap = true })
+keyset("i", "<C-c>", "<nop>", { noremap = true })
+keyset("i", "<Up>", "<nop>", { noremap = true })
+keyset("i", "<Down>", "<nop>", { noremap = true })
+keyset("i", "<Left>", "<nop>", { noremap = true })
+keyset("i", "<Right>", "<nop>", { noremap = true })
+keyset("i", "<BS>", "<nop>", { noremap = true })
+keyset("i", "<C-h>", "<BS>", { noremap = true })
+keyset("i", "<C-l>", "<DEL>", { noremap = true })
 
-vim.keymap.set("t", "<C-j><C-j>", [[<C-\><C-n>]], { noremap = true })
+keyset("t", "<C-j><C-j>", [[<C-\><C-n>]], { noremap = true })
 
-vim.keymap.set("n", "<C-c>", "<nop>", { noremap = true })
-vim.keymap.set("n", "<Up>", "<nop>", { noremap = true })
-vim.keymap.set("n", "<Down>", "<nop>", { noremap = true })
-vim.keymap.set("n", "<Left>", "<nop>", { noremap = true })
-vim.keymap.set("n", "<Right>", "<nop>", { noremap = true })
-vim.keymap.set("n", "<C-[>", "<nop>", { noremap = true })
-vim.keymap.set("n", "<Esc>", "<nop>", { noremap = true })
+keyset("n", "<C-c>", "<nop>", { noremap = true })
+keyset("n", "<Up>", "<nop>", { noremap = true })
+keyset("n", "<Down>", "<nop>", { noremap = true })
+keyset("n", "<Left>", "<nop>", { noremap = true })
+keyset("n", "<Right>", "<nop>", { noremap = true })
+keyset("n", "<C-[>", "<nop>", { noremap = true })
+keyset("n", "<Esc>", "<nop>", { noremap = true })
 -- easymotion
 -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
-vim.api.nvim_create_user_command("Q", ":q", {})
-vim.api.nvim_create_user_command("W", ":w", {})
-vim.api.nvim_create_user_command("Wq", ":wq", {})
-vim.api.nvim_create_user_command("WQ", ":wq", {})
-vim.api.nvim_create_user_command("Term", ":bo terminal ++rows=20", {})
+user_command("Q", ":q", {})
+user_command("W", ":w", {})
+user_command("Wq", ":wq", {})
+user_command("WQ", ":wq", {})
+user_command("Term", ":bo terminal ++rows=20", {})
 
 -- バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
 vim.cmd [[
@@ -118,27 +124,27 @@ cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 ]]
 
-vim.api.nvim_create_augroup('filetypes', {})
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*Dockerfile', command = 'setfiletype dockerfile' })
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = { '*zshrc', '*zsh' }, command = 'setfiletype zsh' })
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*.mjs', command = 'setfiletype javascript' })
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*.csv', command = 'setfiletype csv' })
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '.env.*', command = 'setfiletype sh' })
-vim.api.nvim_create_autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\s\\+$//ge' })
-vim.api.nvim_create_autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\r//ge' })
+augroup('filetypes', {})
+autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*Dockerfile', command = 'setfiletype dockerfile' })
+autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = { '*zshrc', '*zsh' }, command = 'setfiletype zsh' })
+autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*.mjs', command = 'setfiletype javascript' })
+autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*.csv', command = 'setfiletype csv' })
+autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '.env.*', command = 'setfiletype sh' })
+autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\s\\+$//ge' })
+autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\r//ge' })
 
-vim.api.nvim_create_augroup('indent', {})
-vim.api.nvim_create_autocmd('FileType', {
+augroup('indent', {})
+autocmd('FileType', {
   group = 'indent',
   pattern = { 'sh','vue','yaml', 'javascript', 'typescript', 'json', 'html', 'vim', 'markdown' },
   command = 'setlocal shiftwidth=2 tabstop=2'
 })
-vim.api.nvim_create_autocmd('FileType', {
+autocmd('FileType', {
   group = 'indent',
   pattern = { 'python','c' },
   command = 'setlocal shiftwidth=4 tabstop=4'
 })
-vim.api.nvim_create_autocmd('FileType', {
+autocmd('FileType', {
   group = 'indent',
   pattern = { 'go','make' },
   command = 'setlocal shiftwidth=4 tabstop=4 noexpandtab'
@@ -322,25 +328,25 @@ if vim.g.vscode then
   }
 
   -- VSCode keymap
-  vim.keymap.set("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
-  vim.keymap.set("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
-  vim.keymap.set("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
-  vim.keymap.set("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
-  vim.keymap.set("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
-  vim.keymap.set("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
+  keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
+  keyset("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
+  keyset("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
+  keyset("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
+  keyset("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
+  keyset("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
 
-  vim.keymap.set("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
-  vim.keymap.set("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
-  vim.keymap.set("n", "<leader>f", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
-  vim.keymap.set("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
-  vim.keymap.set("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
-  vim.keymap.set("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
-  vim.keymap.set("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
+  keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
+  keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
+  keyset("n", "<leader>f", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
+  keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
+  keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
+  keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
+  keyset("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
 
-  vim.keymap.set("n", "<C-w><C-h>", "<nop>", { noremap = true })
-  vim.keymap.set("n", "<C-w><C-j>", "<nop>", { noremap = true })
-  vim.keymap.set("n", "<C-w><C-k>", "<nop>", { noremap = true })
-  vim.keymap.set("n", "<C-w><C-l>", "<nop>", { noremap = true })
+  keyset("n", "<C-w><C-h>", "<nop>", { noremap = true })
+  keyset("n", "<C-w><C-j>", "<nop>", { noremap = true })
+  keyset("n", "<C-w><C-k>", "<nop>", { noremap = true })
+  keyset("n", "<C-w><C-l>", "<nop>", { noremap = true })
 else
   require("nvim-surround").setup()
 
@@ -441,75 +447,75 @@ else
   ---------------------
   --- git-messenger ---
   ---------------------
-  vim.keymap.set("n", "<Leader>gm", "<Plug>(git-messenger)", { noremap = true, silent = true })
+  keyset("n", "<Leader>gm", "<Plug>(git-messenger)", { noremap = true, silent = true })
 
   ----------------
   --- nerdtree ---
   ----------------
-  vim.keymap.set("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
-  vim.keymap.set("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
+  keyset("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
+  keyset("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
   vim.g.NERDTreeWinSize = 35
   vim.g.NERDTreeLimitedSyntax = 1
   vim.g.NERDTreeQuitOnOpen = 0
-  vim.api.nvim_create_augroup('nerdtree_hook', {})
-  vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> l o' })
-  vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-0> o' })
-  vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-n> j' })
-  vim.api.nvim_create_autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-p> k' })
+  augroup('nerdtree_hook', {})
+  autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> l o' })
+  autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-0> o' })
+  autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-n> j' })
+  autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-p> k' })
 
   ---------
   -- fzf --
   ---------
   vim.g.fzf_layout = { down = '~40%' }
 
-  vim.api.nvim_create_user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-  vim.api.nvim_create_user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-  vim.api.nvim_create_user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
+  user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+  user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
+  user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
 
-  vim.keymap.set("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
-  vim.keymap.set("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
-  vim.keymap.set("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
-  vim.keymap.set("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
-  vim.keymap.set("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
+  keyset("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
+  keyset("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
+  keyset("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
+  keyset("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
+  keyset("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
 
   -----------
   --- coc ---
   -----------
   local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
-  vim.keymap.set("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
-  vim.keymap.set("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
-  vim.keymap.set("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
-  vim.keymap.set("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
+  keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+  keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
+  keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+  keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
 
-  vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', {silent = true})
-  vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
-  vim.keymap.set('n', 'gr', '<Plug>(coc-references)', {silent = true})
-  vim.keymap.set('n', 'gt', '<Plug>(coc-type-definition)', {silent = true})
-  vim.keymap.set('n', 'gp', '<Plug>(coc-peek-definition)', {silent = true})
-  vim.keymap.set("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
-  vim.keymap.set("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
+  keyset('n', 'gd', '<Plug>(coc-definition)', {silent = true})
+  keyset('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
+  keyset('n', 'gr', '<Plug>(coc-references)', {silent = true})
+  keyset('n', 'gt', '<Plug>(coc-type-definition)', {silent = true})
+  keyset('n', 'gp', '<Plug>(coc-peek-definition)', {silent = true})
+  keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
+  keyset("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
 
   -- Formatting selected code
-  vim.keymap.set("x", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
-  vim.keymap.set("n", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
+  keyset("x", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
+  keyset("n", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
 
   -- Use K to show documentation in preview window
   function _G.show_docs()
       local cw = vim.fn.expand('<cword>')
       if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-          vim.api.nvim_command('h ' .. cw)
+          command('h ' .. cw)
       elseif vim.api.nvim_eval('coc#rpc#ready()') then
           vim.fn.CocActionAsync('doHover')
       else
-          vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
+          command('!' .. vim.o.keywordprg .. ' ' .. cw)
       end
   end
 
-  vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
+  keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
 
   -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
-  vim.api.nvim_create_augroup("CocGroup", {})
-  vim.api.nvim_create_autocmd("CursorHold", {
+  augroup("CocGroup", {})
+  autocmd("CursorHold", {
       group = "CocGroup",
       command = "silent call CocActionAsync('highlight')",
       desc = "Highlight symbol under cursor on CursorHold"
@@ -536,7 +542,7 @@ else
   }
 
   -- autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-  vim.api.nvim_create_autocmd("BufWritePre", {
+  autocmd("BufWritePre", {
       pattern = "*.go",
       command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
   })
