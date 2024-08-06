@@ -2,15 +2,33 @@
   "languageserver": {
     "go": {
       "command": "gopls",
-      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
+      "rootPatterns": [
+        "go.work",
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ],
       "initializationOptions": {
         "usePlaceholders": false,
-        "staticcheck": true
-      }
+        "staticcheck": true,
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "compositeLiteralTypes": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        },
+      },
     }
   },
   "inlayHint.enable": true,
   "inlayHint.display": true,
   "inlayHint.position": "inline",
+  "inlayHint.enableParameter": true,
 }

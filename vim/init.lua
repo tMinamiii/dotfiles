@@ -218,8 +218,8 @@ if vim.g.vscode then
         vim.g.material_theme_style = 'palenight'
 
       use 'terryma/vim-expand-region'
-        vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-        vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+        keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+        keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
       use 'machakann/vim-highlightedyank'
 
@@ -249,8 +249,8 @@ else
         vim.g.material_theme_style = 'palenight'
 
       use 'terryma/vim-expand-region'
-        vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-        vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+        keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+        keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
       use 'machakann/vim-highlightedyank'
 
@@ -481,6 +481,12 @@ else
   -----------
   --- coc ---
   -----------
+  -- Autocomplete
+  function _G.check_back_space()
+      local col = vim.fn.col('.') - 1
+      return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+  end
+
   local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
   keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
   keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
@@ -495,9 +501,9 @@ else
   keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
   keyset("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
 
-  -- Formatting selected code
-  keyset("x", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
-  keyset("n", "<leader>/", "<Plug>(coc-format-selected)", {silent = true})
+  -- Formatting
+  keyset("x", "<leader>/", "<Cmd>call CocAction('format')<CR>", {silent = true})
+  keyset("n", "<leader>/", "<Cmd>call CocAction('format')<CR>", {silent = true})
 
   -- Use K to show documentation in preview window
   function _G.show_docs()
