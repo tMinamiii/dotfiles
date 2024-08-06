@@ -167,8 +167,8 @@ end
 local home = os.getenv 'HOME'
 local len = #home
 
-local homepath = join(home, '.config', 'config-name')
-local cachepath = join(home, '.cache', 'config-name')
+local homepath = join(home, '.config', 'packer.nvim')
+local cachepath = join(home, '.cache', 'packer.nvim')
 
 -- Add path locations for configuration
 local rtp = { homepath, cachepath }
@@ -292,6 +292,17 @@ else
       use { 'fannheyward/coc-marketplace' }
 
       use { 'neoclide/coc.nvim', branch = 'release' }
+
+
+      use 'Yggdroot/indentLine'
+        vim.g.indentLine_showFirstIndentLevel = 1
+        vim.g.indentLine_bufNameExclude = { '_.*', 'NERD_tree.*' }
+        vim.g.indentLine_bufTypeExluce = { 'help', 'nerdtree', 'terminal' }
+        vim.g.indentLine_fileTypeExluce = { 'help', 'nerdtree' }
+        vim.g.indentLine_color_term = 238
+        vim.g.indentLine_color_gui = '#676767'
+        vim.g.indentLine_setConceal = 0
+
     end,
     config = {
       package_root = package_root,
