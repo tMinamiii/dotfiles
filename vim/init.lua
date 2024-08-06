@@ -378,13 +378,11 @@ else
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
     ensure_installed = {
       "c",
-      "deno",
       "dockerfile",
       "gitignore",
       "go",
       "javascript",
       "json",
-      "jsx",
       "lua",
       "make",
       "markdown",
@@ -507,7 +505,7 @@ else
   })
 
   vim.g.coc_global_extensions = {
-    'coc-c',
+    'coc-clangd',
     'coc-deno',
     'coc-docker',
     'coc-eslint',
