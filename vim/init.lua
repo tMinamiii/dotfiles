@@ -214,12 +214,8 @@ if vim.g.vscode then
       use { 'kylechui/nvim-surround', tag = "*" }
 
       use 'kaicataldo/material.vim'
-        vim.g.material_terminal_italics = 0
-        vim.g.material_theme_style = 'palenight'
 
       use 'terryma/vim-expand-region'
-        keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-        keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
       use 'machakann/vim-highlightedyank'
 
@@ -227,7 +223,6 @@ if vim.g.vscode then
 
       use 'easymotion/vim-easymotion'
 
-      --- vscode ---
       use 'folke/flash.nvim'
 
       use 'vscode-neovim/vscode-multi-cursor.nvim'
@@ -245,12 +240,8 @@ else
       use { 'kylechui/nvim-surround', tag = "*" }
 
       use 'kaicataldo/material.vim'
-        vim.g.material_terminal_italics = 0
-        vim.g.material_theme_style = 'palenight'
 
       use 'terryma/vim-expand-region'
-        keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-        keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
       use 'machakann/vim-highlightedyank'
 
@@ -258,27 +249,18 @@ else
 
       use 'easymotion/vim-easymotion'
 
-      --- neovim ---
-      use { 'terryma/vim-multiple-cursors' }
+      use 'terryma/vim-multiple-cursors'
 
-      use { 'tpope/vim-fugitive' }
+      use 'tpope/vim-fugitive'
 
       use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
       }
 
-      use { 'rhysd/git-messenger.vim' }
-      vim.g.git_messenger_include_diff = 'current'
-      vim.g.git_messenger_always_into_popup = true
-      vim.g.git_messenger_into_popup_after_show = true
+      use 'rhysd/git-messenger.vim'
 
-      use { 'mechatroner/rainbow_csv' }
-      vim.g.rainbow_active = 0
-      vim.g.rainbow_conf = {
-        guifgs = {'darkorange2', 'orchid3', 'seagreen3'},
-        separately = { nerdtree=0 }
-      }
+      use 'mechatroner/rainbow_csv'
 
       use {
         'nvim-treesitter/nvim-treesitter',
@@ -299,15 +281,7 @@ else
 
       use { 'neoclide/coc.nvim', branch = 'release' }
 
-
       use 'Yggdroot/indentLine'
-        vim.g.indentLine_showFirstIndentLevel = 1
-        vim.g.indentLine_bufNameExclude = { '_.*', 'NERD_tree.*' }
-        vim.g.indentLine_bufTypeExluce = { 'help', 'nerdtree', 'terminal' }
-        vim.g.indentLine_fileTypeExluce = { 'help', 'nerdtree' }
-        vim.g.indentLine_color_term = 238
-        vim.g.indentLine_color_gui = '#676767'
-        vim.g.indentLine_setConceal = 0
 
     end,
     config = {
@@ -326,6 +300,18 @@ if vim.g.vscode then
     -- If set to true, only multiple cursors will be created without multiple selections
     no_selection = false
   }
+
+  ---------------------
+  --- expand_region ---
+  ---------------------
+  keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+  keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+
+  ----------------
+  --- material ---
+  ----------------
+  vim.g.material_terminal_italics = 0
+  vim.g.material_theme_style = 'palenight'
 
   -- VSCode keymap
   keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
@@ -445,9 +431,33 @@ else
   }
 
   ---------------------
+  --- expand_region ---
+  ---------------------
+  keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
+  keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+
+  ----------------
+  --- material ---
+  ----------------
+  vim.g.material_terminal_italics = 0
+  vim.g.material_theme_style = 'palenight'
+
+  ---------------------
   --- git-messenger ---
   ---------------------
   keyset("n", "<Leader>gm", "<Plug>(git-messenger)", { noremap = true, silent = true })
+  vim.g.git_messenger_include_diff = 'current'
+  vim.g.git_messenger_always_into_popup = true
+  vim.g.git_messenger_into_popup_after_show = true
+
+  -------------------
+  --- rainbow_csv ---
+  -------------------
+  vim.g.rainbow_active = 0
+  vim.g.rainbow_conf = {
+    guifgs = {'darkorange2', 'orchid3', 'seagreen3'},
+    separately = { nerdtree=0 }
+  }
 
   ----------------
   --- nerdtree ---
@@ -477,6 +487,17 @@ else
   keyset("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
   keyset("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
   keyset("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
+
+  ------------------
+  --- IndentLine ---
+  ------------------
+  vim.g.indentLine_showFirstIndentLevel = 1
+  vim.g.indentLine_bufNameExclude = { '_.*', 'NERD_tree.*' }
+  vim.g.indentLine_bufTypeExluce = { 'help', 'nerdtree', 'terminal' }
+  vim.g.indentLine_fileTypeExluce = { 'help', 'nerdtree' }
+  vim.g.indentLine_color_term = 238
+  vim.g.indentLine_color_gui = '#676767'
+  vim.g.indentLine_setConceal = 0
 
   -----------
   --- coc ---
