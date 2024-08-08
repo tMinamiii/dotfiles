@@ -173,40 +173,35 @@ end
 local home = os.getenv 'HOME'
 local len = #home
 
-local homepath = join(home, '.config', 'packer.nvim')
-local cachepath = join(home, '.cache', 'packer.nvim')
-
--- Add path locations for configuration
-local rtp = { homepath, cachepath }
-
--- Add paths that dont start with home.
-for _, p in ipairs(vim.opt.runtimepath:get()) do
-  if p:sub(1, len) ~= home then
-    rtp[#rtp + 1] = p
-  end
-end
-
-vim.opt.runtimepath = rtp
-
--- Packer paths and files
-local pack_path = join(cachepath, 'site')
-local package_root = join(pack_path, 'pack')
-local compile_path = join(cachepath, 'plugin', 'packer_compiled.lua')
-local package_root_vscode = join(pack_path, 'pack_vscode')
-local compile_path_vscode = join(cachepath, 'plugin', 'packer_compiled_vscode.lua')
-vim.g.loaded_remote_plugins = 1
-
-vim.opt.packpath:prepend(pack_path)
-
-local packer_bootstrap = false
-local packer_install_path = join(package_root, 'packer', 'start', 'packer.nvim')
-if vim.fn.isdirectory(packer_install_path) == 0 then
-  vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_install_path }
-  vim.cmd.packadd 'packer.nvim'
-  packer_bootstrap = true
-end
-
 if vim.g.vscode then
+  local homepath = join(home, '.config', 'packer.vscode-nvim')
+  local cachepath = join(home, '.cache', 'packer.vscode-nvim')
+
+  -- Add path locations for configuration
+  local rtp = { homepath, cachepath }
+
+  -- Add paths that dont start with home.
+  for _, p in ipairs(vim.opt.runtimepath:get()) do
+    if p:sub(1, len) ~= home then
+      rtp[#rtp + 1] = p
+    end
+  end
+
+  vim.opt.runtimepath = rtp
+
+  -- Packer paths and files
+  local pack_path = join(cachepath, 'site')
+  local package_root = join(pack_path, 'pack')
+  local compile_path = join(cachepath, 'plugin', 'packer_compiled.lua')
+  vim.g.loaded_remote_plugins = 1
+
+  vim.opt.packpath:prepend(pack_path)
+
+  local packer_install_path = join(package_root , 'packer', 'start', 'packer.nvim')
+  if vim.fn.isdirectory(packer_install_path) == 0 then
+    vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_install_path }
+    vim.cmd.packadd 'packer.nvim'
+  end
   require('packer').startup {
     function(use)
       use 'wbthomason/packer.nvim'
@@ -228,11 +223,40 @@ if vim.g.vscode then
       use 'vscode-neovim/vscode-multi-cursor.nvim'
     end,
     config = {
-      package_root = package_root_vscode,
-      compile_path = compile_path_vscode,
+      package_root = package_root,
+      compile_path = compile_path,
     },
   }
 else
+  local homepath = join(home, '.config', 'packer.nvim')
+  local cachepath = join(home, '.cache', 'packer.nvim')
+
+  -- Add path locations for configuration
+  local rtp = { homepath, cachepath }
+
+  -- Add paths that dont start with home.
+  for _, p in ipairs(vim.opt.runtimepath:get()) do
+    if p:sub(1, len) ~= home then
+      rtp[#rtp + 1] = p
+    end
+  end
+
+  vim.opt.runtimepath = rtp
+
+  -- Packer paths and files
+  local pack_path = join(cachepath, 'site')
+  local package_root = join(pack_path, 'pack')
+  local compile_path = join(cachepath, 'plugin', 'packer_compiled.lua')
+  vim.g.loaded_remote_plugins = 1
+
+  vim.opt.packpath:prepend(pack_path)
+
+  local packer_install_path = join(package_root, 'packer', 'start', 'packer.nvim')
+  if vim.fn.isdirectory(packer_install_path) == 0 then
+    vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_install_path }
+    vim.cmd.packadd 'packer.nvim'
+  end
+
   require('packer').startup {
     function(use)
       use 'wbthomason/packer.nvim'
