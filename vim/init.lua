@@ -256,10 +256,7 @@ else
 
       use 'tpope/vim-fugitive'
 
-      use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-      }
+      use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true }}
 
       use 'rhysd/git-messenger.vim'
 
@@ -273,14 +270,11 @@ else
         end
       }
 
-      use { 'preservim/nerdtree' }
+      use 'preservim/nerdtree'
 
-      use {
-        'junegunn/fzf.vim',
-        requires = { 'junegunn/fzf', run = ':call fzf#install()' }
-      }
+      use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf', run = ':call fzf#install()' }}
 
-      use { 'fannheyward/coc-marketplace' }
+      use 'fannheyward/coc-marketplace'
 
       use { 'neoclide/coc.nvim', branch = 'release' }
 
