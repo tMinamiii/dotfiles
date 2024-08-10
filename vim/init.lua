@@ -204,10 +204,18 @@ vim.g.loaded_remote_plugins = 1
 vim.opt.packpath:prepend(pack_path)
 
 local packer_install_path = join(package_root , 'packer', 'start', 'packer.nvim')
-if vim.fn.isdirectory(packer_install_path) == 0 then
-  vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer_install_path }
-  vim.cmd.packadd 'packer.nvim'
+
+local ensure_packer = function()
+  local fn = vim.fn
+  if fn.empty(fn.glob(packer_install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', packer_install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
+
+local packer_bootstrap = ensure_packer()
 
 if vim.g.vscode then
   require('packer').startup {
@@ -226,9 +234,17 @@ if vim.g.vscode then
 
       use 'easymotion/vim-easymotion'
 
+      -- use 'rhysd/clever-f.vim'
+
       use 'folke/flash.nvim'
 
       use 'vscode-neovim/vscode-multi-cursor.nvim'
+
+      -- Automatically set up your configuration after cloning packer.nvim
+      -- Put this at the end after all plugins
+      if packer_bootstrap then
+        require('packer').sync()
+      end
     end,
     config = {
       package_root = package_root,
@@ -280,6 +296,13 @@ else
 
       use 'Yggdroot/indentLine'
 
+      -- use 'rhysd/clever-f.vim'
+
+      -- Automatically set up your configuration after cloning packer.nvim
+      -- Put this at the end after all plugins
+      if packer_bootstrap then
+        require('packer').sync()
+      end
     end,
     config = {
       package_root = package_root,
