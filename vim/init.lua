@@ -230,11 +230,12 @@ if vim.g.vscode then
 
       use 'machakann/vim-highlightedyank'
 
-      use 'deris/vim-shot-f'
+      -- use 'deris/vim-shot-f'
+
+      use 'rhysd/clever-f.vim'
 
       use 'easymotion/vim-easymotion'
 
-      -- use 'rhysd/clever-f.vim'
 
       use 'folke/flash.nvim'
 
@@ -264,7 +265,9 @@ else
 
       use 'machakann/vim-highlightedyank'
 
-      use 'deris/vim-shot-f'
+      -- use 'deris/vim-shot-f'
+
+      use 'rhysd/clever-f.vim'
 
       use 'easymotion/vim-easymotion'
 
@@ -295,8 +298,6 @@ else
       use { 'neoclide/coc.nvim', branch = 'release' }
 
       use 'Yggdroot/indentLine'
-
-      -- use 'rhysd/clever-f.vim'
 
       -- Automatically set up your configuration after cloning packer.nvim
       -- Put this at the end after all plugins
