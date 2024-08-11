@@ -335,6 +335,7 @@ if vim.g.vscode then
   vim.g.material_theme_style = 'palenight'
 
   -- VSCode keymap
+  keyset("n", "gd", "<Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>")
   keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
   keyset("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
   keyset("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
