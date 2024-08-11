@@ -574,6 +574,7 @@ else
     'coc-deno',
     'coc-docker',
     'coc-eslint',
+    'coc-eslint8',
     'coc-git',
     'coc-json',
     'coc-lua',
