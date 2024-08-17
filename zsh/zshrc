@@ -273,7 +273,7 @@ go-install() {
 }
 
 pip-update() {
-  candidates="pre-commit pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pynvim neovim uv ruff"
+  candidates="pre-commit pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pynvim neovim uv ruff sqlfluff"
   pip install -U pip
   pip install -U $(echo ${candidates})
 }
