@@ -8,15 +8,15 @@ local opt = vim.opt
 opt.encoding = "utf-8"
 opt.completeopt:append({ "noselect" })
 
-opt.ignorecase = true -- 大文字小文字を区別しない
-opt.smartcase = true -- 検索文字に大文字がある場合は大文字小文字を区別
-opt.incsearch = true -- インクリメンタルサーチ
-opt.hlsearch = true -- 検索マッチテキストをハイライト
+opt.ignorecase = true     -- 大文字小文字を区別しない
+opt.smartcase = true      -- 検索文字に大文字がある場合は大文字小文字を区別
+opt.incsearch = true      -- インクリメンタルサーチ
+opt.hlsearch = true       -- 検索マッチテキストをハイライト
 
-opt.hidden = true -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
+opt.hidden = true         -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
 opt.switchbuf = "useopen" -- 新しく開く代わりにすでに開いてあるバッファを開く
-opt.showmatch = true -- 対応する括弧などをハイライト表示する
-opt.matchtime = 2 -- 対応括弧のハイライト表示を3秒にする
+opt.showmatch = true      -- 対応する括弧などをハイライト表示する
+opt.matchtime = 2         -- 対応括弧のハイライト表示を3秒にする
 
 opt.clipboard = "unnamedplus"
 -- vim.opt.clipboard = "unnamed"
@@ -32,7 +32,7 @@ opt.showtabline = 0 -- 常にタブラインを表示
 opt.laststatus = 2
 opt.cmdheight = 1
 opt.whichwrap = "b,s,<,>,[,]" -- wrapするカッコ一覧
-opt.list = true -- 不可視文字の可視化
+opt.list = true               -- 不可視文字の可視化
 opt.listchars:append({ tab = [[| ]], trail = "￭", extends = "❯", precedes = "❮" })
 opt.ttimeout = nil
 opt.ttimeoutlen = 10
@@ -65,11 +65,11 @@ opt.concealcursor = "nc"
 -- cmap / cnoremap  |    -   |   -    |    @    |   -    |   -    |    -     |
 -----------------------------------------------------------------------------"
 
-vim.g.netrw_liststyle = 1 -- " ファイルツリーの表示形式、1にするとls -laのような表示になります
-vim.g.netrw_banner = 0 -- " ヘッダを非表示にする
-vim.g.netrw_sizestyle = "H" -- " サイズを(K,M,G)で表示する
+vim.g.netrw_liststyle = 1                     -- " ファイルツリーの表示形式、1にするとls -laのような表示になります
+vim.g.netrw_banner = 0                        -- " ヘッダを非表示にする
+vim.g.netrw_sizestyle = "H"                   -- " サイズを(K,M,G)で表示する
 vim.g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-vim.g.netrw_preview = 1 -- " プレビューウィンドウを垂直分割で表示する
+vim.g.netrw_preview = 1                       -- " プレビューウィンドウを垂直分割で表示する
 vim.g.mapleader = " "
 
 keyset("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
@@ -125,43 +125,43 @@ cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 ]]
 
 augroup('filetypes', {})
-autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*Dockerfile', command = 'setfiletype dockerfile' })
-autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = { '*zshrc', '*zsh' }, command = 'setfiletype zsh' })
-autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*.mjs', command = 'setfiletype javascript' })
-autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '*.csv', command = 'setfiletype csv' })
-autocmd({'BufRead', 'BufNewFile'}, { group = 'filetypes', pattern = '.env.*', command = 'setfiletype sh' })
+autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = '*Dockerfile', command = 'setfiletype dockerfile' })
+autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = { '*zshrc', '*zsh' }, command = 'setfiletype zsh' })
+autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = '*.mjs', command = 'setfiletype javascript' })
+autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = '*.csv', command = 'setfiletype csv' })
+autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = '.env.*', command = 'setfiletype sh' })
 autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\s\\+$//ge' })
 autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\r//ge' })
 
 augroup('indent', {})
 autocmd('FileType', {
   group = 'indent',
-  pattern = { 'sh','vue','yaml', 'javascript', 'typescript', 'json', 'html', 'vim', 'markdown' },
+  pattern = { 'sh', 'vue', 'yaml', 'javascript', 'typescript', 'json', 'html', 'vim', 'markdown' },
   command = 'setlocal shiftwidth=2 tabstop=2'
 })
 autocmd('FileType', {
   group = 'indent',
-  pattern = { 'python','c' },
+  pattern = { 'python', 'c' },
   command = 'setlocal shiftwidth=4 tabstop=4'
 })
 autocmd('FileType', {
   group = 'indent',
-  pattern = { 'go','make' },
+  pattern = { 'go', 'make' },
   command = 'setlocal shiftwidth=4 tabstop=4 noexpandtab'
 })
 
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
-      name = 'win32yank-wsl',
-      copy = {
-          ['+'] = '/mnt/c/win32yank/win32yank.exe -i --crlf',
-          ['*'] = '/mnt/c/win32yank/win32yank.exe -i --crlf',
-      },
-      paste = {
-          ['+'] = '/mnt/c/win32yank/win32yank.exe -o --lf',
-          ['*'] = '/mnt/c/win32yank/win32yank.exe -o --lf',
-      },
-      cache_enabled = true,
+    name = 'win32yank-wsl',
+    copy = {
+      ['+'] = '/mnt/c/win32yank/win32yank.exe -i --crlf',
+      ['*'] = '/mnt/c/win32yank/win32yank.exe -i --crlf',
+    },
+    paste = {
+      ['+'] = '/mnt/c/win32yank/win32yank.exe -o --lf',
+      ['*'] = '/mnt/c/win32yank/win32yank.exe -o --lf',
+    },
+    cache_enabled = true,
   }
 end
 
@@ -203,12 +203,12 @@ vim.g.loaded_remote_plugins = 1
 
 vim.opt.packpath:prepend(pack_path)
 
-local packer_install_path = join(package_root , 'packer', 'start', 'packer.nvim')
+local packer_install_path = join(package_root, 'packer', 'start', 'packer.nvim')
 
 local ensure_packer = function()
   local fn = vim.fn
   if fn.empty(fn.glob(packer_install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', packer_install_path})
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', packer_install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -272,11 +272,13 @@ else
 
       use 'simeji/winresizer'
 
+      use 'yorickpeterse/nvim-window'
+
       use 'terryma/vim-multiple-cursors'
 
       use 'tpope/vim-fugitive'
 
-      use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true }}
+      use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
 
       use 'rhysd/git-messenger.vim'
 
@@ -285,14 +287,14 @@ else
       use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
+          local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+          ts_update()
         end
       }
 
       use 'preservim/nerdtree'
 
-      use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf', run = ':call fzf#install()' }}
+      use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf', run = ':call fzf#install()' } }
 
       use 'fannheyward/coc-marketplace'
 
@@ -350,7 +352,8 @@ if vim.g.vscode then
   keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
   keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
   keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
-  keyset("n", "<leader>/", "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
+  keyset("n", "<leader>/",
+    "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
 
   keyset("n", "<C-w><C-h>", "<nop>", { noremap = true })
   keyset("n", "<C-w><C-j>", "<nop>", { noremap = true })
@@ -363,8 +366,8 @@ else
     options = {
       icons_enabled = true,
       theme = 'auto',
-      component_separators = { left = '', right = ''},
-      section_separators = { left = '', right = ''},
+      component_separators = { left = '', right = '' },
+      section_separators = { left = '', right = '' },
       disabled_filetypes = {
         statusline = {},
         winbar = {},
@@ -379,18 +382,18 @@ else
       }
     },
     sections = {
-      lualine_a = {'mode'},
-      lualine_b = {'branch', 'diff', 'diagnostics'},
-      lualine_c = {'filename'},
-      lualine_x = {'encoding', 'fileformat', 'filetype'},
-      lualine_y = {'progress'},
-      lualine_z = {'location'}
+      lualine_a = { 'mode' },
+      lualine_b = { 'branch', 'diff', 'diagnostics' },
+      lualine_c = { 'filename' },
+      lualine_x = { 'encoding', 'fileformat', 'filetype' },
+      lualine_y = { 'progress' },
+      lualine_z = { 'location' }
     },
     inactive_sections = {
       lualine_a = {},
       lualine_b = {},
-      lualine_c = {'filename'},
-      lualine_x = {'location'},
+      lualine_c = { 'filename' },
+      lualine_x = { 'location' },
       lualine_y = {},
       lualine_z = {}
     },
@@ -438,11 +441,11 @@ else
 
       -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
       disable = function(lang, buf)
-          local max_filesize = 100 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-              return true
-          end
+        local max_filesize = 100 * 1024   -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+          return true
+        end
       end,
 
       -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -452,6 +455,11 @@ else
       additional_vim_regex_highlighting = false,
     },
   }
+
+  -------------------
+  --- nvim-window ---
+  -------------------
+  keyset("n", "<Leader>w", ":lua require('nvim-window').pick()<CR>", { noremap = true, silent = true })
 
   ---------------------
   --- expand_region ---
@@ -478,8 +486,8 @@ else
   -------------------
   vim.g.rainbow_active = 0
   vim.g.rainbow_conf = {
-    guifgs = {'darkorange2', 'orchid3', 'seagreen3'},
-    separately = { nerdtree=0 }
+    guifgs = { 'darkorange2', 'orchid3', 'seagreen3' },
+    separately = { nerdtree = 0 }
   }
 
   ----------------
@@ -501,9 +509,13 @@ else
   ---------
   vim.g.fzf_layout = { down = '~40%' }
 
-  user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-  user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)', { bang, nargs='?', complete='dir' })
-  user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)", { bang, nargs='*' })
+  user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)',
+    { bang, nargs = '?', complete = 'dir' })
+  user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)',
+    { bang, nargs = '?', complete = 'dir' })
+  user_command('Rg',
+    "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)",
+    { bang, nargs = '*' })
 
   keyset("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
   keyset("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
@@ -527,48 +539,48 @@ else
   -----------
   -- Autocomplete
   function _G.check_back_space()
-      local col = vim.fn.col('.') - 1
-      return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
   end
 
-  local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+  local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
   keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
   keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
   keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
   keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
 
-  keyset('n', 'gd', '<Plug>(coc-definition)', {silent = true})
-  keyset('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
-  keyset('n', 'gr', '<Plug>(coc-references)', {silent = true})
-  keyset('n', 'gt', '<Plug>(coc-type-definition)', {silent = true})
-  keyset('n', 'gp', '<Plug>(coc-peek-definition)', {silent = true})
-  keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
-  keyset("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
+  keyset('n', 'gd', '<Plug>(coc-definition)', { silent = true })
+  keyset('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
+  keyset('n', 'gr', '<Plug>(coc-references)', { silent = true })
+  keyset('n', 'gt', '<Plug>(coc-type-definition)', { silent = true })
+  keyset('n', 'gp', '<Plug>(coc-peek-definition)', { silent = true })
+  keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
+  keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
 
   -- Formatting
-  keyset("x", "<leader>/", "<Cmd>call CocAction('format')<CR>", {silent = true})
-  keyset("n", "<leader>/", "<Cmd>call CocAction('format')<CR>", {silent = true})
+  keyset("x", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
+  keyset("n", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
 
   -- Use K to show documentation in preview window
   function _G.show_docs()
-      local cw = vim.fn.expand('<cword>')
-      if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-          command('h ' .. cw)
-      elseif vim.api.nvim_eval('coc#rpc#ready()') then
-          vim.fn.CocActionAsync('doHover')
-      else
-          command('!' .. vim.o.keywordprg .. ' ' .. cw)
-      end
+    local cw = vim.fn.expand('<cword>')
+    if vim.fn.index({ 'vim', 'help' }, vim.bo.filetype) >= 0 then
+      command('h ' .. cw)
+    elseif vim.api.nvim_eval('coc#rpc#ready()') then
+      vim.fn.CocActionAsync('doHover')
+    else
+      command('!' .. vim.o.keywordprg .. ' ' .. cw)
+    end
   end
 
-  keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', {silent = true})
+  keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
 
   -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
   augroup("CocGroup", {})
   autocmd("CursorHold", {
-      group = "CocGroup",
-      command = "silent call CocActionAsync('highlight')",
-      desc = "Highlight symbol under cursor on CursorHold"
+    group = "CocGroup",
+    command = "silent call CocActionAsync('highlight')",
+    desc = "Highlight symbol under cursor on CursorHold"
   })
 
   vim.g.coc_global_extensions = {
@@ -594,11 +606,10 @@ else
 
   -- autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
   autocmd("BufWritePre", {
-      pattern = "*.go",
-      command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
+    pattern = "*.go",
+    command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
   })
 end
 
-vim.cmd[[colorscheme material]]
+vim.cmd [[colorscheme material]]
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-
