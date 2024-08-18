@@ -236,7 +236,6 @@ if vim.g.vscode then
 
       use 'easymotion/vim-easymotion'
 
-
       use 'folke/flash.nvim'
 
       use 'vscode-neovim/vscode-multi-cursor.nvim'
@@ -270,6 +269,8 @@ else
       use 'rhysd/clever-f.vim'
 
       use 'easymotion/vim-easymotion'
+
+      use 'simeji/winresizer'
 
       use 'terryma/vim-multiple-cursors'
 
