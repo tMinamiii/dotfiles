@@ -274,6 +274,8 @@ else
 
       use 'yorickpeterse/nvim-window'
 
+      use { 'romgrk/barbar.nvim', requires = { 'nvim-tree/nvim-web-devicons', 'lewis6991/gitsigns.nvim', opt = true } }
+
       use 'terryma/vim-multiple-cursors'
 
       use 'tpope/vim-fugitive'
@@ -294,7 +296,9 @@ else
 
       use 'preservim/nerdtree'
 
-      use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf', run = ':call fzf#install()' } }
+      -- use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf', run = ':call fzf#install()' } }
+
+      use { 'nvim-telescope/telescope.nvim', tag = '0.1.8', requires = { 'nvim-lua/plenary.nvim' } }
 
       use 'fannheyward/coc-marketplace'
 
@@ -441,7 +445,7 @@ else
 
       -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
       disable = function(lang, buf)
-        local max_filesize = 100 * 1024   -- 100 KB
+        local max_filesize = 100 * 1024 -- 100 KB
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
           return true
@@ -507,21 +511,27 @@ else
   ---------
   -- fzf --
   ---------
-  vim.g.fzf_layout = { down = '~40%' }
+  -- vim.g.fzf_layout = { down = '~40%' }
+  -- user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)',
+  --   { bang, nargs = '?', complete = 'dir' })
+  -- user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)',
+  --   { bang, nargs = '?', complete = 'dir' })
+  -- user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)",
+  -- { bang, nargs = '*' })
+  -- keyset("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
+  -- keyset("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
+  -- keyset("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
+  -- keyset("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
+  -- keyset("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
 
-  user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)',
-    { bang, nargs = '?', complete = 'dir' })
-  user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)',
-    { bang, nargs = '?', complete = 'dir' })
-  user_command('Rg',
-    "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)",
-    { bang, nargs = '*' })
-
-  keyset("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
-  keyset("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
-  keyset("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
-  keyset("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
-  keyset("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
+  -----------------
+  --- telescope ---
+  -----------------
+  local builtin = require('telescope.builtin')
+  keyset('n', '<C-p>', builtin.find_files, { noremap = true, silent = true })
+  keyset('n', '<leader>g', builtin.live_grep, { noremap = true, silent = true })
+  keyset('n', '<leader>b', builtin.buffers, { noremap = true, silent = true })
+  keyset('n', '<leader>h', builtin.help_tags, { noremap = true, silent = true })
 
   ------------------
   --- IndentLine ---
@@ -547,7 +557,7 @@ else
   keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
   keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
   keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
-  keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
+  -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
 
   keyset('n', 'gd', '<Plug>(coc-definition)', { silent = true })
   keyset('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
@@ -560,6 +570,7 @@ else
   -- Formatting
   keyset("x", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
   keyset("n", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
+  user_command('Eslint', 'call CocAction("runCommand", "eslint.executeAutofix")', {})
 
   -- Use K to show documentation in preview window
   function _G.show_docs()
