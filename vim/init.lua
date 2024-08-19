@@ -603,6 +603,9 @@ else
   keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
   keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
 
+  -- Symbol renaming
+  keyset("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true })
+
   -- Formatting
   keyset("x", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
   keyset("n", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
