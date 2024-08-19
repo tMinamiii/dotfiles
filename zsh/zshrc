@@ -284,7 +284,7 @@ tools() {
     go-install go-update    github.com/tMinamiii/go-update@latest
     go-install lgtm         github.com/tMinamiii/lgtm@latest
     go-install ghq          github.com/x-motemen/ghq@latest
-    go-install air          github.com/cosmtrek/air@latest
+    go-install air          github.com/air-verse/air@latest
     go-install gotests      github.com/cweill/gotests@latest
     go-install gomodifytags github.com/fatih/gomodifytags@latest
     go-install impl         github.com/josharian/impl@latest
@@ -478,4 +478,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-eval "$(/home/tminamiii/.local/bin/mise activate zsh)"
+eval "$($HOME/.local/bin/mise activate zsh)"
