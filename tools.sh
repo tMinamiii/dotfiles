@@ -30,6 +30,7 @@ elif IsUbuntu; then
         g++ \
         gettext \
         htop \
+        jq \
         libacl1-dev \
         libbz2-dev \
         libevent-dev \
@@ -71,9 +72,9 @@ elif IsUbuntu; then
         software-properties-common \
         tk-dev \
         tree \
+        unzip \
         xz-utils \
         zlib1g-dev \
-        jq \
         zsh
 fi
 
