@@ -72,7 +72,7 @@ vim.g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを y
 vim.g.netrw_preview = 1                       -- " プレビューウィンドウを垂直分割で表示する
 vim.g.mapleader = " "
 
-keyset("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
+-- keyset("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
 keyset("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
 keyset("n", "<M-n>", ":bn<CR>", { noremap = true, silent = true })
 keyset("n", "<M-d>", ":bd<CR>", { noremap = true, silent = true })
@@ -87,16 +87,16 @@ keyset("n", "<C-j>", "}", { noremap = true, silent = true })
 
 --  vim strict mode
 keyset("v", "<C-c>", "<nop>", { noremap = true })
-keyset("v", "<Up>", "<nop>", { noremap = true })
-keyset("v", "<Down>", "<nop>", { noremap = true })
-keyset("v", "<Left>", "<nop>", { noremap = true })
-keyset("v", "<Right>", "<nop>", { noremap = true })
+-- keyset("v", "<Up>", "<nop>", { noremap = true })
+-- keyset("v", "<Down>", "<nop>", { noremap = true })
+-- keyset("v", "<Left>", "<nop>", { noremap = true })
+-- keyset("v", "<Right>", "<nop>", { noremap = true })
 
 keyset("i", "<C-c>", "<nop>", { noremap = true })
-keyset("i", "<Up>", "<nop>", { noremap = true })
-keyset("i", "<Down>", "<nop>", { noremap = true })
-keyset("i", "<Left>", "<nop>", { noremap = true })
-keyset("i", "<Right>", "<nop>", { noremap = true })
+-- keyset("i", "<Up>", "<nop>", { noremap = true })
+-- keyset("i", "<Down>", "<nop>", { noremap = true })
+-- keyset("i", "<Left>", "<nop>", { noremap = true })
+-- keyset("i", "<Right>", "<nop>", { noremap = true })
 keyset("i", "<BS>", "<nop>", { noremap = true })
 keyset("i", "<C-h>", "<BS>", { noremap = true })
 keyset("i", "<C-l>", "<DEL>", { noremap = true })
@@ -104,14 +104,16 @@ keyset("i", "<C-l>", "<DEL>", { noremap = true })
 keyset("t", "<C-j><C-j>", [[<C-\><C-n>]], { noremap = true })
 
 keyset("n", "<C-c>", "<nop>", { noremap = true })
-keyset("n", "<Up>", "<nop>", { noremap = true })
-keyset("n", "<Down>", "<nop>", { noremap = true })
-keyset("n", "<Left>", "<nop>", { noremap = true })
-keyset("n", "<Right>", "<nop>", { noremap = true })
-keyset("n", "<C-[>", "<nop>", { noremap = true })
-keyset("n", "<Esc>", "<nop>", { noremap = true })
+-- keyset("n", "<Up>", "<nop>", { noremap = true })
+-- keyset("n", "<Down>", "<nop>", { noremap = true })
+-- keyset("n", "<Left>", "<nop>", { noremap = true })
+-- keyset("n", "<Right>", "<nop>", { noremap = true })
+-- keyset("n", "<C-[>", "<nop>", { noremap = true })
+-- keyset("n", "<Esc>", "<nop>", { noremap = true })
+
 -- easymotion
 -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
+
 user_command("Q", ":q", {})
 user_command("W", ":w", {})
 user_command("Wq", ":wq", {})
@@ -605,6 +607,7 @@ else
 
   -- Symbol renaming
   keyset("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true })
+  keyset("n", "<F2>", "<Plug>(coc-rename)", { silent = true })
 
   -- Formatting
   keyset("x", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
