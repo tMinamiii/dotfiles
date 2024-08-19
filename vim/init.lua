@@ -643,6 +643,7 @@ else
     'coc-pairs',
     'coc-prettier',
     'coc-pyright',
+    'coc-rust-analyzer',
     'coc-sh',
     'coc-sql',
     'coc-tsserver',
