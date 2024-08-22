@@ -57,8 +57,7 @@ elif IsUbuntu; then
         libxmu-dev \
         libxpm-dev \
         libyaml-dev \
-        llvm
-        locales \
+        llvm \
         lua5.2 \
         luajit \
         make \
@@ -66,7 +65,6 @@ elif IsUbuntu; then
         ninja-build \
         p7zip-full \
         pkg-config \
-        python-dev \
         python3-dev \
         ruby-dev \
         software-properties-common \
