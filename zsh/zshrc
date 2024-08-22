@@ -450,6 +450,26 @@ PATH="${HOME}/nix":${PATH}
 PATH="/usr/local/protobuf/bin":${PATH}
 PATH="/usr/local/go/bin":${PATH}
 
+### install programming languages ###
+install-go(){
+    local LATEST_GO_VERSION=$(curl -s 'https://go.dev/dl/?mode=json' | jq -r '[.[]][0].version')
+
+    local ARCH=""
+    [[ "$(uname -m)" = "x86_64" ]] && ARCH="amd64"
+    [[ "$(uname -m)" = "arm64" ]] && ARCH="arm64"
+
+    local OS=""
+    IsMacOS && OS="darwin"
+    IsUbuntu && OS="linux"
+
+    local GOGZ="${LATEST_GO_VERSION}.${OS}-${ARCH}.tar.gz"
+
+    trap 'rm ${GOPKG}' EXIT
+    sudo curl -OL --progress-bar "https://go.dev/dl/${GOGZ}" \
+      && sudo rm -rf /usr/local/go \
+      && sudo tar -C /usr/local -xzf "${GOGZ}"
+}
+
 [[ ! -f "/usr/local/go/bin/go" ]] && install-go
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
