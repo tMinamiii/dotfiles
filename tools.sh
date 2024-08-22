@@ -26,9 +26,12 @@ elif IsUbuntu; then
         cmake \
         cproto \
         dconf-cli \
+        direnv \
         file \
         g++ \
         gettext \
+        gh \
+        html-xml-utils \
         htop \
         jq \
         libacl1-dev \
@@ -66,11 +69,14 @@ elif IsUbuntu; then
         p7zip-full \
         pkg-config \
         python3-dev \
+        ripgrep \
         ruby-dev \
         software-properties-common \
         tk-dev \
+        tmux \
         tree \
         unzip \
+        whois \
         xz-utils \
         zlib1g-dev \
         zsh
