@@ -11,7 +11,28 @@ function IsMacOS() {
 }
 
 if IsMacOS; then
-    brew install openssl readline sqlite3 xz zlib tcl-tk jq bat vim neovim htop ctop
+    brew install \
+      awscli \
+      bat \
+      ctop \
+      direnv \
+      gh \
+      ghq \
+      htop \
+      jq \
+      lua \
+      luajit \
+      neovim \
+      openssl \
+      readline \
+      sqlite3 \
+      tcl-tk \
+      tmux \
+      vim \
+      xz \
+      zlib
+
+    curl https://mise.run | sh
 elif IsUbuntu; then
     sudo apt-get update
     sudo apt-get upgrade -y
@@ -80,5 +101,6 @@ elif IsUbuntu; then
         xz-utils \
         zlib1g-dev \
         zsh
+    curl https://mise.run | sh
 fi
 
