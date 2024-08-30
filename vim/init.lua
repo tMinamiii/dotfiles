@@ -252,9 +252,7 @@ else
 
       use { 'kylechui/nvim-surround', tag = "*" }
 
-      use 'kaicataldo/material.vim'
-
-      use 'cocopon/iceberg.vim'
+      use 'marko-cerovac/material.nvim'
 
       use 'terryma/vim-expand-region'
 
@@ -380,8 +378,8 @@ else
   ----------------
   --- material ---
   ----------------
-  vim.g.material_terminal_italics = 0
-  vim.g.material_theme_style = 'palenight'
+  vim.g.material_style = "darker"
+
 
   -------------------------
   --- vim-expand-region ---
@@ -719,10 +717,7 @@ else
     require('packer').sync()
   end
 
-  vim.cmd [[
-    "colorscheme material
-     colorscheme iceberg
-  ]]
+  vim.cmd.colorscheme("material")
 
   vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
   vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
