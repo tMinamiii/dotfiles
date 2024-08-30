@@ -274,9 +274,9 @@ else
 
       use 'tpope/vim-fugitive'
 
-      use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
+      use 'lewis6991/gitsigns.nvim'
 
-      use 'rhysd/git-messenger.vim'
+      use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
 
       use 'mechatroner/rainbow_csv'
 
@@ -440,15 +440,55 @@ else
     extensions = {}
   }
 
-  ---------------------
-  --- git-messenger ---
-  ---------------------
-  keyset("n", "<Leader>gm", "<Plug>(git-messenger)", { noremap = true, silent = true })
-  vim.g.git_messenger_include_diff = 'current'
-  vim.g.git_messenger_always_into_popup = true
-  vim.g.git_messenger_into_popup_after_show = true
+  ----------------
+  --- gitsigns ---
+  ----------------
+  require('gitsigns').setup {
+    on_attach = function(bufnr)
+      local gitsigns = require('gitsigns')
 
+      local function map(mode, l, r, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+      end
 
+      -- Navigation
+      map('n', ']c', function()
+        if vim.wo.diff then
+          vim.cmd.normal({ ']c', bang = true })
+        else
+          gitsigns.nav_hunk('next')
+        end
+      end)
+
+      map('n', '[c', function()
+        if vim.wo.diff then
+          vim.cmd.normal({ '[c', bang = true })
+        else
+          gitsigns.nav_hunk('prev')
+        end
+      end)
+
+      -- Actions
+      map('n', '<leader>hs', gitsigns.stage_hunk)
+      map('n', '<leader>hr', gitsigns.reset_hunk)
+      map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+      map('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+      map('n', '<leader>hS', gitsigns.stage_buffer)
+      map('n', '<leader>hu', gitsigns.undo_stage_hunk)
+      map('n', '<leader>hR', gitsigns.reset_buffer)
+      map('n', '<leader>hp', gitsigns.preview_hunk)
+      map('n', '<leader>hb', function() gitsigns.blame_line { full = true } end)
+      map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+      map('n', '<leader>hd', gitsigns.diffthis)
+      map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
+      map('n', '<leader>td', gitsigns.toggle_deleted)
+
+      -- Text object
+      map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+    end
+  }
   -------------------
   --- rainbow_csv ---
   -------------------
@@ -674,7 +714,9 @@ else
   if packer_bootstrap then
     require('packer').sync()
   end
+
+  vim.cmd [[colorscheme material]]
+  vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'LineNr', { fg = '#707070' })
 end
-vim.cmd [[colorscheme material]]
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
