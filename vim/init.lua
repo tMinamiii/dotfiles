@@ -254,6 +254,8 @@ else
 
       use 'kaicataldo/material.vim'
 
+      use 'cocopon/iceberg.vim'
+
       use 'terryma/vim-expand-region'
 
       use 'machakann/vim-highlightedyank'
@@ -489,6 +491,8 @@ else
       map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     end
   }
+
+
   -------------------
   --- rainbow_csv ---
   -------------------
@@ -715,7 +719,11 @@ else
     require('packer').sync()
   end
 
-  vim.cmd [[colorscheme material]]
+  vim.cmd [[
+    "colorscheme material
+     colorscheme iceberg
+  ]]
+
   vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
   vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
   vim.api.nvim_set_hl(0, 'LineNr', { fg = '#707070' })
