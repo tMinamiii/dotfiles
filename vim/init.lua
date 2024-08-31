@@ -250,6 +250,8 @@ else
     function(use)
       use 'wbthomason/packer.nvim'
 
+      use 'xiyaowong/transparent.nvim'
+
       use { 'kylechui/nvim-surround', tag = "*" }
 
       use 'marko-cerovac/material.nvim'
@@ -370,6 +372,11 @@ if vim.g.vscode then
     require('packer').sync()
   end
 else
+  -------------------
+  --- transparent ---
+  -------------------
+  vim.g.transparent_enabled = true
+
   ---------------------
   --- nvim-surround ---
   ---------------------
@@ -794,7 +801,9 @@ else
 
   vim.cmd.colorscheme("material")
 
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+  vim.api.nvim_set_hl(0, 'CocMenuSel', { bg = '#606060' })
   vim.api.nvim_set_hl(0, 'LineNr', { fg = '#707070' })
+
+  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
 end
