@@ -246,6 +246,11 @@ else
     function(use)
       use 'wbthomason/packer.nvim'
 
+      use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+      })
+
       use 'xiyaowong/transparent.nvim'
 
       use { 'kylechui/nvim-surround', tag = "*" }
@@ -362,15 +367,23 @@ if vim.g.vscode then
     require('packer').sync()
   end
 else
+  ------------------------
+  --- markdown-preview ---
+  ------------------------
+  keyset("n", "<C-s>", "<Plug>MarkdownPreviewToggle", { noremap = true, silent = true })
+
+
   -------------------
   --- transparent ---
   -------------------
   vim.g.transparent_enabled = true
 
+
   ---------------------
   --- nvim-surround ---
   ---------------------
   require("nvim-surround").setup()
+
 
   ----------------
   --- material ---
