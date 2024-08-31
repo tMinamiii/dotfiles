@@ -203,8 +203,6 @@ alias -g P="2>&1| pygmentize -l pytb"
 
 alias dud='du -d 1 -h'
 alias duf='du -sh *'
-alias fd='find . -type d -name'
-alias ff='find . -type f -name'
 
 alias h='history'
 alias hgrep="fc -El 0 | grep"
@@ -309,7 +307,7 @@ tools() {
   fi
 
   if [[ -d "${MISE_ROOT}/node" ]]; then
-    mods="yarn npm-check-updates prettier textlint zenn-cli neovim typescript ts-node tree-sitter-cli"
+    mods="yarn npm-check-updates prettier textlint zenn-cli neovim typescript ts-node tree-sitter-cli fd-find"
     IsWSL && mods="${mods} wsl-open"
     npm i -g $(echo ${mods})
   fi
