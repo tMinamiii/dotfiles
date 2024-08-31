@@ -35,7 +35,7 @@ opt.whichwrap = "b,s,<,>,[,]" -- wrapするカッコ一覧
 opt.list = true               -- 不可視文字の可視化
 opt.listchars:append({ tab = [[| ]], trail = "￭", extends = "❯", precedes = "❮" })
 opt.ttimeout = nil
-opt.ttimeoutlen = 50
+opt.ttimeoutlen = 10
 opt.scrolloff = 10 -- 3行残して画面スクロールする
 opt.shell = "zsh"
 opt.ttyfast = true
