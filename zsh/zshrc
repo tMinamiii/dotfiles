@@ -77,7 +77,6 @@ tools=""
 [[ ! -f "$(which wget)" ]] && tools="${tools} wget"
 [[ ! -f "$(which curl)" ]] && tools="${tools} curl"
 [[ ! -f "$(which git)" ]] && tools="${tools} git"
-[[ ! -f "$(which rg)" ]] && tools="${tools} ripgrep"
 [[ ! -f "$(which jq)" ]] && tools="${tools} jq"
 [[ ! -f "$(which direnv)" ]] && tools="${tools} direnv"
 [[ ! -f "$(which tmux)" ]] && tools="${tools} tmux"
@@ -307,13 +306,17 @@ tools() {
   fi
 
   if [[ -d "${MISE_ROOT}/node" ]]; then
-    mods="yarn npm-check-updates prettier textlint zenn-cli neovim typescript ts-node tree-sitter-cli fd-find playwright"
+    mods="yarn npm-check-updates prettier textlint zenn-cli neovim typescript ts-node"
     IsWSL && mods="${mods} wsl-open"
     npm i -g $(echo ${mods})
   fi
 
   if [[ -d "${MISE_ROOT}/ruby" ]]; then
     gem install neovim
+  fi
+
+  if [[ -d "${HOME}/.cargo/bin" ]]; then
+    cargo install cargo-update fd-find ripgrep tree-sitter-cli
   fi
 }
 
@@ -335,6 +338,10 @@ tools-up() {
   if [[ -x "${MISE_ROOT}/ruby" ]]; then
     gem update --system
     gem update
+  fi
+
+  if [[ -x "${HOME}/.cargo/bin" ]]; then
+    cargo-install-update install-update --all
   fi
 
   if IsWSL; then
