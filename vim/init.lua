@@ -232,7 +232,14 @@ if vim.g.vscode then
 
       use 'rhysd/clever-f.vim'
 
-      use 'easymotion/vim-easymotion'
+      use {
+        'smoka7/hop.nvim',
+        tag = '*', -- optional but strongly recommended
+        config = function()
+          -- you can configure Hop the way you like here; see :h hop-config
+          require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+        end
+      }
 
       use 'vscode-neovim/vscode-multi-cursor.nvim'
     end,
@@ -263,7 +270,14 @@ else
 
       use 'rhysd/clever-f.vim'
 
-      use 'easymotion/vim-easymotion'
+      use {
+        'smoka7/hop.nvim',
+        tag = '*', -- optional but strongly recommended
+        config = function()
+          -- you can configure Hop the way you like here; see :h hop-config
+          require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+        end
+      }
 
       use 'simeji/winresizer'
 
@@ -326,6 +340,21 @@ if vim.g.vscode then
   keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
 
+  ----------
+  --- hop --
+  ----------
+  local hop = require('hop')
+  local directions = require('hop.hint').HintDirection
+
+  keyset('n', '<Leader>f', function()
+    hop.hint_char1({ direction = directions.AFTER_CURSOR })
+  end, { noremap = true, silent = true })
+
+  keyset('n', '<Leader>F', function()
+    hop.hint_char1({ direction = directions.BEFORE_CURSOR })
+  end, { noremap = true, silent = true })
+
+
   ---------------------------
   --- vscode-multi-cursor ---
   ---------------------------
@@ -350,7 +379,7 @@ if vim.g.vscode then
 
   keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
   keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
-  keyset("n", "<leader>f", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
+  keyset("n", "<leader>o", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
   keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
   keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
   keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
@@ -471,6 +500,20 @@ else
   -------------------------
   keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
   keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+
+  ----------
+  --- hop --
+  ----------
+  local hop = require('hop')
+  local directions = require('hop.hint').HintDirection
+
+  keyset('n', '<Leader>f', function()
+    hop.hint_char1({ direction = directions.AFTER_CURSOR })
+  end, { noremap = true, silent = true })
+
+  keyset('n', '<Leader>F', function()
+    hop.hint_char1({ direction = directions.BEFORE_CURSOR })
+  end, { noremap = true, silent = true })
 
 
   -------------------
