@@ -241,6 +241,13 @@ if vim.g.vscode then
         end
       }
 
+      use {
+        'numToStr/Comment.nvim',
+        config = function()
+          require('Comment').setup()
+        end
+      }
+
       use 'vscode-neovim/vscode-multi-cursor.nvim'
     end,
     config = {
@@ -276,6 +283,13 @@ else
         config = function()
           -- you can configure Hop the way you like here; see :h hop-config
           require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+        end
+      }
+
+      use {
+        'numToStr/Comment.nvim',
+        config = function()
+          require('Comment').setup()
         end
       }
 
