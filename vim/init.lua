@@ -230,13 +230,9 @@ if vim.g.vscode then
 
       use 'machakann/vim-highlightedyank'
 
-      -- use 'deris/vim-shot-f'
-
       use 'rhysd/clever-f.vim'
 
       use 'easymotion/vim-easymotion'
-
-      use 'folke/flash.nvim'
 
       use 'vscode-neovim/vscode-multi-cursor.nvim'
     end,
@@ -259,8 +255,6 @@ else
       use 'terryma/vim-expand-region'
 
       use 'machakann/vim-highlightedyank'
-
-      -- use 'deris/vim-shot-f'
 
       use 'rhysd/clever-f.vim'
 
@@ -301,10 +295,6 @@ else
           -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         }
       }
-
-      -- use 'preservim/nerdtree'
-
-      -- use { 'junegunn/fzf.vim', requires = { 'junegunn/fzf', run = ':call fzf#install()' } }
 
       use { 'nvim-telescope/telescope.nvim', tag = '0.1.8', requires = { 'nvim-lua/plenary.nvim' } }
 
@@ -389,13 +379,13 @@ else
   require('material').setup({
 
     contrast = {
-      terminal = false,            -- Enable contrast for the built-in terminal
-      sidebars = false,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-      floating_windows = false,    -- Enable contrast for floating windows
-      cursor_line = false,         -- Enable darker background for the cursor line
-      lsp_virtual_text = false,    -- Enable contrasted background for lsp virtual text
-      non_current_windows = false, -- Enable contrasted background for non-current windows
-      filetypes = {},              -- Specify which filetypes get the contrasted (darker) background
+      terminal = true,            -- Enable contrast for the built-in terminal
+      sidebars = true,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+      floating_windows = true,    -- Enable contrast for floating windows
+      cursor_line = true,         -- Enable darker background for the cursor line
+      lsp_virtual_text = true,    -- Enable contrasted background for lsp virtual text
+      non_current_windows = true, -- Enable contrasted background for non-current windows
+      filetypes = {},             -- Specify which filetypes get the contrasted (darker) background
     },
 
     styles = { -- Give comments style such as bold, italic, underline etc.
@@ -410,14 +400,14 @@ else
 
     plugins = { -- Uncomment the plugins that you use to highlight them
       -- Available plugins:
-      -- "coc",
+      "coc",
       -- "colorful-winsep",
       -- "dap",
       -- "dashboard",
       -- "eyeliner",
       -- "fidget",
       -- "flash",
-      -- "gitsigns",
+      "gitsigns",
       -- "harpoon",
       -- "hop",
       -- "illuminate",
@@ -426,16 +416,16 @@ else
       -- "mini",
       -- "neogit",
       -- "neotest",
-      -- "neo-tree",
+      "neo-tree",
       -- "neorg",
       -- "noice",
       -- "nvim-cmp",
       -- "nvim-navic",
       -- "nvim-tree",
       -- "nvim-web-devicons",
-      -- "rainbow-delimiters",
+      "rainbow-delimiters",
       -- "sneak",
-      -- "telescope",
+      "telescope",
       -- "trouble",
       -- "which-key",
       -- "nvim-notify",
@@ -665,38 +655,6 @@ else
     }
   })
 
-  ----------------
-  --- NERDTree ---
-  ----------------
-  -- keyset("n", "<Leader>n", ":NERDTreeToggle<CR>", { noremap = true, silent = true })
-  -- keyset("n", "<Leader>h", ":NERDTreeFind<CR>", { noremap = true, silent = true })
-  -- vim.g.NERDTreeWinSize = 35
-  -- vim.g.NERDTreeLimitedSyntax = 1
-  -- vim.g.NERDTreeQuitOnOpen = 0
-  -- augroup('nerdtree_hook', {})
-  -- autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> l o' })
-  -- autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-0> o' })
-  -- autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-n> j' })
-  -- autocmd('FileType', { group = 'nerdtree_hook', pattern = 'nerdtree', command = 'nmap <buffer> <C-p> k' })
-
-
-  -----------
-  --- fzf ---
-  -----------
-  -- vim.g.fzf_layout = { down = '~40%' }
-  -- user_command('Files', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)',
-  --   { bang, nargs = '?', complete = 'dir' })
-  -- user_command('GFiles', 'call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)',
-  --   { bang, nargs = '?', complete = 'dir' })
-  -- user_command('Rg', "call fzf#vim#grep('rg --column --line-number -g \"!.git\" --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1, <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%') : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'), <bang>0)",
-  -- { bang, nargs = '*' })
-  -- keyset("n", "<C-p>", ":GFiles<CR>", { noremap = true, silent = true })
-  -- keyset("n", "<Leader>f", ":Files<CR>", { noremap = true, silent = true })
-  -- keyset("n", "<Leader>g", ":Rg<CR>", { noremap = true, silent = true })
-  -- keyset("n", "<Leader>b", ":Buffers<CR>", { noremap = true, silent = true })
-  -- keyset("n", "<Leader>x", ":Commands<CR>", { noremap = true, silent = true })
-
-
   -----------------
   --- telescope ---
   -----------------
@@ -736,8 +694,7 @@ else
   keyset("n", "<F2>", "<Plug>(coc-rename)", { silent = true })
 
   -- Formatting
-  keyset("x", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
-  keyset("n", "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
+  keyset({ "n", "x" }, "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
   user_command('Eslint', 'call CocAction("runCommand", "eslint.executeAutofix")', {})
 
   -- Use K to show documentation in preview window
