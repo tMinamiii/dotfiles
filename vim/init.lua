@@ -759,7 +759,7 @@ else
   vim.cmd.colorscheme("material")
 
   vim.api.nvim_set_hl(0, 'CocMenuSel', { bg = '#404040' })
-  vim.api.nvim_set_hl(0, 'LineNr', { fg = '#707070' })
+  vim.api.nvim_set_hl(0, 'LineNr', { fg = '#505050' })
 
   -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
   -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
