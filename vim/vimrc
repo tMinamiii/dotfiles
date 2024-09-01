@@ -229,6 +229,7 @@ call plug#begin(s:vim_plug_plugins)
       let g:NERDTreeWinSize = 35
       let g:NERDTreeLimitedSyntax = 1
       let g:NERDTreeQuitOnOpen = 0
+      let g:NERDTreeNodeDelimiter = "\u00a0"
       augroup nerdtree_hook_add
           autocmd FileType nerdtree nmap <buffer> l o
           autocmd FileType nerdtree nmap <buffer> <C-0> o
