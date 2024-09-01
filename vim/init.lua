@@ -420,7 +420,9 @@ else
   --- transparent ---
   -------------------
   vim.g.transparent_enabled = true
-
+  require("transparent").setup({
+    extra_groups = { 'NeoTreeNormal', 'NeoTreeNormalNC' },
+  })
 
   ---------------------
   --- nvim-surround ---
