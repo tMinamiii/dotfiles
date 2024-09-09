@@ -224,7 +224,13 @@ if vim.g.vscode then
     function(use)
       use 'wbthomason/packer.nvim'
 
-      use { 'kylechui/nvim-surround', tag = "*" }
+      use {
+        'kylechui/nvim-surround',
+        tag = "*",
+        config = function()
+          require("nvim-surround").setup()
+        end
+      }
 
       use 'terryma/vim-expand-region'
 
@@ -265,11 +271,105 @@ else
         run = function() vim.fn["mkdp#util#install"]() end,
       })
 
-      use 'xiyaowong/transparent.nvim'
+      use {
+        'xiyaowong/transparent.nvim',
+        config = function()
+          require("transparent").setup({
+            extra_groups = { 'NeoTreeNormal', 'NeoTreeNormalNC' },
+          })
+        end
+      }
 
-      use { 'kylechui/nvim-surround', tag = "*" }
+      use {
+        'kylechui/nvim-surround',
+        tag = "*",
+        config = function()
+          require("nvim-surround").setup()
+        end
+      }
 
-      use 'marko-cerovac/material.nvim'
+      use {
+        'marko-cerovac/material.nvim',
+
+        config = function()
+          require('material').setup({
+
+            contrast = {
+              terminal = true,            -- Enable contrast for the built-in terminal
+              sidebars = true,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+              floating_windows = true,    -- Enable contrast for floating windows
+              cursor_line = true,         -- Enable darker background for the cursor line
+              lsp_virtual_text = true,    -- Enable contrasted background for lsp virtual text
+              non_current_windows = true, -- Enable contrasted background for non-current windows
+              filetypes = {},             -- Specify which filetypes get the contrasted (darker) background
+            },
+
+            styles = { -- Give comments style such as bold, italic, underline etc.
+              comments = { --[[ italic = true ]] },
+              strings = { --[[ bold = true ]] },
+              keywords = { --[[ underline = true ]] },
+              functions = { --[[ bold = true, undercurl = true ]] },
+              variables = {},
+              operators = {},
+              types = {},
+            },
+
+            plugins = { -- Uncomment the plugins that you use to highlight them
+              -- Available plugins:
+              "coc",
+              -- "colorful-winsep",
+              -- "dap",
+              -- "dashboard",
+              -- "eyeliner",
+              -- "fidget",
+              -- "flash",
+              "gitsigns",
+              -- "harpoon",
+              -- "hop",
+              -- "illuminate",
+              -- "indent-blankline",
+              -- "lspsaga",
+              -- "mini",
+              -- "neogit",
+              -- "neotest",
+              "neo-tree",
+              -- "neorg",
+              -- "noice",
+              -- "nvim-cmp",
+              -- "nvim-navic",
+              -- "nvim-tree",
+              -- "nvim-web-devicons",
+              "rainbow-delimiters",
+              -- "sneak",
+              "telescope",
+              -- "trouble",
+              -- "which-key",
+              -- "nvim-notify",
+            },
+
+            disable = {
+              colored_cursor = false, -- Disable the colored cursor
+              borders = false,        -- Disable borders between vertically split windows
+              background = false,     -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+              term_colors = false,    -- Prevent the theme from setting terminal colors
+              eob_lines = false       -- Hide the end-of-buffer lines
+            },
+
+            high_visibility = {
+              lighter = false, -- Enable higher contrast text for lighter style
+              darker = true    -- Enable higher contrast text for darker style
+            },
+
+            lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+
+            async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
+
+            custom_colors = nil,       -- If you want to override the default colors, set this to a function
+
+            custom_highlights = {},    -- Overwrite highlights with your own
+          })
+        end
+      }
 
       use 'terryma/vim-expand-region'
 
@@ -303,9 +403,113 @@ else
 
       use 'tpope/vim-fugitive'
 
-      use 'lewis6991/gitsigns.nvim'
+      use {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+          require('gitsigns').setup {
+            on_attach = function(bufnr)
+              local gitsigns = require('gitsigns')
 
-      use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
+              local function map(mode, l, r, opts)
+                opts = opts or {}
+                opts.buffer = bufnr
+                vim.keymap.set(mode, l, r, opts)
+              end
+
+              -- Navigation
+              map('n', ']c', function()
+                if vim.wo.diff then
+                  vim.cmd.normal({ ']c', bang = true })
+                else
+                  gitsigns.nav_hunk('next')
+                end
+              end)
+
+              map('n', '[c', function()
+                if vim.wo.diff then
+                  vim.cmd.normal({ '[c', bang = true })
+                else
+                  gitsigns.nav_hunk('prev')
+                end
+              end)
+
+              -- Actions
+              map('n', '<leader>hs', gitsigns.stage_hunk)
+              map('n', '<leader>hr', gitsigns.reset_hunk)
+              map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+              map('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+              map('n', '<leader>hS', gitsigns.stage_buffer)
+              map('n', '<leader>hu', gitsigns.undo_stage_hunk)
+              map('n', '<leader>hR', gitsigns.reset_buffer)
+              map('n', '<leader>hp', gitsigns.preview_hunk)
+              map('n', '<leader>hb', function() gitsigns.blame_line { full = true } end)
+              map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
+              map('n', '<leader>hd', gitsigns.diffthis)
+              map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
+              map('n', '<leader>td', gitsigns.toggle_deleted)
+
+              -- Text object
+              map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+            end
+          }
+        end
+      }
+
+      use {
+        'nvim-lualine/lualine.nvim',
+        requires = {
+          'nvim-tree/nvim-web-devicons',
+          opt = true,
+        },
+        config = function()
+          ---------------
+          --- lualine ---
+          ---------------
+          require('lualine').setup {
+            options = {
+              icons_enabled = true,
+              theme = 'auto',
+              -- component_separators = { left = '', right = '' },
+              -- section_separators = { left = '', right = '' },
+              component_separators = { left = '', right = '' },
+              section_separators = { left = '', right = '' },
+              disabled_filetypes = {
+                statusline = {},
+                winbar = {},
+              },
+              ignore_focus = {},
+              always_divide_middle = true,
+              globalstatus = false,
+              refresh = {
+                statusline = 1000,
+                tabline = 1000,
+                winbar = 1000,
+              }
+            },
+            sections = {
+              lualine_a = { 'mode' },
+              lualine_b = { 'branch', 'diff', 'diagnostics' },
+              lualine_c = { 'filename' },
+              lualine_x = { 'encoding', 'fileformat', 'filetype' },
+              lualine_y = { 'progress' },
+              lualine_z = { 'location' }
+            },
+            inactive_sections = {
+              lualine_a = {},
+              lualine_b = {},
+              lualine_c = { 'filename' },
+              lualine_x = { 'location' },
+              lualine_y = {},
+              lualine_z = {}
+            },
+            tabline = {},
+            winbar = {},
+            inactive_winbar = {},
+            extensions = {}
+          }
+        end
+
+      }
 
       use 'mechatroner/rainbow_csv'
 
@@ -315,6 +519,60 @@ else
         run = function()
           local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
           ts_update()
+        end,
+        config = function()
+          require('nvim-treesitter.configs').setup {
+            -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+            ensure_installed = {
+              "c",
+              "dockerfile",
+              "gitignore",
+              "go",
+              "javascript",
+              "json",
+              "lua",
+              "make",
+              "markdown",
+              "markdown_inline",
+              "python",
+              "sql",
+              "tsx",
+              "typescript",
+              "vim",
+              "vimdoc",
+              "xml",
+              "yaml",
+            },
+
+            -- Install parsers synchronously (only applied to `ensure_installed`)
+            sync_install = false,
+
+            -- Automatically install missing parsers when entering buffer
+            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+            auto_install = true,
+
+            ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+            -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+            highlight = {
+              enable = true,
+
+              -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+              disable = function(lang, buf)
+                local max_filesize = 100 * 1024 -- 100 KB
+                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_filesize then
+                  return true
+                end
+              end,
+
+              -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+              -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+              -- Using this option may slow down your editor, and you may see some duplicate highlights.
+              -- Instead of true it can also be a list of languages
+              additional_vim_regex_highlighting = false,
+            },
+          }
         end
       }
 
@@ -326,7 +584,53 @@ else
           "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
           "MunifTanjim/nui.nvim",
           -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-        }
+        },
+        config = function()
+          require("neo-tree").setup({
+            window = {
+              mappings = {
+                ["l"] = "open",
+              }
+            }
+          })
+        end
+      }
+
+      use {
+        "nvim-neotest/neotest",
+        requires = {
+          "nvim-neotest/nvim-nio",
+          "nvim-lua/plenary.nvim",
+          "antoinemadec/FixCursorHold.nvim",
+          "nvim-treesitter/nvim-treesitter",
+          "fredrikaverpil/neotest-golang",
+          'thenbe/neotest-playwright',
+          'nvim-telescope/telescope.nvim',
+          'nvim-neotest/neotest-jest',
+          "marilari88/neotest-vitest",
+        },
+        config = function()
+          require("neotest").setup({
+            adapters = {
+              require("neotest-golang"),
+              require('neotest-playwright').adapter({
+                options = {
+                  persist_project_selection = true,
+                  enable_dynamic_test_discovery = true,
+                },
+              }),
+              require('neotest-jest')({
+                jestCommand = "npm test --",
+                jestConfigFile = "custom.jest.config.ts",
+                env = { CI = true },
+                cwd = function(path)
+                  return vim.fn.getcwd()
+                end,
+              }),
+              require("neotest-vitest"),
+            }
+          })
+        end
       }
 
       use { 'nvim-telescope/telescope.nvim', tag = '0.1.8', requires = { 'nvim-lua/plenary.nvim' } }
@@ -341,12 +645,6 @@ else
 end
 
 if vim.g.vscode then
-  ---------------------
-  --- nvim-surround ---
-  ---------------------
-  require("nvim-surround").setup()
-
-
   -------------------------
   --- vim-expand-region ---
   -------------------------
@@ -354,9 +652,9 @@ if vim.g.vscode then
   keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
 
 
-  ----------
-  --- hop --
-  ----------
+  -----------
+  --- hop ---
+  -----------
   local hop = require('hop')
   local directions = require('hop.hint').HintDirection
 
@@ -410,6 +708,11 @@ if vim.g.vscode then
     require('packer').sync()
   end
 else
+  ----------------
+  --- material ---
+  ----------------
+  vim.g.material_style = "darker"
+
   ------------------------
   --- markdown-preview ---
   ------------------------
@@ -420,96 +723,7 @@ else
   --- transparent ---
   -------------------
   vim.g.transparent_enabled = true
-  require("transparent").setup({
-    extra_groups = { 'NeoTreeNormal', 'NeoTreeNormalNC' },
-  })
 
-  ---------------------
-  --- nvim-surround ---
-  ---------------------
-  require("nvim-surround").setup()
-
-
-  ----------------
-  --- material ---
-  ----------------
-  vim.g.material_style = "darker"
-  require('material').setup({
-
-    contrast = {
-      terminal = true,            -- Enable contrast for the built-in terminal
-      sidebars = true,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-      floating_windows = true,    -- Enable contrast for floating windows
-      cursor_line = true,         -- Enable darker background for the cursor line
-      lsp_virtual_text = true,    -- Enable contrasted background for lsp virtual text
-      non_current_windows = true, -- Enable contrasted background for non-current windows
-      filetypes = {},             -- Specify which filetypes get the contrasted (darker) background
-    },
-
-    styles = { -- Give comments style such as bold, italic, underline etc.
-      comments = { --[[ italic = true ]] },
-      strings = { --[[ bold = true ]] },
-      keywords = { --[[ underline = true ]] },
-      functions = { --[[ bold = true, undercurl = true ]] },
-      variables = {},
-      operators = {},
-      types = {},
-    },
-
-    plugins = { -- Uncomment the plugins that you use to highlight them
-      -- Available plugins:
-      "coc",
-      -- "colorful-winsep",
-      -- "dap",
-      -- "dashboard",
-      -- "eyeliner",
-      -- "fidget",
-      -- "flash",
-      "gitsigns",
-      -- "harpoon",
-      -- "hop",
-      -- "illuminate",
-      -- "indent-blankline",
-      -- "lspsaga",
-      -- "mini",
-      -- "neogit",
-      -- "neotest",
-      "neo-tree",
-      -- "neorg",
-      -- "noice",
-      -- "nvim-cmp",
-      -- "nvim-navic",
-      -- "nvim-tree",
-      -- "nvim-web-devicons",
-      "rainbow-delimiters",
-      -- "sneak",
-      "telescope",
-      -- "trouble",
-      -- "which-key",
-      -- "nvim-notify",
-    },
-
-    disable = {
-      colored_cursor = false, -- Disable the colored cursor
-      borders = false,        -- Disable borders between vertically split windows
-      background = false,     -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
-      term_colors = false,    -- Prevent the theme from setting terminal colors
-      eob_lines = false       -- Hide the end-of-buffer lines
-    },
-
-    high_visibility = {
-      lighter = false, -- Enable higher contrast text for lighter style
-      darker = true    -- Enable higher contrast text for darker style
-    },
-
-    lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
-
-    async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
-
-    custom_colors = nil,       -- If you want to override the default colors, set this to a function
-
-    custom_highlights = {},    -- Overwrite highlights with your own
-  })
 
   -------------------------
   --- vim-expand-region ---
@@ -538,103 +752,6 @@ else
   keyset("n", "<Leader>w", ":lua require('nvim-window').pick()<CR>", { noremap = true, silent = true })
 
 
-  ---------------
-  --- lualine ---
-  ---------------
-  require('lualine').setup {
-    options = {
-      icons_enabled = true,
-      theme = 'auto',
-      -- component_separators = { left = '', right = '' },
-      -- section_separators = { left = '', right = '' },
-      component_separators = { left = '', right = '' },
-      section_separators = { left = '', right = '' },
-      disabled_filetypes = {
-        statusline = {},
-        winbar = {},
-      },
-      ignore_focus = {},
-      always_divide_middle = true,
-      globalstatus = false,
-      refresh = {
-        statusline = 1000,
-        tabline = 1000,
-        winbar = 1000,
-      }
-    },
-    sections = {
-      lualine_a = { 'mode' },
-      lualine_b = { 'branch', 'diff', 'diagnostics' },
-      lualine_c = { 'filename' },
-      lualine_x = { 'encoding', 'fileformat', 'filetype' },
-      lualine_y = { 'progress' },
-      lualine_z = { 'location' }
-    },
-    inactive_sections = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = { 'filename' },
-      lualine_x = { 'location' },
-      lualine_y = {},
-      lualine_z = {}
-    },
-    tabline = {},
-    winbar = {},
-    inactive_winbar = {},
-    extensions = {}
-  }
-
-  ----------------
-  --- gitsigns ---
-  ----------------
-  require('gitsigns').setup {
-    on_attach = function(bufnr)
-      local gitsigns = require('gitsigns')
-
-      local function map(mode, l, r, opts)
-        opts = opts or {}
-        opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
-      end
-
-      -- Navigation
-      map('n', ']c', function()
-        if vim.wo.diff then
-          vim.cmd.normal({ ']c', bang = true })
-        else
-          gitsigns.nav_hunk('next')
-        end
-      end)
-
-      map('n', '[c', function()
-        if vim.wo.diff then
-          vim.cmd.normal({ '[c', bang = true })
-        else
-          gitsigns.nav_hunk('prev')
-        end
-      end)
-
-      -- Actions
-      map('n', '<leader>hs', gitsigns.stage_hunk)
-      map('n', '<leader>hr', gitsigns.reset_hunk)
-      map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
-      map('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
-      map('n', '<leader>hS', gitsigns.stage_buffer)
-      map('n', '<leader>hu', gitsigns.undo_stage_hunk)
-      map('n', '<leader>hR', gitsigns.reset_buffer)
-      map('n', '<leader>hp', gitsigns.preview_hunk)
-      map('n', '<leader>hb', function() gitsigns.blame_line { full = true } end)
-      map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-      map('n', '<leader>hd', gitsigns.diffthis)
-      map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
-      map('n', '<leader>td', gitsigns.toggle_deleted)
-
-      -- Text object
-      map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-    end
-  }
-
-
   -------------------
   --- rainbow_csv ---
   -------------------
@@ -657,75 +774,12 @@ else
   vim.g.indentLine_setConceal = 0
 
 
-  -----------------------
-  --- nvim-treesitter ---
-  -----------------------
-  require('nvim-treesitter.configs').setup {
-    -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-    ensure_installed = {
-      "c",
-      "dockerfile",
-      "gitignore",
-      "go",
-      "javascript",
-      "json",
-      "lua",
-      "make",
-      "markdown",
-      "markdown_inline",
-      "python",
-      "sql",
-      "tsx",
-      "typescript",
-      "vim",
-      "vimdoc",
-      "xml",
-      "yaml",
-    },
-
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
-
-    ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-    -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-    highlight = {
-      enable = true,
-
-      -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-      disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-          return true
-        end
-      end,
-
-      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-      -- Using this option may slow down your editor, and you may see some duplicate highlights.
-      -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = false,
-    },
-  }
-
-
   ---------------
   --- neotree ---
   ---------------
   keyset("n", "<leader>n", ":Neotree toggle<CR>", { noremap = true, silent = true })
   keyset("n", "<leader>h", ":Neotree toggle reveal<CR>", { noremap = true, silent = true })
-  require("neo-tree").setup({
-    window = {
-      mappings = {
-        ["l"] = "open",
-      }
-    }
-  })
+
 
   -----------------
   --- telescope ---
