@@ -4,6 +4,7 @@ local user_command = vim.api.nvim_create_user_command
 local keyset = vim.keymap.set
 local command = vim.api.nvim_command
 local opt = vim.opt
+local fn = vim.fn
 
 opt.encoding = "utf-8"
 opt.completeopt:append({ "noselect" })
@@ -146,7 +147,7 @@ autocmd("FileType", {
   command = "setlocal shiftwidth=4 tabstop=4 noexpandtab"
 })
 
-if vim.fn.has("wsl") == 1 then
+if fn.has("wsl") == 1 then
   vim.g.clipboard = {
     name = "win32yank-wsl",
     copy = {
@@ -202,7 +203,6 @@ vim.opt.packpath:prepend(pack_path)
 local packer_install_path = join(package_root, "packer", "start", "packer.nvim")
 
 local ensure_packer = function()
-  local fn = vim.fn
   if fn.empty(fn.glob(packer_install_path)) > 0 then
     fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", packer_install_path })
     vim.cmd [[packadd packer.nvim]]
@@ -262,7 +262,7 @@ else
 
       use({
         "iamcco/markdown-preview.nvim",
-        run = function() vim.fn["mkdp#util#install"]() end,
+        run = function() fn["mkdp#util#install"]() end,
       })
 
       use {
@@ -397,8 +397,8 @@ else
               -- Actions
               map("n", "<leader>hs", gitsigns.stage_hunk)
               map("n", "<leader>hr", gitsigns.reset_hunk)
-              map("v", "<leader>hs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end)
-              map("v", "<leader>hr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end)
+              map("v", "<leader>hs", function() gitsigns.stage_hunk { fn.line("."), fn.line("v") } end)
+              map("v", "<leader>hr", function() gitsigns.reset_hunk { fn.line("."), fn.line("v") } end)
               map("n", "<leader>hS", gitsigns.stage_buffer)
               map("n", "<leader>hu", gitsigns.undo_stage_hunk)
               map("n", "<leader>hR", gitsigns.reset_buffer)
@@ -605,7 +605,7 @@ else
                 jestConfigFile = "custom.jest.config.ts",
                 env = { CI = true },
                 cwd = function(path)
-                  return vim.fn.getcwd()
+                  return fn.getcwd()
                 end,
               }),
               require("neotest-vitest"),
@@ -773,7 +773,7 @@ else
   keyset("n", "<leader>to", function() neotest.output.open({ enter = true }) end, { noremap = true, silent = true })
 
   local dap, dapui = require("dap"), require("dapui")
-  vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+  fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
   keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end, { noremap = true, silent = true })
   keyset("n", "<leader>db", function() dap.toggle_breakpoint() end, { noremap = true, silent = true })
   keyset("n", "<leader>du", function() dapui.toggle() end, { noremap = true, silent = true })
@@ -806,8 +806,8 @@ else
   -----------
   -- Autocomplete
   function _G.check_back_space()
-    local col = vim.fn.col(".") - 1
-    return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+    local col = fn.col(".") - 1
+    return col == 0 or fn.getline("."):sub(col, col):match("%s") ~= nil
   end
 
   local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
@@ -834,11 +834,11 @@ else
 
   -- Use K to show documentation in preview window
   function _G.show_docs()
-    local cw = vim.fn.expand("<cword>")
-    if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+    local cw = fn.expand("<cword>")
+    if fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
       command("h " .. cw)
     elseif vim.api.nvim_eval("coc#rpc#ready()") then
-      vim.fn.CocActionAsync("doHover")
+      fn.CocActionAsync("doHover")
     else
       command("!" .. vim.o.keywordprg .. " " .. cw)
     end
