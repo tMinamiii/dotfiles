@@ -293,7 +293,6 @@ else
 
         config = function()
           require("material").setup({
-
             contrast = {
               terminal = true,            -- Enable contrast for the built-in terminal
               sidebars = true,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
@@ -303,42 +302,31 @@ else
               non_current_windows = true, -- Enable contrasted background for non-current windows
               filetypes = {},             -- Specify which filetypes get the contrasted (darker) background
             },
-
-            styles = { -- Give comments style such as bold, italic, underline etc.
-              comments = { --[[ italic = true ]] },
-              strings = { --[[ bold = true ]] },
-              keywords = { --[[ underline = true ]] },
-              functions = { --[[ bold = true, undercurl = true ]] },
-              variables = {},
-              operators = {},
-              types = {},
-            },
-
-            plugins = { -- Uncomment the plugins that you use to highlight them
+            plugins = {                   -- Uncomment the plugins that you use to highlight them
               -- Available plugins:
               "coc",
               -- "colorful-winsep",
-              -- "dap",
+              "dap",
               -- "dashboard",
               -- "eyeliner",
               -- "fidget",
               -- "flash",
               "gitsigns",
               -- "harpoon",
-              -- "hop",
+              "hop",
               -- "illuminate",
               -- "indent-blankline",
               -- "lspsaga",
               -- "mini",
               -- "neogit",
-              -- "neotest",
+              "neotest",
               "neo-tree",
               -- "neorg",
               -- "noice",
               -- "nvim-cmp",
               -- "nvim-navic",
               -- "nvim-tree",
-              -- "nvim-web-devicons",
+              "nvim-web-devicons",
               "rainbow-delimiters",
               -- "sneak",
               "telescope",
@@ -346,27 +334,6 @@ else
               -- "which-key",
               -- "nvim-notify",
             },
-
-            disable = {
-              colored_cursor = false, -- Disable the colored cursor
-              borders = false,        -- Disable borders between vertically split windows
-              background = false,     -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
-              term_colors = false,    -- Prevent the theme from setting terminal colors
-              eob_lines = false       -- Hide the end-of-buffer lines
-            },
-
-            high_visibility = {
-              lighter = false, -- Enable higher contrast text for lighter style
-              darker = true    -- Enable higher contrast text for darker style
-            },
-
-            lualine_style = "default", -- Lualine style ( can be "stealth" or "default" )
-
-            async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
-
-            custom_colors = nil,       -- If you want to override the default colors, set this to a function
-
-            custom_highlights = {},    -- Overwrite highlights with your own
           })
         end
       }
@@ -465,48 +432,12 @@ else
           ---------------
           --- lualine ---
           ---------------
-          require("lualine").setup {
+          require("lualine").setup({
             options = {
-              icons_enabled = true,
-              theme = "auto",
-              -- component_separators = { left = "", right = "" },
-              -- section_separators = { left = "", right = "" },
               component_separators = { left = "", right = "" },
               section_separators = { left = "", right = "" },
-              disabled_filetypes = {
-                statusline = {},
-                winbar = {},
-              },
-              ignore_focus = {},
-              always_divide_middle = true,
-              globalstatus = false,
-              refresh = {
-                statusline = 1000,
-                tabline = 1000,
-                winbar = 1000,
-              }
             },
-            sections = {
-              lualine_a = { "mode" },
-              lualine_b = { "branch", "diff", "diagnostics" },
-              lualine_c = { "filename" },
-              lualine_x = { "encoding", "fileformat", "filetype" },
-              lualine_y = { "progress" },
-              lualine_z = { "location" }
-            },
-            inactive_sections = {
-              lualine_a = {},
-              lualine_b = {},
-              lualine_c = { "filename" },
-              lualine_x = { "location" },
-              lualine_y = {},
-              lualine_z = {}
-            },
-            tabline = {},
-            winbar = {},
-            inactive_winbar = {},
-            extensions = {}
-          }
+          })
         end
 
       }
@@ -605,72 +536,41 @@ else
           "mxsdev/nvim-dap-vscode-js",
         },
         config = function()
-          require("dapui").setup(
-
-            {
-              controls = {
-                element = "repl",
-                enabled = true,
-                icons = {
-                  disconnect = "",
-                  pause = "",
-                  play = "",
-                  run_last = "",
-                  step_back = "",
-                  step_into = "",
-                  step_out = "",
-                  step_over = "",
-                  terminate = ""
-                }
-              },
-              element_mappings = {},
-              expand_lines = true,
-              floating = {
-                border = "single",
-                mappings = {
-                  close = { "q", "<Esc>" }
-                }
-              },
-              force_buffers = true,
-              icons = {
-                collapsed = "",
-                current_frame = "",
-                expanded = ""
-              },
-              layouts = {
-                {
-                  elements = {
-                    { id = "scopes",      size = 0.25 },
-                    { id = "breakpoints", size = 0.25 },
-                    { id = "stacks",      size = 0.25 },
-                    { id = "watches",     size = 0.25 }
-                  },
-                  position = "left",
-                  size = 60
+          require("dapui").setup({
+            layouts = {
+              {
+                elements = {
+                  { id = "scopes",      size = 0.25 },
+                  { id = "breakpoints", size = 0.25 },
+                  { id = "stacks",      size = 0.25 },
+                  { id = "watches",     size = 0.25 }
                 },
-                {
-                  elements = {
-                    { id = "repl",    size = 0.5 },
-                    { id = "console", size = 0.5 }
-                  },
-                  position = "bottom",
-                  size = 15
-                }
+                position = "left",
+                size = 60
               },
-              mappings = {
-                edit = "e",
-                expand = { "<CR>", "<2-LeftMouse>" },
-                open = "o",
-                remove = "d",
-                repl = "r",
-                toggle = "t"
-              },
-              render = {
-                indent = 1,
-                max_value_lines = 100
+              {
+                elements = {
+                  { id = "repl",    size = 0.5 },
+                  { id = "console", size = 0.5 }
+                },
+                position = "bottom",
+                size = 15
               }
-            })
+            },
+          })
         end
+      }
+
+      use {
+        "stevearc/aerial.nvim",
+        config = function()
+          require("aerial").setup({
+            layout = {
+              max_width = { 60, 0.3 },
+              min_width = 40,
+            },
+          })
+        end,
       }
 
       use {
@@ -860,6 +760,12 @@ else
   ---------------
   keyset("n", "<leader>n", ":Neotree toggle<CR>", { noremap = true, silent = true })
   keyset("n", "<leader>h", ":Neotree toggle reveal<CR>", { noremap = true, silent = true })
+
+
+  --------------
+  --- aerial ---
+  --------------
+  keyset("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 
 
   ---------------
