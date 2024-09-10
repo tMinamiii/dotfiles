@@ -522,6 +522,18 @@ else
       }
 
       use {
+        "stevearc/aerial.nvim",
+        config = function()
+          require("aerial").setup({
+            layout = {
+              max_width = { 60, 0.3 },
+              min_width = 40,
+            },
+          })
+        end,
+      }
+
+      use {
         "rcarriga/nvim-dap-ui",
         requires = {
           "mfussenegger/nvim-dap",
@@ -532,39 +544,11 @@ else
         config = function()
           require("dapui").setup({
             layouts = {
-              {
-                elements = {
-                  { id = "scopes",      size = 0.25 },
-                  { id = "breakpoints", size = 0.25 },
-                  { id = "stacks",      size = 0.25 },
-                  { id = "watches",     size = 0.25 }
-                },
-                position = "left",
-                size = 60
-              },
-              {
-                elements = {
-                  { id = "repl",    size = 0.5 },
-                  { id = "console", size = 0.5 }
-                },
-                position = "bottom",
-                size = 15
-              }
+              { size = 60 },
+              { size = 15 }
             },
           })
         end
-      }
-
-      use {
-        "stevearc/aerial.nvim",
-        config = function()
-          require("aerial").setup({
-            layout = {
-              max_width = { 60, 0.3 },
-              min_width = 40,
-            },
-          })
-        end,
       }
 
       use {
