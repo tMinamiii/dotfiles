@@ -22,7 +22,7 @@ ln -s "$HOME/dotfiles/vim" "$HOME/.config/nvim"
 ln -s "$HOME/dotfiles/vim/ideavimrc" "$HOME/.config/.ideavimrc"
 ln -s "$HOME/dotfiles/vim/efm-config.yaml" "$HOME/.config/efm-langserver/config.yaml"
 ln -s "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
-ln -s "$HOME/dotfiles/ssh/confgi" "$HOME/.ssh/config"
+ln -s "$HOME/dotfiles/ssh/config" "$HOME/.ssh/config"
 
 # ARGS=$*
 #
