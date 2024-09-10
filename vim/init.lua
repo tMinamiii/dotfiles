@@ -760,6 +760,12 @@ else
   keyset("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 
 
+  ------------------
+  --- toggleterm ---
+  ------------------
+  vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>")
+
+
   ---------------
   --- neotest ---
   ---------------
