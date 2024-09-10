@@ -5,6 +5,7 @@ local keyset = vim.keymap.set
 local command = vim.api.nvim_command
 local opt = vim.opt
 local fn = vim.fn
+local g = vim.g
 
 opt.encoding = "utf-8"
 opt.completeopt:append({ "noselect" })
@@ -66,12 +67,12 @@ opt.concealcursor = "nc"
 -- cmap / cnoremap  |    -   |   -    |    @    |   -    |   -    |    -     |
 -----------------------------------------------------------------------------"
 
-vim.g.netrw_liststyle = 1                     -- " ファイルツリーの表示形式、1にするとls -laのような表示になります
-vim.g.netrw_banner = 0                        -- " ヘッダを非表示にする
-vim.g.netrw_sizestyle = "H"                   -- " サイズを(K,M,G)で表示する
-vim.g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-vim.g.netrw_preview = 1                       -- " プレビューウィンドウを垂直分割で表示する
-vim.g.mapleader = " "
+g.netrw_liststyle = 1                     -- " ファイルツリーの表示形式、1にするとls -laのような表示になります
+g.netrw_banner = 0                        -- " ヘッダを非表示にする
+g.netrw_sizestyle = "H"                   -- " サイズを(K,M,G)で表示する
+g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+g.netrw_preview = 1                       -- " プレビューウィンドウを垂直分割で表示する
+g.mapleader = " "
 
 -- keyset("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
 keyset("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
@@ -148,7 +149,7 @@ autocmd("FileType", {
 })
 
 if fn.has("wsl") == 1 then
-  vim.g.clipboard = {
+  g.clipboard = {
     name = "win32yank-wsl",
     copy = {
       ["+"] = "/mnt/c/win32yank/win32yank.exe -i --crlf",
@@ -172,7 +173,7 @@ local len = #home
 
 local homepath = ""
 local cachepath = ""
-if vim.g.vscode then
+if g.vscode then
   homepath = join(home, ".config", "packer.vscode-nvim")
   cachepath = join(home, ".cache", "packer.vscode-nvim")
 else
@@ -184,21 +185,21 @@ end
 local rtp = { homepath, cachepath }
 
 -- Add paths that dont start with home.
-for _, p in ipairs(vim.opt.runtimepath:get()) do
+for _, p in ipairs(opt.runtimepath:get()) do
   if p:sub(1, len) ~= home then
     rtp[#rtp + 1] = p
   end
 end
 
-vim.opt.runtimepath = rtp
+opt.runtimepath = rtp
 
 -- Packer paths and files
 local pack_path = join(cachepath, "site")
 local package_root = join(pack_path, "pack")
 local compile_path = join(cachepath, "plugin", "packer_compiled.lua")
-vim.g.loaded_remote_plugins = 1
+g.loaded_remote_plugins = 1
 
-vim.opt.packpath:prepend(pack_path)
+opt.packpath:prepend(pack_path)
 
 local packer_install_path = join(package_root, "packer", "start", "packer.nvim")
 
@@ -213,7 +214,7 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-if vim.g.vscode then
+if g.vscode then
   require("packer").startup {
     function(use)
       use "wbthomason/packer.nvim"
@@ -625,7 +626,7 @@ else
   }
 end
 
-if vim.g.vscode then
+if g.vscode then
   -------------------------
   --- vim-expand-region ---
   -------------------------
@@ -694,7 +695,7 @@ else
   ----------------
   --- material ---
   ----------------
-  -- vim.g.material_style = "darker"
+  -- g.material_style = "darker"
 
 
   ------------------------
@@ -706,7 +707,7 @@ else
   -------------------
   --- transparent ---
   -------------------
-  vim.g.transparent_enabled = true
+  g.transparent_enabled = true
 
 
   -------------------------
@@ -740,8 +741,8 @@ else
   -------------------
   --- rainbow_csv ---
   -------------------
-  vim.g.rainbow_active = 0
-  vim.g.rainbow_conf = {
+  g.rainbow_active = 0
+  g.rainbow_conf = {
     guifgs = { "darkorange2", "orchid3", "seagreen3" },
     separately = { nerdtree = 0 }
   }
@@ -860,7 +861,7 @@ else
     desc = "Highlight symbol under cursor on CursorHold"
   })
 
-  vim.g.coc_global_extensions = {
+  g.coc_global_extensions = {
     "coc-clangd",
     "coc-deno",
     "coc-docker",
