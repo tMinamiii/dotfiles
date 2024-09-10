@@ -120,12 +120,6 @@ user_command("Wq", ":wq", {})
 user_command("WQ", ":wq", {})
 user_command("Term", ":bo terminal ++rows=20", {})
 
--- バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
-vim.cmd [[
-cnoremap <expr> / getcmdtype() == "/" ? "\/" : "/"
-cnoremap <expr> ? getcmdtype() == "?" ? "\?" : "?"
-]]
-
 augroup("filetypes", {})
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = { "*zshrc", "*zsh" }, command = "setfiletype zsh" })
