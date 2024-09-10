@@ -701,7 +701,7 @@ if vim.g.vscode then
 
   keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
   keyset("n", "<leader>tr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>")
-  keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>")
+  keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.debugAtCursor')<CR>")
   keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
   keyset("n", "<leader>o", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
   keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
@@ -763,7 +763,7 @@ else
   -------------------
   --- nvim-window ---
   -------------------
-  keyset("n", "<Leader>w", ":lua require('nvim-window').pick()<CR>", { noremap = true, silent = true })
+  keyset("n", "<Leader>w", function() require("nvim-window").pick() end, { noremap = true, silent = true })
 
 
   -------------------
