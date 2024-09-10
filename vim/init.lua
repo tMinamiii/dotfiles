@@ -122,67 +122,67 @@ user_command("Term", ":bo terminal ++rows=20", {})
 
 -- バックスラッシュやクエスチョンを状況に合わせ自動的にエスケープ
 vim.cmd [[
-cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
+cnoremap <expr> / getcmdtype() == "/" ? "\/" : "/"
+cnoremap <expr> ? getcmdtype() == "?" ? "\?" : "?"
 ]]
 
-augroup('filetypes', {})
-autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = '*Dockerfile', command = 'setfiletype dockerfile' })
-autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = { '*zshrc', '*zsh' }, command = 'setfiletype zsh' })
-autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = '*.mjs', command = 'setfiletype javascript' })
-autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = '*.csv', command = 'setfiletype csv' })
-autocmd({ 'BufRead', 'BufNewFile' }, { group = 'filetypes', pattern = '.env.*', command = 'setfiletype sh' })
-autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\s\\+$//ge' })
-autocmd('BufWritePre', { group = 'filetypes', pattern = '*', command = ':%s/\\r//ge' })
+augroup("filetypes", {})
+autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
+autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = { "*zshrc", "*zsh" }, command = "setfiletype zsh" })
+autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.mjs", command = "setfiletype javascript" })
+autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.csv", command = "setfiletype csv" })
+autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = ".env.*", command = "setfiletype sh" })
+autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\s\\+$//ge" })
+autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\r//ge" })
 
-augroup('indent', {})
-autocmd('FileType', {
-  group = 'indent',
-  pattern = { 'sh', 'vue', 'yaml', 'javascript', 'typescript', 'json', 'html', 'vim', 'markdown' },
-  command = 'setlocal shiftwidth=2 tabstop=2'
+augroup("indent", {})
+autocmd("FileType", {
+  group = "indent",
+  pattern = { "sh", "vue", "yaml", "javascript", "typescript", "json", "html", "vim", "markdown" },
+  command = "setlocal shiftwidth=2 tabstop=2"
 })
-autocmd('FileType', {
-  group = 'indent',
-  pattern = { 'python', 'c' },
-  command = 'setlocal shiftwidth=4 tabstop=4'
+autocmd("FileType", {
+  group = "indent",
+  pattern = { "python", "c" },
+  command = "setlocal shiftwidth=4 tabstop=4"
 })
-autocmd('FileType', {
-  group = 'indent',
-  pattern = { 'go', 'make' },
-  command = 'setlocal shiftwidth=4 tabstop=4 noexpandtab'
+autocmd("FileType", {
+  group = "indent",
+  pattern = { "go", "make" },
+  command = "setlocal shiftwidth=4 tabstop=4 noexpandtab"
 })
 
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
-    name = 'win32yank-wsl',
+    name = "win32yank-wsl",
     copy = {
-      ['+'] = '/mnt/c/win32yank/win32yank.exe -i --crlf',
-      ['*'] = '/mnt/c/win32yank/win32yank.exe -i --crlf',
+      ["+"] = "/mnt/c/win32yank/win32yank.exe -i --crlf",
+      ["*"] = "/mnt/c/win32yank/win32yank.exe -i --crlf",
     },
     paste = {
-      ['+'] = '/mnt/c/win32yank/win32yank.exe -o --lf',
-      ['*'] = '/mnt/c/win32yank/win32yank.exe -o --lf',
+      ["+"] = "/mnt/c/win32yank/win32yank.exe -o --lf",
+      ["*"] = "/mnt/c/win32yank/win32yank.exe -o --lf",
     },
     cache_enabled = true,
   }
 end
 
-local sep = vim.loop.os_uname().sysname == 'Windows_NT' and [[\]] or [[/]]
+local sep = vim.loop.os_uname().sysname == "Windows_NT" and [[\]] or [[/]]
 local function join(...)
   return table.concat({ ... }, sep)
 end
 
-local home = os.getenv 'HOME'
+local home = os.getenv "HOME"
 local len = #home
 
-local homepath = ''
-local cachepath = ''
+local homepath = ""
+local cachepath = ""
 if vim.g.vscode then
-  homepath = join(home, '.config', 'packer.vscode-nvim')
-  cachepath = join(home, '.cache', 'packer.vscode-nvim')
+  homepath = join(home, ".config", "packer.vscode-nvim")
+  cachepath = join(home, ".cache", "packer.vscode-nvim")
 else
-  homepath = join(home, '.config', 'packer.nvim')
-  cachepath = join(home, '.cache', 'packer.nvim')
+  homepath = join(home, ".config", "packer.nvim")
+  cachepath = join(home, ".cache", "packer.nvim")
 end
 
 -- Add path locations for configuration
@@ -198,19 +198,19 @@ end
 vim.opt.runtimepath = rtp
 
 -- Packer paths and files
-local pack_path = join(cachepath, 'site')
-local package_root = join(pack_path, 'pack')
-local compile_path = join(cachepath, 'plugin', 'packer_compiled.lua')
+local pack_path = join(cachepath, "site")
+local package_root = join(pack_path, "pack")
+local compile_path = join(cachepath, "plugin", "packer_compiled.lua")
 vim.g.loaded_remote_plugins = 1
 
 vim.opt.packpath:prepend(pack_path)
 
-local packer_install_path = join(package_root, 'packer', 'start', 'packer.nvim')
+local packer_install_path = join(package_root, "packer", "start", "packer.nvim")
 
 local ensure_packer = function()
   local fn = vim.fn
   if fn.empty(fn.glob(packer_install_path)) > 0 then
-    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', packer_install_path })
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", packer_install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -220,41 +220,41 @@ end
 local packer_bootstrap = ensure_packer()
 
 if vim.g.vscode then
-  require('packer').startup {
+  require("packer").startup {
     function(use)
-      use 'wbthomason/packer.nvim'
+      use "wbthomason/packer.nvim"
 
       use {
-        'kylechui/nvim-surround',
+        "kylechui/nvim-surround",
         tag = "*",
         config = function()
           require("nvim-surround").setup()
         end
       }
 
-      use 'terryma/vim-expand-region'
+      use "terryma/vim-expand-region"
 
-      use 'machakann/vim-highlightedyank'
+      use "machakann/vim-highlightedyank"
 
-      use 'rhysd/clever-f.vim'
+      use "rhysd/clever-f.vim"
 
       use {
-        'smoka7/hop.nvim',
-        tag = '*', -- optional but strongly recommended
+        "smoka7/hop.nvim",
+        tag = "*", -- optional but strongly recommended
         config = function()
           -- you can configure Hop the way you like here; see :h hop-config
-          require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+          require "hop".setup { keys = "etovxqpdygfblzhckisuran" }
         end
       }
 
       use {
-        'numToStr/Comment.nvim',
+        "numToStr/Comment.nvim",
         config = function()
-          require('Comment').setup()
+          require("Comment").setup()
         end
       }
 
-      use 'vscode-neovim/vscode-multi-cursor.nvim'
+      use "vscode-neovim/vscode-multi-cursor.nvim"
     end,
     config = {
       package_root = package_root,
@@ -262,9 +262,9 @@ if vim.g.vscode then
     },
   }
 else
-  require('packer').startup {
+  require("packer").startup {
     function(use)
-      use 'wbthomason/packer.nvim'
+      use "wbthomason/packer.nvim"
 
       use({
         "iamcco/markdown-preview.nvim",
@@ -272,16 +272,16 @@ else
       })
 
       use {
-        'xiyaowong/transparent.nvim',
+        "xiyaowong/transparent.nvim",
         config = function()
           require("transparent").setup({
-            extra_groups = { 'NeoTreeNormal', 'NeoTreeNormalNC' },
+            extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" },
           })
         end
       }
 
       use {
-        'kylechui/nvim-surround',
+        "kylechui/nvim-surround",
         tag = "*",
         config = function()
           require("nvim-surround").setup()
@@ -289,10 +289,10 @@ else
       }
 
       use {
-        'marko-cerovac/material.nvim',
+        "marko-cerovac/material.nvim",
 
         config = function()
-          require('material').setup({
+          require("material").setup({
 
             contrast = {
               terminal = true,            -- Enable contrast for the built-in terminal
@@ -360,7 +360,7 @@ else
               darker = true    -- Enable higher contrast text for darker style
             },
 
-            lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+            lualine_style = "default", -- Lualine style ( can be "stealth" or "default" )
 
             async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
 
@@ -371,44 +371,44 @@ else
         end
       }
 
-      use 'terryma/vim-expand-region'
+      use "terryma/vim-expand-region"
 
-      use 'machakann/vim-highlightedyank'
+      use "machakann/vim-highlightedyank"
 
-      use 'rhysd/clever-f.vim'
+      use "rhysd/clever-f.vim"
 
       use {
-        'smoka7/hop.nvim',
-        tag = '*', -- optional but strongly recommended
+        "smoka7/hop.nvim",
+        tag = "*", -- optional but strongly recommended
         config = function()
           -- you can configure Hop the way you like here; see :h hop-config
-          require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+          require "hop".setup { keys = "etovxqpdygfblzhckisuran" }
         end
       }
 
       use {
-        'numToStr/Comment.nvim',
+        "numToStr/Comment.nvim",
         config = function()
-          require('Comment').setup()
+          require("Comment").setup()
         end
       }
 
-      use 'simeji/winresizer'
+      use "simeji/winresizer"
 
-      use 'yorickpeterse/nvim-window'
+      use "yorickpeterse/nvim-window"
 
-      use { 'romgrk/barbar.nvim', requires = { 'nvim-tree/nvim-web-devicons', 'lewis6991/gitsigns.nvim', opt = true } }
+      use { "romgrk/barbar.nvim", requires = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim", opt = true } }
 
-      use 'terryma/vim-multiple-cursors'
+      use "terryma/vim-multiple-cursors"
 
-      use 'tpope/vim-fugitive'
+      use "tpope/vim-fugitive"
 
       use {
-        'lewis6991/gitsigns.nvim',
+        "lewis6991/gitsigns.nvim",
         config = function()
-          require('gitsigns').setup {
+          require("gitsigns").setup {
             on_attach = function(bufnr)
-              local gitsigns = require('gitsigns')
+              local gitsigns = require("gitsigns")
 
               local function map(mode, l, r, opts)
                 opts = opts or {}
@@ -417,62 +417,62 @@ else
               end
 
               -- Navigation
-              map('n', ']c', function()
+              map("n", "]c", function()
                 if vim.wo.diff then
-                  vim.cmd.normal({ ']c', bang = true })
+                  vim.cmd.normal({ "]c", bang = true })
                 else
-                  gitsigns.nav_hunk('next')
+                  gitsigns.nav_hunk("next")
                 end
               end)
 
-              map('n', '[c', function()
+              map("n", "[c", function()
                 if vim.wo.diff then
-                  vim.cmd.normal({ '[c', bang = true })
+                  vim.cmd.normal({ "[c", bang = true })
                 else
-                  gitsigns.nav_hunk('prev')
+                  gitsigns.nav_hunk("prev")
                 end
               end)
 
               -- Actions
-              map('n', '<leader>hs', gitsigns.stage_hunk)
-              map('n', '<leader>hr', gitsigns.reset_hunk)
-              map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
-              map('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
-              map('n', '<leader>hS', gitsigns.stage_buffer)
-              map('n', '<leader>hu', gitsigns.undo_stage_hunk)
-              map('n', '<leader>hR', gitsigns.reset_buffer)
-              map('n', '<leader>hp', gitsigns.preview_hunk)
-              map('n', '<leader>hb', function() gitsigns.blame_line { full = true } end)
-              map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-              map('n', '<leader>hd', gitsigns.diffthis)
-              map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
-              map('n', '<leader>td', gitsigns.toggle_deleted)
+              map("n", "<leader>hs", gitsigns.stage_hunk)
+              map("n", "<leader>hr", gitsigns.reset_hunk)
+              map("v", "<leader>hs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end)
+              map("v", "<leader>hr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end)
+              map("n", "<leader>hS", gitsigns.stage_buffer)
+              map("n", "<leader>hu", gitsigns.undo_stage_hunk)
+              map("n", "<leader>hR", gitsigns.reset_buffer)
+              map("n", "<leader>hp", gitsigns.preview_hunk)
+              map("n", "<leader>hb", function() gitsigns.blame_line { full = true } end)
+              map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
+              map("n", "<leader>hd", gitsigns.diffthis)
+              map("n", "<leader>hD", function() gitsigns.diffthis("~") end)
+              map("n", "<leader>td", gitsigns.toggle_deleted)
 
               -- Text object
-              map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+              map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
             end
           }
         end
       }
 
       use {
-        'nvim-lualine/lualine.nvim',
+        "nvim-lualine/lualine.nvim",
         requires = {
-          'nvim-tree/nvim-web-devicons',
+          "nvim-tree/nvim-web-devicons",
           opt = true,
         },
         config = function()
           ---------------
           --- lualine ---
           ---------------
-          require('lualine').setup {
+          require("lualine").setup {
             options = {
               icons_enabled = true,
-              theme = 'auto',
-              -- component_separators = { left = '', right = '' },
-              -- section_separators = { left = '', right = '' },
-              component_separators = { left = '', right = '' },
-              section_separators = { left = '', right = '' },
+              theme = "auto",
+              -- component_separators = { left = "", right = "" },
+              -- section_separators = { left = "", right = "" },
+              component_separators = { left = "", right = "" },
+              section_separators = { left = "", right = "" },
               disabled_filetypes = {
                 statusline = {},
                 winbar = {},
@@ -487,18 +487,18 @@ else
               }
             },
             sections = {
-              lualine_a = { 'mode' },
-              lualine_b = { 'branch', 'diff', 'diagnostics' },
-              lualine_c = { 'filename' },
-              lualine_x = { 'encoding', 'fileformat', 'filetype' },
-              lualine_y = { 'progress' },
-              lualine_z = { 'location' }
+              lualine_a = { "mode" },
+              lualine_b = { "branch", "diff", "diagnostics" },
+              lualine_c = { "filename" },
+              lualine_x = { "encoding", "fileformat", "filetype" },
+              lualine_y = { "progress" },
+              lualine_z = { "location" }
             },
             inactive_sections = {
               lualine_a = {},
               lualine_b = {},
-              lualine_c = { 'filename' },
-              lualine_x = { 'location' },
+              lualine_c = { "filename" },
+              lualine_x = { "location" },
               lualine_y = {},
               lualine_z = {}
             },
@@ -511,17 +511,17 @@ else
 
       }
 
-      use 'mechatroner/rainbow_csv'
+      use "mechatroner/rainbow_csv"
 
-      use 'Yggdroot/indentLine'
+      use "Yggdroot/indentLine"
 
-      use { 'nvim-treesitter/nvim-treesitter',
+      use { "nvim-treesitter/nvim-treesitter",
         run = function()
-          local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+          local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
           ts_update()
         end,
         config = function()
-          require('nvim-treesitter.configs').setup {
+          require("nvim-treesitter.configs").setup {
             -- A list of parser names, or "all" (the listed parsers MUST always be installed)
             ensure_installed = {
               "c",
@@ -597,6 +597,16 @@ else
       }
 
       use {
+        "rcarriga/nvim-dap-ui",
+        requires = {
+          "mfussenegger/nvim-dap",
+          "nvim-neotest/nvim-nio",
+          "leoluz/nvim-dap-go",
+          "mxsdev/nvim-dap-vscode-js",
+        }
+      }
+
+      use {
         "nvim-neotest/neotest",
         requires = {
           "nvim-neotest/nvim-nio",
@@ -604,22 +614,22 @@ else
           "antoinemadec/FixCursorHold.nvim",
           "nvim-treesitter/nvim-treesitter",
           "fredrikaverpil/neotest-golang",
-          'thenbe/neotest-playwright',
-          'nvim-telescope/telescope.nvim',
-          'nvim-neotest/neotest-jest',
+          "thenbe/neotest-playwright",
+          "nvim-telescope/telescope.nvim",
+          "nvim-neotest/neotest-jest",
           "marilari88/neotest-vitest",
         },
         config = function()
           require("neotest").setup({
             adapters = {
               require("neotest-golang"),
-              require('neotest-playwright').adapter({
+              require("neotest-playwright").adapter({
                 options = {
                   persist_project_selection = true,
                   enable_dynamic_test_discovery = true,
                 },
               }),
-              require('neotest-jest')({
+              require("neotest-jest")({
                 jestCommand = "npm test --",
                 jestConfigFile = "custom.jest.config.ts",
                 env = { CI = true },
@@ -633,9 +643,9 @@ else
         end
       }
 
-      use { 'nvim-telescope/telescope.nvim', tag = '0.1.8', requires = { 'nvim-lua/plenary.nvim' } }
+      use { "nvim-telescope/telescope.nvim", tag = "0.1.8", requires = { "nvim-lua/plenary.nvim" } }
 
-      use { 'neoclide/coc.nvim', branch = 'release', require = { 'fannheyward/coc-marketplace' } }
+      use { "neoclide/coc.nvim", branch = "release", require = { "fannheyward/coc-marketplace" } }
     end,
     config = {
       package_root = package_root,
@@ -655,14 +665,14 @@ if vim.g.vscode then
   -----------
   --- hop ---
   -----------
-  local hop = require('hop')
-  local directions = require('hop.hint').HintDirection
+  local hop = require("hop")
+  local directions = require("hop.hint").HintDirection
 
-  keyset('n', '<Leader>f', function()
+  keyset("n", "<Leader>f", function()
     hop.hint_char1({ direction = directions.AFTER_CURSOR })
   end, { noremap = true, silent = true })
 
-  keyset('n', '<Leader>F', function()
+  keyset("n", "<Leader>F", function()
     hop.hint_char1({ direction = directions.BEFORE_CURSOR })
   end, { noremap = true, silent = true })
 
@@ -670,7 +680,7 @@ if vim.g.vscode then
   ---------------------------
   --- vscode-multi-cursor ---
   ---------------------------
-  require('vscode-multi-cursor').setup { -- Config is optional
+  require("vscode-multi-cursor").setup { -- Config is optional
     -- Whether to set default mappings
     default_mappings = true,
     -- If set to true, only multiple cursors will be created without multiple selections
@@ -705,7 +715,7 @@ if vim.g.vscode then
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
-    require('packer').sync()
+    require("packer").sync()
   end
 else
   ----------------
@@ -734,14 +744,14 @@ else
   ----------
   --- hop --
   ----------
-  local hop = require('hop')
-  local directions = require('hop.hint').HintDirection
+  local hop = require("hop")
+  local directions = require("hop.hint").HintDirection
 
-  keyset('n', '<Leader>f', function()
+  keyset("n", "<Leader>f", function()
     hop.hint_char1({ direction = directions.AFTER_CURSOR })
   end, { noremap = true, silent = true })
 
-  keyset('n', '<Leader>F', function()
+  keyset("n", "<Leader>F", function()
     hop.hint_char1({ direction = directions.BEFORE_CURSOR })
   end, { noremap = true, silent = true })
 
@@ -757,7 +767,7 @@ else
   -------------------
   vim.g.rainbow_active = 0
   vim.g.rainbow_conf = {
-    guifgs = { 'darkorange2', 'orchid3', 'seagreen3' },
+    guifgs = { "darkorange2", "orchid3", "seagreen3" },
     separately = { nerdtree = 0 }
   }
 
@@ -766,11 +776,11 @@ else
   --- IndentLine ---
   ------------------
   vim.g.indentLine_showFirstIndentLevel = 1
-  vim.g.indentLine_bufNameExclude = { '_.*', 'NERD_tree.*' }
-  vim.g.indentLine_bufTypeExluce = { 'help', 'nerdtree', 'terminal' }
-  vim.g.indentLine_fileTypeExluce = { 'help', 'nerdtree' }
+  vim.g.indentLine_bufNameExclude = { "_.*", "NERD_tree.*" }
+  vim.g.indentLine_bufTypeExluce = { "help", "nerdtree", "terminal" }
+  vim.g.indentLine_fileTypeExluce = { "help", "nerdtree" }
   vim.g.indentLine_color_term = 238
-  vim.g.indentLine_color_gui = '#676767'
+  vim.g.indentLine_color_gui = "#676767"
   vim.g.indentLine_setConceal = 0
 
 
@@ -784,11 +794,11 @@ else
   -----------------
   --- telescope ---
   -----------------
-  local builtin = require('telescope.builtin')
-  keyset('n', '<C-p>', builtin.find_files, { noremap = true, silent = true })
-  keyset('n', '<leader>g', builtin.live_grep, { noremap = true, silent = true })
-  keyset('n', '<leader>b', builtin.buffers, { noremap = true, silent = true })
-  -- keyset('n', '<leader>h', builtin.help_tags, { noremap = true, silent = true })
+  local builtin = require("telescope.builtin")
+  keyset("n", "<C-p>", builtin.find_files, { noremap = true, silent = true })
+  keyset("n", "<leader>g", builtin.live_grep, { noremap = true, silent = true })
+  keyset("n", "<leader>b", builtin.buffers, { noremap = true, silent = true })
+  -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
 
 
   -----------
@@ -796,22 +806,21 @@ else
   -----------
   -- Autocomplete
   function _G.check_back_space()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+    local col = vim.fn.col(".") - 1
+    return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
   end
 
   local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
-  keyset("i", "<TAB>", 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()',
-    opts)
+  keyset("i", "<TAB>", "coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? '<TAB>' : coc#refresh()", opts)
   keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
   keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
   -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
 
-  keyset('n', 'gd', '<Plug>(coc-definition)', { silent = true })
-  keyset('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
-  keyset('n', 'gr', '<Plug>(coc-references)', { silent = true })
-  keyset('n', 'gt', '<Plug>(coc-type-definition)', { silent = true })
-  keyset('n', 'gp', '<Plug>(coc-peek-definition)', { silent = true })
+  keyset("n", "gd", "<Plug>(coc-definition)", { silent = true })
+  keyset("n", "gi", "<Plug>(coc-implementation)", { silent = true })
+  keyset("n", "gr", "<Plug>(coc-references)", { silent = true })
+  keyset("n", "gt", "<Plug>(coc-type-definition)", { silent = true })
+  keyset("n", "gp", "<Plug>(coc-peek-definition)", { silent = true })
   keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
   keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
 
@@ -821,21 +830,21 @@ else
 
   -- Formatting
   keyset({ "n", "x" }, "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
-  user_command('Eslint', 'call CocAction("runCommand", "eslint.executeAutofix")', {})
+  user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
 
   -- Use K to show documentation in preview window
   function _G.show_docs()
-    local cw = vim.fn.expand('<cword>')
-    if vim.fn.index({ 'vim', 'help' }, vim.bo.filetype) >= 0 then
-      command('h ' .. cw)
-    elseif vim.api.nvim_eval('coc#rpc#ready()') then
-      vim.fn.CocActionAsync('doHover')
+    local cw = vim.fn.expand("<cword>")
+    if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+      command("h " .. cw)
+    elseif vim.api.nvim_eval("coc#rpc#ready()") then
+      vim.fn.CocActionAsync("doHover")
     else
-      command('!' .. vim.o.keywordprg .. ' ' .. cw)
+      command("!" .. vim.o.keywordprg .. " " .. cw)
     end
   end
 
-  keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
+  keyset("n", "K", "<CMD>lua _G.show_docs()<CR>", { silent = true })
 
   -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
   augroup("CocGroup", {})
@@ -846,31 +855,31 @@ else
   })
 
   vim.g.coc_global_extensions = {
-    'coc-clangd',
-    'coc-deno',
-    'coc-docker',
-    'coc-eslint',
-    'coc-git',
-    'coc-html',
-    'coc-json',
-    'coc-lua',
-    'coc-markdownlint',
-    'coc-marketplace',
-    'coc-pairs',
-    'coc-prettier',
-    'coc-pyright',
-    'coc-rust-analyzer',
-    'coc-sh',
-    'coc-sql',
-    'coc-tailwindcss',
-    'coc-toml',
-    'coc-tsserver',
-    'coc-vimlsp',
-    'coc-xml',
-    'coc-yaml',
+    "coc-clangd",
+    "coc-deno",
+    "coc-docker",
+    "coc-eslint",
+    "coc-git",
+    "coc-html",
+    "coc-json",
+    "coc-lua",
+    "coc-markdownlint",
+    "coc-marketplace",
+    "coc-pairs",
+    "coc-prettier",
+    "coc-pyright",
+    "coc-rust-analyzer",
+    "coc-sh",
+    "coc-sql",
+    "coc-tailwindcss",
+    "coc-toml",
+    "coc-tsserver",
+    "coc-vimlsp",
+    "coc-xml",
+    "coc-yaml",
   }
 
-  -- autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+  -- autocmd BufWritePre *.go :call CocAction("runCommand", "editor.action.organizeImport")
   autocmd("BufWritePre", {
     pattern = "*.go",
     command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
@@ -879,14 +888,14 @@ else
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
-    require('packer').sync()
+    require("packer").sync()
   end
 
   vim.cmd.colorscheme("material")
 
-  vim.api.nvim_set_hl(0, 'CocMenuSel', { bg = '#404040' })
-  vim.api.nvim_set_hl(0, 'LineNr', { fg = '#505050' })
+  vim.api.nvim_set_hl(0, "CocMenuSel", { bg = "#404040" })
+  vim.api.nvim_set_hl(0, "LineNr", { fg = "#505050" })
 
-  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 end
