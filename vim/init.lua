@@ -438,7 +438,7 @@ else
 
       use "mechatroner/rainbow_csv"
 
-      use "Yggdroot/indentLine"
+      use { "lukas-reineke/indent-blankline.nvim", config = function() require("ibl").setup() end }
 
       use { "nvim-treesitter/nvim-treesitter",
         run = function()
@@ -745,18 +745,6 @@ else
     guifgs = { "darkorange2", "orchid3", "seagreen3" },
     separately = { nerdtree = 0 }
   }
-
-
-  ------------------
-  --- IndentLine ---
-  ------------------
-  vim.g.indentLine_showFirstIndentLevel = 1
-  vim.g.indentLine_bufNameExclude = { "_.*", "NERD_tree.*" }
-  vim.g.indentLine_bufTypeExluce = { "help", "nerdtree", "terminal" }
-  vim.g.indentLine_fileTypeExluce = { "help", "nerdtree" }
-  vim.g.indentLine_color_term = 238
-  vim.g.indentLine_color_gui = "#676767"
-  vim.g.indentLine_setConceal = 0
 
 
   ---------------
