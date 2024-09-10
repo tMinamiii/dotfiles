@@ -875,6 +875,7 @@ else
   keyset("n", "<leader>to", function() neotest.output.open({ enter = true }) end, { noremap = true, silent = true })
 
   local dap, dapui = require("dap"), require("dapui")
+  vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
   keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end, { noremap = true, silent = true })
   keyset("n", "<leader>db", function() dap.toggle_breakpoint() end, { noremap = true, silent = true })
   keyset("n", "<leader>du", function() dapui.toggle() end, { noremap = true, silent = true })
