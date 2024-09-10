@@ -8,15 +8,15 @@ local opt = vim.opt
 opt.encoding = "utf-8"
 opt.completeopt:append({ "noselect" })
 
-opt.ignorecase = true     -- 大文字小文字を区別しない
-opt.smartcase = true      -- 検索文字に大文字がある場合は大文字小文字を区別
-opt.incsearch = true      -- インクリメンタルサーチ
-opt.hlsearch = true       -- 検索マッチテキストをハイライト
+opt.ignorecase = true -- 大文字小文字を区別しない
+opt.smartcase = true  -- 検索文字に大文字がある場合は大文字小文字を区別
+opt.incsearch = true  -- インクリメンタルサーチ
+opt.hlsearch = true   -- 検索マッチテキストをハイライト
 
-opt.hidden = true         -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
-opt.switchbuf = "useopen" -- 新しく開く代わりにすでに開いてあるバッファを開く
-opt.showmatch = true      -- 対応する括弧などをハイライト表示する
-opt.matchtime = 2         -- 対応括弧のハイライト表示を3秒にする
+opt.hidden = true     -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
+-- opt.switchbuf = "usetab" -- 新しく開く代わりにすでに開いてあるバッファを開く
+opt.showmatch = true  -- 対応する括弧などをハイライト表示する
+opt.matchtime = 2     -- 対応括弧のハイライト表示を3秒にする
 
 opt.clipboard = "unnamedplus"
 -- vim.opt.clipboard = "unnamed"
@@ -603,7 +603,74 @@ else
           "nvim-neotest/nvim-nio",
           "leoluz/nvim-dap-go",
           "mxsdev/nvim-dap-vscode-js",
-        }
+        },
+        config = function()
+          require("dapui").setup(
+
+            {
+              controls = {
+                element = "repl",
+                enabled = true,
+                icons = {
+                  disconnect = "",
+                  pause = "",
+                  play = "",
+                  run_last = "",
+                  step_back = "",
+                  step_into = "",
+                  step_out = "",
+                  step_over = "",
+                  terminate = ""
+                }
+              },
+              element_mappings = {},
+              expand_lines = true,
+              floating = {
+                border = "single",
+                mappings = {
+                  close = { "q", "<Esc>" }
+                }
+              },
+              force_buffers = true,
+              icons = {
+                collapsed = "",
+                current_frame = "",
+                expanded = ""
+              },
+              layouts = {
+                {
+                  elements = {
+                    { id = "scopes",      size = 0.25 },
+                    { id = "breakpoints", size = 0.25 },
+                    { id = "stacks",      size = 0.25 },
+                    { id = "watches",     size = 0.25 }
+                  },
+                  position = "left",
+                  size = 60
+                },
+                {
+                  elements = {
+                    { id = "repl",    size = 0.5 },
+                    { id = "console", size = 0.5 }
+                  },
+                  position = "bottom",
+                  size = 15
+                }
+              },
+              mappings = {
+                edit = "e",
+                expand = { "<CR>", "<2-LeftMouse>" },
+                open = "o",
+                remove = "d",
+                repl = "r",
+                toggle = "t"
+              },
+              render = {
+                indent = 1,
+                max_value_lines = 100
+              }
+            })
+        end
       }
 
       use {
@@ -723,7 +790,7 @@ else
   ----------------
   --- material ---
   ----------------
-  vim.g.material_style = "darker"
+  -- vim.g.material_style = "darker"
 
 
   ------------------------
@@ -799,7 +866,6 @@ else
   --- neotest ---
   ---------------
   local neotest = require('neotest')
-  keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end, { noremap = true, silent = true })
   keyset("n", "<leader>tr", function()
     neotest.run.run()
     neotest.output_panel.clear()
@@ -807,6 +873,25 @@ else
   end, { noremap = true, silent = true })
   keyset("n", "<leader>tp", function() neotest.output_panel.toggle() end, { noremap = true, silent = true })
   keyset("n", "<leader>to", function() neotest.output.open({ enter = true }) end, { noremap = true, silent = true })
+
+  local dap, dapui = require("dap"), require("dapui")
+  keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end, { noremap = true, silent = true })
+  keyset("n", "<leader>db", function() dap.toggle_breakpoint() end, { noremap = true, silent = true })
+  keyset("n", "<leader>du", function() dapui.toggle() end, { noremap = true, silent = true })
+
+  dap.listeners.before.attach.dapui_config = function()
+    dapui.open()
+  end
+  dap.listeners.before.launch.dapui_config = function()
+    dapui.open()
+  end
+  dap.listeners.before.event_terminated.dapui_config = function()
+    dapui.close()
+  end
+  dap.listeners.before.event_exited.dapui_config = function()
+    dapui.close()
+  end
+
   -----------------
   --- telescope ---
   -----------------
