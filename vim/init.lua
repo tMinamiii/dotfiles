@@ -439,7 +439,13 @@ else
 
       use "mechatroner/rainbow_csv"
 
-      use { "lukas-reineke/indent-blankline.nvim", config = function() require("ibl").setup() end }
+      use { "lukas-reineke/indent-blankline.nvim",
+        config = function()
+          require("ibl").setup({
+            indent = { highlight = { "LineNr" }, char = "│" },
+            scope = { enabled = false },
+          })
+        end }
 
       use { "nvim-treesitter/nvim-treesitter",
         run = function()
