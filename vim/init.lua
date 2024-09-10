@@ -700,6 +700,8 @@ if vim.g.vscode then
   keyset("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
 
   keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
+  keyset("n", "<leader>tr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>")
+  keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>")
   keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
   keyset("n", "<leader>o", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
   keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
@@ -723,6 +725,7 @@ else
   ----------------
   vim.g.material_style = "darker"
 
+
   ------------------------
   --- markdown-preview ---
   ------------------------
@@ -740,6 +743,7 @@ else
   -------------------------
   keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
   keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+
 
   ----------
   --- hop --
@@ -791,6 +795,18 @@ else
   keyset("n", "<leader>h", ":Neotree toggle reveal<CR>", { noremap = true, silent = true })
 
 
+  ---------------
+  --- neotest ---
+  ---------------
+  local neotest = require('neotest')
+  keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end, { noremap = true, silent = true })
+  keyset("n", "<leader>tr", function()
+    neotest.run.run()
+    neotest.output_panel.clear()
+    neotest.output_panel.open()
+  end, { noremap = true, silent = true })
+  keyset("n", "<leader>tp", function() neotest.output_panel.toggle() end, { noremap = true, silent = true })
+  keyset("n", "<leader>to", function() neotest.output.open({ enter = true }) end, { noremap = true, silent = true })
   -----------------
   --- telescope ---
   -----------------
