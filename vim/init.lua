@@ -294,6 +294,10 @@ else
         end
       }
 
+      use 'Mofiqul/vscode.nvim'
+
+      use "EdenEast/nightfox.nvim"
+
       use {
         "marko-cerovac/material.nvim",
 
@@ -470,7 +474,7 @@ else
         config = function()
           require("ibl").setup({
             indent = {
-              highlight = { "IndentLine" },
+              highlight = { "IndentBlankLine" },
               char = "▏",
             },
             scope = { enabled = false },
@@ -688,6 +692,8 @@ else
         end,
       }
 
+      use "sindrets/diffview.nvim"
+
       use { "nvim-telescope/telescope.nvim", tag = "0.1.8", requires = { "nvim-lua/plenary.nvim" } }
 
       use { "neoclide/coc.nvim", branch = "release", require = { "fannheyward/coc-marketplace" } }
@@ -898,12 +904,6 @@ else
   }
 
 
-  ------------------------
-  --- indent-blankline ---
-  ------------------------
-  hl(0, "IndentLine", { fg = "#383838" })
-
-
   ---------------
   --- neotree ---
   ---------------
@@ -928,11 +928,12 @@ else
   --- neotest ---
   ---------------
   local neotest = require('neotest')
-  keyset("n", "<leader>tr", function()
-    neotest.run.run()
-    -- neotest.output_panel.clear()
-    -- neotest.output_panel.open()
-  end, { noremap = true, silent = true, desc = "run test" })
+  keyset("n", "<leader>tr", function() neotest.run.run() end,
+    { noremap = true, silent = true, desc = "run test at cursor" })
+  keyset("n", "<leader>tf", function() neotest.run.run(vim.fn.expand("%")) end,
+    { noremap = true, silent = true, desc = "run test file" })
+
+
   keyset("n", "<leader>tp", function() neotest.output_panel.toggle() end,
     { noremap = true, silent = true, desc = "neotest toggle output pannel" })
   keyset("n", "<leader>to", function() neotest.output.open({ enter = true }) end,
@@ -1077,7 +1078,9 @@ else
     require("packer").sync()
   end
 
-  colorscheme("material")
+  -- colorscheme("material")
+  -- colorscheme("nightfox")
+  colorscheme("vscode")
 
   hl(0, "CocMenuSel", { bg = "#353535" })
   hl(0, "LineNr", { fg = "#505050" })
@@ -1085,6 +1088,7 @@ else
   hl(0, "NonText", { fg = "#505050" })
   hl(0, "SpecialKey", { fg = "#505050" })
   hl(0, "WhiteSpace", { fg = "#404040" })
+  hl(0, "IndentBlankLine", { fg = "#383838" })
 
   -- hl(0, "Normal", { bg = "none" })
   -- hl(0, "NormalNC", { bg = "none" })
