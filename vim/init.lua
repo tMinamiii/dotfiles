@@ -27,6 +27,7 @@ opt.clipboard = "unnamedplus"
 opt.updatetime = 500
 opt.shortmess:append({ c = true })
 opt.signcolumn = "yes"
+opt.swapfile = false
 
 opt.number = true -- 行番号の表示
 opt.textwidth = 0 -- 自動的に改行が入るのを無効化
