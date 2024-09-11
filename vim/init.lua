@@ -644,8 +644,10 @@ if g.vscode then
   -------------------------
   --- vim-expand-region ---
   -------------------------
-  keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-  keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+  keyset("v", "v", "<Plug>(expand_region_expand)",
+    { noremap = true, silent = true, desc = "vim-expand-region expand" })
+  keyset("v", "<C-v>", "<Plug>(expand_region_shrink)",
+    { noremap = true, silent = true, desc = "vim-expand-region shrink" })
 
 
   -----------
@@ -656,11 +658,11 @@ if g.vscode then
 
   keyset("n", "<Leader>f", function()
     hop.hint_char1({ direction = directions.AFTER_CURSOR })
-  end, { noremap = true, silent = true })
+  end, { noremap = true, silent = true, desc = "hop after" })
 
   keyset("n", "<Leader>F", function()
     hop.hint_char1({ direction = directions.BEFORE_CURSOR })
-  end, { noremap = true, silent = true })
+  end, { noremap = true, silent = true, desc = "hop before" })
 
 
   ---------------------------
@@ -677,24 +679,40 @@ if g.vscode then
   --------------------
   -- VSCode keymap ---
   --------------------
-  keyset("n", "gd", "<Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>")
-  keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
-  keyset("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>")
-  keyset("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>")
-  keyset("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
-  keyset("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>")
-  keyset("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>")
+  keyset("n", "gd", "<Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.revealDefinition" })
+  keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.goToImplementation" })
+  keyset("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.goToReferences" })
+  keyset("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.goToTypeDefinition" })
+  keyset("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.peekDefinition" })
+  keyset("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.marker.next" })
+  keyset("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.marker.previous" })
 
-  keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>")
-  keyset("n", "<leader>tr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>")
-  keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.debugAtCursor')<CR>")
-  keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>")
-  keyset("n", "<leader>a", "<Cmd>call VSCodeNotify('outline.focus')<CR>")
-  keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>")
-  keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>")
-  keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>")
+  keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.rename" })
+  keyset("n", "<leader>tr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>",
+    { noremap = true, silent = true, desc = "testing.runAtCursor" })
+  keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.debugAtCursor')<CR>",
+    { noremap = true, silent = true, desc = "testing.debugAtCursor" })
+  keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.triggerSuggest" })
+  keyset("n", "<leader>a", "<Cmd>call VSCodeNotify('outline.focus')<CR>",
+    { noremap = true, silent = true, desc = "'outline.focus" })
+  keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>",
+    { noremap = true, silent = true, desc = "workbench.action.quickOpen" })
+  keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>",
+    { noremap = true, silent = true, desc = "workbench.action.closePanel" })
+  keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>",
+    { noremap = true, silent = true, desc = "workbench.action.toggleSidebarVisibility" })
   keyset("n", "<leader>/",
-    "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>")
+    "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.organizeImports" })
 
   keyset("n", "<C-w><C-h>", "<nop>", { noremap = true })
   keyset("n", "<C-w><C-j>", "<nop>", { noremap = true })
@@ -715,7 +733,7 @@ else
   ------------------------
   --- markdown-preview ---
   ------------------------
-  keyset("n", "<C-s>", "<Plug>MarkdownPreviewToggle", { noremap = true, silent = true })
+  keyset("n", "<C-s>", "<Plug>MarkdownPreviewToggle", { noremap = true, silent = true, desc = "markdown-preview toggle" })
 
 
   -------------------
@@ -727,8 +745,10 @@ else
   -------------------------
   --- vim-expand-region ---
   -------------------------
-  keyset("v", "v", "<Plug>(expand_region_expand)", { noremap = true, silent = true })
-  keyset("v", "<C-v>", "<Plug>(expand_region_shrink)", { noremap = true, silent = true })
+  keyset("v", "v", "<Plug>(expand_region_expand)",
+    { noremap = true, silent = true, desc = "vim-expand-region expand" })
+  keyset("v", "<C-v>", "<Plug>(expand_region_shrink)",
+    { noremap = true, silent = true, desc = "vim-expand-region shrink" })
 
 
   ----------
@@ -739,17 +759,18 @@ else
 
   keyset("n", "<Leader>f", function()
     hop.hint_char1({ direction = directions.AFTER_CURSOR })
-  end, { noremap = true, silent = true })
+  end, { noremap = true, silent = true, desc = "hop after" })
 
   keyset("n", "<Leader>F", function()
     hop.hint_char1({ direction = directions.BEFORE_CURSOR })
-  end, { noremap = true, silent = true })
+  end, { noremap = true, silent = true, desc = "hop before" })
 
 
   -------------------
   --- nvim-window ---
   -------------------
-  keyset("n", "<Leader>w", function() require("nvim-window").pick() end, { noremap = true, silent = true })
+  keyset("n", "<Leader>w", function() require("nvim-window").pick() end,
+    { noremap = true, silent = true, desc = "nvim-window" })
 
 
   -------------------
@@ -765,20 +786,21 @@ else
   ---------------
   --- neotree ---
   ---------------
-  keyset("n", "<leader>n", ":Neotree toggle<CR>", { noremap = true, silent = true })
-  keyset("n", "<leader>h", ":Neotree toggle reveal<CR>", { noremap = true, silent = true })
+  keyset("n", "<leader>n", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "neo-tree toggle" })
+  keyset("n", "<leader>h", ":Neotree toggle reveal<CR>",
+    { noremap = true, silent = true, desc = "neo-tree toggle reveal" })
 
 
   --------------
   --- aerial ---
   --------------
-  keyset("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+  keyset("n", "<leader>a", "<cmd>AerialToggle!<CR>", { noremap = true, silent = true, desc = "aerial toggle" })
 
 
   ------------------
   --- toggleterm ---
   ------------------
-  keyset("t", "<Esc><Esc>", "<C-\\><C-n>")
+  keyset("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "terminal leave insert mode" })
 
 
   ---------------
@@ -789,15 +811,20 @@ else
     neotest.run.run()
     -- neotest.output_panel.clear()
     -- neotest.output_panel.open()
-  end, { noremap = true, silent = true })
-  keyset("n", "<leader>tp", function() neotest.output_panel.toggle() end, { noremap = true, silent = true })
-  keyset("n", "<leader>to", function() neotest.output.open({ enter = true }) end, { noremap = true, silent = true })
+  end, { noremap = true, silent = true, desc = "run test" })
+  keyset("n", "<leader>tp", function() neotest.output_panel.toggle() end,
+    { noremap = true, silent = true, desc = "neotest toggle output pannel" })
+  keyset("n", "<leader>to", function() neotest.output.open({ enter = true }) end,
+    { noremap = true, silent = true, desc = "neotest open output" })
 
   local dap, dapui = require("dap"), require("dapui")
   fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
-  keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end, { noremap = true, silent = true })
-  keyset("n", "<leader>db", function() dap.toggle_breakpoint() end, { noremap = true, silent = true })
-  keyset("n", "<leader>du", function() dapui.toggle() end, { noremap = true, silent = true })
+  keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end,
+    { noremap = true, silent = true, desc = "neotest run debug" })
+  keyset("n", "<leader>db", function() dap.toggle_breakpoint() end,
+    { noremap = true, silent = true, desc = "dap toggle breakpoint" })
+  keyset("n", "<leader>du", function() dapui.toggle() end,
+    { noremap = true, silent = true, desc = "dap toggle nvim-dap-ui" })
 
   dap.listeners.before.attach.dapui_config = function()
     dapui.open()
@@ -812,13 +839,15 @@ else
     dapui.close()
   end
 
+
   -----------------
   --- telescope ---
   -----------------
   local builtin = require("telescope.builtin")
-  keyset("n", "<C-p>", builtin.find_files, { noremap = true, silent = true })
-  keyset("n", "<leader>g", builtin.live_grep, { noremap = true, silent = true })
-  keyset("n", "<leader>b", builtin.buffers, { noremap = true, silent = true })
+  keyset("n", "<C-p>", builtin.find_files, { noremap = true, silent = true, desc = "telescope find files" })
+  keyset("n", "<leader>g", builtin.live_grep, { noremap = true, silent = true, desc = "telescope live grep" })
+  keyset("n", "<leader>b", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
+  keyset("n", "<leader>k", builtin.keymaps, { noremap = true, silent = true, desc = "telescope keymaps" })
   -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
 
 
@@ -837,20 +866,20 @@ else
   keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
   -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
 
-  keyset("n", "gd", "<Plug>(coc-definition)", { silent = true })
-  keyset("n", "gi", "<Plug>(coc-implementation)", { silent = true })
-  keyset("n", "gr", "<Plug>(coc-references)", { silent = true })
-  keyset("n", "gt", "<Plug>(coc-type-definition)", { silent = true })
-  keyset("n", "gp", "<Plug>(coc-peek-definition)", { silent = true })
-  keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
-  keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
+  keyset("n", "gd", "<Plug>(coc-definition)", { silent = true, desc = "coc goto definition" })
+  keyset("n", "gi", "<Plug>(coc-implementation)", { silent = true, desc = "coc goto implementation" })
+  keyset("n", "gr", "<Plug>(coc-references)", { silent = true, desc = "coc goto references" })
+  keyset("n", "gt", "<Plug>(coc-type-definition)", { silent = true, desc = "coc goto type definition" })
+  keyset("n", "gp", "<Plug>(coc-peek-definition)", { silent = true, desc = "coc goto peek definition" })
+  keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true, desc = "coc goto prev diagnostic" })
+  keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true, desc = "coc goto next diagnostic" })
 
   -- Symbol renaming
-  keyset("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true })
-  keyset("n", "<F2>", "<Plug>(coc-rename)", { silent = true })
+  keyset("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true, desc = "coc rename" })
+  keyset("n", "<F2>", "<Plug>(coc-rename)", { silent = true, desc = "coc rename" })
 
   -- Formatting
-  keyset({ "n", "x" }, "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true })
+  keyset({ "n", "x" }, "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true, desc = "coc format" })
   user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
 
   -- Use K to show documentation in preview window
@@ -865,7 +894,7 @@ else
     end
   end
 
-  keyset("n", "K", "<CMD>lua _G.show_docs()<CR>", { silent = true })
+  keyset("n", "K", "<CMD>lua _G.show_docs()<CR>", { silent = true, desc = "coc hover" })
 
   -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
   augroup("CocGroup", {})
