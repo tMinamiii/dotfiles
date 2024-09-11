@@ -643,6 +643,13 @@ else
 
       use { "folke/which-key.nvim" }
 
+      use {
+        "petertriho/nvim-scrollbar",
+        config = function()
+          require("scrollbar").setup()
+        end
+      }
+
       use { "nvim-telescope/telescope.nvim", tag = "0.1.8", requires = { "nvim-lua/plenary.nvim" } }
 
       use { "neoclide/coc.nvim", branch = "release", require = { "fannheyward/coc-marketplace" } }
