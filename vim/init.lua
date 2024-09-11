@@ -5,7 +5,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local command = vim.api.nvim_command
 local keyset = vim.keymap.set
 local opt = vim.opt
-local fn = vim.fn
 local hl = vim.api.nvim_set_hl
 local g = vim.g
 
@@ -151,7 +150,7 @@ autocmd("FileType", {
   command = "setlocal shiftwidth=4 tabstop=4 noexpandtab"
 })
 
-if fn.has("wsl") == 1 then
+if vim.fn.has("wsl") == 1 then
   g.clipboard = {
     name = "win32yank-wsl",
     copy = {
@@ -207,8 +206,8 @@ opt.packpath:prepend(pack_path)
 local packer_install_path = join(package_root, "packer", "start", "packer.nvim")
 
 local ensure_packer = function()
-  if fn.empty(fn.glob(packer_install_path)) > 0 then
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", packer_install_path })
+  if vim.fn.empty(vim.fn.glob(packer_install_path)) > 0 then
+    vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", packer_install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -266,7 +265,7 @@ else
 
       use({
         "iamcco/markdown-preview.nvim",
-        run = function() fn["mkdp#util#install"]() end,
+        run = function() vim.fn["mkdp#util#install"]() end,
       })
 
       use {
@@ -378,7 +377,7 @@ else
               local function map(mode, l, r, opts)
                 opts = opts or {}
                 opts.buffer = bufnr
-                keyset(mode, l, r, opts)
+                vim.keymap.set(mode, l, r, opts)
               end
 
               -- Navigation
@@ -401,8 +400,8 @@ else
               -- Actions
               map("n", "<leader>hs", gitsigns.stage_hunk)
               map("n", "<leader>hr", gitsigns.reset_hunk)
-              map("v", "<leader>hs", function() gitsigns.stage_hunk { fn.line("."), fn.line("v") } end)
-              map("v", "<leader>hr", function() gitsigns.reset_hunk { fn.line("."), fn.line("v") } end)
+              map("v", "<leader>hs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end)
+              map("v", "<leader>hr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end)
               map("n", "<leader>hS", gitsigns.stage_buffer)
               map("n", "<leader>hu", gitsigns.undo_stage_hunk)
               map("n", "<leader>hR", gitsigns.reset_buffer)
@@ -615,7 +614,7 @@ else
                 jestConfigFile = "custom.jest.config.ts",
                 env = { CI = true },
                 cwd = function(path)
-                  return fn.getcwd()
+                  return vim.fn.getcwd()
                 end,
               }),
               require("neotest-vitest"),
@@ -820,7 +819,7 @@ else
     { noremap = true, silent = true, desc = "neotest open output" })
 
   local dap, dapui = require("dap"), require("dapui")
-  fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+  vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
   keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end,
     { noremap = true, silent = true, desc = "neotest run debug" })
   keyset("n", "<leader>db", function() dap.toggle_breakpoint() end,
@@ -858,8 +857,8 @@ else
   -----------
   -- Autocomplete
   function _G.check_back_space()
-    local col = fn.col(".") - 1
-    return col == 0 or fn.getline("."):sub(col, col):match("%s") ~= nil
+    local col = vim.fn.col(".") - 1
+    return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
   end
 
   local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
@@ -886,11 +885,11 @@ else
 
   -- Use K to show documentation in preview window
   function _G.show_docs()
-    local cw = fn.expand("<cword>")
-    if fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+    local cw = vim.fn.expand("<cword>")
+    if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
       command("h " .. cw)
     elseif vim.api.nvim_eval("coc#rpc#ready()") then
-      fn.CocActionAsync("doHover")
+      vim.fn.CocActionAsync("doHover")
     else
       command("!" .. vim.o.keywordprg .. " " .. cw)
     end
