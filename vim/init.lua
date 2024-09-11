@@ -443,12 +443,6 @@ else
 
       use { "lukas-reineke/indent-blankline.nvim",
         config = function()
-          local hooks = require "ibl.hooks"
-          -- create the highlight groups in the highlight setup hook, so they are reset
-          -- every time the colorscheme changes
-          hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-            hl(0, "IndentLine", { fg = "#404040" })
-          end)
           require("ibl").setup({
             indent = { highlight = { "IndentLine" } },
             scope = { enabled = false },
@@ -781,6 +775,11 @@ else
     guifgs = { "darkorange2", "orchid3", "seagreen3" },
     separately = { nerdtree = 0 }
   }
+
+  ------------------------
+  --- indent-blankline ---
+  ------------------------
+  hl(0, "IndentLine", { fg = "#383838" })
 
 
   ---------------
