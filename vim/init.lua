@@ -235,6 +235,8 @@ if g.vscode then
 
       use "rhysd/clever-f.vim"
 
+      use "monaqa/dial.nvim"
+
       use {
         "smoka7/hop.nvim",
         tag = "*", -- optional but strongly recommended
@@ -340,6 +342,8 @@ else
       use "machakann/vim-highlightedyank"
 
       use "rhysd/clever-f.vim"
+
+      use "monaqa/dial.nvim"
 
       use {
         "smoka7/hop.nvim",
@@ -460,7 +464,8 @@ else
             indent = { highlight = { "IndentLine" } },
             scope = { enabled = false },
           })
-        end }
+        end
+      }
 
       use { "nvim-treesitter/nvim-treesitter",
         run = function()
@@ -638,38 +643,6 @@ else
 
       use { "folke/which-key.nvim" }
 
-      -- use {
-      --   "rcarriga/nvim-notify",
-      --   config = function()
-      --     require("notify").setup({
-      --       background_colour = "#000000"
-      --     })
-      --   end
-      -- }
-
-      -- use {
-      --   "folke/noice.nvim",
-      --   requires = { "MunifTanjim/nui.nvim" }, config = function()
-      --   require("noice").setup({
-      --     lsp = {
-      --       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-      --       override = {
-      --         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      --         ["vim.lsp.util.stylize_markdown"] = true,
-      --         ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-      --       },
-      --     },
-      --     -- you can enable a preset for easier configuration
-      --     presets = {
-      --       bottom_search = false,        -- use a classic bottom cmdline for search
-      --       command_palette = true,       -- position the cmdline and popupmenu together
-      --       long_message_to_split = true, -- long messages will be sent to a split
-      --       inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-      --       lsp_doc_border = false,       -- add a border to hover docs and signature help
-      --     },
-      --   })
-      -- end }
-
       use { "nvim-telescope/telescope.nvim", tag = "0.1.8", requires = { "nvim-lua/plenary.nvim" } }
 
       use { "neoclide/coc.nvim", branch = "release", require = { "fannheyward/coc-marketplace" } }
@@ -689,6 +662,30 @@ if g.vscode then
     { noremap = true, silent = true, desc = "vim-expand-region expand" })
   keyset("v", "<C-v>", "<Plug>(expand_region_shrink)",
     { noremap = true, silent = true, desc = "vim-expand-region shrink" })
+
+
+  ------------
+  --- dial ---
+  ------------
+  keyset("n", "<C-a>", function() require("dial.map").manipulate("increment", "normal") end)
+  keyset("n", "<C-x>", function() require("dial.map").manipulate("decrement", "normal") end)
+  keyset("n", "g<C-a>", function() require("dial.map").manipulate("increment", "gnormal") end)
+  keyset("n", "g<C-x>", function() require("dial.map").manipulate("decrement", "gnormal") end)
+  keyset("v", "<C-a>", function() require("dial.map").manipulate("increment", "visual") end)
+  keyset("v", "<C-x>", function() require("dial.map").manipulate("decrement", "visual") end)
+  keyset("v", "g<C-a>", function() require("dial.map").manipulate("increment", "gvisual") end)
+  keyset("v", "g<C-x>", function() require("dial.map").manipulate("decrement", "gvisual") end)
+  local augend = require("dial.augend")
+  require("dial.config").augends:register_group {
+    -- default augends used when no group name is specified
+    default = {
+      augend.constant.alias.bool,    -- boolean value (true <-> false)
+      augend.semver.alias.semver,
+      augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
+      augend.integer.alias.decimal_int,
+      augend.integer.alias.hex,
+    },
+  }
 
 
   -----------
@@ -794,6 +791,30 @@ else
     { noremap = true, silent = true, desc = "vim-expand-region shrink" })
 
 
+  ------------
+  --- dial ---
+  ------------
+  keyset("n", "<C-a>", function() require("dial.map").manipulate("increment", "normal") end)
+  keyset("n", "<C-x>", function() require("dial.map").manipulate("decrement", "normal") end)
+  keyset("n", "g<C-a>", function() require("dial.map").manipulate("increment", "gnormal") end)
+  keyset("n", "g<C-x>", function() require("dial.map").manipulate("decrement", "gnormal") end)
+  keyset("v", "<C-a>", function() require("dial.map").manipulate("increment", "visual") end)
+  keyset("v", "<C-x>", function() require("dial.map").manipulate("decrement", "visual") end)
+  keyset("v", "g<C-a>", function() require("dial.map").manipulate("increment", "gvisual") end)
+  keyset("v", "g<C-x>", function() require("dial.map").manipulate("decrement", "gvisual") end)
+  local augend = require("dial.augend")
+  require("dial.config").augends:register_group {
+    -- default augends used when no group name is specified
+    default = {
+      augend.constant.alias.bool,    -- boolean value (true <-> false)
+      augend.semver.alias.semver,
+      augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
+      augend.integer.alias.decimal_int,
+      augend.integer.alias.hex,
+    },
+  }
+
+
   ----------
   --- hop --
   ----------
@@ -824,6 +845,7 @@ else
     guifgs = { "darkorange2", "orchid3", "seagreen3" },
     separately = { nerdtree = 0 }
   }
+
 
   ------------------------
   --- indent-blankline ---
