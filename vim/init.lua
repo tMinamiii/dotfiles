@@ -76,7 +76,7 @@ g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを yyyy/
 g.netrw_preview = 1                       -- " プレビューウィンドウを垂直分割で表示する
 g.mapleader = " "
 
--- keyset("n", "<ESC><ESC>", ":noh<CR>", { noremap = true, silent = true })
+keyset("n", "<F3>", ":noh<CR>", { noremap = true, silent = true })
 keyset("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
 keyset("n", "<M-n>", ":bn<CR>", { noremap = true, silent = true })
 keyset("n", "<M-d>", ":bd<CR>", { noremap = true, silent = true })
