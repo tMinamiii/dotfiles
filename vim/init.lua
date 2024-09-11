@@ -398,19 +398,32 @@ else
               end)
 
               -- Actions
-              map("n", "<leader>hs", gitsigns.stage_hunk)
-              map("n", "<leader>hr", gitsigns.reset_hunk)
-              map("v", "<leader>hs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end)
-              map("v", "<leader>hr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end)
-              map("n", "<leader>hS", gitsigns.stage_buffer)
-              map("n", "<leader>hu", gitsigns.undo_stage_hunk)
-              map("n", "<leader>hR", gitsigns.reset_buffer)
-              map("n", "<leader>hp", gitsigns.preview_hunk)
-              map("n", "<leader>hb", function() gitsigns.blame_line { full = true } end)
-              map("n", "<leader>tb", gitsigns.toggle_current_line_blame)
-              map("n", "<leader>hd", gitsigns.diffthis)
-              map("n", "<leader>hD", function() gitsigns.diffthis("~") end)
-              map("n", "<leader>td", gitsigns.toggle_deleted)
+              map("n", "<leader>hs", gitsigns.stage_hunk,
+                { noremap = true, silent = true, desc = "gitsigns stage_hunk" })
+              map("n", "<leader>hr", gitsigns.reset_hunk,
+                { noremap = true, silent = true, desc = "gitsigns reset_hunk" })
+              map("v", "<leader>hs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end,
+                { noremap = true, silent = true, desc = "gitsigns stage_hunk" })
+              map("v", "<leader>hr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end,
+                { noremap = true, silent = true, desc = "gitsigns reset_hunk" })
+              map("n", "<leader>hS", gitsigns.stage_buffer,
+                { noremap = true, silent = true, desc = "gitsigns stage_buffer" })
+              map("n", "<leader>hu", gitsigns.undo_stage_hunk,
+                { noremap = true, silent = true, desc = "gitsigns undo_stage_hunk" })
+              map("n", "<leader>hR", gitsigns.reset_buffer,
+                { noremap = true, silent = true, desc = "gitsigns reset_buffer" })
+              map("n", "<leader>hp", gitsigns.preview_hunk,
+                { noremap = true, silent = true, desc = "gitsigns preview_hunk" })
+              map("n", "<leader>hb", function() gitsigns.blame_line { full = true } end,
+                { noremap = true, silent = true, desc = "gitsigns blame_line" })
+              map("n", "<leader>tb", gitsigns.toggle_current_line_blame,
+                { noremap = true, silent = true, desc = "gitsigns toggle_current_line_blame" })
+              map("n", "<leader>hd", gitsigns.diffthis,
+                { noremap = true, silent = true, desc = "gitsigns diffthis" })
+              map("n", "<leader>hD", function() gitsigns.diffthis("~") end,
+                { noremap = true, silent = true, desc = "gitsigns diffthis" })
+              map("n", "<leader>td", gitsigns.toggle_deleted,
+                { noremap = true, silent = true, desc = "gitsigns toggle_deleted" })
 
               -- Text object
               map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
@@ -622,6 +635,10 @@ else
           })
         end
       }
+
+      use "folke/which-key.nvim"
+
+      use { 'kevinhwang91/nvim-hlslens', config = function() require('hlslens').setup() end }
 
       use { "nvim-telescope/telescope.nvim", tag = "0.1.8", requires = { "nvim-lua/plenary.nvim" } }
 
@@ -840,6 +857,12 @@ else
     dapui.close()
   end
 
+  -----------------
+  --- which-key ---
+  -----------------
+  keyset("n", "<leader>?", function() require("which-key").show({ global = false }) end,
+    { noremap = true, silent = true, desc = "Buffer Local Keymaps (which-key)" })
+
 
   -----------------
   --- telescope ---
@@ -848,7 +871,6 @@ else
   keyset("n", "<C-p>", builtin.find_files, { noremap = true, silent = true, desc = "telescope find files" })
   keyset("n", "<leader>g", builtin.live_grep, { noremap = true, silent = true, desc = "telescope live grep" })
   keyset("n", "<leader>b", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
-  keyset("n", "<leader>k", builtin.keymaps, { noremap = true, silent = true, desc = "telescope keymaps" })
   -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
 
 
