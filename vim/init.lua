@@ -37,7 +37,7 @@ opt.laststatus = 2
 opt.cmdheight = 1
 opt.whichwrap = "b,s,<,>,[,]" -- wrapするカッコ一覧
 opt.list = true               -- 不可視文字の可視化
-opt.listchars:append({ tab = [[| ]], trail = "￭", extends = "❯", precedes = "❮" })
+opt.listchars:append({ space = "·", tab = [[▏ ]], trail = "￭", extends = "❯", precedes = "❮" })
 opt.ttimeout = nil
 opt.ttimeoutlen = 10
 opt.scrolloff = 10 -- 3行残して画面スクロールする
@@ -54,6 +54,13 @@ opt.tabstop = 2
 opt.shiftwidth = 2
 opt.conceallevel = 0
 opt.concealcursor = "nc"
+
+--- ufo ---
+opt.foldcolumn = '1' -- '0' is not bad
+opt.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevelstart = 99
+opt.foldenable = true
+opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 -----------------------------------------------------------------------------"
 -- Commands \ Modes | Normal | Insert | Command | Visual | Select | Operator |
@@ -265,10 +272,10 @@ else
     function(use)
       use "wbthomason/packer.nvim"
 
-      use({
+      use {
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
-      })
+      }
 
       use {
         "xiyaowong/transparent.nvim",
@@ -323,7 +330,7 @@ else
               -- "neorg",
               -- "noice",
               -- "nvim-cmp",
-              -- "nvim-navic",
+              -- "nvim-navic",ff
               -- "nvim-tree",
               "nvim-web-devicons",
               "rainbow-delimiters",
@@ -458,10 +465,14 @@ else
 
       use "mechatroner/rainbow_csv"
 
-      use { "lukas-reineke/indent-blankline.nvim",
+      use {
+        "lukas-reineke/indent-blankline.nvim",
         config = function()
           require("ibl").setup({
-            indent = { highlight = { "IndentLine" } },
+            indent = {
+              highlight = { "IndentLine" },
+              char = "▏",
+            },
             scope = { enabled = false },
           })
         end
@@ -650,6 +661,33 @@ else
         end
       }
 
+      use {
+        'kevinhwang91/nvim-ufo',
+        requires = 'kevinhwang91/promise-async',
+        config = function()
+          require("ufo").setup({
+            provider_selector = function()
+              return { "treesitter", "indent" }
+            end,
+          })
+        end
+      }
+
+      use {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+          local builtin = require("statuscol.builtin")
+          require("statuscol").setup({
+            relculright = true,
+            segments = {
+              { text = { "%s" },                   click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc, " " },  click = "v:lua.ScLa" },
+              { text = { builtin.foldfunc, "  " }, click = "v:lua.ScFa" },
+            },
+          })
+        end,
+      }
+
       use { "nvim-telescope/telescope.nvim", tag = "0.1.8", requires = { "nvim-lua/plenary.nvim" } }
 
       use { "neoclide/coc.nvim", branch = "release", require = { "fannheyward/coc-marketplace" } }
@@ -725,44 +763,50 @@ if g.vscode then
   -- VSCode keymap ---
   --------------------
   keyset("n", "gd", "<Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.revealDefinition" })
+    { silent = true, desc = "editor.action.revealDefinition" })
   keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.goToImplementation" })
+    { silent = true, desc = "editor.action.goToImplementation" })
   keyset("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.goToReferences" })
+    { silent = true, desc = "editor.action.goToReferences" })
   keyset("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.goToTypeDefinition" })
+    { silent = true, desc = "editor.action.goToTypeDefinition" })
   keyset("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.peekDefinition" })
+    { silent = true, desc = "editor.action.peekDefinition" })
   keyset("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.marker.next" })
+    { silent = true, desc = "editor.action.marker.next" })
   keyset("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.marker.previous" })
+    { silent = true, desc = "editor.action.marker.previous" })
+  keyset("n", "za", "<Cmd>call VSCodeNotify('editor.toggleFold')<CR>",
+    { silent = true, desc = "editor.toggleFold" })
+  keyset("n", "zr", "<Cmd>call VSCodeNotify('editor.unfoldAll')<CR>",
+    { silent = true, desc = "editor.unfoldAll" })
+  keyset("n", "zm", "<Cmd>call VSCodeNotify('editor.foldAll')<CR>",
+    { silent = true, desc = "editor.foldAll" })
 
   keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.rename" })
+    { silent = true, desc = "editor.action.rename" })
   keyset("n", "<leader>tr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>",
-    { noremap = true, silent = true, desc = "testing.runAtCursor" })
+    { silent = true, desc = "testing.runAtCursor" })
   keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.debugAtCursor')<CR>",
-    { noremap = true, silent = true, desc = "testing.debugAtCursor" })
+    { silent = true, desc = "testing.debugAtCursor" })
   keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.triggerSuggest" })
+    { silent = true, desc = "editor.action.triggerSuggest" })
   keyset("n", "<leader>a", "<Cmd>call VSCodeNotify('outline.focus')<CR>",
-    { noremap = true, silent = true, desc = "'outline.focus" })
+    { silent = true, desc = "'outline.focus" })
   keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>",
-    { noremap = true, silent = true, desc = "workbench.action.quickOpen" })
+    { silent = true, desc = "workbench.action.quickOpen" })
   keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>",
-    { noremap = true, silent = true, desc = "workbench.action.closePanel" })
+    { silent = true, desc = "workbench.action.closePanel" })
   keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>",
-    { noremap = true, silent = true, desc = "workbench.action.toggleSidebarVisibility" })
+    { silent = true, desc = "workbench.action.toggleSidebarVisibility" })
   keyset("n", "<leader>/",
     "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.organizeImports" })
+    { silent = true, desc = "editor.action.organizeImports" })
 
-  keyset("n", "<C-w><C-h>", "<nop>", { noremap = true })
-  keyset("n", "<C-w><C-j>", "<nop>", { noremap = true })
-  keyset("n", "<C-w><C-k>", "<nop>", { noremap = true })
-  keyset("n", "<C-w><C-l>", "<nop>", { noremap = true })
+  keyset("n", "<C-w><C-h>", "<nop>", { silent = true })
+  keyset("n", "<C-w><C-j>", "<nop>", { silent = true })
+  keyset("n", "<C-w><C-k>", "<nop>", { silent = true })
+  keyset("n", "<C-w><C-l>", "<nop>", { silent = true })
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
@@ -923,6 +967,16 @@ else
     { noremap = true, silent = true, desc = "Buffer Local Keymaps (which-key)" })
 
 
+  -----------
+  --- ufo ---
+  -----------
+  -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+  keyset('n', 'zR', require('ufo').openAllFolds)
+  keyset('n', 'zM', require('ufo').closeAllFolds)
+  keyset('n', 'zr', require('ufo').openFoldsExceptKinds)
+  keyset('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+
+
   -----------------
   --- telescope ---
   -----------------
@@ -1025,8 +1079,12 @@ else
 
   colorscheme("material")
 
-  hl(0, "CocMenuSel", { bg = "#404040" })
+  hl(0, "CocMenuSel", { bg = "#353535" })
   hl(0, "LineNr", { fg = "#505050" })
+  hl(0, "FoldColumn", { fg = "#808080" })
+  hl(0, "NonText", { fg = "#505050" })
+  hl(0, "SpecialKey", { fg = "#505050" })
+  hl(0, "WhiteSpace", { fg = "#404040" })
 
   -- hl(0, "Normal", { bg = "none" })
   -- hl(0, "NormalNC", { bg = "none" })
