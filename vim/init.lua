@@ -378,7 +378,7 @@ else
               local function map(mode, l, r, opts)
                 opts = opts or {}
                 opts.buffer = bufnr
-                vim.keymap.set(mode, l, r, opts)
+                keyset(mode, l, r, opts)
               end
 
               -- Navigation
@@ -723,6 +723,8 @@ else
   --- material ---
   ----------------
   -- g.material_style = "darker"
+  -- g.material_style = "palenight"
+  g.material_style = "oceanic"
 
 
   ------------------------
