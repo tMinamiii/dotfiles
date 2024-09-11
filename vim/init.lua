@@ -1,10 +1,12 @@
+local user_command = vim.api.nvim_create_user_command
+local colorscheme = vim.cmd.colorscheme
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-local user_command = vim.api.nvim_create_user_command
-local keyset = vim.keymap.set
 local command = vim.api.nvim_command
+local keyset = vim.keymap.set
 local opt = vim.opt
 local fn = vim.fn
+local hl = vim.api.nvim_set_hl
 local g = vim.g
 
 opt.encoding = "utf-8"
@@ -441,8 +443,14 @@ else
 
       use { "lukas-reineke/indent-blankline.nvim",
         config = function()
+          local hooks = require "ibl.hooks"
+          -- create the highlight groups in the highlight setup hook, so they are reset
+          -- every time the colorscheme changes
+          hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+            hl(0, "IndentLine", { fg = "#404040" })
+          end)
           require("ibl").setup({
-            indent = { highlight = { "LineNr" }, char = "│" },
+            indent = { highlight = { "IndentLine" } },
             scope = { enabled = false },
           })
         end }
@@ -904,11 +912,11 @@ else
     require("packer").sync()
   end
 
-  vim.cmd.colorscheme("material")
+  colorscheme("material")
 
-  vim.api.nvim_set_hl(0, "CocMenuSel", { bg = "#404040" })
-  vim.api.nvim_set_hl(0, "LineNr", { fg = "#505050" })
+  hl(0, "CocMenuSel", { bg = "#404040" })
+  hl(0, "LineNr", { fg = "#505050" })
 
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-  -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+  -- hl(0, "Normal", { bg = "none" })
+  -- hl(0, "NormalNC", { bg = "none" })
 end
