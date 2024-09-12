@@ -427,9 +427,9 @@ else
               map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "gitsigns preview_hunk" })
               map("n", "<leader>gb", function() gitsigns.blame_line { full = true } end, { desc = "gitsigns blame_line" })
               map("n", "<leader>gb", gitsigns.toggle_current_line_blame, { desc = "gitsigns toggle_current_line_blame" })
-              map("n", "<leader>gd", gitsigns.diffthis, { desc = "gitsigns diffthis" })
+              map("n", "<leader>gtb", gitsigns.diffthis, { desc = "gitsigns diffthis" })
               map("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "gitsigns diffthis" })
-              map("n", "<leader>gd", gitsigns.toggle_deleted, { desc = "gitsigns toggle_deleted" })
+              map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "gitsigns toggle_deleted" })
 
               -- Text object
               map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
@@ -1077,8 +1077,8 @@ else
   hl(0, "CocMenuSel", { bg = "#353535" })
   hl(0, "LineNr", { fg = "#505050" })
   hl(0, "FoldColumn", { fg = "#808080" })
-  hl(0, "NonText", { fg = "#505050" })
-  hl(0, "SpecialKey", { fg = "#505050" })
+  -- hl(0, "NonText", { fg = "#505050" })
+  -- hl(0, "SpecialKey", { fg = "#505050" })
   hl(0, "WhiteSpace", { fg = "#404040" })
   hl(0, "IndentBlankLine", { fg = "#383838" })
 
