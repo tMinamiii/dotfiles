@@ -685,6 +685,13 @@ else
 
       use "sindrets/diffview.nvim"
 
+      use {
+        'linrongbin16/gitlinker.nvim',
+        config = function()
+          require('gitlinker').setup()
+        end,
+      }
+
       use { "nvim-telescope/telescope.nvim", tag = "0.1.8", requires = { "nvim-lua/plenary.nvim" } }
 
       use { "neoclide/coc.nvim", branch = "release", require = { "fannheyward/coc-marketplace" } }
