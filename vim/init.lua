@@ -686,9 +686,10 @@ else
       use "sindrets/diffview.nvim"
 
       use {
-        'linrongbin16/gitlinker.nvim',
+        "linrongbin16/gitlinker.nvim",
+        requires = "nvim-lua/plenary.nvim",
         config = function()
-          require('gitlinker').setup()
+          require("gitlinker").setup()
         end,
       }
 
@@ -974,6 +975,24 @@ else
   keyset('n', 'zM', require('ufo').closeAllFolds)
   keyset('n', 'zr', require('ufo').openFoldsExceptKinds)
   keyset('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+
+
+  -----------------
+  --- gitlinker ---
+  -----------------
+  -- browse
+  keyset(
+    { "n", 'v' },
+    "<leader>gl",
+    "<cmd>GitLink<cr>",
+    { silent = true, noremap = true, desc = "Yank git permlink" }
+  )
+  keyset(
+    { "n", 'v' },
+    "<leader>gL",
+    "<cmd>GitLink!<cr>",
+    { silent = true, noremap = true, desc = "Open git permlink" }
+  )
 
 
   -----------------
