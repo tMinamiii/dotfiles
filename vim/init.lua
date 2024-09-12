@@ -404,7 +404,7 @@ else
                 else
                   gitsigns.nav_hunk("next")
                 end
-              end)
+              end, { desc = "gitsigns navigation hunk next" })
 
               map("n", "[c", function()
                 if vim.wo.diff then
@@ -412,7 +412,7 @@ else
                 else
                   gitsigns.nav_hunk("prev")
                 end
-              end)
+              end, { desc = "gitsigns navigation hunk prev" })
 
               -- Actions
               map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "gitsigns stage_hunk" })
@@ -432,7 +432,7 @@ else
               map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "gitsigns toggle_deleted" })
 
               -- Text object
-              map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+              map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "gitsigns select hunk" })
             end
           }
         end
