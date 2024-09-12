@@ -426,8 +426,8 @@ else
               map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "gitsigns reset_buffer" })
               map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "gitsigns preview_hunk" })
               map("n", "<leader>gb", function() gitsigns.blame_line { full = true } end, { desc = "gitsigns blame_line" })
-              map("n", "<leader>gb", gitsigns.toggle_current_line_blame, { desc = "gitsigns toggle_current_line_blame" })
-              map("n", "<leader>gtb", gitsigns.diffthis, { desc = "gitsigns diffthis" })
+              map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "gitsigns toggle_current_line_blame" })
+              map("n", "<leader>gd", gitsigns.diffthis, { desc = "gitsigns diffthis" })
               map("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "gitsigns diffthis" })
               map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "gitsigns toggle_deleted" })
 
