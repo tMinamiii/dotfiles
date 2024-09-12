@@ -393,7 +393,7 @@ else
                 opts = opts or {}
                 opts.buffer = bufnr
                 opts.noremap = true
-                opts.siletn = true
+                opts.silent = true
                 vim.keymap.set(mode, l, r, opts)
               end
 
