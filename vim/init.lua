@@ -392,6 +392,8 @@ else
               local function map(mode, l, r, opts)
                 opts = opts or {}
                 opts.buffer = bufnr
+                opts.noremap = true
+                opts.siletn = true
                 vim.keymap.set(mode, l, r, opts)
               end
 
@@ -413,32 +415,21 @@ else
               end)
 
               -- Actions
-              map("n", "<leader>hs", gitsigns.stage_hunk,
-                { noremap = true, silent = true, desc = "gitsigns stage_hunk" })
-              map("n", "<leader>hr", gitsigns.reset_hunk,
-                { noremap = true, silent = true, desc = "gitsigns reset_hunk" })
-              map("v", "<leader>hs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end,
-                { noremap = true, silent = true, desc = "gitsigns stage_hunk" })
-              map("v", "<leader>hr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end,
-                { noremap = true, silent = true, desc = "gitsigns reset_hunk" })
-              map("n", "<leader>hS", gitsigns.stage_buffer,
-                { noremap = true, silent = true, desc = "gitsigns stage_buffer" })
-              map("n", "<leader>hu", gitsigns.undo_stage_hunk,
-                { noremap = true, silent = true, desc = "gitsigns undo_stage_hunk" })
-              map("n", "<leader>hR", gitsigns.reset_buffer,
-                { noremap = true, silent = true, desc = "gitsigns reset_buffer" })
-              map("n", "<leader>hp", gitsigns.preview_hunk,
-                { noremap = true, silent = true, desc = "gitsigns preview_hunk" })
-              map("n", "<leader>hb", function() gitsigns.blame_line { full = true } end,
-                { noremap = true, silent = true, desc = "gitsigns blame_line" })
-              map("n", "<leader>tb", gitsigns.toggle_current_line_blame,
-                { noremap = true, silent = true, desc = "gitsigns toggle_current_line_blame" })
-              map("n", "<leader>hd", gitsigns.diffthis,
-                { noremap = true, silent = true, desc = "gitsigns diffthis" })
-              map("n", "<leader>hD", function() gitsigns.diffthis("~") end,
-                { noremap = true, silent = true, desc = "gitsigns diffthis" })
-              map("n", "<leader>td", gitsigns.toggle_deleted,
-                { noremap = true, silent = true, desc = "gitsigns toggle_deleted" })
+              map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "gitsigns stage_hunk" })
+              map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "gitsigns reset_hunk" })
+              map("v", "<leader>gs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end,
+                { desc = "gitsigns stage_hunk" })
+              map("v", "<leader>gr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end,
+                { desc = "gitsigns reset_hunk" })
+              map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "gitsigns stage_buffer" })
+              map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "gitsigns undo_stage_hunk" })
+              map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "gitsigns reset_buffer" })
+              map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "gitsigns preview_hunk" })
+              map("n", "<leader>gb", function() gitsigns.blame_line { full = true } end, { desc = "gitsigns blame_line" })
+              map("n", "<leader>gb", gitsigns.toggle_current_line_blame, { desc = "gitsigns toggle_current_line_blame" })
+              map("n", "<leader>gd", gitsigns.diffthis, { desc = "gitsigns diffthis" })
+              map("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "gitsigns diffthis" })
+              map("n", "<leader>gd", gitsigns.toggle_deleted, { desc = "gitsigns toggle_deleted" })
 
               -- Text object
               map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
@@ -983,8 +974,8 @@ else
   -----------------
   local builtin = require("telescope.builtin")
   keyset("n", "<C-p>", builtin.find_files, { noremap = true, silent = true, desc = "telescope find files" })
-  keyset("n", "<leader>g", builtin.live_grep, { noremap = true, silent = true, desc = "telescope live grep" })
-  keyset("n", "<leader>b", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
+  keyset("n", "<leader>p", builtin.live_grep, { noremap = true, silent = true, desc = "telescope live grep" })
+  -- keyset("n", "<leader>pb", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
   -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
 
 
@@ -1003,20 +994,21 @@ else
   keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
   -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
 
-  keyset("n", "gd", "<Plug>(coc-definition)", { silent = true, desc = "coc goto definition" })
-  keyset("n", "gi", "<Plug>(coc-implementation)", { silent = true, desc = "coc goto implementation" })
-  keyset("n", "gr", "<Plug>(coc-references)", { silent = true, desc = "coc goto references" })
-  keyset("n", "gt", "<Plug>(coc-type-definition)", { silent = true, desc = "coc goto type definition" })
-  keyset("n", "gp", "<Plug>(coc-peek-definition)", { silent = true, desc = "coc goto peek definition" })
-  keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true, desc = "coc goto prev diagnostic" })
-  keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true, desc = "coc goto next diagnostic" })
+  keyset("n", "gd", "<Plug>(coc-definition)", { noremap = true, silent = true, desc = "coc goto definition" })
+  keyset("n", "gi", "<Plug>(coc-implementation)", { noremap = true, silent = true, desc = "coc goto implementation" })
+  keyset("n", "gr", "<Plug>(coc-references)", { noremap = true, silent = true, desc = "coc goto references" })
+  keyset("n", "gt", "<Plug>(coc-type-definition)", { noremap = true, silent = true, desc = "coc goto type definition" })
+  keyset("n", "gp", "<Plug>(coc-peek-definition)", { noremap = true, silent = true, desc = "coc goto peek definition" })
+  keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { noremap = true, silent = true, desc = "coc goto prev diagnostic" })
+  keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { noremap = true, silent = true, desc = "coc goto next diagnostic" })
 
   -- Symbol renaming
-  keyset("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true, desc = "coc rename" })
-  keyset("n", "<F2>", "<Plug>(coc-rename)", { silent = true, desc = "coc rename" })
+  keyset("n", "<leader>rn", "<Plug>(coc-rename)", { noremap = true, silent = true, desc = "coc rename" })
+  keyset("n", "<F2>", "<Plug>(coc-rename)", { noremap = true, silent = true, desc = "coc rename" })
 
   -- Formatting
-  keyset({ "n", "x" }, "<leader>/", "<Cmd>call CocAction('format')<CR>", { silent = true, desc = "coc format" })
+  keyset({ "n", "x" }, "<leader>/", "<Cmd>call CocAction('format')<CR>",
+    { noremap = true, silent = true, desc = "coc format" })
   user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
 
   -- Use K to show documentation in preview window
@@ -1031,7 +1023,7 @@ else
     end
   end
 
-  keyset("n", "K", "<CMD>lua _G.show_docs()<CR>", { silent = true, desc = "coc hover" })
+  keyset("n", "K", "<CMD>lua _G.show_docs()<CR>", { noremap = true, silent = true, desc = "coc hover" })
 
   -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
   augroup("CocGroup", {})
