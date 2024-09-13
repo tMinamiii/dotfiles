@@ -126,6 +126,13 @@ keyset("n", "<C-c>", "<nop>", { noremap = true })
 -- easymotion
 -- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
 
+-- lazy.nvim
+keyset("n", "<Leader>li", ":Lazy install<CR>", { noremap = true, silent = true, desc = "lazy install" })
+keyset("n", "<Leader>lu", ":Lazy update<CR>", { noremap = true, silent = true, desc = "lazy update" })
+keyset("n", "<Leader>ls", ":Lazy sync<CR>", { noremap = true, silent = true, desc = "lazy sync" })
+keyset("n", "<Leader>lc", ":Lazy clean<CR>", { noremap = true, silent = true, desc = "lazy clean" })
+
+
 user_command("Q", ":q", {})
 user_command("W", ":w", {})
 user_command("Wq", ":wq", {})
