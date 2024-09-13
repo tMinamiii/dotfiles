@@ -82,6 +82,7 @@ g.netrw_sizestyle = "H"                   -- " サイズを(K,M,G)で表示す�
 g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
 g.netrw_preview = 1                       -- " プレビューウィンドウを垂直分割で表示する
 g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 keyset("n", "<F3>", ":noh<CR>", { noremap = true, silent = true })
 keyset("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
@@ -130,6 +131,10 @@ user_command("W", ":w", {})
 user_command("Wq", ":wq", {})
 user_command("WQ", ":wq", {})
 user_command("Term", ":bo terminal ++rows=20", {})
+user_command("Pi", ":Lazy install", {})
+user_command("Pu", ":Lazy update", {})
+user_command("Ps", ":Lazy sync", {})
+user_command("Pc", ":Lazy clean", {})
 
 augroup("filetypes", {})
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
@@ -172,456 +177,489 @@ if vim.fn.has("wsl") == 1 then
   }
 end
 
-local sep = vim.loop.os_uname().sysname == "Windows_NT" and [[\]] or [[/]]
-local function join(...)
-  return table.concat({ ... }, sep)
-end
-
-local home = os.getenv "HOME"
-local len = #home
-
-local homepath = ""
-local cachepath = ""
+local lazyroot = ""
 if g.vscode then
-  homepath = join(home, ".config", "packer.vscode-nvim")
-  cachepath = join(home, ".cache", "packer.vscode-nvim")
+  lazyroot = vim.fn.stdpath("data") .. "/lazy.vscode"
 else
-  homepath = join(home, ".config", "packer.nvim")
-  cachepath = join(home, ".cache", "packer.nvim")
+  lazyroot = vim.fn.stdpath("data") .. "/lazy"
 end
 
--- Add path locations for configuration
-local rtp = { homepath, cachepath }
-
--- Add paths that dont start with home.
-for _, p in ipairs(opt.runtimepath:get()) do
-  if p:sub(1, len) ~= home then
-    rtp[#rtp + 1] = p
+local lazypath = lazyroot .. "/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out,                            "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
   end
 end
-
-opt.runtimepath = rtp
-
--- Packer paths and files
-local pack_path = join(cachepath, "site")
-local package_root = join(pack_path, "pack")
-local compile_path = join(cachepath, "plugin", "packer_compiled.lua")
-g.loaded_remote_plugins = 1
-
-opt.packpath:prepend(pack_path)
-
-local packer_install_path = join(package_root, "packer", "start", "packer.nvim")
-
-local ensure_packer = function()
-  if vim.fn.empty(vim.fn.glob(packer_install_path)) > 0 then
-    vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", packer_install_path })
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
-end
-
-local packer_bootstrap = ensure_packer()
+vim.opt.rtp:prepend(lazypath)
 
 if g.vscode then
-  require("packer").startup {
-    function(use)
-      use "wbthomason/packer.nvim"
-
-      use {
-        "kylechui/nvim-surround",
-        tag = "*",
-        config = function()
-          require("nvim-surround").setup()
-        end
-      }
-
-      use "terryma/vim-expand-region"
-
-      use "machakann/vim-highlightedyank"
-
-      use "rhysd/clever-f.vim"
-
-      use "monaqa/dial.nvim"
-
-      use {
-        "smoka7/hop.nvim",
-        tag = "*", -- optional but strongly recommended
-        config = function()
-          -- you can configure Hop the way you like here; see :h hop-config
-          require "hop".setup { keys = "etovxqpdygfblzhckisuran" }
-        end
-      }
-
-      use {
-        "numToStr/Comment.nvim",
-        config = function()
-          require("Comment").setup()
-        end
-      }
-
-      use "vscode-neovim/vscode-multi-cursor.nvim"
-    end,
-    config = {
-      package_root = package_root,
-      compile_path = compile_path,
-    },
-  }
-else
-  require("packer").startup {
-    function(use)
-      use "wbthomason/packer.nvim"
-
-      use {
-        "iamcco/markdown-preview.nvim",
-        run = function() vim.fn["mkdp#util#install"]() end,
-      }
-
-      use {
-        "xiyaowong/transparent.nvim",
-        config = function()
-          require("transparent").setup({
-            extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" },
-          })
-        end
-      }
-
-      use {
-        "kylechui/nvim-surround",
-        tag = "*",
-        config = function()
-          require("nvim-surround").setup()
-        end
-      }
-
-      use 'Mofiqul/vscode.nvim'
-
-      use "EdenEast/nightfox.nvim"
-
-      use {
-        "marko-cerovac/material.nvim",
-
-        config = function()
-          require("material").setup({
-            contrast = {
-              terminal = true,            -- Enable contrast for the built-in terminal
-              sidebars = true,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-              floating_windows = true,    -- Enable contrast for floating windows
-              cursor_line = true,         -- Enable darker background for the cursor line
-              lsp_virtual_text = true,    -- Enable contrasted background for lsp virtual text
-              non_current_windows = true, -- Enable contrasted background for non-current windows
-              filetypes = {},             -- Specify which filetypes get the contrasted (darker) background
-            },
-            plugins = {                   -- Uncomment the plugins that you use to highlight them
-              -- Available plugins:
-              "coc",
-              -- "colorful-winsep",
-              "dap",
-              -- "dashboard",
-              -- "eyeliner",
-              -- "fidget",
-              -- "flash",
-              "gitsigns",
-              -- "harpoon",
-              "hop",
-              -- "illuminate",
-              -- "indent-blankline",
-              -- "lspsaga",
-              -- "mini",
-              -- "neogit",
-              "neotest",
-              "neo-tree",
-              -- "neorg",
-              -- "noice",
-              -- "nvim-cmp",
-              -- "nvim-navic",ff
-              -- "nvim-tree",
-              "nvim-web-devicons",
-              "rainbow-delimiters",
-              -- "sneak",
-              "telescope",
-              -- "trouble",
-              -- "which-key",
-              -- "nvim-notify",
-            },
-          })
-        end
-      }
-
-      use "terryma/vim-expand-region"
-
-      use "machakann/vim-highlightedyank"
-
-      use "rhysd/clever-f.vim"
-
-      use "monaqa/dial.nvim"
-
-      use {
-        "smoka7/hop.nvim",
-        tag = "*", -- optional but strongly recommended
-        config = function()
-          -- you can configure Hop the way you like here; see :h hop-config
-          require "hop".setup { keys = "etovxqpdygfblzhckisuran" }
-        end
-      }
-
-      use {
-        "numToStr/Comment.nvim",
-        config = function()
-          require("Comment").setup()
-        end
-      }
-
-      use "simeji/winresizer"
-
-      use "yorickpeterse/nvim-window"
-
-      use { "romgrk/barbar.nvim", requires = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim", opt = true } }
-
-      use "terryma/vim-multiple-cursors"
-
-      use "tpope/vim-fugitive"
-
-      use {
-        "lewis6991/gitsigns.nvim",
-        config = function()
-          require("gitsigns").setup {
-            on_attach = function(bufnr)
-              local gitsigns = require("gitsigns")
-
-              local function map(mode, l, r, opts)
-                opts = opts or {}
-                opts.buffer = bufnr
-                opts.noremap = true
-                opts.silent = true
-                vim.keymap.set(mode, l, r, opts)
-              end
-
-              -- Navigation
-              map("n", "]c", function()
-                if vim.wo.diff then
-                  vim.cmd.normal({ "]c", bang = true })
-                else
-                  gitsigns.nav_hunk("next")
-                end
-              end, { desc = "gitsigns navigation hunk next" })
-
-              map("n", "[c", function()
-                if vim.wo.diff then
-                  vim.cmd.normal({ "[c", bang = true })
-                else
-                  gitsigns.nav_hunk("prev")
-                end
-              end, { desc = "gitsigns navigation hunk prev" })
-
-              -- Actions
-              map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "gitsigns stage_hunk" })
-              map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "gitsigns reset_hunk" })
-              map("v", "<leader>gs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end,
-                { desc = "gitsigns stage_hunk" })
-              map("v", "<leader>gr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end,
-                { desc = "gitsigns reset_hunk" })
-              map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "gitsigns stage_buffer" })
-              map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "gitsigns undo_stage_hunk" })
-              map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "gitsigns reset_buffer" })
-              map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "gitsigns preview_hunk" })
-              map("n", "<leader>gb", function() gitsigns.blame_line { full = true } end, { desc = "gitsigns blame_line" })
-              map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "gitsigns toggle_current_line_blame" })
-              map("n", "<leader>gd", gitsigns.diffthis, { desc = "gitsigns diffthis" })
-              map("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "gitsigns diffthis" })
-              map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "gitsigns toggle_deleted" })
-
-              -- Text object
-              map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "gitsigns select hunk" })
-            end
-          }
-        end
-      }
-
-      use {
-        "nvim-lualine/lualine.nvim",
-        requires = {
-          "nvim-tree/nvim-web-devicons",
-          opt = true,
+  -- Setup lazy.nvim
+  require("lazy").setup({
+    root = lazyroot,
+    spec = {
+      { "kylechui/nvim-surround",       version = "*", opts = {} },
+      {
+        "terryma/vim-expand-region",
+        lazy = false,
+        keys = {
+          { "v",     "<Plug>(expand_region_expand)", mode = "v", noremap = true, silent = true, desc = "vim-expand-region expand" },
+          { "<C-v>", "<Plug>(expand_region_shrink)", mode = "v", noremap = true, silent = true, desc = "vim-expand-region shrink" },
+        }
+      },
+      { "machakann/vim-highlightedyank" },
+      { "rhysd/clever-f.vim" },
+      {
+        "monaqa/dial.nvim",
+        lazy = false,
+        keys = {
+          { "<C-a>",  function() require("dial.map").manipulate("increment", "normal") end,  mode = "n", noremap = true, silent = true },
+          { "<C-x>",  function() require("dial.map").manipulate("decrement", "normal") end,  mode = "n", noremap = true, silent = true },
+          { "g<C-a>", function() require("dial.map").manipulate("increment", "gnormal") end, mode = "n", noremap = true, silent = true },
+          { "g<C-x>", function() require("dial.map").manipulate("decrement", "gnormal") end, mode = "n", noremap = true, silent = true },
+          { "<C-a>",  function() require("dial.map").manipulate("increment", "visual") end,  mode = "v", noremap = true, silent = true },
+          { "<C-x>",  function() require("dial.map").manipulate("decrement", "visual") end,  mode = "v", noremap = true, silent = true },
+          { "g<C-a>", function() require("dial.map").manipulate("increment", "gvisual") end, mode = "v", noremap = true, silent = true },
+          { "g<C-x>", function() require("dial.map").manipulate("decrement", "gvisual") end, mode = "v", noremap = true, silent = true },
         },
         config = function()
-          ---------------
-          --- lualine ---
-          ---------------
-          require("lualine").setup({
-            options = {
-              component_separators = { left = "", right = "" },
-              section_separators = { left = "", right = "" },
+          local augend = require("dial.augend")
+          require("dial.config").augends:register_group {
+            -- default augends used when no group name is specified
+            default = {
+              augend.constant.alias.bool,    -- boolean value (true <-> false)
+              augend.semver.alias.semver,
+              augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
+              augend.integer.alias.decimal_int,
+              augend.integer.alias.hex,
             },
-          })
+          }
         end
+      },
 
-      }
+      { "numToStr/Comment.nvim", opts = {} },
+      {
+        "smoka7/hop.nvim",
+        lazy = false,
+        version = "*",
+        keys = {
+          {
+            "<Leader>f",
+            function()
+              require("hop").hint_char1({
+                direction = require("hop.hint").HintDirection
+                    .AFTER_CURSOR
+              })
+            end,
+            mode = "n",
+            noremap = true,
+            silent = true,
+            desc = "hop after"
+          },
+          {
+            "<Leader>F",
+            function()
+              require("hop").hint_char1({
+                direction = require("hop.hint").HintDirection
+                    .BEFORE_CURSOR
+              })
+            end,
+            mode = "n",
+            noremap = true,
+            silent = true,
+            desc = "hop before"
+          },
+        },
+        opts = { { keys = "etovxqpdygfblzhckisuran" } }
+      },
+      {
+        "vscode-neovim/vscode-multi-cursor.nvim",
+        opts = {
+          default_mappings = true,
+          no_selection = false
+        }
+      },
+    },
+    checker = { enabled = true },
+  })
+  --------------------
+  -- VSCode keymap ---
+  --------------------
+  keyset("n", "gd", "<Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.revealDefinition" })
+  keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.goToImplementation" })
+  keyset("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.goToReferences" })
+  keyset("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.goToTypeDefinition" })
+  keyset("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.peekDefinition" })
+  keyset("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.marker.next" })
+  keyset("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.marker.previous" })
+  keyset("n", "za", "<Cmd>call VSCodeNotify('editor.toggleFold')<CR>",
+    { noremap = true, silent = true, desc = "editor.toggleFold" })
+  keyset("n", "zr", "<Cmd>call VSCodeNotify('editor.unfoldAll')<CR>",
+    { noremap = true, silent = true, desc = "editor.unfoldAll" })
+  keyset("n", "zm", "<Cmd>call VSCodeNotify('editor.foldAll')<CR>",
+    { noremap = true, silent = true, desc = "editor.foldAll" })
 
-      use "mechatroner/rainbow_csv"
+  keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.rename" })
+  keyset("n", "<leader>tr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>",
+    { noremap = true, silent = true, desc = "testing.runAtCursor" })
+  keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.debugAtCursor')<CR>",
+    { noremap = true, silent = true, desc = "testing.debugAtCursor" })
+  keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.triggerSuggest" })
+  keyset("n", "<leader>a", "<Cmd>call VSCodeNotify('outline.focus')<CR>",
+    { noremap = true, silent = true, desc = "'outline.focus" })
+  keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>",
+    { noremap = true, silent = true, desc = "workbench.action.quickOpen" })
+  keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>",
+    { noremap = true, silent = true, desc = "workbench.action.closePanel" })
+  keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>",
+    { noremap = true, silent = true, desc = "workbench.action.toggleSidebarVisibility" })
+  keyset("n", "<leader>/",
+    "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>",
+    { noremap = true, silent = true, desc = "editor.action.organizeImports" })
 
-      use {
-        "lukas-reineke/indent-blankline.nvim",
+  keyset("n", "<C-w><C-h>", "<nop>", { noremap = true, silent = true })
+  keyset("n", "<C-w><C-j>", "<nop>", { noremap = true, silent = true })
+  keyset("n", "<C-w><C-k>", "<nop>", { noremap = true, silent = true })
+  keyset("n", "<C-w><C-l>", "<nop>", { noremap = true, silent = true })
+else
+  require("lazy").setup({
+    root = lazyroot,
+    install = { colorscheme = { "vscode" } },
+    spec = {
+      { "kylechui/nvim-surround",       version = "*", opts = {} },
+      { "terryma/vim-multiple-cursors" },
+      { "tpope/vim-fugitive" },
+      { "mechatroner/rainbow_csv" },
+      { "machakann/vim-highlightedyank" },
+      {
+        "terryma/vim-expand-region",
+        lazy = false,
+        keys = {
+          { "v",     "<Plug>(expand_region_expand)", mode = "v", noremap = true, silent = true, desc = "vim-expand-region expand" },
+          { "<C-v>", "<Plug>(expand_region_shrink)", mode = "v", noremap = true, silent = true, desc = "vim-expand-region shrink" },
+        }
+      },
+      { "rhysd/clever-f.vim" },
+      {
+        "monaqa/dial.nvim",
+        lazy = false,
+        keys = {
+          { "<C-a>",  function() require("dial.map").manipulate("increment", "normal") end,  mode = "n", noremap = true, silent = true },
+          { "<C-x>",  function() require("dial.map").manipulate("decrement", "normal") end,  mode = "n", noremap = true, silent = true },
+          { "g<C-a>", function() require("dial.map").manipulate("increment", "gnormal") end, mode = "n", noremap = true, silent = true },
+          { "g<C-x>", function() require("dial.map").manipulate("decrement", "gnormal") end, mode = "n", noremap = true, silent = true },
+          { "<C-a>",  function() require("dial.map").manipulate("increment", "visual") end,  mode = "v", noremap = true, silent = true },
+          { "<C-x>",  function() require("dial.map").manipulate("decrement", "visual") end,  mode = "v", noremap = true, silent = true },
+          { "g<C-a>", function() require("dial.map").manipulate("increment", "gvisual") end, mode = "v", noremap = true, silent = true },
+          { "g<C-x>", function() require("dial.map").manipulate("decrement", "gvisual") end, mode = "v", noremap = true, silent = true },
+        },
         config = function()
-          require("ibl").setup({
-            indent = {
-              highlight = { "IndentBlankLine" },
-              char = "▏",
+          local augend = require("dial.augend")
+          require("dial.config").augends:register_group {
+            -- default augends used when no group name is specified
+            default = {
+              augend.constant.alias.bool,    -- boolean value (true <-> false)
+              augend.semver.alias.semver,
+              augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
+              augend.integer.alias.decimal_int,
+              augend.integer.alias.hex,
             },
-            scope = { enabled = false },
-          })
+          }
         end
-      }
+      },
+      { "numToStr/Comment.nvim", opts = {} },
+      {
+        "smoka7/hop.nvim",
+        lazy = false,
+        version = "*",
+        keys = {
+          {
+            "<Leader>f",
+            function()
+              require("hop").hint_char1({
+                direction = require("hop.hint").HintDirection
+                    .AFTER_CURSOR
+              })
+            end,
+            mode = "n",
+            noremap = true,
+            silent = true,
+            desc = "hop after"
+          },
+          {
+            "<Leader>F",
+            function()
+              require("hop").hint_char1({
+                direction = require("hop.hint").HintDirection
+                    .BEFORE_CURSOR
+              })
+            end,
+            mode = "n",
+            noremap = true,
+            silent = true,
+            desc = "hop before"
+          },
+        },
+        opts = { { keys = "etovxqpdygfblzhckisuran" } }
+      },
+      { 'Mofiqul/vscode.nvim' },
+      {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        keys = {
+          { "<C-s>", "<Plug>MarkdownPreviewToggle", mode = "n", noremap = true, silent = true, desc = "markdown-preview toggle" }
+        },
+        build = function()
+          require("lazy").load({ plugins = { "markdown-preview.nvim" } })
+          vim.fn["mkdp#util#install"]()
+        end,
+      },
+      {
+        "xiyaowong/transparent.nvim",
+        opts = { extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" } }
+      },
+      { "simeji/winresizer" },
+      {
+        "yorickpeterse/nvim-window",
+        lazy = false,
+        keys = {
+          { "<Leader>w", function() require("nvim-window").pick() end, mode = "n", noremap = true, silent = true, desc = "nvim-window" }
+        }
+      },
+      {
+        "romgrk/barbar.nvim",
+        dependencies = {
+          'lewis6991/gitsigns.nvim',
+          'nvim-tree/nvim-web-devicons',
+        },
+      },
 
-      use { "nvim-treesitter/nvim-treesitter",
-        run = function()
+      {
+        "lewis6991/gitsigns.nvim",
+        opts = {
+          on_attach = function(bufnr)
+            local gitsigns = require("gitsigns")
+
+            local function map(mode, l, r, opts)
+              opts = opts or {}
+              opts.buffer = bufnr
+              opts.noremap = true
+              opts.silent = true
+              vim.keymap.set(mode, l, r, opts)
+            end
+
+            -- Navigation
+            map("n", "]c", function()
+              if vim.wo.diff then
+                vim.cmd.normal({ "]c", bang = true })
+              else
+                gitsigns.nav_hunk("next")
+              end
+            end, { desc = "gitsigns navigation hunk next" })
+
+            map("n", "[c", function()
+              if vim.wo.diff then
+                vim.cmd.normal({ "[c", bang = true })
+              else
+                gitsigns.nav_hunk("prev")
+              end
+            end, { desc = "gitsigns navigation hunk prev" })
+
+            -- Actions
+            map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "gitsigns stage_hunk" })
+            map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "gitsigns reset_hunk" })
+            map("v", "<leader>gs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end,
+              { desc = "gitsigns stage_hunk" })
+            map("v", "<leader>gr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end,
+              { desc = "gitsigns reset_hunk" })
+            map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "gitsigns stage_buffer" })
+            map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "gitsigns undo_stage_hunk" })
+            map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "gitsigns reset_buffer" })
+            map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "gitsigns preview_hunk" })
+            map("n", "<leader>gb", function() gitsigns.blame_line { full = true } end, { desc = "gitsigns blame_line" })
+            map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "gitsigns toggle_current_line_blame" })
+            map("n", "<leader>gd", gitsigns.diffthis, { desc = "gitsigns diffthis" })
+            map("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "gitsigns diffthis" })
+            map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "gitsigns toggle_deleted" })
+
+            -- Text object
+            map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "gitsigns select hunk" })
+          end
+        },
+      },
+      {
+        "nvim-lualine/lualine.nvim",
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        opts = {
+          options = {
+            component_separators = { left = "", right = "" },
+            section_separators = { left = "", right = "" },
+          },
+        }
+      },
+      {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
+        config = function()
+          require("ibl").setup(
+            {
+              indent = {
+                highlight = { "WhiteSpace" },
+                char = "▏",
+              },
+              scope = { enabled = false },
+            })
+        end
+      },
+      {
+        "nvim-treesitter/nvim-treesitter",
+        build = function()
           local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
           ts_update()
         end,
-        config = function()
-          require("nvim-treesitter.configs").setup {
-            -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-            ensure_installed = {
-              "c",
-              "dockerfile",
-              "gitignore",
-              "go",
-              "javascript",
-              "json",
-              "lua",
-              "make",
-              "markdown",
-              "markdown_inline",
-              "python",
-              "sql",
-              "tsx",
-              "typescript",
-              "vim",
-              "vimdoc",
-              "xml",
-              "yaml",
-            },
-
-            -- Install parsers synchronously (only applied to `ensure_installed`)
-            sync_install = false,
-
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-            auto_install = true,
-
-            ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-            -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-            highlight = {
-              enable = true,
-
-              -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-              disable = function(lang, buf)
-                local max_filesize = 100 * 1024 -- 100 KB
-                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                if ok and stats and stats.size > max_filesize then
-                  return true
-                end
-              end,
-
-              -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-              -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-              -- Using this option may slow down your editor, and you may see some duplicate highlights.
-              -- Instead of true it can also be a list of languages
-              additional_vim_regex_highlighting = false,
-            },
-          }
-        end
-      }
-
-      use {
+        opts = {
+          -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+          ensure_installed = {
+            "c",
+            "dockerfile",
+            "gitignore",
+            "go",
+            "javascript",
+            "json",
+            "lua",
+            "make",
+            "markdown",
+            "markdown_inline",
+            "python",
+            "sql",
+            "tsx",
+            "typescript",
+            "vim",
+            "vimdoc",
+            "xml",
+            "yaml",
+          },
+        }
+      },
+      {
         "nvim-neo-tree/neo-tree.nvim",
+        lazy = false,
         branch = "v3.x",
-        requires = {
+        dependencies = {
           "nvim-lua/plenary.nvim",
           "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
           "MunifTanjim/nui.nvim",
           -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         },
-        config = function()
-          require("neo-tree").setup({
-            window = {
-              mappings = {
-                ["l"] = "open",
-              }
+        keys = {
+          { "<leader>n", ":Neotree toggle<CR>",        mode = "n", noremap = true, silent = true, desc = "neo-tree toggle" },
+          { "<leader>h", ":Neotree toggle reveal<CR>", mode = "n", noremap = true, silent = true, desc = "neo-tree toggle reveal" },
+        },
+        opts = {
+          window = {
+            mappings = {
+              ["l"] = "open",
             }
-          })
-        end
-      }
-
-      use {
+          }
+        }
+      },
+      {
         "stevearc/aerial.nvim",
-        config = function()
-          require("aerial").setup({
-            layout = {
-              max_width = { 60, 0.3 },
-              min_width = 40,
-            },
-          })
-        end,
-      }
-
-      use {
+        lazy = false,
+        dependencies = {
+          "nvim-treesitter/nvim-treesitter",
+          "nvim-tree/nvim-web-devicons"
+        },
+        keys = {
+          { "<leader>a", "<cmd>AerialToggle!<CR>", mode = "n", noremap = true, silent = true, desc = "aerial toggle" }
+        },
+        opts = {
+          layout = {
+            max_width = { 60, 0.3 },
+            min_width = 40,
+          },
+        }
+      },
+      {
         "akinsho/toggleterm.nvim",
-        tag = '*',
-        config = function()
-          require("toggleterm").setup({
-            open_mapping = [[<c-t>]],
-          })
-        end
-      }
-
-      use {
+        lazy = false,
+        version = '*',
+        keys = {
+          { "<Esc><Esc>", "<C-\\><C-n>", mode = "t", noremap = true, silent = true, desc = "terminal leave insert mode" }
+        },
+        opts = { open_mapping = [[<c-t>]], }
+      },
+      {
         "rcarriga/nvim-dap-ui",
-        requires = {
+        dependencies = {
           "mfussenegger/nvim-dap",
           "nvim-neotest/nvim-nio",
           "leoluz/nvim-dap-go",
           "mxsdev/nvim-dap-vscode-js",
         },
-        config = function()
-          require("dapui").setup({
-            layouts = {
-              {
-                elements = {
-                  { id = "scopes",      size = 0.25 },
-                  { id = "breakpoints", size = 0.25 },
-                  { id = "stacks",      size = 0.25 },
-                  { id = "watches",     size = 0.25 }
-                },
-                position = "left",
-                size = 60
+        opts = {
+          layouts = {
+            {
+              elements = {
+                { id = "scopes",      size = 0.25 },
+                { id = "breakpoints", size = 0.25 },
+                { id = "stacks",      size = 0.25 },
+                { id = "watches",     size = 0.25 }
               },
-              {
-                elements = {
-                  { id = "repl",    size = 0.5 },
-                  { id = "console", size = 0.5 }
-                },
-                position = "bottom",
-                size = 15
-              }
+              position = "left",
+              size = 60
             },
-          })
-        end
-      }
+            {
+              elements = {
+                { id = "repl",    size = 0.5 },
+                { id = "console", size = 0.5 }
+              },
+              position = "bottom",
+              size = 15
+            }
+          },
+        }
+      },
 
-      use {
+      {
         "nvim-neotest/neotest",
-        requires = {
+        lazy = false,
+        dependencies = {
           "nvim-neotest/nvim-nio",
           "nvim-lua/plenary.nvim",
           "antoinemadec/FixCursorHold.nvim",
-          "nvim-treesitter/nvim-treesitter",
           "fredrikaverpil/neotest-golang",
           "thenbe/neotest-playwright",
-          "nvim-telescope/telescope.nvim",
           "nvim-neotest/neotest-jest",
           "marilari88/neotest-vitest",
+        },
+        keys = {
+          { "<leader>tr", function() require("neotest").run.run() end,                     mode = "n", noremap = true, silent = true, desc = "run test at cursor" },
+          { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,   mode = "n", noremap = true, silent = true, desc = "run test file" },
+          { "<leader>tp", function() neotest.output_panel.toggle() end,                    mode = "n", noremap = true, silent = true, desc = "neotest toggle output pannel" },
+          { "<leader>to", function() neotest.output.open({ enter = true }) end,            mode = "n", noremap = true, silent = true, desc = "neotest open output" },
+          { "<leader>dr", function() require("neotest").run.run({ strategy = "dap" }) end, mode = "n", noremap = true, silent = true, desc = "neotest run debug" },
+          { "<leader>db", function() require("dap").toggle_breakpoint() end,               mode = "n", noremap = true, silent = true, desc = "dap toggle breakpoint" },
+          { "<leader>du", function() require("dapui").toggle() end,                        mode = "n", noremap = true, silent = true, desc = "dap toggle nvim-dap-ui" },
         },
         config = function()
           require("neotest").setup({
@@ -645,31 +683,34 @@ else
             }
           })
         end
-      }
-
-      use { "folke/which-key.nvim" }
-
-      use {
-        "petertriho/nvim-scrollbar",
-        config = function()
-          require("scrollbar").setup()
-        end
-      }
-
-      use {
-        'kevinhwang91/nvim-ufo',
-        requires = 'kevinhwang91/promise-async',
-        config = function()
-          require("ufo").setup({
-            provider_selector = function()
-              return { "treesitter", "indent" }
-            end,
-          })
-        end
-      }
-
-      use {
+      },
+      {
+        "folke/which-key.nvim",
+        lazy = false,
+        keys = {
+          { "<leader>?", function() require("which-key").show({ global = false }) end, mode = "n", noremap = true, silent = true, desc = "Buffer Local Keymaps (which-key)" }
+        }
+      },
+      { "petertriho/nvim-scrollbar", opts = {} },
+      {
+        "kevinhwang91/nvim-ufo",
+        lazy = false,
+        dependencies = { "kevinhwang91/promise-async" },
+        keys = {
+          { "zR", function() require("ufo").openAllFolds() end,         mode = "n", noremap = true, silent = true, desc = "open all folds" },
+          { "zM", function() require("ufo").closeAllFolds() end,        mode = "n", noremap = true, silent = true, desc = "close all folds" },
+          { "zr", function() require("ufo").openFoldsExceptKinds() end, mode = "n", noremap = true, silent = true, desc = "open folds except kinds" },
+          { "zm", function() require("ufo").closeFoldsWith() end,       mode = "n", noremap = true, silent = true, desc = "close folds with" },
+        },
+        opts = {
+          provider_selector = function()
+            return { "treesitter", "indent" }
+          end,
+        }
+      },
+      {
         "luukvbaal/statuscol.nvim",
+        lazy = false,
         config = function()
           local builtin = require("statuscol.builtin")
           require("statuscol").setup({
@@ -680,217 +721,79 @@ else
               { text = { builtin.foldfunc, "  " }, click = "v:lua.ScFa" },
             },
           })
-        end,
-      }
-
-      use "sindrets/diffview.nvim"
-
-      use {
+        end
+      },
+      { "sindrets/diffview.nvim" },
+      {
         "linrongbin16/gitlinker.nvim",
-        requires = "nvim-lua/plenary.nvim",
-        config = function()
-          require("gitlinker").setup()
-        end,
-      }
-
-      use { "nvim-telescope/telescope.nvim", tag = "0.1.8", requires = { "nvim-lua/plenary.nvim" } }
-
-      use { "neoclide/coc.nvim", branch = "release", require = { "fannheyward/coc-marketplace" } }
-    end,
-    config = {
-      package_root = package_root,
-      compile_path = compile_path,
+        lazy = false,
+        keys = {
+          { "<leader>gl", "<cmd>GitLink<cr>",  mode = { "n", "v" }, silent = true, noremap = true, desc = "Yank git permlink" },
+          { "<leader>gL", "<cmd>GitLink!<cr>", mode = { "n", 'v' }, silent = true, noremap = true, desc = "Open git permlink" },
+        },
+        opts = {}
+      },
+      {
+        "nvim-telescope/telescope.nvim",
+        lazy = false,
+        keys = {
+          { "<C-p>",     function() require("telescope.builtin").find_files() end, mode = "n", noremap = true, silent = true, desc = "telescope find files" },
+          { "<leader>p", function() require("telescope.builtin").live_grep() end,  mode = "n", noremap = true, silent = true, desc = "telescope live grep" },
+          -- keyset("n", "<leader>pb", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
+          -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
+        },
+        dependencies = { "nvim-lua/plenary.nvim" },
+        version = "0.1.8"
+      },
+      {
+        "neoclide/coc.nvim",
+        lazy = false,
+        dependencies = { "fannheyward/coc-marketplace" },
+        keys = {
+          { "<TAB>",      "coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? '<TAB>' : coc#refresh()", mode = "i",          noremap = true, silent = true, expr = true,                      replace_keycodes = false },
+          { "<S-TAB>",    [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]],                                         mode = "i",          noremap = true, silent = true, expr = true,                      replace_keycodes = false },
+          { "<cr>",       [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],       mode = "i",          noremap = true, silent = true, expr = true,                      replace_keycodes = false },
+          -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
+          { "gd",         "<Plug>(coc-definition)",                                                                   mode = "n",          noremap = true, silent = true, desc = "coc goto definition" },
+          { "gi",         "<Plug>(coc-implementation)",                                                               mode = "n",          noremap = true, silent = true, desc = "coc goto implementa,tion" },
+          { "gr",         "<Plug>(coc-references)",                                                                   mode = "n",          noremap = true, silent = true, desc = "coc goto references" },
+          { "gt",         "<Plug>(coc-type-definition)",                                                              mode = "n",          noremap = true, silent = true, desc = "coc goto type definition" },
+          { "gp",         "<Plug>(coc-peek-definition)",                                                              mode = "n",          noremap = true, silent = true, desc = "coc goto peek definition" },
+          { "[g",         "<Plug>(coc-diagnostic-prev)",                                                              mode = "n",          noremap = true, silent = true, desc = "coc goto prev diagnostic" },
+          { "]g",         "<Plug>(coc-diagnostic-next)",                                                              mode = "n",          noremap = true, silent = true, desc = "coc goto next diagnostic" },
+          { "<leader>rn", "<Plug>(coc-rename)",                                                                       mode = "n",          noremap = true, silent = true, desc = "coc rename" },
+          { "<F2>",       "<Plug>(coc-rename)",                                                                       mode = "n",          noremap = true, silent = true, desc = "coc rename" },
+          { "<leader>/",  "<Cmd>call CocAction('format')<CR>",                                                        mode = { "n", "x" }, noremap = true, silent = true, desc = "coc format" },
+          {
+            "K",
+            function()
+              local cw = vim.fn.expand("<cword>")
+              if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+                command("h " .. cw)
+              elseif vim.api.nvim_eval("coc#rpc#ready()") then
+                vim.fn.CocActionAsync("doHover")
+              else
+                command("!" .. vim.o.keywordprg .. " " .. cw)
+              end
+            end,
+            mode = "n",
+            noremap = true,
+            silent = true,
+            desc = "coc hover"
+          },
+        },
+        branch = "release",
+      },
     },
-  }
+    checker = { enabled = true },
+  })
 end
 
-if g.vscode then
-  -------------------------
-  --- vim-expand-region ---
-  -------------------------
-  keyset("v", "v", "<Plug>(expand_region_expand)",
-    { noremap = true, silent = true, desc = "vim-expand-region expand" })
-  keyset("v", "<C-v>", "<Plug>(expand_region_shrink)",
-    { noremap = true, silent = true, desc = "vim-expand-region shrink" })
-
-
-  ------------
-  --- dial ---
-  ------------
-  keyset("n", "<C-a>", function() require("dial.map").manipulate("increment", "normal") end)
-  keyset("n", "<C-x>", function() require("dial.map").manipulate("decrement", "normal") end)
-  keyset("n", "g<C-a>", function() require("dial.map").manipulate("increment", "gnormal") end)
-  keyset("n", "g<C-x>", function() require("dial.map").manipulate("decrement", "gnormal") end)
-  keyset("v", "<C-a>", function() require("dial.map").manipulate("increment", "visual") end)
-  keyset("v", "<C-x>", function() require("dial.map").manipulate("decrement", "visual") end)
-  keyset("v", "g<C-a>", function() require("dial.map").manipulate("increment", "gvisual") end)
-  keyset("v", "g<C-x>", function() require("dial.map").manipulate("decrement", "gvisual") end)
-  local augend = require("dial.augend")
-  require("dial.config").augends:register_group {
-    -- default augends used when no group name is specified
-    default = {
-      augend.constant.alias.bool,    -- boolean value (true <-> false)
-      augend.semver.alias.semver,
-      augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
-      augend.integer.alias.decimal_int,
-      augend.integer.alias.hex,
-    },
-  }
-
-
-  -----------
-  --- hop ---
-  -----------
-  local hop = require("hop")
-  local directions = require("hop.hint").HintDirection
-
-  keyset("n", "<Leader>f", function()
-    hop.hint_char1({ direction = directions.AFTER_CURSOR })
-  end, { noremap = true, silent = true, desc = "hop after" })
-
-  keyset("n", "<Leader>F", function()
-    hop.hint_char1({ direction = directions.BEFORE_CURSOR })
-  end, { noremap = true, silent = true, desc = "hop before" })
-
-
-  ---------------------------
-  --- vscode-multi-cursor ---
-  ---------------------------
-  require("vscode-multi-cursor").setup { -- Config is optional
-    -- Whether to set default mappings
-    default_mappings = true,
-    -- If set to true, only multiple cursors will be created without multiple selections
-    no_selection = false
-  }
-
-
-  --------------------
-  -- VSCode keymap ---
-  --------------------
-  keyset("n", "gd", "<Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>",
-    { silent = true, desc = "editor.action.revealDefinition" })
-  keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>",
-    { silent = true, desc = "editor.action.goToImplementation" })
-  keyset("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>",
-    { silent = true, desc = "editor.action.goToReferences" })
-  keyset("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>",
-    { silent = true, desc = "editor.action.goToTypeDefinition" })
-  keyset("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>",
-    { silent = true, desc = "editor.action.peekDefinition" })
-  keyset("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>",
-    { silent = true, desc = "editor.action.marker.next" })
-  keyset("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>",
-    { silent = true, desc = "editor.action.marker.previous" })
-  keyset("n", "za", "<Cmd>call VSCodeNotify('editor.toggleFold')<CR>",
-    { silent = true, desc = "editor.toggleFold" })
-  keyset("n", "zr", "<Cmd>call VSCodeNotify('editor.unfoldAll')<CR>",
-    { silent = true, desc = "editor.unfoldAll" })
-  keyset("n", "zm", "<Cmd>call VSCodeNotify('editor.foldAll')<CR>",
-    { silent = true, desc = "editor.foldAll" })
-
-  keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>",
-    { silent = true, desc = "editor.action.rename" })
-  keyset("n", "<leader>tr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>",
-    { silent = true, desc = "testing.runAtCursor" })
-  keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.debugAtCursor')<CR>",
-    { silent = true, desc = "testing.debugAtCursor" })
-  keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>",
-    { silent = true, desc = "editor.action.triggerSuggest" })
-  keyset("n", "<leader>a", "<Cmd>call VSCodeNotify('outline.focus')<CR>",
-    { silent = true, desc = "'outline.focus" })
-  keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>",
-    { silent = true, desc = "workbench.action.quickOpen" })
-  keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>",
-    { silent = true, desc = "workbench.action.closePanel" })
-  keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>",
-    { silent = true, desc = "workbench.action.toggleSidebarVisibility" })
-  keyset("n", "<leader>/",
-    "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>",
-    { silent = true, desc = "editor.action.organizeImports" })
-
-  keyset("n", "<C-w><C-h>", "<nop>", { silent = true })
-  keyset("n", "<C-w><C-j>", "<nop>", { silent = true })
-  keyset("n", "<C-w><C-k>", "<nop>", { silent = true })
-  keyset("n", "<C-w><C-l>", "<nop>", { silent = true })
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require("packer").sync()
-  end
-else
-  ----------------
-  --- material ---
-  ----------------
-  -- g.material_style = "darker"
-  -- g.material_style = "palenight"
-  g.material_style = "oceanic"
-
-
-  ------------------------
-  --- markdown-preview ---
-  ------------------------
-  keyset("n", "<C-s>", "<Plug>MarkdownPreviewToggle", { noremap = true, silent = true, desc = "markdown-preview toggle" })
-
-
+if not g.vscode then
   -------------------
   --- transparent ---
   -------------------
   g.transparent_enabled = true
-
-
-  -------------------------
-  --- vim-expand-region ---
-  -------------------------
-  keyset("v", "v", "<Plug>(expand_region_expand)",
-    { noremap = true, silent = true, desc = "vim-expand-region expand" })
-  keyset("v", "<C-v>", "<Plug>(expand_region_shrink)",
-    { noremap = true, silent = true, desc = "vim-expand-region shrink" })
-
-
-  ------------
-  --- dial ---
-  ------------
-  keyset("n", "<C-a>", function() require("dial.map").manipulate("increment", "normal") end)
-  keyset("n", "<C-x>", function() require("dial.map").manipulate("decrement", "normal") end)
-  keyset("n", "g<C-a>", function() require("dial.map").manipulate("increment", "gnormal") end)
-  keyset("n", "g<C-x>", function() require("dial.map").manipulate("decrement", "gnormal") end)
-  keyset("v", "<C-a>", function() require("dial.map").manipulate("increment", "visual") end)
-  keyset("v", "<C-x>", function() require("dial.map").manipulate("decrement", "visual") end)
-  keyset("v", "g<C-a>", function() require("dial.map").manipulate("increment", "gvisual") end)
-  keyset("v", "g<C-x>", function() require("dial.map").manipulate("decrement", "gvisual") end)
-  local augend = require("dial.augend")
-  require("dial.config").augends:register_group {
-    -- default augends used when no group name is specified
-    default = {
-      augend.constant.alias.bool,    -- boolean value (true <-> false)
-      augend.semver.alias.semver,
-      augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
-      augend.integer.alias.decimal_int,
-      augend.integer.alias.hex,
-    },
-  }
-
-
-  ----------
-  --- hop --
-  ----------
-  local hop = require("hop")
-  local directions = require("hop.hint").HintDirection
-
-  keyset("n", "<Leader>f", function()
-    hop.hint_char1({ direction = directions.AFTER_CURSOR })
-  end, { noremap = true, silent = true, desc = "hop after" })
-
-  keyset("n", "<Leader>F", function()
-    hop.hint_char1({ direction = directions.BEFORE_CURSOR })
-  end, { noremap = true, silent = true, desc = "hop before" })
-
-
-  -------------------
-  --- nvim-window ---
-  -------------------
-  keyset("n", "<Leader>w", function() require("nvim-window").pick() end,
-    { noremap = true, silent = true, desc = "nvim-window" })
 
 
   -------------------
@@ -904,49 +807,10 @@ else
 
 
   ---------------
-  --- neotree ---
-  ---------------
-  keyset("n", "<leader>n", ":Neotree toggle<CR>", { noremap = true, silent = true, desc = "neo-tree toggle" })
-  keyset("n", "<leader>h", ":Neotree toggle reveal<CR>",
-    { noremap = true, silent = true, desc = "neo-tree toggle reveal" })
-
-
-  --------------
-  --- aerial ---
-  --------------
-  keyset("n", "<leader>a", "<cmd>AerialToggle!<CR>", { noremap = true, silent = true, desc = "aerial toggle" })
-
-
-  ------------------
-  --- toggleterm ---
-  ------------------
-  keyset("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "terminal leave insert mode" })
-
-
-  ---------------
   --- neotest ---
   ---------------
-  local neotest = require('neotest')
-  keyset("n", "<leader>tr", function() neotest.run.run() end,
-    { noremap = true, silent = true, desc = "run test at cursor" })
-  keyset("n", "<leader>tf", function() neotest.run.run(vim.fn.expand("%")) end,
-    { noremap = true, silent = true, desc = "run test file" })
-
-
-  keyset("n", "<leader>tp", function() neotest.output_panel.toggle() end,
-    { noremap = true, silent = true, desc = "neotest toggle output pannel" })
-  keyset("n", "<leader>to", function() neotest.output.open({ enter = true }) end,
-    { noremap = true, silent = true, desc = "neotest open output" })
-
   local dap, dapui = require("dap"), require("dapui")
   vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
-  keyset("n", "<leader>dr", function() neotest.run.run({ strategy = "dap" }) end,
-    { noremap = true, silent = true, desc = "neotest run debug" })
-  keyset("n", "<leader>db", function() dap.toggle_breakpoint() end,
-    { noremap = true, silent = true, desc = "dap toggle breakpoint" })
-  keyset("n", "<leader>du", function() dapui.toggle() end,
-    { noremap = true, silent = true, desc = "dap toggle nvim-dap-ui" })
-
   dap.listeners.before.attach.dapui_config = function()
     dapui.open()
   end
@@ -960,97 +824,17 @@ else
     dapui.close()
   end
 
-  -----------------
-  --- which-key ---
-  -----------------
-  keyset("n", "<leader>?", function() require("which-key").show({ global = false }) end,
-    { noremap = true, silent = true, desc = "Buffer Local Keymaps (which-key)" })
-
-
-  -----------
-  --- ufo ---
-  -----------
-  -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-  keyset('n', 'zR', require('ufo').openAllFolds)
-  keyset('n', 'zM', require('ufo').closeAllFolds)
-  keyset('n', 'zr', require('ufo').openFoldsExceptKinds)
-  keyset('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
-
-
-  -----------------
-  --- gitlinker ---
-  -----------------
-  -- browse
-  keyset(
-    { "n", 'v' },
-    "<leader>gl",
-    "<cmd>GitLink<cr>",
-    { silent = true, noremap = true, desc = "Yank git permlink" }
-  )
-  keyset(
-    { "n", 'v' },
-    "<leader>gL",
-    "<cmd>GitLink!<cr>",
-    { silent = true, noremap = true, desc = "Open git permlink" }
-  )
-
-
-  -----------------
-  --- telescope ---
-  -----------------
-  local builtin = require("telescope.builtin")
-  keyset("n", "<C-p>", builtin.find_files, { noremap = true, silent = true, desc = "telescope find files" })
-  keyset("n", "<leader>p", builtin.live_grep, { noremap = true, silent = true, desc = "telescope live grep" })
-  -- keyset("n", "<leader>pb", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
-  -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
-
 
   -----------
   --- coc ---
   -----------
-  -- Autocomplete
+  -- Autocomplete for tab keyset
   function _G.check_back_space()
     local col = vim.fn.col(".") - 1
     return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
   end
 
-  local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
-  keyset("i", "<TAB>", "coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? '<TAB>' : coc#refresh()", opts)
-  keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
-  keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
-  -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
-
-  keyset("n", "gd", "<Plug>(coc-definition)", { noremap = true, silent = true, desc = "coc goto definition" })
-  keyset("n", "gi", "<Plug>(coc-implementation)", { noremap = true, silent = true, desc = "coc goto implementation" })
-  keyset("n", "gr", "<Plug>(coc-references)", { noremap = true, silent = true, desc = "coc goto references" })
-  keyset("n", "gt", "<Plug>(coc-type-definition)", { noremap = true, silent = true, desc = "coc goto type definition" })
-  keyset("n", "gp", "<Plug>(coc-peek-definition)", { noremap = true, silent = true, desc = "coc goto peek definition" })
-  keyset("n", "[g", "<Plug>(coc-diagnostic-prev)", { noremap = true, silent = true, desc = "coc goto prev diagnostic" })
-  keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { noremap = true, silent = true, desc = "coc goto next diagnostic" })
-
-  -- Symbol renaming
-  keyset("n", "<leader>rn", "<Plug>(coc-rename)", { noremap = true, silent = true, desc = "coc rename" })
-  keyset("n", "<F2>", "<Plug>(coc-rename)", { noremap = true, silent = true, desc = "coc rename" })
-
-  -- Formatting
-  keyset({ "n", "x" }, "<leader>/", "<Cmd>call CocAction('format')<CR>",
-    { noremap = true, silent = true, desc = "coc format" })
   user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
-
-  -- Use K to show documentation in preview window
-  function _G.show_docs()
-    local cw = vim.fn.expand("<cword>")
-    if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
-      command("h " .. cw)
-    elseif vim.api.nvim_eval("coc#rpc#ready()") then
-      vim.fn.CocActionAsync("doHover")
-    else
-      command("!" .. vim.o.keywordprg .. " " .. cw)
-    end
-  end
-
-  keyset("n", "K", "<CMD>lua _G.show_docs()<CR>", { noremap = true, silent = true, desc = "coc hover" })
-
   -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
   augroup("CocGroup", {})
   autocmd("CursorHold", {
@@ -1089,25 +873,10 @@ else
     pattern = "*.go",
     command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
   })
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require("packer").sync()
-  end
-
-  -- colorscheme("material")
-  -- colorscheme("nightfox")
   colorscheme("vscode")
 
   hl(0, "CocMenuSel", { bg = "#353535" })
   hl(0, "LineNr", { fg = "#505050" })
   hl(0, "FoldColumn", { fg = "#808080" })
-  -- hl(0, "NonText", { fg = "#505050" })
-  -- hl(0, "SpecialKey", { fg = "#505050" })
-  hl(0, "WhiteSpace", { fg = "#404040" })
-  hl(0, "IndentBlankLine", { fg = "#383838" })
-
-  -- hl(0, "Normal", { bg = "none" })
-  -- hl(0, "NormalNC", { bg = "none" })
+  hl(0, "WhiteSpace", { fg = "#383838" })
 end
