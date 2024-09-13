@@ -347,7 +347,6 @@ if g.vscode then
 else
   require("lazy").setup({
     root = lazyroot,
-    install = { colorscheme = { "vscode" } },
     spec = {
       { "kylechui/nvim-surround",       version = "*", opts = {} },
       { "terryma/vim-multiple-cursors" },
@@ -425,7 +424,7 @@ else
         },
         opts = { { keys = "etovxqpdygfblzhckisuran" } }
       },
-      { 'Mofiqul/vscode.nvim' },
+      { 'marko-cerovac/material.nvim' },
       {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -880,7 +879,7 @@ if not g.vscode then
     pattern = "*.go",
     command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
   })
-  colorscheme("vscode")
+  colorscheme("material")
 
   hl(0, "CocMenuSel", { bg = "#353535" })
   hl(0, "LineNr", { fg = "#505050" })
