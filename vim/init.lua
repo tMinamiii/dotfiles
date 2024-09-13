@@ -537,36 +537,51 @@ else
             })
         end
       },
-      { "fatih/vim-go" },
       {
         "nvim-treesitter/nvim-treesitter",
         build = function()
           local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
           ts_update()
         end,
-        opts = {
-          -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-          ensure_installed = {
-            "c",
-            "dockerfile",
-            "gitignore",
-            "go",
-            "javascript",
-            "json",
-            "lua",
-            "make",
-            "markdown",
-            "markdown_inline",
-            "python",
-            "sql",
-            "tsx",
-            "typescript",
-            "vim",
-            "vimdoc",
-            "xml",
-            "yaml",
-          },
-        }
+        config = function()
+          require("nvim-treesitter.configs").setup({
+            -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+            ensure_installed = {
+              "c",
+              "dockerfile",
+              "gitignore",
+              "go",
+              "javascript",
+              "json",
+              "lua",
+              "make",
+              "markdown",
+              "markdown_inline",
+              "python",
+              "sql",
+              "tsx",
+              "typescript",
+              "vim",
+              "vimdoc",
+              "xml",
+              "yaml",
+            },
+            sync_install = true,
+            auto_install = true,
+            ignore_install = {},
+            highlight = {
+              enable = true,
+              disable = function(lang, buf)
+                local max_filesize = 100 * 1024 -- 100 KB
+                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_filesize then
+                  return true
+                end
+              end,
+              additional_vim_regex_highlighting = false,
+            },
+          })
+        end
       },
       {
         "nvim-neo-tree/neo-tree.nvim",
@@ -831,46 +846,6 @@ if not g.vscode then
   dap.listeners.before.event_exited.dapui_config = function()
     dapui.close()
   end
-
-  --------------
-  --- vim-go ---
-  --------------
-  g.go_highlight_array_whitespace_error = 1
-  g.go_highlight_build_constraints = 1
-  g.go_highlight_chan_whitespace_error = 1
-  g.go_highlight_diagnostic_errors = 1
-  g.go_highlight_diagnostic_warnings = 1
-  g.go_highlight_extra_types = 1
-  g.go_highlight_fields = 1
-  g.go_highlight_format_strings = 1
-  g.go_highlight_function_calls = 1
-  g.go_highlight_function_parameters = 1
-  g.go_highlight_functions = 1
-  g.go_highlight_generate_tags = 1
-  g.go_highlight_operators = 1
-  g.go_highlight_space_tab_error = 1
-  g.go_highlight_string_spellcheck = 1
-  g.go_highlight_trailing_whitespace_error = 1
-  g.go_highlight_types = 1
-  g.go_highlight_variable_assignments = 1
-  g.go_highlight_variable_declarations = 1
-
-  g.go_code_completion_enabled = 0
-  g.go_def_mapping_enabled = 0
-  g.go_diagnostics_enabled = 0
-  g.go_doc_keywordprg_enabled = 0
-  g.go_echo_command_info = 0
-  g.go_echo_go_info = 0
-  g.go_fmt_autosave = 0
-  g.go_gocode_propose_builtins = 0
-  g.go_gopls_enabled = 0
-  g.go_imports_autosave = 0
-  g.go_jump_to_error = 0
-  g.go_metalinter_autosave = 0
-  g.go_textobj_enabled = 0
-  g.go_term_enabled = 0
-  g.go_term_height = 15
-  g.go_term_mode = 'on | belowright split'
 
 
   -----------

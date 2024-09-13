@@ -21,6 +21,7 @@ if IsMacOS; then
       htop \
       jq \
       lua \
+      luarocks \
       luajit \
       neovim \
       openssl \
@@ -83,6 +84,7 @@ elif IsUbuntu; then
         libyaml-dev \
         llvm \
         lua5.2 \
+        luarocks \
         luajit \
         make \
         ncurses-term \
