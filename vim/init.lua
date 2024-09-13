@@ -348,10 +348,19 @@ else
   require("lazy").setup({
     root = lazyroot,
     spec = {
-      { "kylechui/nvim-surround",       version = "*", opts = {} },
+      { "kylechui/nvim-surround",      version = "*", opts = {} },
       { "terryma/vim-multiple-cursors" },
       { "tpope/vim-fugitive" },
-      { "mechatroner/rainbow_csv" },
+      {
+        "mechatroner/rainbow_csv",
+        init = function()
+          g.rainbow_active = 0
+          g.rainbow_conf = {
+            guifgs = { "darkorange2", "orchid3", "seagreen3" },
+            separately = { nerdtree = 0 }
+          }
+        end
+      },
       { "machakann/vim-highlightedyank" },
       {
         "terryma/vim-expand-region",
@@ -389,7 +398,7 @@ else
           }
         end
       },
-      { "numToStr/Comment.nvim", opts = {} },
+      { "numToStr/Comment.nvim",      opts = {} },
       {
         "smoka7/hop.nvim",
         lazy = false,
@@ -440,7 +449,10 @@ else
       },
       {
         "xiyaowong/transparent.nvim",
-        opts = { extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" } }
+        opts = { extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" } },
+        init = function()
+          g.transparent_enabled = true
+        end
       },
       { "simeji/winresizer" },
       {
@@ -457,7 +469,6 @@ else
           'nvim-tree/nvim-web-devicons',
         },
       },
-
       {
         "lewis6991/gitsigns.nvim",
         opts = {
@@ -639,6 +650,22 @@ else
           "leoluz/nvim-dap-go",
           "mxsdev/nvim-dap-vscode-js",
         },
+        init = function()
+          local dap, dapui = require("dap"), require("dapui")
+          vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+          dap.listeners.before.attach.dapui_config = function()
+            dapui.open()
+          end
+          dap.listeners.before.launch.dapui_config = function()
+            dapui.open()
+          end
+          dap.listeners.before.event_terminated.dapui_config = function()
+            dapui.close()
+          end
+          dap.listeners.before.event_exited.dapui_config = function()
+            dapui.close()
+          end
+        end,
         opts = {
           layouts = {
             {
@@ -806,6 +833,53 @@ else
           },
         },
         branch = "release",
+        init = function()
+          -- Autocomplete for tab keyset
+          function _G.check_back_space()
+            local col = vim.fn.col(".") - 1
+            return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+          end
+
+          user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
+          -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
+          augroup("CocGroup", {})
+          autocmd("CursorHold", {
+            group = "CocGroup",
+            command = "silent call CocActionAsync('highlight')",
+            desc = "Highlight symbol under cursor on CursorHold"
+          })
+
+          g.coc_global_extensions = {
+            "coc-clangd",
+            "coc-deno",
+            "coc-docker",
+            "coc-eslint",
+            "coc-git",
+            "coc-html",
+            "coc-json",
+            "coc-lua",
+            "coc-markdownlint",
+            "coc-marketplace",
+            "coc-pairs",
+            "coc-prettier",
+            "coc-pyright",
+            "coc-rust-analyzer",
+            "coc-sh",
+            "coc-sql",
+            "coc-tailwindcss",
+            "coc-toml",
+            "coc-tsserver",
+            "coc-vimlsp",
+            "coc-xml",
+            "coc-yaml",
+          }
+
+          -- autocmd BufWritePre *.go :call CocAction("runCommand", "editor.action.organizeImport")
+          autocmd("BufWritePre", {
+            pattern = "*.go",
+            command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
+          })
+        end
       },
     },
     checker = { enabled = true },
@@ -813,90 +887,6 @@ else
 end
 
 if not g.vscode then
-  -------------------
-  --- transparent ---
-  -------------------
-  g.transparent_enabled = true
-
-
-  -------------------
-  --- rainbow_csv ---
-  -------------------
-  g.rainbow_active = 0
-  g.rainbow_conf = {
-    guifgs = { "darkorange2", "orchid3", "seagreen3" },
-    separately = { nerdtree = 0 }
-  }
-
-
-  ---------------
-  --- neotest ---
-  ---------------
-  local dap, dapui = require("dap"), require("dapui")
-  vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
-  dap.listeners.before.attach.dapui_config = function()
-    dapui.open()
-  end
-  dap.listeners.before.launch.dapui_config = function()
-    dapui.open()
-  end
-  dap.listeners.before.event_terminated.dapui_config = function()
-    dapui.close()
-  end
-  dap.listeners.before.event_exited.dapui_config = function()
-    dapui.close()
-  end
-
-
-  -----------
-  --- coc ---
-  -----------
-  -- Autocomplete for tab keyset
-  function _G.check_back_space()
-    local col = vim.fn.col(".") - 1
-    return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
-  end
-
-  user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
-  -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
-  augroup("CocGroup", {})
-  autocmd("CursorHold", {
-    group = "CocGroup",
-    command = "silent call CocActionAsync('highlight')",
-    desc = "Highlight symbol under cursor on CursorHold"
-  })
-
-  g.coc_global_extensions = {
-    "coc-clangd",
-    "coc-deno",
-    "coc-docker",
-    "coc-eslint",
-    "coc-git",
-    "coc-html",
-    "coc-json",
-    "coc-lua",
-    "coc-markdownlint",
-    "coc-marketplace",
-    "coc-pairs",
-    "coc-prettier",
-    "coc-pyright",
-    "coc-rust-analyzer",
-    "coc-sh",
-    "coc-sql",
-    "coc-tailwindcss",
-    "coc-toml",
-    "coc-tsserver",
-    "coc-vimlsp",
-    "coc-xml",
-    "coc-yaml",
-  }
-
-  -- autocmd BufWritePre *.go :call CocAction("runCommand", "editor.action.organizeImport")
-  autocmd("BufWritePre", {
-    pattern = "*.go",
-    command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
-  })
-
   -- colorscheme("material")
   colorscheme("vscode")
 
