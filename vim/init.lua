@@ -425,6 +425,7 @@ else
         opts = { { keys = "etovxqpdygfblzhckisuran" } }
       },
       { 'marko-cerovac/material.nvim' },
+      { 'Mofiqul/vscode.nvim' },
       {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -536,6 +537,7 @@ else
             })
         end
       },
+      { "fatih/vim-go" },
       {
         "nvim-treesitter/nvim-treesitter",
         build = function()
@@ -830,6 +832,38 @@ if not g.vscode then
     dapui.close()
   end
 
+  --------------
+  --- vim-go ---
+  --------------
+  g.go_highlight_methods = 1
+  g.go_highlight_structs = 1
+  g.go_highlight_operators = 1
+  g.go_highlight_functions = 1
+  g.go_highlight_function_parameters = 1
+  g.go_highlight_function_arguments = 1
+  g.go_highlight_function_calls = 1
+  g.go_highlight_types = 1
+  g.go_highlight_fields = 1
+  g.go_highlight_variable_declarations = 1
+  g.go_highlight_variable_assignments = 1
+
+  g.go_code_completion_enabled = 0
+  g.go_def_mapping_enabled = 0
+  g.go_diagnostics_enabled = 0
+  g.go_doc_keywordprg_enabled = 0
+  g.go_echo_command_info = 0
+  g.go_echo_go_info = 0
+  g.go_fmt_autosave = 0
+  g.go_gocode_propose_builtins = 0
+  g.go_gopls_enabled = 0
+  g.go_imports_autosave = 0
+  g.go_jump_to_error = 0
+  g.go_metalinter_autosave = 0
+  g.go_textobj_enabled = 0
+  g.go_term_enabled = 0
+  g.go_term_height = 15
+  g.go_term_mode = 'on | belowright split'
+
 
   -----------
   --- coc ---
@@ -879,7 +913,9 @@ if not g.vscode then
     pattern = "*.go",
     command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
   })
-  colorscheme("material")
+
+  -- colorscheme("material")
+  colorscheme("vscode")
 
   hl(0, "CocMenuSel", { bg = "#353535" })
   hl(0, "LineNr", { fg = "#505050" })
