@@ -728,7 +728,11 @@ else
                 end,
               }),
               require("neotest-vitest"),
-            }
+            },
+            output = {
+              enabled = true,
+              open_on_run = true
+            },
           })
         end
       },
