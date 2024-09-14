@@ -136,13 +136,14 @@ keyset("n", "<Leader>lc", ":Lazy clean<CR>", { noremap = true, silent = true, de
 
 user_command("Q", ":q", {})
 user_command("W", ":w", {})
+user_command("X", ":x", {})
 user_command("Wq", ":x", {})
 user_command("WQ", ":x", {})
 user_command("Term", ":bo terminal ++rows=20", {})
-user_command("Pi", ":Lazy install", {})
-user_command("Pu", ":Lazy update", {})
-user_command("Ps", ":Lazy sync", {})
-user_command("Pc", ":Lazy clean", {})
+user_command("Li", ":Lazy install", {})
+user_command("Lu", ":Lazy update", {})
+user_command("Ls", ":Lazy sync", {})
+user_command("Lc", ":Lazy clean", {})
 
 augroup("filetypes", {})
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
