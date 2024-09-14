@@ -125,9 +125,6 @@ keyset("n", "<C-c>", "<nop>", { noremap = true })
 -- keyset("n", "<C-[>", "<nop>", { noremap = true })
 -- keyset("n", "<Esc>", "<nop>", { noremap = true })
 
--- easymotion
--- vim.keymap.set("n", "<Leader>", "<Plug>(easymotion-prefix)", { noremap = true, silent = true })
-
 -- lazy.nvim
 keyset("n", "<Leader>li", ":Lazy install<CR>", { noremap = true, silent = true, desc = "lazy install" })
 keyset("n", "<Leader>lu", ":Lazy update<CR>", { noremap = true, silent = true, desc = "lazy update" })
@@ -449,13 +446,13 @@ else
           vim.fn["mkdp#util#install"]()
         end,
       },
-      {
-        "xiyaowong/transparent.nvim",
-        opts = { extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" }, exclude_groups = { "CursorLine" } },
-        init = function()
-          g.transparent_enabled = true
-        end
-      },
+      -- {
+      --   "xiyaowong/transparent.nvim",
+      --   opts = { extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" }, exclude_groups = { "CursorLine" } },
+      --   init = function()
+      --     g.transparent_enabled = true
+      --   end
+      -- },
       { "simeji/winresizer" },
       {
         "yorickpeterse/nvim-window",
@@ -482,7 +479,7 @@ else
               opts.buffer = bufnr
               opts.noremap = true
               opts.silent = true
-              vim.keymap.set(mode, l, r, opts)
+              keyset(mode, l, r, opts)
             end
 
             -- Navigation
@@ -821,6 +818,17 @@ else
             background_colour = "#000000",
           })
         end
+      },
+      {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+          require("colorizer").setup()
+        end
+      },
+      {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {}
       },
       {
         "nvim-telescope/telescope.nvim",
