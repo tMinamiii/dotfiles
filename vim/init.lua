@@ -11,6 +11,7 @@ local g = vim.g
 opt.encoding = "utf-8"
 opt.completeopt:append({ "noselect" })
 
+opt.cursorline = true
 opt.ignorecase = true -- 大文字小文字を区別しない
 opt.smartcase = true  -- 検索文字に大文字がある場合は大文字小文字を区別
 opt.incsearch = true  -- インクリメンタルサーチ
@@ -40,7 +41,7 @@ opt.list = true               -- 不可視文字の可視化
 opt.listchars:append({ space = "·", tab = [[▏ ]], trail = "￭", extends = "❯", precedes = "❮" })
 opt.ttimeout = nil
 opt.ttimeoutlen = 10
-opt.scrolloff = 10 -- 3行残して画面スクロールする
+opt.scrolloff = 15 -- 15行残して画面スクロールする
 opt.shell = "zsh"
 opt.ttyfast = true
 opt.ambiwidth = "single"
@@ -448,7 +449,7 @@ else
       },
       {
         "xiyaowong/transparent.nvim",
-        opts = { extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" } },
+        opts = { extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" }, exclude_groups = { "CursorLine" } },
         init = function()
           g.transparent_enabled = true
         end
@@ -705,6 +706,7 @@ else
           { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,   mode = "n", noremap = true, silent = true, desc = "run test file" },
           { "<leader>tp", function() require("neotest").output_panel.toggle() end,         mode = "n", noremap = true, silent = true, desc = "neotest toggle output pannel" },
           { "<leader>to", function() require("neotest").output.open({ enter = true }) end, mode = "n", noremap = true, silent = true, desc = "neotest open output" },
+          { "<leader>ts", function() require("neotest").summary.toggle() end,              mode = "n", noremap = true, silent = true, desc = "neotest toggle summary" },
           { "<leader>dr", function() require("neotest").run.run({ strategy = "dap" }) end, mode = "n", noremap = true, silent = true, desc = "neotest run debug" },
           { "<leader>db", function() require("dap").toggle_breakpoint() end,               mode = "n", noremap = true, silent = true, desc = "dap toggle breakpoint" },
           { "<leader>du", function() require("dapui").toggle() end,                        mode = "n", noremap = true, silent = true, desc = "dap toggle nvim-dap-ui" },
@@ -920,4 +922,5 @@ if not g.vscode then
   hl(0, "LineNr", { fg = "#505050" })
   hl(0, "FoldColumn", { fg = "#808080" })
   hl(0, "WhiteSpace", { fg = "#383838" })
+  hl(0, "CursorLine", { bg = "#383838" })
 end
