@@ -408,8 +408,7 @@ else
             "<Leader>f",
             function()
               require("hop").hint_char1({
-                direction = require("hop.hint").HintDirection
-                    .AFTER_CURSOR
+                direction = require("hop.hint").HintDirection.AFTER_CURSOR
               })
             end,
             mode = "n",
@@ -421,8 +420,7 @@ else
             "<Leader>F",
             function()
               require("hop").hint_char1({
-                direction = require("hop.hint").HintDirection
-                    .BEFORE_CURSOR
+                direction = require("hop.hint").HintDirection.BEFORE_CURSOR
               })
             end,
             mode = "n",
@@ -705,8 +703,8 @@ else
         keys = {
           { "<leader>tr", function() require("neotest").run.run() end,                     mode = "n", noremap = true, silent = true, desc = "run test at cursor" },
           { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end,   mode = "n", noremap = true, silent = true, desc = "run test file" },
-          { "<leader>tp", function() neotest.output_panel.toggle() end,                    mode = "n", noremap = true, silent = true, desc = "neotest toggle output pannel" },
-          { "<leader>to", function() neotest.output.open({ enter = true }) end,            mode = "n", noremap = true, silent = true, desc = "neotest open output" },
+          { "<leader>tp", function() require("neotest").output_panel.toggle() end,         mode = "n", noremap = true, silent = true, desc = "neotest toggle output pannel" },
+          { "<leader>to", function() require("neotest").output.open({ enter = true }) end, mode = "n", noremap = true, silent = true, desc = "neotest open output" },
           { "<leader>dr", function() require("neotest").run.run({ strategy = "dap" }) end, mode = "n", noremap = true, silent = true, desc = "neotest run debug" },
           { "<leader>db", function() require("dap").toggle_breakpoint() end,               mode = "n", noremap = true, silent = true, desc = "dap toggle breakpoint" },
           { "<leader>du", function() require("dapui").toggle() end,                        mode = "n", noremap = true, silent = true, desc = "dap toggle nvim-dap-ui" },
@@ -800,20 +798,44 @@ else
         lazy = false,
         dependencies = { "fannheyward/coc-marketplace" },
         keys = {
-          { "<TAB>",      "coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? '<TAB>' : coc#refresh()", mode = "i",          noremap = true, silent = true, expr = true,                      replace_keycodes = false },
-          { "<S-TAB>",    [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]],                                         mode = "i",          noremap = true, silent = true, expr = true,                      replace_keycodes = false },
-          { "<cr>",       [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],       mode = "i",          noremap = true, silent = true, expr = true,                      replace_keycodes = false },
+          {
+            "<TAB>",
+            "coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? '<TAB>' : coc#refresh()",
+            mode = "i",
+            noremap = true,
+            silent = true,
+            expr = true,
+            replace_keycodes = false
+          },
+          {
+            "<S-TAB>",
+            [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]],
+            mode = "i",
+            noremap = true,
+            silent = true,
+            expr = true,
+            replace_keycodes = false
+          },
+          {
+            "<cr>",
+            [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+            mode = "i",
+            noremap = true,
+            silent = true,
+            expr = true,
+            replace_keycodes = false
+          },
           -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
-          { "gd",         "<Plug>(coc-definition)",                                                                   mode = "n",          noremap = true, silent = true, desc = "coc goto definition" },
-          { "gi",         "<Plug>(coc-implementation)",                                                               mode = "n",          noremap = true, silent = true, desc = "coc goto implementa,tion" },
-          { "gr",         "<Plug>(coc-references)",                                                                   mode = "n",          noremap = true, silent = true, desc = "coc goto references" },
-          { "gt",         "<Plug>(coc-type-definition)",                                                              mode = "n",          noremap = true, silent = true, desc = "coc goto type definition" },
-          { "gp",         "<Plug>(coc-peek-definition)",                                                              mode = "n",          noremap = true, silent = true, desc = "coc goto peek definition" },
-          { "[g",         "<Plug>(coc-diagnostic-prev)",                                                              mode = "n",          noremap = true, silent = true, desc = "coc goto prev diagnostic" },
-          { "]g",         "<Plug>(coc-diagnostic-next)",                                                              mode = "n",          noremap = true, silent = true, desc = "coc goto next diagnostic" },
-          { "<leader>rn", "<Plug>(coc-rename)",                                                                       mode = "n",          noremap = true, silent = true, desc = "coc rename" },
-          { "<F2>",       "<Plug>(coc-rename)",                                                                       mode = "n",          noremap = true, silent = true, desc = "coc rename" },
-          { "<leader>/",  "<Cmd>call CocAction('format')<CR>",                                                        mode = { "n", "x" }, noremap = true, silent = true, desc = "coc format" },
+          { "gd",         "<Plug>(coc-definition)",            mode = "n",          noremap = true, silent = true, desc = "coc goto definition" },
+          { "gi",         "<Plug>(coc-implementation)",        mode = "n",          noremap = true, silent = true, desc = "coc goto implementa,tion" },
+          { "gr",         "<Plug>(coc-references)",            mode = "n",          noremap = true, silent = true, desc = "coc goto references" },
+          { "gt",         "<Plug>(coc-type-definition)",       mode = "n",          noremap = true, silent = true, desc = "coc goto type definition" },
+          { "gp",         "<Plug>(coc-peek-definition)",       mode = "n",          noremap = true, silent = true, desc = "coc goto peek definition" },
+          { "[g",         "<Plug>(coc-diagnostic-prev)",       mode = "n",          noremap = true, silent = true, desc = "coc goto prev diagnostic" },
+          { "]g",         "<Plug>(coc-diagnostic-next)",       mode = "n",          noremap = true, silent = true, desc = "coc goto next diagnostic" },
+          { "<leader>rn", "<Plug>(coc-rename)",                mode = "n",          noremap = true, silent = true, desc = "coc rename" },
+          { "<F2>",       "<Plug>(coc-rename)",                mode = "n",          noremap = true, silent = true, desc = "coc rename" },
+          { "<leader>/",  "<Cmd>call CocAction('format')<CR>", mode = { "n", "x" }, noremap = true, silent = true, desc = "coc format" },
           {
             "K",
             function()
