@@ -19,7 +19,7 @@
       }
     }
   },
-  "inlayHint.enable": true,
+  "inlayHint.enable": false,
   "inlayHint.display": true,
   "inlayHint.position": "inline",
   "inlayHint.enableParameter": true,

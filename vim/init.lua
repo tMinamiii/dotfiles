@@ -478,7 +478,10 @@ else
         "lewis6991/gitsigns.nvim",
         opts = {
           on_attach = function(bufnr)
-            local gitsigns = require("gitsigns")
+            local gs = require("gitsigns")
+            local ln = vim.fn.line
+            local normal = vim.cmd.normal
+
             ---@param mode string | string[]
             ---@param l string
             ---@param r string | function
@@ -494,36 +497,34 @@ else
             -- Navigation
             map("n", "]c", function()
               if vim.wo.diff then
-                vim.cmd.normal({ "]c", bang = true })
+                normal({ "]c", bang = true })
               else
-                gitsigns.nav_hunk("next")
+                gs.nav_hunk("next")
               end
             end, { desc = "gitsigns navigation hunk next" })
 
             map("n", "[c", function()
               if vim.wo.diff then
-                vim.cmd.normal({ "[c", bang = true })
+                normal({ "[c", bang = true })
               else
-                gitsigns.nav_hunk("prev")
+                gs.nav_hunk("prev")
               end
             end, { desc = "gitsigns navigation hunk prev" })
 
             -- Actions
-            map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "gitsigns stage_hunk" })
-            map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "gitsigns reset_hunk" })
-            map("v", "<leader>gs", function() gitsigns.stage_hunk { vim.fn.line("."), vim.fn.line("v") } end,
-              { desc = "gitsigns stage_hunk" })
-            map("v", "<leader>gr", function() gitsigns.reset_hunk { vim.fn.line("."), vim.fn.line("v") } end,
-              { desc = "gitsigns reset_hunk" })
-            map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "gitsigns stage_buffer" })
-            map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "gitsigns undo_stage_hunk" })
-            map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "gitsigns reset_buffer" })
-            map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "gitsigns preview_hunk" })
-            map("n", "<leader>gb", function() gitsigns.blame_line { full = true } end, { desc = "gitsigns blame_line" })
-            map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "gitsigns toggle_current_line_blame" })
-            map("n", "<leader>gd", gitsigns.diffthis, { desc = "gitsigns diffthis" })
-            map("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "gitsigns diffthis" })
-            map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "gitsigns toggle_deleted" })
+            map("n", "<leader>gs", gs.stage_hunk, { desc = "gitsigns stage_hunk" })
+            map("n", "<leader>gr", gs.reset_hunk, { desc = "gitsigns reset_hunk" })
+            map("v", "<leader>gs", function() gs.stage_hunk { ln("."), ln("v") } end, { desc = "gitsigns stage_hunk" })
+            map("v", "<leader>gr", function() gs.reset_hunk { ln("."), ln("v") } end, { desc = "gitsigns reset_hunk" })
+            map("n", "<leader>gS", gs.stage_buffer, { desc = "gitsigns stage_buffer" })
+            map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "gitsigns undo_stage_hunk" })
+            map("n", "<leader>gR", gs.reset_buffer, { desc = "gitsigns reset_buffer" })
+            map("n", "<leader>gp", gs.preview_hunk, { desc = "gitsigns preview_hunk" })
+            map("n", "<leader>gb", function() gs.blame_line { full = true } end, { desc = "gitsigns blame_line" })
+            map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "gitsigns toggle_current_line_blame" })
+            map("n", "<leader>gd", gs.diffthis, { desc = "gitsigns diffthis" })
+            map("n", "<leader>gD", function() gs.diffthis("~") end, { desc = "gitsigns diffthis" })
+            map("n", "<leader>gtd", gs.toggle_deleted, { desc = "gitsigns toggle_deleted" })
 
             -- Text object
             map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "gitsigns select hunk" })
