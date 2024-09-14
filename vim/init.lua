@@ -299,10 +299,16 @@ if g.vscode then
   --------------------
   -- VSCode keymap ---
   --------------------
+
+  ---@param mode string | string[]
+  ---@param lhs string
+  ---@param actions string | string[]
+  ---@param opts table<string, string | boolean>
   local function vscmap(mode, lhs, actions, opts)
     opts.noremap = true
     opts.silent = true
     local vscode = require('vscode')
+    ---@type fun():function
     local rhs
     if type(actions) == "string" then
       -- asynchronously executes a vscode command.
@@ -473,7 +479,10 @@ else
         opts = {
           on_attach = function(bufnr)
             local gitsigns = require("gitsigns")
-
+            ---@param mode string | string[]
+            ---@param l string
+            ---@param r string | function
+            ---@param opts table<string, string | boolean>
             local function map(mode, l, r, opts)
               opts = opts or {}
               opts.buffer = bufnr
@@ -928,7 +937,6 @@ else
             "coc-git",
             "coc-html",
             "coc-json",
-            "coc-lua",
             "coc-markdownlint",
             "coc-marketplace",
             "coc-pairs",
@@ -937,6 +945,7 @@ else
             "coc-rust-analyzer",
             "coc-sh",
             "coc-sql",
+            "coc-sumneko-lua",
             "coc-tailwindcss",
             "coc-toml",
             "coc-tsserver",
