@@ -6,6 +6,7 @@ local command = vim.api.nvim_command
 local keyset = vim.keymap.set
 local opt = vim.opt
 local hl = vim.api.nvim_set_hl
+
 local g = vim.g
 
 opt.encoding = "utf-8"
@@ -140,10 +141,10 @@ user_command("X", ":x", {})
 user_command("Wq", ":x", {})
 user_command("WQ", ":x", {})
 user_command("Term", ":bo terminal ++rows=20", {})
-user_command("Li", ":Lazy install", {})
-user_command("Lu", ":Lazy update", {})
-user_command("Ls", ":Lazy sync", {})
-user_command("Lc", ":Lazy clean", {})
+user_command("LI", ":Lazy install", {})
+user_command("LU", ":Lazy update", {})
+user_command("LS", ":Lazy sync", {})
+user_command("LC", ":Lazy clean", {})
 
 augroup("filetypes", {})
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
@@ -789,7 +790,8 @@ else
         opts = {}
       },
       {
-        "folke/noice.nvim",
+        "iguanacucumber/noice.nvim",
+        -- "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
           messages = {
