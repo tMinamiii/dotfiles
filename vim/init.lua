@@ -136,8 +136,8 @@ keyset("n", "<Leader>lc", ":Lazy clean<CR>", { noremap = true, silent = true, de
 
 user_command("Q", ":q", {})
 user_command("W", ":w", {})
-user_command("Wq", ":wq", {})
-user_command("WQ", ":wq", {})
+user_command("Wq", ":x", {})
+user_command("WQ", ":x", {})
 user_command("Term", ":bo terminal ++rows=20", {})
 user_command("Pi", ":Lazy install", {})
 user_command("Pu", ":Lazy update", {})
@@ -300,7 +300,7 @@ if g.vscode then
   --------------------
   -- VSCode keymap ---
   --------------------
-  local function vsckeyset(mode, lhs, actions, opts)
+  local function vscmap(mode, lhs, actions, opts)
     opts.noremap = true
     opts.silent = true
     local vscode = require('vscode')
@@ -321,26 +321,26 @@ if g.vscode then
     keyset(mode, lhs, rhs, opts)
   end
 
-  -- vsckeyset("n", "gd", "editor.action.revealDefinition", { desc = "reveal definition" })
-  vsckeyset("n", "gi", "editor.action.goToImplementation", { desc = "go to implementation" })
-  vsckeyset("n", "gr", "editor.action.goToReferences", { desc = "go to references" })
-  vsckeyset("n", "gt", "editor.action.goToTypeDefinition", { desc = "go to type definition" })
-  vsckeyset("n", "gp", "editor.action.peekDefinition", { desc = "peek definition" })
-  vsckeyset("n", "]g", "editor.action.marker.next", { desc = "marker next" })
-  vsckeyset("n", "[g", "editor.action.marker.previous", { desc = "marker previous" })
-  vsckeyset("n", "za", "editor.toggleFold", { desc = "toggle fold" })
-  vsckeyset("n", "zr", "editor.unfoldAll", { desc = "unfold all" })
-  vsckeyset("n", "zm", "editor.foldAll", { desc = "fold all" })
+  -- vscmap("n", "gd", "editor.action.revealDefinition", { desc = "reveal definition" })
+  vscmap("n", "gi", "editor.action.goToImplementation", { desc = "go to implementation" })
+  vscmap("n", "gr", "editor.action.goToReferences", { desc = "go to references" })
+  vscmap("n", "gt", "editor.action.goToTypeDefinition", { desc = "go to type definition" })
+  vscmap("n", "gp", "editor.action.peekDefinition", { desc = "peek definition" })
+  vscmap("n", "]g", "editor.action.marker.next", { desc = "marker next" })
+  vscmap("n", "[g", "editor.action.marker.previous", { desc = "marker previous" })
+  vscmap("n", "za", "editor.toggleFold", { desc = "toggle fold" })
+  vscmap("n", "zr", "editor.unfoldAll", { desc = "unfold all" })
+  vscmap("n", "zm", "editor.foldAll", { desc = "fold all" })
 
-  vsckeyset("n", "<leader>rn", "editor.action.rename", { desc = "rename" })
-  vsckeyset("n", "<leader>tr", "testing.runAtCursor", { desc = "test run at cursor" })
-  vsckeyset("n", "<leader>dr", "testing.debugAtCursor", { desc = "test debug at cursor" })
-  vsckeyset("n", "<leader>c", "editor.action.triggerSuggest", { desc = "trigger suggest" })
-  vsckeyset("n", "<leader>a", "outline.focus", { desc = "'outline focus" })
-  vsckeyset("n", "<leader>p", "workbench.action.quickOpen", { desc = "quick open" })
-  vsckeyset("n", "<leader>m", "workbench.action.closePanel", { desc = "close panel" })
-  vsckeyset("n", "<leader>n", "workbench.action.toggleSidebarVisibility", { desc = "toggle sidebar visibility" })
-  vsckeyset("n", "<leader>/", { "editor.action.organizeImports", "editor.action.format" }, { desc = "organize imports" })
+  vscmap("n", "<leader>rn", "editor.action.rename", { desc = "rename" })
+  vscmap("n", "<leader>tr", "testing.runAtCursor", { desc = "test run at cursor" })
+  vscmap("n", "<leader>dr", "testing.debugAtCursor", { desc = "test debug at cursor" })
+  vscmap("n", "<leader>c", "editor.action.triggerSuggest", { desc = "trigger suggest" })
+  vscmap("n", "<leader>a", "outline.focus", { desc = "'outline focus" })
+  vscmap("n", "<leader>p", "workbench.action.quickOpen", { desc = "quick open" })
+  vscmap("n", "<leader>m", "workbench.action.closePanel", { desc = "close panel" })
+  vscmap("n", "<leader>n", "workbench.action.toggleSidebarVisibility", { desc = "toggle sidebar visibility" })
+  vscmap("n", "<leader>/", { "editor.action.organizeImports", "editor.action.format" }, { desc = "organize imports" })
 
   keyset("n", "<C-w><C-h>", "<nop>", { noremap = true, silent = true })
   keyset("n", "<C-w><C-j>", "<nop>", { noremap = true, silent = true })
@@ -786,6 +786,38 @@ else
           { "<leader>gL", "<cmd>GitLink!<cr>", mode = { "n", 'v' }, silent = true, noremap = true, desc = "Open git permlink" },
         },
         opts = {}
+      },
+      {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+          messages = {
+            enabled = true,              -- enables the Noice messages UI
+            view = "mini",               -- default view for messages
+            view_error = "notify",       -- view for errors
+            view_warn = "notify",        -- view for warnings
+            view_history = "messages",   -- view for :messages
+            view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+          },
+          lsp = {
+            -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+            override = {
+              ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+              ["vim.lsp.util.stylize_markdown"] = true,
+              ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+            },
+          },
+        },
+        dependencies = {
+          "MunifTanjim/nui.nvim",
+          "rcarriga/nvim-notify",
+          "hrsh7th/nvim-cmp",
+        },
+        init = function()
+          require("notify").setup({
+            background_colour = "#000000",
+          })
+        end
       },
       {
         "nvim-telescope/telescope.nvim",
