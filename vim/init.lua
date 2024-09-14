@@ -299,46 +299,47 @@ if g.vscode then
   --------------------
   -- VSCode keymap ---
   --------------------
-  keyset("n", "gd", "<Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.revealDefinition" })
-  keyset("n", "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.goToImplementation" })
-  keyset("n", "gr", "<Cmd>call VSCodeNotify('editor.action.goToReferences')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.goToReferences" })
-  keyset("n", "gt", "<Cmd>call VSCodeNotify('editor.action.goToTypeDefinition')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.goToTypeDefinition" })
-  keyset("n", "gp", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.peekDefinition" })
-  keyset("n", "]g", "<Cmd>call VSCodeNotify('editor.action.marker.next')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.marker.next" })
-  keyset("n", "[g", "<Cmd>call VSCodeNotify('editor.action.marker.previous')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.marker.previous" })
-  keyset("n", "za", "<Cmd>call VSCodeNotify('editor.toggleFold')<CR>",
-    { noremap = true, silent = true, desc = "editor.toggleFold" })
-  keyset("n", "zr", "<Cmd>call VSCodeNotify('editor.unfoldAll')<CR>",
-    { noremap = true, silent = true, desc = "editor.unfoldAll" })
-  keyset("n", "zm", "<Cmd>call VSCodeNotify('editor.foldAll')<CR>",
-    { noremap = true, silent = true, desc = "editor.foldAll" })
+  local function vsckeyset(mode, lhs, actions, opts)
+    opts.noremap = true
+    opts.silent = true
+    local vscode = require('vscode')
+    local rhs
+    if type(actions) == "string" then
+      -- asynchronously executes a vscode command.
+      rhs = function()
+        vscode.action(actions)
+      end
+    else
+      -- synchronously executes a vscode command.
+      rhs = function()
+        for _, act in pairs(actions) do
+          vscode.call(act)
+        end
+      end
+    end
+    keyset(mode, lhs, rhs, opts)
+  end
 
-  keyset("n", "<leader>rn", "<Cmd>call VSCodeNotify('editor.action.rename')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.rename" })
-  keyset("n", "<leader>tr", "<Cmd>call VSCodeNotify('testing.runAtCursor')<CR>",
-    { noremap = true, silent = true, desc = "testing.runAtCursor" })
-  keyset("n", "<leader>dr", "<Cmd>call VSCodeNotify('testing.debugAtCursor')<CR>",
-    { noremap = true, silent = true, desc = "testing.debugAtCursor" })
-  keyset("n", "<leader>c", "<Cmd>call VSCodeNotify('editor.action.triggerSuggest')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.triggerSuggest" })
-  keyset("n", "<leader>a", "<Cmd>call VSCodeNotify('outline.focus')<CR>",
-    { noremap = true, silent = true, desc = "'outline.focus" })
-  keyset("n", "<leader>p", "<Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>",
-    { noremap = true, silent = true, desc = "workbench.action.quickOpen" })
-  keyset("n", "<leader>m", "<Cmd>call VSCodeNotify('workbench.action.closePanel')<CR>",
-    { noremap = true, silent = true, desc = "workbench.action.closePanel" })
-  keyset("n", "<leader>n", "<Cmd>call VSCodeNotify('workbench.action.toggleSidebarVisibility')<CR>",
-    { noremap = true, silent = true, desc = "workbench.action.toggleSidebarVisibility" })
-  keyset("n", "<leader>/",
-    "<Cmd>call VSCodeNotify('editor.action.format')<CR><Cmd>call VSCodeNotify('editor.action.organizeImports')<CR>",
-    { noremap = true, silent = true, desc = "editor.action.organizeImports" })
+  -- vsckeyset("n", "gd", "editor.action.revealDefinition", { desc = "reveal definition" })
+  vsckeyset("n", "gi", "editor.action.goToImplementation", { desc = "go to implementation" })
+  vsckeyset("n", "gr", "editor.action.goToReferences", { desc = "go to references" })
+  vsckeyset("n", "gt", "editor.action.goToTypeDefinition", { desc = "go to type definition" })
+  vsckeyset("n", "gp", "editor.action.peekDefinition", { desc = "peek definition" })
+  vsckeyset("n", "]g", "editor.action.marker.next", { desc = "marker next" })
+  vsckeyset("n", "[g", "editor.action.marker.previous", { desc = "marker previous" })
+  vsckeyset("n", "za", "editor.toggleFold", { desc = "toggle fold" })
+  vsckeyset("n", "zr", "editor.unfoldAll", { desc = "unfold all" })
+  vsckeyset("n", "zm", "editor.foldAll", { desc = "fold all" })
+
+  vsckeyset("n", "<leader>rn", "editor.action.rename", { desc = "rename" })
+  vsckeyset("n", "<leader>tr", "testing.runAtCursor", { desc = "test run at cursor" })
+  vsckeyset("n", "<leader>dr", "testing.debugAtCursor", { desc = "test debug at cursor" })
+  vsckeyset("n", "<leader>c", "editor.action.triggerSuggest", { desc = "trigger suggest" })
+  vsckeyset("n", "<leader>a", "outline.focus", { desc = "'outline focus" })
+  vsckeyset("n", "<leader>p", "workbench.action.quickOpen", { desc = "quick open" })
+  vsckeyset("n", "<leader>m", "workbench.action.closePanel", { desc = "close panel" })
+  vsckeyset("n", "<leader>n", "workbench.action.toggleSidebarVisibility", { desc = "toggle sidebar visibility" })
+  vsckeyset("n", "<leader>/", { "editor.action.organizeImports", "editor.action.format" }, { desc = "organize imports" })
 
   keyset("n", "<C-w><C-h>", "<nop>", { noremap = true, silent = true })
   keyset("n", "<C-w><C-j>", "<nop>", { noremap = true, silent = true })
@@ -687,7 +688,6 @@ else
           },
         }
       },
-
       {
         "nvim-neotest/neotest",
         lazy = false,
@@ -784,13 +784,13 @@ else
       {
         "nvim-telescope/telescope.nvim",
         lazy = false,
+        dependencies = { "nvim-lua/plenary.nvim" },
         keys = {
           { "<C-p>",     function() require("telescope.builtin").find_files() end, mode = "n", noremap = true, silent = true, desc = "telescope find files" },
           { "<leader>p", function() require("telescope.builtin").live_grep() end,  mode = "n", noremap = true, silent = true, desc = "telescope live grep" },
           -- keyset("n", "<leader>pb", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
           -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
         },
-        dependencies = { "nvim-lua/plenary.nvim" },
         version = "0.1.8"
       },
       {
