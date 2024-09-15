@@ -2,6 +2,7 @@
 #################
 dot.vim/bundle
 node_modules
+lazy-lock.json
 
 # OS generated files #
 ######################
