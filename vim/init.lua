@@ -593,15 +593,13 @@ else
         end
       },
       { "nvim-treesitter/nvim-treesitter-context", opts = {} },
-      {
-        {
-          'Bekaboo/dropbar.nvim',
-          -- optional, but required for fuzzy finder support
-          dependencies = {
-            'nvim-telescope/telescope-fzf-native.nvim'
-          }
-        }
-      },
+      -- {
+      --   'Bekaboo/dropbar.nvim',
+      --   -- optional, but required for fuzzy finder support
+      --   dependencies = {
+      --     'nvim-telescope/telescope-fzf-native.nvim'
+      --   },
+      -- },
       {
         "nvim-neo-tree/neo-tree.nvim",
         lazy = false,
@@ -1027,4 +1025,7 @@ if not g.vscode then
   hl(0, "FoldColumn", { fg = "#808080" })
   hl(0, "WhiteSpace", { fg = "#383838" })
   hl(0, "CursorLine", { bg = "#383838" })
+  hl(0, "TreesitterContext", { bg = "#383838" })
+  hl(0, "TreesitterContextBottom", { underline = true })
+  hl(0, "TreesitterContextLineNumberBottom", { underline = true })
 end
