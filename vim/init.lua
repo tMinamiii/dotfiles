@@ -125,13 +125,6 @@ keyset("n", "<C-c>", "<nop>", { noremap = true })
 -- keyset("n", "<C-[>", "<nop>", { noremap = true })
 -- keyset("n", "<Esc>", "<nop>", { noremap = true })
 
--- lazy.nvim
-keyset("n", "<Leader>li", ":Lazy install<CR>", { noremap = true, silent = true, desc = "lazy install" })
-keyset("n", "<Leader>lu", ":Lazy update<CR>", { noremap = true, silent = true, desc = "lazy update" })
-keyset("n", "<Leader>ls", ":Lazy sync<CR>", { noremap = true, silent = true, desc = "lazy sync" })
-keyset("n", "<Leader>lc", ":Lazy clean<CR>", { noremap = true, silent = true, desc = "lazy clean" })
-
-
 user_command("Q", ":q", {})
 user_command("W", ":w", {})
 user_command("X", ":x", {})
@@ -335,7 +328,8 @@ if g.vscode then
   vscmap("n", "<leader>dr", "testing.debugAtCursor", { desc = "test debug at cursor" })
   vscmap("n", "<leader>c", "editor.action.triggerSuggest", { desc = "trigger suggest" })
   vscmap("n", "<leader>a", "outline.focus", { desc = "'outline focus" })
-  vscmap("n", "<leader>p", "workbench.action.quickOpen", { desc = "quick open" })
+  -- vscmap("n", "<C-p>", "workbench.action.quickOpen", { desc = "quick open" })
+  vscmap("n", "<leader>p", "workbench.action.openRecent", { desc = "open recent" })
   vscmap("n", "<leader>m", "workbench.action.closePanel", { desc = "close panel" })
   vscmap("n", "<leader>n", "workbench.action.toggleSidebarVisibility", { desc = "toggle sidebar visibility" })
   vscmap("n", "<leader>/", { "editor.action.organizeImports", "editor.action.format" }, { desc = "organize imports" })
@@ -832,6 +826,18 @@ else
           )
         end,
       },
+      {
+        "ahmedkhalf/project.nvim",
+        keys = {
+          { "<leader>p", function() require 'telescope'.extensions.projects.projects {} end, mode = "n", noremap = true, silent = true, desc = "telescope find project" }
+        },
+        config = function()
+          require("project_nvim").setup({})
+        end,
+        init = function()
+          require('telescope').load_extension('projects')
+        end
+      },
       { "nvim-telescope/telescope-fzf-writer.nvim" },
       { 'nvim-telescope/telescope-ui-select.nvim' },
       {
@@ -842,7 +848,7 @@ else
         },
         keys = {
           { "<C-p>",     function() require("telescope.builtin").find_files() end, mode = "n", noremap = true, silent = true, desc = "telescope find files" },
-          { "<leader>p", function() require("telescope.builtin").live_grep() end,  mode = "n", noremap = true, silent = true, desc = "telescope live grep" },
+          { "<leader>l", function() require("telescope.builtin").live_grep() end,  mode = "n", noremap = true, silent = true, desc = "telescope live grep" },
           -- keyset("n", "<leader>pb", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
           -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
         },
