@@ -86,7 +86,7 @@ g.netrw_preview = 1                       -- " プレビューウィンドウを
 g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-keyset("n", "<F3>", ":noh<CR>", { noremap = true, silent = true })
+keyset("n", "<ESC>", ":noh<CR>", { noremap = true, silent = true })
 keyset("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
 keyset("n", "<M-n>", ":bn<CR>", { noremap = true, silent = true })
 keyset("n", "<M-d>", ":bd<CR>", { noremap = true, silent = true })
