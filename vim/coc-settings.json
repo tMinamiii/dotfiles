@@ -24,5 +24,9 @@
   "inlayHint.position": "inline",
   "inlayHint.enableParameter": true,
   "coc.preferences.formatOnSave": true,
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "hover.floatConfig": {
+    "border": true,
+    "highlight": "CocFloating"
+  }
 }

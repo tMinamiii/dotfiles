@@ -598,7 +598,6 @@ else
       --     'nvim-telescope/telescope-fzf-native.nvim'
       --   },
       -- },
-      --
       {
         "nvim-neo-tree/neo-tree.nvim",
         lazy = false,
@@ -856,6 +855,21 @@ else
           require('telescope').load_extension('projects')
         end
       },
+      {
+        'rmagatti/auto-session',
+        lazy = false,
+        dependencies = {
+          'nvim-telescope/telescope.nvim', -- Only needed if you want to use session lens
+        },
+
+        ---enables autocomplete for opts
+        ---@module "auto-session"
+        ---@type AutoSession.Config
+        opts = {
+          suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+          -- log_level = 'debug',
+        }
+      },
       { "nvim-telescope/telescope-fzf-writer.nvim" },
       { 'nvim-telescope/telescope-ui-select.nvim' },
       {
@@ -1024,6 +1038,7 @@ if not g.vscode then
   hl(0, "FoldColumn", { fg = "#808080" })
   hl(0, "WhiteSpace", { fg = "#383838" })
   hl(0, "CursorLine", { bg = "#383838" })
+  hl(0, "CocFloating", { bg = "#383838" })
   hl(0, "TreesitterContext", { bg = "#383838" })
   hl(0, "TreesitterContextBottom", { underline = true })
   hl(0, "TreesitterContextLineNumberBottom", { underline = true })
