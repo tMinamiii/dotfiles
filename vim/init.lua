@@ -250,7 +250,6 @@ if g.vscode then
           }
         end
       },
-
       { "numToStr/Comment.nvim", opts = {} },
       {
         "smoka7/hop.nvim",
@@ -260,10 +259,7 @@ if g.vscode then
           {
             "<Leader>f",
             function()
-              require("hop").hint_char1({
-                direction = require("hop.hint").HintDirection
-                    .AFTER_CURSOR
-              })
+              require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR })
             end,
             mode = "n",
             noremap = true,
@@ -273,10 +269,7 @@ if g.vscode then
           {
             "<Leader>F",
             function()
-              require("hop").hint_char1({
-                direction = require("hop.hint").HintDirection
-                    .BEFORE_CURSOR
-              })
+              require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR })
             end,
             mode = "n",
             noremap = true,
@@ -841,17 +834,47 @@ else
         opts = {}
       },
       {
+        "goolord/alpha-nvim",
+        -- dependencies = { 'echasnovski/mini.icons' },
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+          local startify = require("alpha.themes.startify")
+          -- available: devicons, mini, default is mini
+          -- if provider not loaded and enabled is true, it will try to use another provider
+          startify.file_icons.provider = "devicons"
+          require("alpha").setup(
+            startify.config
+          )
+        end,
+      },
+      {
         "nvim-telescope/telescope.nvim",
         lazy = false,
-        dependencies = { "nvim-lua/plenary.nvim" },
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+        },
         keys = {
           { "<C-p>",     function() require("telescope.builtin").find_files() end, mode = "n", noremap = true, silent = true, desc = "telescope find files" },
           { "<leader>p", function() require("telescope.builtin").live_grep() end,  mode = "n", noremap = true, silent = true, desc = "telescope live grep" },
           -- keyset("n", "<leader>pb", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
           -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
         },
-        version = "0.1.8"
+        version = "0.1.8",
+        opts = {
+          extensions = {
+            fzf_writer = {
+              minimum_grep_characters = 2,
+              minimum_files_characters = 2,
+
+              -- Disabled by default.
+              -- Will probably slow down some aspects of the sorter, but can make color highlights.
+              -- I will work on this more later.
+              use_highlighter = true,
+            }
+          }
+        }
       },
+      { "nvim-telescope/telescope-fzf-writer.nvim" },
       {
         "neoclide/coc.nvim",
         lazy = false,
