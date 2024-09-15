@@ -847,6 +847,8 @@ else
           )
         end,
       },
+      { "nvim-telescope/telescope-fzf-writer.nvim" },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
       {
         "nvim-telescope/telescope.nvim",
         lazy = false,
@@ -860,21 +862,34 @@ else
           -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
         },
         version = "0.1.8",
-        opts = {
-          extensions = {
-            fzf_writer = {
-              minimum_grep_characters = 2,
-              minimum_files_characters = 2,
+        config = function()
+          require("telescope").setup({
+            extensions = {
+              fzf_writer = {
+                minimum_grep_characters = 2,
+                minimum_files_characters = 2,
 
-              -- Disabled by default.
-              -- Will probably slow down some aspects of the sorter, but can make color highlights.
-              -- I will work on this more later.
-              use_highlighter = true,
+                -- Disabled by default.
+                -- Will probably slow down some aspects of the sorter, but can make color highlights.
+                -- I will work on this more later.
+                use_highlighter = true,
+              },
+              ["ui-select"] = {
+                require("telescope.themes").get_dropdown {}
+              }
             }
-          }
-        }
+          })
+        end
       },
-      { "nvim-telescope/telescope-fzf-writer.nvim" },
+      {
+        'prochri/telescope-all-recent.nvim',
+        dependencies = {
+          "nvim-telescope/telescope.nvim",
+          "kkharji/sqlite.lua",
+          "stevearc/dressing.nvim"
+        },
+        opts = {}
+      },
       {
         "neoclide/coc.nvim",
         lazy = false,
