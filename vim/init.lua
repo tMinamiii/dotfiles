@@ -592,6 +592,16 @@ else
           })
         end
       },
+      { "nvim-treesitter/nvim-treesitter-context", opts = {} },
+      {
+        {
+          'Bekaboo/dropbar.nvim',
+          -- optional, but required for fuzzy finder support
+          dependencies = {
+            'nvim-telescope/telescope-fzf-native.nvim'
+          }
+        }
+      },
       {
         "nvim-neo-tree/neo-tree.nvim",
         lazy = false,
