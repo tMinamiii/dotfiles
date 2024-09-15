@@ -31,6 +31,8 @@ if IsMacOS; then
       tmux \
       vim \
       xz \
+      libsixel \
+      imagemagick \
       zlib
 
     curl https://mise.run | sh
@@ -102,7 +104,11 @@ elif IsUbuntu; then
         whois \
         xz-utils \
         zlib1g-dev \
+        libsixel-bin \
+        libmagickwand-dev \
+        libgraphicsmagick1-dev \
         zsh
+
     curl https://mise.run | sh
 fi
 

@@ -345,6 +345,8 @@ if g.vscode then
   keyset("n", "<C-w><C-k>", "<nop>", { noremap = true, silent = true })
   keyset("n", "<C-w><C-l>", "<nop>", { noremap = true, silent = true })
 else
+  package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua"
+  package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua"
   require("lazy").setup({
     root = lazyroot,
     spec = {
@@ -615,23 +617,6 @@ else
             mappings = {
               ["l"] = "open",
             }
-          }
-        }
-      },
-      {
-        "stevearc/aerial.nvim",
-        lazy = false,
-        dependencies = {
-          "nvim-treesitter/nvim-treesitter",
-          "nvim-tree/nvim-web-devicons"
-        },
-        keys = {
-          { "<leader>a", "<cmd>AerialToggle!<CR>", mode = "n", noremap = true, silent = true, desc = "aerial toggle" }
-        },
-        opts = {
-          layout = {
-            max_width = { 60, 0.3 },
-            min_width = 40,
           },
         }
       },
