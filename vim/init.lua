@@ -339,8 +339,6 @@ if g.vscode then
   keyset("n", "<C-w><C-k>", "<nop>", { noremap = true, silent = true })
   keyset("n", "<C-w><C-l>", "<nop>", { noremap = true, silent = true })
 else
-  package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua"
-  package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua"
   require("lazy").setup({
     root = lazyroot,
     spec = {
@@ -600,6 +598,7 @@ else
       --     'nvim-telescope/telescope-fzf-native.nvim'
       --   },
       -- },
+      --
       {
         "nvim-neo-tree/neo-tree.nvim",
         lazy = false,

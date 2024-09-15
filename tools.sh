@@ -20,7 +20,7 @@ if IsMacOS; then
       ghq \
       htop \
       jq \
-      lua \
+      lua@5.1 \
       luarocks \
       luajit \
       neovim \
@@ -65,9 +65,9 @@ elif IsUbuntu; then
         libgdbm-dev \
         libgpm-dev \
         libgtk-3-dev \
-        liblua5.2-0 \
-        liblua5.2-dev \
         libluajit-5.1-dev \
+        liblua5.1-0 \
+        liblua5.1-0-dev \
         liblzma-dev \
         libncurses-dev \
         libncurses5-dev \
@@ -85,7 +85,7 @@ elif IsUbuntu; then
         libxpm-dev \
         libyaml-dev \
         llvm \
-        lua5.2 \
+        lua5.1 \
         luarocks \
         luajit \
         make \
@@ -111,4 +111,5 @@ elif IsUbuntu; then
 
     curl https://mise.run | sh
 fi
+
 
