@@ -19,6 +19,7 @@
       }
     }
   },
+  "stylua.configPath": "~/dotfiles/lua/stylue.toml",
   "inlayHint.enable": false,
   "inlayHint.display": true,
   "inlayHint.position": "inline",
