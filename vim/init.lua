@@ -1443,6 +1443,7 @@ else
             "coc-rust-analyzer",
             "coc-sh",
             "coc-sql",
+            "coc-sqlfluff",
             "coc-sumneko-lua",
             "@statiolake/coc-stylua",
             "coc-tailwindcss",
