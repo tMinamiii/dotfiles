@@ -367,6 +367,11 @@ if g.vscode then
           default_mappings = true,
           no_selection = false,
         },
+        init = function()
+          vim.keymap.set({ "n", "x", "i" }, "<C-m>", function()
+            require("vscode-multi-cursor").addSelectionToNextFindMatch()
+          end)
+        end,
       },
     },
     checker = { enabled = true },
@@ -432,7 +437,15 @@ else
     root = lazyroot,
     spec = {
       { "kylechui/nvim-surround", version = "*", opts = {} },
-      { "mg979/vim-visual-multi" },
+      {
+        "mg979/vim-visual-multi",
+        init = function()
+          g.VM_maps = {
+            ["Find Under"] = "<C-m>",
+            ["Find Subword Under"] = "<C-m>",
+          }
+        end,
+      },
       { "tpope/vim-fugitive" },
       {
         "mechatroner/rainbow_csv",
@@ -861,7 +874,10 @@ else
             desc = "terminal leave insert mode",
           },
         },
-        opts = { open_mapping = [[<c-t>]] },
+        opts = {
+          open_mapping = [[<c-t>]],
+          insert_mappings = false,
+        },
       },
       {
         "rcarriga/nvim-dap-ui",
