@@ -1444,7 +1444,7 @@ else
             "coc-sh",
             "coc-sql",
             "coc-sumneko-lua",
-            -- "coc-stylua",
+            "@statiolake/coc-stylua",
             "coc-tailwindcss",
             "coc-toml",
             "coc-tsserver",
