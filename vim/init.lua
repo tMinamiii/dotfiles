@@ -125,6 +125,11 @@ keyset("n", "<C-c>", "<nop>", { noremap = true })
 -- keyset("n", "<C-[>", "<nop>", { noremap = true })
 -- keyset("n", "<Esc>", "<nop>", { noremap = true })
 
+-- 引用符で囲まれた箇所全体を選択する
+for _, quote in ipairs({ '"', "'", "`" }) do
+  keyset({ "x", "o" }, "a" .. quote, "2i" .. quote)
+end
+
 user_command("Q", ":q", {})
 user_command("W", ":w", {})
 user_command("X", ":x", {})
@@ -342,8 +347,8 @@ else
   require("lazy").setup({
     root = lazyroot,
     spec = {
-      { "kylechui/nvim-surround",      version = "*", opts = {} },
-      { "terryma/vim-multiple-cursors" },
+      { "kylechui/nvim-surround", version = "*", opts = {} },
+      { "mg979/vim-visual-multi" },
       { "tpope/vim-fugitive" },
       {
         "mechatroner/rainbow_csv",
