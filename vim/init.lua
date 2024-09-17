@@ -351,32 +351,18 @@ if g.vscode then
       },
       { "numToStr/Comment.nvim", opts = {} },
       {
-        "smoka7/hop.nvim",
-        lazy = false,
-        version = "*",
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        ---@type Flash.Config
+        opts = {},
+        -- stylua: ignore
         keys = {
-          {
-            "<Leader>f",
-            function()
-              require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR })
-            end,
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "hop after",
-          },
-          {
-            "<Leader>F",
-            function()
-              require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR })
-            end,
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "hop before",
-          },
+          { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+          -- { "", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+          -- { "", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+          -- { "<leader>F", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+          -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
-        opts = { { keys = "etovxqpdygfblzhckisuran" } },
       },
       {
         "vscode-neovim/vscode-multi-cursor.nvim",
@@ -591,36 +577,18 @@ else
       },
       { "numToStr/Comment.nvim", opts = {} },
       {
-        "smoka7/hop.nvim",
-        lazy = false,
-        version = "*",
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        ---@type Flash.Config
+        opts = {},
+        -- stylua: ignore
         keys = {
-          {
-            "<Leader>f",
-            function()
-              require("hop").hint_char1({
-                direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-              })
-            end,
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "hop after",
-          },
-          {
-            "<Leader>F",
-            function()
-              require("hop").hint_char1({
-                direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-              })
-            end,
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "hop before",
-          },
+          { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+          -- { "", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+          -- { "", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+          -- { "<leader>F", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+          -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
-        opts = { { keys = "etovxqpdygfblzhckisuran" } },
       },
       { "marko-cerovac/material.nvim" },
       { "Mofiqul/vscode.nvim" },
