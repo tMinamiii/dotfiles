@@ -163,7 +163,20 @@ autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\r/
 augroup("indent", {})
 autocmd("FileType", {
   group = "indent",
-  pattern = { "sh", "vue", "yaml", "javascript", "typescript", "json", "html", "vim", "markdown", "lua" },
+  pattern = {
+    "sh",
+    "vue",
+    "yaml",
+    "javascript",
+    "typescript",
+    "javascriptreact",
+    "typescriptreact",
+    "json",
+    "html",
+    "vim",
+    "markdown",
+    "lua",
+  },
   command = "setlocal shiftwidth=2 tabstop=2",
 })
 autocmd("FileType", {
