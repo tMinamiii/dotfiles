@@ -831,18 +831,17 @@ else
               never_show = { ".git" },
             },
           },
-          event_handlers = {
-
-            {
-              event = "file_open_requested",
-              handler = function()
-                -- auto close
-                -- vim.cmd("Neotree close")
-                -- OR
-                require("neo-tree.command").execute({ action = "close" })
-              end,
-            },
-          },
+          -- event_handlers = {
+          --   {
+          --     event = "file_open_requested",
+          --     handler = function()
+          --       -- auto close
+          --       -- vim.cmd("Neotree close")
+          --       -- OR
+          --       require("neo-tree.command").execute({ action = "close" })
+          --     end,
+          --   },
+          -- },
         },
       },
       {
@@ -1218,6 +1217,24 @@ else
         end,
       },
       { "folke/persistence.nvim", event = "BufReadPre", opts = {} },
+      { "shortcuts/no-neck-pain.nvim" },
+      {
+        "stevearc/aerial.nvim",
+        lazy = false,
+        dependencies = {
+          "nvim-treesitter/nvim-treesitter",
+          "nvim-tree/nvim-web-devicons",
+        },
+        keys = {
+          { "<leader>a", "<cmd>AerialToggle!<CR>", mode = "n", noremap = true, silent = true, desc = "aerial toggle" },
+        },
+        opts = {
+          layout = {
+            max_width = { 60, 0.3 },
+            min_width = 40,
+          },
+        },
+      },
       { "nvim-telescope/telescope-fzf-writer.nvim" },
       { "nvim-telescope/telescope-ui-select.nvim" },
       {
