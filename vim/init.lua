@@ -130,6 +130,10 @@ for _, quote in ipairs({ '"', "'", "`" }) do
   keyset({ "x", "o" }, "a" .. quote, "2i" .. quote)
 end
 
+keyset("n", "<leader>*", "*''cgn")
+keyset("x", "<leader>r", 'y:%s/<C-r><C-r>"//g<Left><Left>')
+keyset("n", "<leader>r", 'yiw:%s/<C-r><C-r>"//g<Left><Left>')
+
 user_command("Q", ":q", {})
 user_command("W", ":w", {})
 user_command("X", ":x", {})
@@ -1480,9 +1484,7 @@ else
     },
     checker = { enabled = true },
   })
-end
 
-if not g.vscode then
   -- colorscheme("material")
   colorscheme("vscode")
 
