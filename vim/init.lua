@@ -1229,10 +1229,10 @@ else
           { "<leader>a", "<cmd>AerialToggle!<CR>", mode = "n", noremap = true, silent = true, desc = "aerial toggle" },
         },
         opts = {
-          layout = {
-            max_width = { 60, 0.3 },
-            min_width = 40,
-          },
+          -- layout = {
+          --   max_width = { 50, 0.3 },
+          --   min_width = 30,
+          -- },
         },
       },
       { "nvim-telescope/telescope-fzf-writer.nvim" },
