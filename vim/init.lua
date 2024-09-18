@@ -257,7 +257,6 @@ if g.vscode then
         },
       },
       { "machakann/vim-highlightedyank" },
-      { "rhysd/clever-f.vim" },
       {
         "monaqa/dial.nvim",
         lazy = false,
@@ -483,7 +482,6 @@ else
           },
         },
       },
-      { "rhysd/clever-f.vim" },
       {
         "monaqa/dial.nvim",
         lazy = false,

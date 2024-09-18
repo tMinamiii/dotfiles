@@ -28,6 +28,7 @@
   "eslint.autoFixOnSave": true,
   "hover.floatConfig": {
     "border": true,
+    "rounded": true,
     "highlight": "CocFloating"
   }
 }
