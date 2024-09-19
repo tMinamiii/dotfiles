@@ -57,6 +57,9 @@ opt.shiftwidth = 2
 opt.conceallevel = 0
 opt.concealcursor = "nc"
 
+opt.autoindent = true
+opt.smartindent = true
+
 --- ufo ---
 opt.foldcolumn = "1" -- '0' is not bad
 opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -348,7 +351,18 @@ if g.vscode then
           })
         end,
       },
-      { "numToStr/Comment.nvim", opts = {} },
+      {
+        "numToStr/Comment.nvim",
+        opts = {},
+        -- `gcc` - Toggles the current line using linewise comment
+        -- `gbc` - Toggles the current line using blockwise comment
+        -- `[count]gcc` - Toggles the number of line given as a prefix-count using linewise
+        -- `[count]gbc` - Toggles the number of line given as a prefix-count using blockwise
+        -- `gc[count]{motion}` - (Op-pending) Toggles the region using linewise comment
+        -- `gb[count]{motion}` - (Op-pending) Toggles the region using blockwise comment
+        -- `gc` - Toggles the region using linewise comment
+        -- `gb` - Toggles the region using blockwise comment
+      },
       {
         "folke/flash.nvim",
         event = "VeryLazy",

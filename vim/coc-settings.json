@@ -2,8 +2,16 @@
   "languageserver": {
     "go": {
       "command": "gopls",
-      "rootPatterns": ["go.work", "go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"],
+      "rootPatterns": [
+        "go.work",
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ],
       "initializationOptions": {
         "usePlaceholders": false,
         "staticcheck": true
@@ -19,16 +27,34 @@
       }
     }
   },
-  // "stylua.configPath": "/home/tminamiii/dotfiles/stylua.toml",
-  "inlayHint.enable": false,
-  "inlayHint.display": true,
-  "inlayHint.position": "inline",
-  "inlayHint.enableParameter": true,
+  "prettier.enable": false,
+  "json.enable": true,
+  "json.format.enable": true,
+  // "javascript.format.enable": false,
+  "biome.enable": true,
+  "biome.requireConfiguration": true,
   "coc.preferences.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
+  // "eslint.autoFixOnSave": true,
   "hover.floatConfig": {
     "border": true,
     "rounded": true,
     "highlight": "CocFloating"
-  }
+  },
+  "inlayHint.display": true,
+  "inlayHint.enable": false,
+  "inlayHint.enableParameter": true,
+  "inlayHint.position": "inline",
+  "prettier.requireConfig": false,
+  "prettier.formatterPriority": -1,
+  "prettier.semi": false,
+  "prettier.useTabs": false,
+  "prettier.tabWidth": 2,
+  "prettier.endOfLine": "auto",
+  "prettier.proseWrap": "preserve",
+  "prettier.quoteProps": "as-needed",
+  "prettier.printWidth": 120,
+  "prettier.singleQuote": true,
+  "prettier.arrowParens": "always",
+  "prettier.trailingComma": "none",
+  "prettier.bracketSpacing": true
 }
