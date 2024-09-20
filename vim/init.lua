@@ -882,6 +882,10 @@ else
           "nvim-neotest/nvim-nio",
           "leoluz/nvim-dap-go",
           "mxsdev/nvim-dap-vscode-js",
+          {
+            "microsoft/vscode-js-debug",
+            build = "npm install --legacy-peer-deps && npm run compile",
+          },
         },
         init = function()
           local dap, dapui = require("dap"), require("dapui")
