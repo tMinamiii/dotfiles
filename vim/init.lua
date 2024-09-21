@@ -50,6 +50,7 @@ opt.termguicolors = true
 opt.wildmenu = true
 opt.wildmode = "full"
 opt.wildoptions = "pum"
+opt.modifiable = true
 
 opt.expandtab = true -- タブをスペースにする
 opt.tabstop = 2
@@ -1244,8 +1245,7 @@ else
         opts = {},
       },
       {
-        "iguanacucumber/noice.nvim",
-        -- "folke/noice.nvim",
+        "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
           messages = {
@@ -1262,6 +1262,16 @@ else
               ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
               ["vim.lsp.util.stylize_markdown"] = true,
               ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+            },
+          },
+          routes = {
+            {
+              filter = {
+                event = "msg_show",
+                kind = "emsg",
+                find = "E21: Cannot make changes, 'modifiable' is off", -- pattern
+              },
+              opts = { skip = true },
             },
           },
         },
