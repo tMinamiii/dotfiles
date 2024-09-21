@@ -885,7 +885,7 @@ else
           {
             "microsoft/vscode-js-debug",
             lazy = true,
-            build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+            build = "npm install --legacy-peer-deps && git checkout package-lock.json && npx gulp vsDebugServerBundle && mv dist out",
             config = function()
               local function get_js_debug()
                 local path = vim.fn.stdpath("data")
