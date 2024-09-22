@@ -631,7 +631,7 @@ else
       --     g.transparent_enabled = true
       --   end
       -- },
-      { "simeji/winresizer" },
+      { "simeji/winresizer" }, -- ctrl + e
       {
         "yorickpeterse/nvim-window",
         lazy = false,
@@ -1410,6 +1410,7 @@ else
         },
         opts = {},
       },
+      { "wakatime/vim-wakatime", lazy = false },
       {
         "neoclide/coc.nvim",
         lazy = false,
@@ -1606,6 +1607,7 @@ else
   hl(0, "WhiteSpace", { fg = "#383838" })
   hl(0, "CursorLine", { bg = "#383838" })
   hl(0, "CocFloating", { bg = "#383838" })
+  hl(0, "CocMenuSel", { bg = "#505050" })
   hl(0, "TreesitterContext", { bg = "#383838" })
   hl(0, "TreesitterContextBottom", { underline = true })
   hl(0, "TreesitterContextLineNumberBottom", { underline = true })
