@@ -74,5 +74,9 @@
       "name": "JavaSE-20",
       "path": "~/.local/share/mise/installs/java/20"
     },
+    {
+      "name": "JavaSE-21",
+      "path": "~/.local/share/mise/installs/java/21"
+    },
   ]
 }
