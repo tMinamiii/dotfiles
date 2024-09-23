@@ -60,7 +60,19 @@
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-17",
-      "path": ".sdkman/candidates/java/17.0.4.1-tem"
+      "path": "~/.local/share/mise/installs/java/17"
+    },
+    {
+      "name": "JavaSE-18",
+      "path": "~/.local/share/mise/installs/java/18"
+    },
+    {
+      "name": "JavaSE-19",
+      "path": "~/.local/share/mise/installs/java/19"
+    },
+    {
+      "name": "JavaSE-20",
+      "path": "~/.local/share/mise/installs/java/20"
     },
   ]
 }
