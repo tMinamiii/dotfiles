@@ -150,14 +150,8 @@ user_command("LS", ":Lazy sync", {})
 user_command("LC", ":Lazy clean", {})
 
 augroup("filetypes", {})
-autocmd(
-  { "BufRead", "BufNewFile" },
-  { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" }
-)
-autocmd(
-  { "BufRead", "BufNewFile" },
-  { group = "filetypes", pattern = { "*zshrc", "*zsh" }, command = "setfiletype zsh" }
-)
+autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
+autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = { "*zshrc", "*zsh" }, command = "setfiletype zsh" })
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.mjs", command = "setfiletype javascript" })
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.csv", command = "setfiletype csv" })
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = ".env.*", command = "setfiletype sh" })
@@ -1411,6 +1405,112 @@ else
         opts = {},
       },
       { "wakatime/vim-wakatime", lazy = false },
+      { "m4xshen/autoclose.nvim", opts = {} },
+      -- {
+      --   "hrsh7th/nvim-cmp",
+      --   dependencies = {
+      --     "hrsh7th/cmp-nvim-lsp",
+      --     "hrsh7th/cmp-buffer",
+      --     "hrsh7th/cmp-path",
+      --     "onsails/lspkind.nvim",
+      --   },
+      --   config = function()
+      --     local lspkind = require("lspkind")
+      --     require("cmp").setup({
+      --       sources = {
+      --         { name = "nvim_lsp" },
+      --         { name = "buffer" },
+      --         { name = "path" },
+      --       },
+      --       formatting = {
+      --         format = lspkind.cmp_format({
+      --           mode = "symbol_text", -- show only symbol annotations
+      --           maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      --           -- can also be a function to dynamically calculate max width such as
+      --           -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+      --           ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+      --           show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+      --         }),
+      --       },
+      --     })
+      --   end,
+      -- },
+      -- {
+      --   "neovim/nvim-lspconfig",
+      --   keys = {
+      --     { "K",          vim.lsp.buf.hover,           mode = "n", noremap = true, silent = true, desc = "lsp hover" },
+      --     { "<leader>/",  vim.lsp.buf.format,          mode = "n", noremap = true, silent = true, desc = "lsp format" },
+      --     { "gr",         vim.lsp.buf.references,      mode = "n", noremap = true, silent = true, desc = "lsp references" },
+      --     { "gd",         vim.lsp.buf.definition,      mode = "n", noremap = true, silent = true, desc = "lsp definition" },
+      --     { "gD",         vim.lsp.buf.declaration,     mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
+      --     { "gi",         vim.lsp.buf.implementation,  mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
+      --     { "gt",         vim.lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
+      --     { "<leader>rn", vim.lsp.buf.rename,          mode = "n", noremap = true, silent = true, desc = "lsp rename" },
+      --     { "ga",         vim.lsp.buf.code_action,     mode = "n", noremap = true, silent = true, desc = "lsp code action" },
+      --     { "ge",         vim.diagnostic.open_float,   mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
+      --     { "g]",         vim.diagnostic.goto_next,    mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
+      --     { "g[",         vim.diagnostic.goto_prev,    mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
+      --   },
+      -- },
+      -- {
+      --   "williamboman/mason-lspconfig.nvim",
+      --   dependencies = {
+      --     "williamboman/mason.nvim",
+      --     config = function()
+      --       require("mason").setup()
+      --     end,
+      --   },
+      --   config = function()
+      --     local lspconfig = require("lspconfig")
+      --     local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      --     require("mason-lspconfig").setup_handlers({
+      --       function(server_name)
+      --         lspconfig[server_name].setup({
+      --           capabilities = capabilities,
+      --         })
+      --       end,
+      --     })
+      --     require("mason-lspconfig").setup({
+      --       ensure_installed = {
+      --         "bashls",
+      --         "biome",
+      --         "denols",
+      --         "gopls",
+      --         "html",
+      --         "jdtls",
+      --         "jqls",
+      --         "jsonls",
+      --         "kotlin_language_server",
+      --         "lua_ls",
+      --         "marksman",
+      --         "pyright",
+      --         "rust_analyzer",
+      --         "taplo",
+      --         "terraformls",
+      --         "tflint",
+      --         "vtsls",
+      --       },
+      --     })
+      --   end,
+      -- },
+      -- {
+      --   "jay-babu/mason-null-ls.nvim",
+      --   dependencies = {
+      --     "nvimtools/none-ls.nvim",
+      --     "williamboman/mason.nvim",
+      --   },
+      --   event = { "BufReadPre", "BufNewFile" },
+      --   config = function()
+      --     require("mason-null-ls").setup({
+      --       ensure_installed = {
+      --         "goimports",
+      --         "isort",
+      --         "jq",
+      --         "stylua",
+      --       },
+      --     })
+      --   end,
+      -- },
       {
         "neoclide/coc.nvim",
         lazy = false,

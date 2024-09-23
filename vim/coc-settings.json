@@ -57,6 +57,7 @@
   "prettier.arrowParens": "always",
   "prettier.trailingComma": "none",
   "prettier.bracketSpacing": true,
+  "stylua.checkUpdate": true,
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-17",
