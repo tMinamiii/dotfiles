@@ -56,5 +56,11 @@
   "prettier.singleQuote": true,
   "prettier.arrowParens": "always",
   "prettier.trailingComma": "none",
-  "prettier.bracketSpacing": true
+  "prettier.bracketSpacing": true,
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-17",
+      "path": ".sdkman/candidates/java/17.0.4.1-tem"
+    },
+  ]
 }
