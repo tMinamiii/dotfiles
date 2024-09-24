@@ -1409,12 +1409,11 @@ else
         opts = {},
       },
       { "wakatime/vim-wakatime", lazy = false },
-      {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = true,
-      },
-
+      -- {
+      --   "windwp/nvim-autopairs",
+      --   event = "InsertEnter",
+      --   config = true,
+      -- },
       -- {
       --   "neovim/nvim-lspconfig",
       --   keys = {
@@ -1587,7 +1586,6 @@ else
           {
             "<cr>",
             -- [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-            -- [[coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
             [[coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
             mode = "i",
             noremap = true,
@@ -1654,7 +1652,7 @@ else
             "coc-kotlin-dev",
             "coc-markdownlint",
             "coc-marketplace",
-            -- "coc-pairs",
+            "coc-pairs",
             "coc-prettier",
             "coc-pyright",
             "coc-rust-analyzer",
