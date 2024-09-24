@@ -79,7 +79,8 @@
       "path": "~/.local/share/mise/installs/java/21"
     },
   ],
-  // "suggest.noselect": true,
+  "suggest.noselect": true,
+  "suggest.selection": "first",
   "suggest.completionItemKindLabels": {
     "class": "󰠱",
     "color": "󰏘",
