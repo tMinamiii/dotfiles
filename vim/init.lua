@@ -61,7 +61,6 @@ opt.expandtab = true -- タブをスペースにする
 opt.tabstop = 2
 opt.shiftwidth = 2
 opt.conceallevel = 0
-opt.concealcursor = "nc"
 
 opt.autoindent = true
 opt.smartindent = true
@@ -630,7 +629,12 @@ else
       --     g.transparent_enabled = true
       --   end
       -- },
-      { "simeji/winresizer" }, -- ctrl + e
+      {
+        "simeji/winresizer",
+        init = function()
+          g.winresizer_start_key = "<leader>e"
+        end,
+      },
       {
         "yorickpeterse/nvim-window",
         lazy = false,
@@ -1409,6 +1413,11 @@ else
         opts = {},
       },
       { "wakatime/vim-wakatime", lazy = false },
+      {
+        "Aasim-A/scrollEOF.nvim",
+        event = { "CursorMoved", "WinScrolled" },
+        opts = {},
+      },
       -- {
       --   "windwp/nvim-autopairs",
       --   event = "InsertEnter",
