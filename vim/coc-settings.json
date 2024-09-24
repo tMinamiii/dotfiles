@@ -27,10 +27,8 @@
       }
     }
   },
-  "prettier.enable": false,
   "json.enable": true,
   "json.format.enable": true,
-  // "javascript.format.enable": false,
   "biome.enable": true,
   "biome.requireConfiguration": true,
   "coc.preferences.formatOnSave": true,
@@ -44,6 +42,7 @@
   "inlayHint.enable": false,
   "inlayHint.enableParameter": true,
   "inlayHint.position": "inline",
+  "prettier.enable": true,
   "prettier.requireConfig": false,
   "prettier.formatterPriority": -1,
   "prettier.semi": false,
