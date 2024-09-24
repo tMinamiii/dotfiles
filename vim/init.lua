@@ -6,11 +6,14 @@ local command = vim.api.nvim_command
 local keyset = vim.keymap.set
 local opt = vim.opt
 local hl = vim.api.nvim_set_hl
+local diagnostic = vim.diagnostic
+local lsp = vim.lsp
 
 local g = vim.g
 
 opt.encoding = "utf-8"
-opt.completeopt:append({ "noselect" })
+-- opt.completeopt:append({ "noselect" })
+-- opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Always show the signcolumn, otherwise it would shift the text each time
 -- diagnostics appeared/became resolved
@@ -1427,18 +1430,18 @@ else
       {
         "neovim/nvim-lspconfig",
         keys = {
-          { "K", vim.lsp.buf.hover, mode = "n", noremap = true, silent = true, desc = "lsp hover" },
-          { "<leader>/", vim.lsp.buf.format, mode = "n", noremap = true, silent = true, desc = "lsp format" },
-          { "gr", vim.lsp.buf.references, mode = "n", noremap = true, silent = true, desc = "lsp references" },
-          { "gd", vim.lsp.buf.definition, mode = "n", noremap = true, silent = true, desc = "lsp definition" },
-          { "gD", vim.lsp.buf.declaration, mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
-          { "gi", vim.lsp.buf.implementation, mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
-          { "gt", vim.lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
-          { "<leader>rn", vim.lsp.buf.rename, mode = "n", noremap = true, silent = true, desc = "lsp rename" },
-          { "ga", vim.lsp.buf.code_action, mode = "n", noremap = true, silent = true, desc = "lsp code action" },
-          { "ge", vim.diagnostic.open_float, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
-          { "g]", vim.diagnostic.goto_next, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
-          { "g[", vim.diagnostic.goto_prev, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
+          { "K", lsp.buf.hover, mode = "n", noremap = true, silent = true, desc = "lsp hover" },
+          { "<leader>/", lsp.buf.format, mode = "n", noremap = true, silent = true, desc = "lsp format" },
+          { "gr", lsp.buf.references, mode = "n", noremap = true, silent = true, desc = "lsp references" },
+          { "gd", lsp.buf.definition, mode = "n", noremap = true, silent = true, desc = "lsp definition" },
+          { "gD", lsp.buf.declaration, mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
+          { "gi", lsp.buf.implementation, mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
+          { "gt", lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
+          { "<leader>rn", lsp.buf.rename, mode = "n", noremap = true, silent = true, desc = "lsp rename" },
+          { "ga", lsp.buf.code_action, mode = "n", noremap = true, silent = true, desc = "lsp code action" },
+          { "ge", diagnostic.open_float, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
+          { "g]", diagnostic.goto_next, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
+          { "g[", diagnostic.goto_prev, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
         },
         init = function()
           local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
@@ -1448,7 +1451,7 @@ else
           end
 
           -- format on save
-          vim.api.nvim_create_autocmd("BufWritePre", {
+          autocmd("BufWritePre", {
             buffer = buffer,
             callback = function()
               vim.lsp.buf.format({ async = false })
@@ -1456,7 +1459,7 @@ else
           })
 
           -- disable diagnostics virtualtext
-          vim.diagnostic.config({
+          diagnostic.config({
             virtual_text = false,
             signs = true,
             underline = true,
@@ -1465,7 +1468,7 @@ else
           })
 
           -- diagnostics hover text
-          vim.api.nvim_create_autocmd("CursorHold", {
+          autocmd("CursorHold", {
             buffer = bufnr,
             callback = function()
               local opts = {
@@ -1476,7 +1479,7 @@ else
                 prefix = " ",
                 scope = "cursor",
               }
-              vim.diagnostic.open_float(nil, opts)
+              diagnostic.open_float(nil, opts)
             end,
           })
         end,
@@ -1487,12 +1490,17 @@ else
           "hrsh7th/cmp-nvim-lsp",
           "hrsh7th/cmp-buffer",
           "hrsh7th/cmp-path",
+          "hrsh7th/cmp-cmdline",
           "onsails/lspkind.nvim",
         },
         config = function()
           local cmp = require("cmp")
           local lspkind = require("lspkind")
           require("cmp").setup({
+            preselect = cmp.PreselectMode.None,
+            completion = {
+              completeopt = "menu,menuone,noinsert",
+            },
             sources = {
               { name = "nvim_lsp" },
               { name = "buffer" },
@@ -1513,10 +1521,8 @@ else
               format = lspkind.cmp_format({
                 mode = "symbol_text", -- show only symbol annotations
                 maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-                -- can also be a function to dynamically calculate max width such as
-                -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
                 ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-                show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+                -- show_labelDetails = true, -- show labelDetails in menu. Disabled by default
               }),
             },
           })
@@ -1525,6 +1531,25 @@ else
           local cmp_autopairs = require("nvim-autopairs.completion.cmp")
           local cmp = require("cmp")
           cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+          -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+          cmp.setup.cmdline({ "/", "?" }, {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+              { name = "buffer" },
+            },
+          })
+
+          -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+          cmp.setup.cmdline(":", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+              { name = "path" },
+            }, {
+              { name = "cmdline" },
+            }),
+            matching = { disallow_symbol_nonprefix_matching = false },
+          })
         end,
       },
       {
@@ -1561,7 +1586,7 @@ else
               "taplo",
               "terraformls",
               "tflint",
-              "vtsls",
+              "ts_ls",
             },
           })
 
@@ -1573,7 +1598,7 @@ else
                 },
                 staticcheck = true,
                 gofumpt = true,
-                ["ui.completion.usePlaceholders"] = true,
+                -- ["ui.completion.usePlaceholders"] = true,
                 -- ["ui.inlayhint.hints"] = {
                 --   assignVariablesTypes = true,
                 --   compositeLiteralFields = true,
@@ -1584,6 +1609,9 @@ else
                 --   rangeVariableTypes = true,
                 -- },
               },
+            },
+            init_options = {
+              usePlaceholders = true,
             },
           })
 
@@ -1599,7 +1627,7 @@ else
 
           lspconfig.eslint.setup({
             on_attach = function(client, bufnr)
-              vim.api.nvim_create_autocmd("BufWritePre", {
+              autocmd("BufWritePre", {
                 buffer = bufnr,
                 command = "EslintFixAll",
               })
@@ -1610,7 +1638,7 @@ else
             return lspconfig.util.root_pattern("package.json")(vim.fn.getcwd())
           end
 
-          lspconfig.vtsls.setup({
+          lspconfig.ts_ls.setup({
             on_attach = function(client)
               if not is_node_dir() then
                 client.stop(true)
@@ -1627,8 +1655,8 @@ else
           })
         end,
         init = function()
-          if vim.lsp.inlay_hint then
-            vim.lsp.inlay_hint.enable(true, { 0 })
+          if lsp.inlay_hint then
+            lsp.inlay_hint.enable(true, { 0 })
           end
         end,
       },
