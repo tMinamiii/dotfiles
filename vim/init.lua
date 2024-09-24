@@ -1270,6 +1270,13 @@ else
               ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
             },
           },
+          presets = {
+            bottom_search = false, -- use a classic bottom cmdline for search
+            command_palette = false, -- position the cmdline and popupmenu together
+            long_message_to_split = true, -- long messages will be sent to a split
+            inc_rename = false, -- enables an input dialog for inc-rename.nvim
+            lsp_doc_border = true, -- add a border to hover docs and signature help
+          },
           routes = {
             {
               filter = {
@@ -1560,6 +1567,7 @@ else
         config = function()
           local lspconfig = require("lspconfig")
           local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
           require("mason-lspconfig").setup_handlers({
             function(server_name)
               lspconfig[server_name].setup({
@@ -1567,6 +1575,7 @@ else
               })
             end,
           })
+
           require("mason-lspconfig").setup({
             ensure_installed = {
               "bashls",
