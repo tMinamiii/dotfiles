@@ -12,6 +12,9 @@ local g = vim.g
 opt.encoding = "utf-8"
 opt.completeopt:append({ "noselect" })
 
+-- Always show the signcolumn, otherwise it would shift the text each time
+-- diagnostics appeared/became resolved
+opt.signcolumn = "yes"
 opt.cursorline = true
 opt.ignorecase = true -- 大文字小文字を区別しない
 opt.smartcase = true -- 検索文字に大文字がある場合は大文字小文字を区別
@@ -24,8 +27,8 @@ opt.showmatch = true -- 対応する括弧などをハイライト表示する
 opt.matchtime = 2 -- 対応括弧のハイライト表示を3秒にする
 
 opt.clipboard = "unnamedplus"
--- vim.opt.clipboard = "unnamed"
-opt.updatetime = 500
+-- opt.clipboard = "unnamed"
+opt.updatetime = 300
 opt.shortmess:append({ c = true })
 opt.signcolumn = "yes"
 opt.swapfile = false
@@ -51,6 +54,8 @@ opt.wildmenu = true
 opt.wildmode = "full"
 opt.wildoptions = "pum"
 opt.modifiable = true
+opt.backup = false
+opt.writebackup = false
 
 opt.expandtab = true -- タブをスペースにする
 opt.tabstop = 2
@@ -88,7 +93,7 @@ g.netrw_sizestyle = "H" -- " サイズを(K,M,G)で表示する
 g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
 g.netrw_preview = 1 -- " プレビューウィンドウを垂直分割で表示する
 g.mapleader = " "
-vim.g.maplocalleader = "\\"
+g.maplocalleader = "\\"
 
 keyset("n", "<ESC>", ":noh<CR>", { noremap = true, silent = true })
 keyset("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
@@ -1581,7 +1586,9 @@ else
           },
           {
             "<cr>",
-            [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+            -- [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+            -- [[coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+            [[coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
             mode = "i",
             noremap = true,
             silent = true,
