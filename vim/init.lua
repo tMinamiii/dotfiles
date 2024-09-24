@@ -1418,273 +1418,393 @@ else
         event = { "CursorMoved", "WinScrolled" },
         opts = {},
       },
-      -- {
-      --   "windwp/nvim-autopairs",
-      --   event = "InsertEnter",
-      --   config = true,
-      -- },
-      -- {
-      --   "neovim/nvim-lspconfig",
-      --   keys = {
-      --     { "K",          vim.lsp.buf.hover,           mode = "n", noremap = true, silent = true, desc = "lsp hover" },
-      --     { "<leader>/",  vim.lsp.buf.format,          mode = "n", noremap = true, silent = true, desc = "lsp format" },
-      --     { "gr",         vim.lsp.buf.references,      mode = "n", noremap = true, silent = true, desc = "lsp references" },
-      --     { "gd",         vim.lsp.buf.definition,      mode = "n", noremap = true, silent = true, desc = "lsp definition" },
-      --     { "gD",         vim.lsp.buf.declaration,     mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
-      --     { "gi",         vim.lsp.buf.implementation,  mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
-      --     { "gt",         vim.lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
-      --     { "<leader>rn", vim.lsp.buf.rename,          mode = "n", noremap = true, silent = true, desc = "lsp rename" },
-      --     { "ga",         vim.lsp.buf.code_action,     mode = "n", noremap = true, silent = true, desc = "lsp code action" },
-      --     { "ge",         vim.diagnostic.open_float,   mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
-      --     { "g]",         vim.diagnostic.goto_next,    mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
-      --     { "g[",         vim.diagnostic.goto_prev,    mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
-      --   },
-      --   init = function()
-      --     local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-      --     for type, icon in pairs(signs) do
-      --       local hl = "DiagnosticSign" .. type
-      --       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      --     end
-
-      --     vim.diagnostic.config({
-      --       virtual_text = false,
-      --       signs = true,
-      --       underline = true,
-      --       update_in_insert = false,
-      --       severity_sort = false,
-      --     })
-
-      --     vim.api.nvim_create_autocmd("CursorHold", {
-      --       buffer = bufnr,
-      --       callback = function()
-      --         local opts = {
-      --           focusable = false,
-      --           close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-      --           border = 'rounded',
-      --           source = 'always',
-      --           prefix = ' ',
-      --           scope = 'cursor',
-      --         }
-      --         vim.diagnostic.open_float(nil, opts)
-      --       end
-      --     })
-      --   end
-      -- },
-      -- {
-      --   "hrsh7th/nvim-cmp",
-      --   dependencies = {
-      --     "hrsh7th/cmp-nvim-lsp",
-      --     "hrsh7th/cmp-buffer",
-      --     "hrsh7th/cmp-path",
-      --     "onsails/lspkind.nvim",
-      --   },
-      --   config = function()
-      --     local cmp = require 'cmp'
-      --     local lspkind = require("lspkind")
-      --     require("cmp").setup({
-      --       sources = {
-      --         { name = "nvim_lsp" },
-      --         { name = "buffer" },
-      --         { name = "path" },
-      --       },
-      --       window = {
-      --         -- completion = cmp.config.window.bordered(),
-      --         documentation = cmp.config.window.bordered(),
-      --       },
-      --       mapping = cmp.mapping.preset.insert({
-      --         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      --         ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      --         ['<C-Space>'] = cmp.mapping.complete(),
-      --         ['<C-e>'] = cmp.mapping.abort(),
-      --         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-      --       }),
-      --       formatting = {
-      --         format = lspkind.cmp_format({
-      --           mode = "symbol_text", -- show only symbol annotations
-      --           maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      --           -- can also be a function to dynamically calculate max width such as
-      --           -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-      --           ellipsis_char = "...",    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-      --           show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-      --         }),
-      --       },
-      --     })
-      --   end,
-      -- },
-      -- {
-      --   "williamboman/mason-lspconfig.nvim",
-      --   dependencies = {
-      --     { "williamboman/mason.nvim", opts = {}, },
-      --   },
-      --   config = function()
-      --     local lspconfig = require("lspconfig")
-      --     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      --     require("mason-lspconfig").setup_handlers({
-      --       function(server_name)
-      --         lspconfig[server_name].setup({
-      --           capabilities = capabilities,
-      --         })
-      --       end,
-      --     })
-      --     require("mason-lspconfig").setup({
-      --       ensure_installed = {
-      --         "bashls",
-      --         "biome",
-      --         "denols",
-      --         "gopls",
-      --         "html",
-      --         "jdtls",
-      --         "jqls",
-      --         "jsonls",
-      --         "kotlin_language_server",
-      --         "lua_ls",
-      --         "marksman",
-      --         "pyright",
-      --         "rust_analyzer",
-      --         "taplo",
-      --         "terraformls",
-      --         "tflint",
-      --         "vtsls",
-      --       },
-      --     })
-      --   end,
-      -- },
-      -- {
-      --   "jay-babu/mason-null-ls.nvim",
-      --   dependencies = {
-      --     "nvimtools/none-ls.nvim",
-      --     "williamboman/mason.nvim",
-      --   },
-      --   event = { "BufReadPre", "BufNewFile" },
-      --   config = function()
-      --     require("mason-null-ls").setup({
-      --       ensure_installed = {
-      --         "goimports",
-      --         "isort",
-      --         "jq",
-      --         "markdownlint",
-      --         "stylua",
-      --       },
-      --     })
-      --   end,
-      -- },
 
       {
-        "neoclide/coc.nvim",
-        lazy = false,
-        dependencies = { "fannheyward/coc-marketplace" },
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true,
+      },
+      {
+        "neovim/nvim-lspconfig",
         keys = {
-          {
-            "<TAB>",
-            "coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? '<TAB>' : coc#refresh()",
-            mode = "i",
-            noremap = true,
-            silent = true,
-            expr = true,
-            replace_keycodes = false,
-          },
-          {
-            "<S-TAB>",
-            [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]],
-            mode = "i",
-            noremap = true,
-            silent = true,
-            expr = true,
-            replace_keycodes = false,
-          },
-          {
-            "<cr>",
-            -- [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-            [[coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-            mode = "i",
-            noremap = true,
-            silent = true,
-            expr = true,
-            replace_keycodes = false,
-          },
-          -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
-          { "gd", "<Plug>(coc-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto definition" },
-          { "gi", "<Plug>(coc-implementation)", mode = "n", noremap = true, silent = true, desc = "coc goto implementa,tion" },
-          { "gr", "<Plug>(coc-references)", mode = "n", noremap = true, silent = true, desc = "coc goto references" },
-          { "gt", "<Plug>(coc-type-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto type definition" },
-          { "gp", "<Plug>(coc-peek-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto peek definition" },
-          { "[g", "<Plug>(coc-diagnostic-prev)", mode = "n", noremap = true, silent = true, desc = "coc goto prev diagnostic" },
-          { "]g", "<Plug>(coc-diagnostic-next)", mode = "n", noremap = true, silent = true, desc = "coc goto next diagnostic" },
-          { "<leader>rn", "<Plug>(coc-rename)", mode = "n", noremap = true, silent = true, desc = "coc rename" },
-          { "<F2>", "<Plug>(coc-rename)", mode = "n", noremap = true, silent = true, desc = "coc rename" },
-          { "<leader>/", "<Cmd>call CocAction('format')<CR>", mode = { "n", "x" }, noremap = true, silent = true, desc = "coc format" },
-          {
-            "K",
-            function()
-              local cw = vim.fn.expand("<cword>")
-              if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
-                command("h " .. cw)
-              elseif vim.api.nvim_eval("coc#rpc#ready()") then
-                vim.fn.CocActionAsync("doHover")
-              else
-                command("!" .. vim.o.keywordprg .. " " .. cw)
-              end
-            end,
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc hover",
-          },
+          { "K", vim.lsp.buf.hover, mode = "n", noremap = true, silent = true, desc = "lsp hover" },
+          { "<leader>/", vim.lsp.buf.format, mode = "n", noremap = true, silent = true, desc = "lsp format" },
+          { "gr", vim.lsp.buf.references, mode = "n", noremap = true, silent = true, desc = "lsp references" },
+          { "gd", vim.lsp.buf.definition, mode = "n", noremap = true, silent = true, desc = "lsp definition" },
+          { "gD", vim.lsp.buf.declaration, mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
+          { "gi", vim.lsp.buf.implementation, mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
+          { "gt", vim.lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
+          { "<leader>rn", vim.lsp.buf.rename, mode = "n", noremap = true, silent = true, desc = "lsp rename" },
+          { "ga", vim.lsp.buf.code_action, mode = "n", noremap = true, silent = true, desc = "lsp code action" },
+          { "ge", vim.diagnostic.open_float, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
+          { "g]", vim.diagnostic.goto_next, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
+          { "g[", vim.diagnostic.goto_prev, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
         },
-        branch = "release",
         init = function()
-          -- Autocomplete for tab keyset
-          function _G.check_back_space()
-            local col = vim.fn.col(".") - 1
-            return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+          local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+          for type, icon in pairs(signs) do
+            local hl = "DiagnosticSign" .. type
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
           end
 
-          user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
-          -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
-          augroup("CocGroup", {})
-          autocmd("CursorHold", {
-            group = "CocGroup",
-            command = "silent call CocActionAsync('highlight')",
-            desc = "Highlight symbol under cursor on CursorHold",
+          -- format on save
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = buffer,
+            callback = function()
+              vim.lsp.buf.format({ async = false })
+            end,
           })
 
-          g.coc_global_extensions = {
-            "coc-clangd",
-            "coc-biome",
-            "coc-deno",
-            "coc-docker",
-            "coc-eslint",
-            "coc-git",
-            "coc-html",
-            "coc-java-dev",
-            "coc-json",
-            "coc-kotlin-dev",
-            "coc-markdownlint",
-            "coc-marketplace",
-            "coc-pairs",
-            "coc-prettier",
-            "coc-pyright",
-            "coc-rust-analyzer",
-            "coc-sh",
-            "coc-sql",
-            "coc-sqlfluff",
-            "coc-sumneko-lua",
-            "@statiolake/coc-stylua",
-            "coc-tailwindcss",
-            "coc-toml",
-            "coc-tsserver",
-            "coc-vimlsp",
-            "coc-xml",
-            "coc-yaml",
-          }
+          -- disable diagnostics virtualtext
+          vim.diagnostic.config({
+            virtual_text = false,
+            signs = true,
+            underline = true,
+            update_in_insert = false,
+            severity_sort = false,
+          })
 
-          -- autocmd BufWritePre *.go :call CocAction("runCommand", "editor.action.organizeImport")
-          autocmd("BufWritePre", {
-            pattern = "*.go",
-            command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
+          -- diagnostics hover text
+          vim.api.nvim_create_autocmd("CursorHold", {
+            buffer = bufnr,
+            callback = function()
+              local opts = {
+                focusable = false,
+                close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+                border = "rounded",
+                source = "always",
+                prefix = " ",
+                scope = "cursor",
+              }
+              vim.diagnostic.open_float(nil, opts)
+            end,
           })
         end,
       },
+      {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+          "hrsh7th/cmp-nvim-lsp",
+          "hrsh7th/cmp-buffer",
+          "hrsh7th/cmp-path",
+          "onsails/lspkind.nvim",
+        },
+        config = function()
+          local cmp = require("cmp")
+          local lspkind = require("lspkind")
+          require("cmp").setup({
+            sources = {
+              { name = "nvim_lsp" },
+              { name = "buffer" },
+              { name = "path" },
+            },
+            window = {
+              -- completion = cmp.config.window.bordered(),
+              documentation = cmp.config.window.bordered(),
+            },
+            mapping = cmp.mapping.preset.insert({
+              ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+              ["<C-f>"] = cmp.mapping.scroll_docs(4),
+              ["<C-Space>"] = cmp.mapping.complete(),
+              ["<C-e>"] = cmp.mapping.abort(),
+              ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+            }),
+            formatting = {
+              format = lspkind.cmp_format({
+                mode = "symbol_text", -- show only symbol annotations
+                maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                -- can also be a function to dynamically calculate max width such as
+                -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+                ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+                show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+              }),
+            },
+          })
+        end,
+        init = function()
+          local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+          local cmp = require("cmp")
+          cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+        end,
+      },
+      {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = {
+          { "williamboman/mason.nvim", opts = {} },
+        },
+        config = function()
+          local lspconfig = require("lspconfig")
+          local capabilities = require("cmp_nvim_lsp").default_capabilities()
+          require("mason-lspconfig").setup_handlers({
+            function(server_name)
+              lspconfig[server_name].setup({
+                capabilities = capabilities,
+              })
+            end,
+          })
+          require("mason-lspconfig").setup({
+            ensure_installed = {
+              "bashls",
+              "biome",
+              "denols",
+              "eslint",
+              "gopls",
+              "html",
+              "jdtls",
+              "jqls",
+              "jsonls",
+              "kotlin_language_server",
+              "lua_ls",
+              "marksman",
+              "pyright",
+              "rust_analyzer",
+              "taplo",
+              "terraformls",
+              "tflint",
+              "vtsls",
+            },
+          })
+
+          lspconfig.gopls.setup({
+            settings = {
+              gopls = {
+                analyses = {
+                  unusedparams = true,
+                },
+                staticcheck = true,
+                gofumpt = true,
+                ["ui.completion.usePlaceholders"] = true,
+                -- ["ui.inlayhint.hints"] = {
+                --   assignVariablesTypes = true,
+                --   compositeLiteralFields = true,
+                --   compositeLiteralTypes = true,
+                --   constantValues = true,
+                --   functionTypeParameters = true,
+                --   parameterNames = true,
+                --   rangeVariableTypes = true,
+                -- },
+              },
+            },
+          })
+
+          lspconfig.lua_ls.setup({
+            settings = {
+              Lua = {
+                format = {
+                  enable = false,
+                },
+              },
+            },
+          })
+
+          lspconfig.eslint.setup({
+            on_attach = function(client, bufnr)
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                command = "EslintFixAll",
+              })
+            end,
+          })
+
+          local is_node_dir = function()
+            return lspconfig.util.root_pattern("package.json")(vim.fn.getcwd())
+          end
+
+          lspconfig.vtsls.setup({
+            on_attach = function(client)
+              if not is_node_dir() then
+                client.stop(true)
+              end
+            end,
+          })
+
+          lspconfig.denols.setup({
+            on_attach = function(client)
+              if is_node_dir() then
+                client.stop(true)
+              end
+            end,
+          })
+        end,
+        init = function()
+          if vim.lsp.inlay_hint then
+            vim.lsp.inlay_hint.enable(true, { 0 })
+          end
+        end,
+      },
+      {
+        "jay-babu/mason-null-ls.nvim",
+        dependencies = {
+          "nvimtools/none-ls.nvim",
+          { "williamboman/mason.nvim", opts = {} },
+        },
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+          require("mason-null-ls").setup({
+            ensure_installed = {
+              "goimports",
+              "isort",
+              "jq",
+              "markdownlint",
+              "stylua",
+              "shfmt",
+              "prettier",
+              "black",
+              "biome",
+            },
+          })
+          local null_ls = require("null-ls")
+          null_ls.setup({
+            sources = {
+              null_ls.builtins.formatting.stylua,
+              null_ls.builtins.formatting.goimports,
+              null_ls.builtins.formatting.isort,
+              null_ls.builtins.formatting.black,
+              null_ls.builtins.formatting.shfmt,
+              null_ls.builtins.formatting.biome.with({
+                condition = function(utils)
+                  return utils.root_has_file({ "biome.json", "biome.jsonc" })
+                end,
+              }),
+              null_ls.builtins.formatting.prettier.with({
+                condition = function(utils)
+                  return utils.root_has_file({
+                    ".prettierrc",
+                    ".prettierrc.json",
+                    ".prettierrc.yml",
+                    ".prettierrc.yaml",
+                    ".prettierrc.json5",
+                    ".prettierrc.js",
+                    ".prettierrc.cjs",
+                    ".prettierrc.toml",
+                    "prettier.config.js",
+                    "prettier.config.cjs",
+                  })
+                end,
+              }),
+              null_ls.builtins.diagnostics.markdownlint,
+              null_ls.builtins.completion.spell,
+              -- require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
+            },
+          })
+        end,
+      },
+      -- {
+      --   "neoclide/coc.nvim",
+      --   lazy = false,
+      --   dependencies = { "fannheyward/coc-marketplace" },
+      --   keys = {
+      --     {
+      --       "<TAB>",
+      --       "coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? '<TAB>' : coc#refresh()",
+      --       mode = "i",
+      --       noremap = true,
+      --       silent = true,
+      --       expr = true,
+      --       replace_keycodes = false,
+      --     },
+      --     {
+      --       "<S-TAB>",
+      --       [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]],
+      --       mode = "i",
+      --       noremap = true,
+      --       silent = true,
+      --       expr = true,
+      --       replace_keycodes = false,
+      --     },
+      --     {
+      --       "<cr>",
+      --       -- [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+      --       [[coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+      --       mode = "i",
+      --       noremap = true,
+      --       silent = true,
+      --       expr = true,
+      --       replace_keycodes = false,
+      --     },
+      --     -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
+      --     { "gd", "<Plug>(coc-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto definition" },
+      --     { "gi", "<Plug>(coc-implementation)", mode = "n", noremap = true, silent = true, desc = "coc goto implementa,tion" },
+      --     { "gr", "<Plug>(coc-references)", mode = "n", noremap = true, silent = true, desc = "coc goto references" },
+      --     { "gt", "<Plug>(coc-type-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto type definition" },
+      --     { "gp", "<Plug>(coc-peek-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto peek definition" },
+      --     { "[g", "<Plug>(coc-diagnostic-prev)", mode = "n", noremap = true, silent = true, desc = "coc goto prev diagnostic" },
+      --     { "]g", "<Plug>(coc-diagnostic-next)", mode = "n", noremap = true, silent = true, desc = "coc goto next diagnostic" },
+      --     { "<leader>rn", "<Plug>(coc-rename)", mode = "n", noremap = true, silent = true, desc = "coc rename" },
+      --     { "<F2>", "<Plug>(coc-rename)", mode = "n", noremap = true, silent = true, desc = "coc rename" },
+      --     { "<leader>/", "<Cmd>call CocAction('format')<CR>", mode = { "n", "x" }, noremap = true, silent = true, desc = "coc format" },
+      --     {
+      --       "K",
+      --       function()
+      --         local cw = vim.fn.expand("<cword>")
+      --         if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+      --           command("h " .. cw)
+      --         elseif vim.api.nvim_eval("coc#rpc#ready()") then
+      --           vim.fn.CocActionAsync("doHover")
+      --         else
+      --           command("!" .. vim.o.keywordprg .. " " .. cw)
+      --         end
+      --       end,
+      --       mode = "n",
+      --       noremap = true,
+      --       silent = true,
+      --       desc = "coc hover",
+      --     },
+      --   },
+      --   branch = "release",
+      --   init = function()
+      --     -- Autocomplete for tab keyset
+      --     function _G.check_back_space()
+      --       local col = vim.fn.col(".") - 1
+      --       return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+      --     end
+
+      --     user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
+      --     -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
+      --     augroup("CocGroup", {})
+      --     autocmd("CursorHold", {
+      --       group = "CocGroup",
+      --       command = "silent call CocActionAsync('highlight')",
+      --       desc = "Highlight symbol under cursor on CursorHold",
+      --     })
+
+      --     g.coc_global_extensions = {
+      --       "coc-clangd",
+      --       "coc-biome",
+      --       "coc-deno",
+      --       "coc-docker",
+      --       "coc-eslint",
+      --       "coc-git",
+      --       "coc-html",
+      --       "coc-java-dev",
+      --       "coc-json",
+      --       "coc-kotlin-dev",
+      --       "coc-markdownlint",
+      --       "coc-marketplace",
+      --       "coc-pairs",
+      --       "coc-prettier",
+      --       "coc-pyright",
+      --       "coc-rust-analyzer",
+      --       "coc-sh",
+      --       "coc-sql",
+      --       "coc-sqlfluff",
+      --       "coc-sumneko-lua",
+      --       "@statiolake/coc-stylua",
+      --       "coc-tailwindcss",
+      --       "coc-toml",
+      --       "coc-tsserver",
+      --       "coc-vimlsp",
+      --       "coc-xml",
+      --       "coc-yaml",
+      --     }
+
+      --     -- autocmd BufWritePre *.go :call CocAction("runCommand", "editor.action.organizeImport")
+      --     autocmd("BufWritePre", {
+      --       pattern = "*.go",
+      --       command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
+      --     })
+      --   end,
+      -- },
     },
     checker = { enabled = true },
   })
