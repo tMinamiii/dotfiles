@@ -1207,7 +1207,7 @@ else
           require("statuscol").setup({
             relculright = true,
             segments = {
-              { text = { "%s" }, click = "v:lua.ScSa" },
+              { text = { "%s " }, click = "v:lua.ScSa" },
               { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
               { text = { builtin.foldfunc, "  " }, click = "v:lua.ScFa" },
             },
@@ -1325,7 +1325,6 @@ else
         end,
       },
       { "folke/persistence.nvim", event = "BufReadPre", opts = {} },
-      { "shortcuts/no-neck-pain.nvim" },
       {
         "stevearc/aerial.nvim",
         lazy = false,
@@ -1405,36 +1404,12 @@ else
         opts = {},
       },
       { "wakatime/vim-wakatime", lazy = false },
-      { "m4xshen/autoclose.nvim", opts = {} },
-      -- {
-      --   "hrsh7th/nvim-cmp",
-      --   dependencies = {
-      --     "hrsh7th/cmp-nvim-lsp",
-      --     "hrsh7th/cmp-buffer",
-      --     "hrsh7th/cmp-path",
-      --     "onsails/lspkind.nvim",
-      --   },
-      --   config = function()
-      --     local lspkind = require("lspkind")
-      --     require("cmp").setup({
-      --       sources = {
-      --         { name = "nvim_lsp" },
-      --         { name = "buffer" },
-      --         { name = "path" },
-      --       },
-      --       formatting = {
-      --         format = lspkind.cmp_format({
-      --           mode = "symbol_text", -- show only symbol annotations
-      --           maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-      --           -- can also be a function to dynamically calculate max width such as
-      --           -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-      --           ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-      --           show_labelDetails = true, -- show labelDetails in menu. Disabled by default
-      --         }),
-      --       },
-      --     })
-      --   end,
-      -- },
+      {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true,
+      },
+
       -- {
       --   "neovim/nvim-lspconfig",
       --   keys = {
@@ -1451,14 +1426,82 @@ else
       --     { "g]",         vim.diagnostic.goto_next,    mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
       --     { "g[",         vim.diagnostic.goto_prev,    mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
       --   },
+      --   init = function()
+      --     local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+      --     for type, icon in pairs(signs) do
+      --       local hl = "DiagnosticSign" .. type
+      --       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+      --     end
+
+      --     vim.diagnostic.config({
+      --       virtual_text = false,
+      --       signs = true,
+      --       underline = true,
+      --       update_in_insert = false,
+      --       severity_sort = false,
+      --     })
+
+      --     vim.api.nvim_create_autocmd("CursorHold", {
+      --       buffer = bufnr,
+      --       callback = function()
+      --         local opts = {
+      --           focusable = false,
+      --           close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      --           border = 'rounded',
+      --           source = 'always',
+      --           prefix = ' ',
+      --           scope = 'cursor',
+      --         }
+      --         vim.diagnostic.open_float(nil, opts)
+      --       end
+      --     })
+      --   end
+      -- },
+      -- {
+      --   "hrsh7th/nvim-cmp",
+      --   dependencies = {
+      --     "hrsh7th/cmp-nvim-lsp",
+      --     "hrsh7th/cmp-buffer",
+      --     "hrsh7th/cmp-path",
+      --     "onsails/lspkind.nvim",
+      --   },
+      --   config = function()
+      --     local cmp = require 'cmp'
+      --     local lspkind = require("lspkind")
+      --     require("cmp").setup({
+      --       sources = {
+      --         { name = "nvim_lsp" },
+      --         { name = "buffer" },
+      --         { name = "path" },
+      --       },
+      --       window = {
+      --         -- completion = cmp.config.window.bordered(),
+      --         documentation = cmp.config.window.bordered(),
+      --       },
+      --       mapping = cmp.mapping.preset.insert({
+      --         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      --         ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      --         ['<C-Space>'] = cmp.mapping.complete(),
+      --         ['<C-e>'] = cmp.mapping.abort(),
+      --         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      --       }),
+      --       formatting = {
+      --         format = lspkind.cmp_format({
+      --           mode = "symbol_text", -- show only symbol annotations
+      --           maxwidth = 50,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      --           -- can also be a function to dynamically calculate max width such as
+      --           -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+      --           ellipsis_char = "...",    -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+      --           show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+      --         }),
+      --       },
+      --     })
+      --   end,
       -- },
       -- {
       --   "williamboman/mason-lspconfig.nvim",
       --   dependencies = {
-      --     "williamboman/mason.nvim",
-      --     config = function()
-      --       require("mason").setup()
-      --     end,
+      --     { "williamboman/mason.nvim", opts = {}, },
       --   },
       --   config = function()
       --     local lspconfig = require("lspconfig")
@@ -1506,11 +1549,13 @@ else
       --         "goimports",
       --         "isort",
       --         "jq",
+      --         "markdownlint",
       --         "stylua",
       --       },
       --     })
       --   end,
       -- },
+
       {
         "neoclide/coc.nvim",
         lazy = false,
@@ -1544,86 +1589,16 @@ else
             replace_keycodes = false,
           },
           -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
-          {
-            "gd",
-            "<Plug>(coc-definition)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc goto definition",
-          },
-          {
-            "gi",
-            "<Plug>(coc-implementation)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc goto implementa,tion",
-          },
-          {
-            "gr",
-            "<Plug>(coc-references)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc goto references",
-          },
-          {
-            "gt",
-            "<Plug>(coc-type-definition)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc goto type definition",
-          },
-          {
-            "gp",
-            "<Plug>(coc-peek-definition)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc goto peek definition",
-          },
-          {
-            "[g",
-            "<Plug>(coc-diagnostic-prev)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc goto prev diagnostic",
-          },
-          {
-            "]g",
-            "<Plug>(coc-diagnostic-next)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc goto next diagnostic",
-          },
-          {
-            "<leader>rn",
-            "<Plug>(coc-rename)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc rename",
-          },
-          {
-            "<F2>",
-            "<Plug>(coc-rename)",
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "coc rename",
-          },
-          {
-            "<leader>/",
-            "<Cmd>call CocAction('format')<CR>",
-            mode = { "n", "x" },
-            noremap = true,
-            silent = true,
-            desc = "coc format",
-          },
+          { "gd", "<Plug>(coc-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto definition" },
+          { "gi", "<Plug>(coc-implementation)", mode = "n", noremap = true, silent = true, desc = "coc goto implementa,tion" },
+          { "gr", "<Plug>(coc-references)", mode = "n", noremap = true, silent = true, desc = "coc goto references" },
+          { "gt", "<Plug>(coc-type-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto type definition" },
+          { "gp", "<Plug>(coc-peek-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto peek definition" },
+          { "[g", "<Plug>(coc-diagnostic-prev)", mode = "n", noremap = true, silent = true, desc = "coc goto prev diagnostic" },
+          { "]g", "<Plug>(coc-diagnostic-next)", mode = "n", noremap = true, silent = true, desc = "coc goto next diagnostic" },
+          { "<leader>rn", "<Plug>(coc-rename)", mode = "n", noremap = true, silent = true, desc = "coc rename" },
+          { "<F2>", "<Plug>(coc-rename)", mode = "n", noremap = true, silent = true, desc = "coc rename" },
+          { "<leader>/", "<Cmd>call CocAction('format')<CR>", mode = { "n", "x" }, noremap = true, silent = true, desc = "coc format" },
           {
             "K",
             function()
@@ -1672,7 +1647,7 @@ else
             "coc-kotlin-dev",
             "coc-markdownlint",
             "coc-marketplace",
-            "coc-pairs",
+            -- "coc-pairs",
             "coc-prettier",
             "coc-pyright",
             "coc-rust-analyzer",
