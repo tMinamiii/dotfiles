@@ -1911,6 +1911,6 @@ else
   hl(0, "TreesitterContext", { bg = "#383838" })
   hl(0, "TreesitterContextBottom", { underline = true })
   hl(0, "TreesitterContextLineNumberBottom", { underline = true })
-  hl(0, "FlashMatch", { bg = "#AA0000" })
-  hl(0, "FlashBackdrop", { fg = "#808080" })
 end
+hl(0, "FlashMatch", { bg = "#AA0000" })
+hl(0, "FlashBackdrop", { fg = "#AAAAAA" })
