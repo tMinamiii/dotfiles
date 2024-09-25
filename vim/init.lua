@@ -1481,7 +1481,7 @@ else
               local opts = {
                 focusable = false,
                 close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-                border = "rounded",
+                border = "none",
                 source = "always",
                 prefix = " ",
                 scope = "cursor",
@@ -1515,7 +1515,13 @@ else
             },
             window = {
               -- completion = cmp.config.window.bordered(),
-              documentation = cmp.config.window.bordered(),
+              -- documentation = cmp.config.window.bordered(),
+              completion = {
+                winhighlight = "Normal:CmpMenu,FloatBorder:CmpMenu,CursorLine:PMenuSel,Search:None",
+              },
+              documentation = {
+                winhighlight = "Normal:CmpDoc,FloatBorder:CmpDoc",
+              },
             },
             mapping = cmp.mapping.preset.insert({
               ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -1849,13 +1855,16 @@ else
   -- colorscheme("material")
   colorscheme("vscode")
 
-  hl(0, "CocMenuSel", { bg = "#353535" })
+  hl(0, "NormalFloat", { bg = "#454545" })
+
   hl(0, "LineNr", { fg = "#505050" })
   hl(0, "FoldColumn", { fg = "#808080" })
   hl(0, "WhiteSpace", { fg = "#383838" })
   hl(0, "CursorLine", { bg = "#383838" })
   hl(0, "CocFloating", { bg = "#383838" })
   hl(0, "CocMenuSel", { bg = "#505050" })
+  hl(0, "CmpMenu", { bg = "#353535" })
+  hl(0, "CmpDoc", { bg = "#103010" })
   hl(0, "TreesitterContext", { bg = "#383838" })
   hl(0, "TreesitterContextBottom", { underline = true })
   hl(0, "TreesitterContextLineNumberBottom", { underline = true })
