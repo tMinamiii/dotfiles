@@ -399,7 +399,7 @@ if g.vscode then
           no_selection = false,
         },
         init = function()
-          vim.keymap.set({ "n", "x", "i" }, "<C-m>", function()
+          keyset({ "n", "x", "i" }, "<C-m>", function()
             require("vscode-multi-cursor").addSelectionToNextFindMatch()
           end)
         end,
@@ -1551,14 +1551,13 @@ else
           })
         end,
       },
+      { "williamboman/mason.nvim", opts = {} },
       {
         "neovim/nvim-lspconfig",
         dependencies = {
-          { "williamboman/mason.nvim", opts = {} },
           "williamboman/mason-lspconfig.nvim",
-          "jay-babu/mason-null-ls.nvim",
-          "nvimtools/none-ls.nvim",
         },
+        lazy = false,
         keys = {
           { "K", lsp.buf.hover, mode = "n", noremap = true, silent = true, desc = "lsp hover" },
           { "<leader>/", lsp.buf.format, mode = "n", noremap = true, silent = true, desc = "lsp format" },
@@ -1589,6 +1588,7 @@ else
             ensure_installed = {
               "bashls",
               "biome",
+              "css-lsp",
               "denols",
               "eslint",
               "gopls",
@@ -1600,11 +1600,15 @@ else
               "lua_ls",
               "marksman",
               "pyright",
+              "ruby-lsp",
               "rust_analyzer",
+              "sorbet",
+              "sqls",
               "taplo",
               "terraformls",
               "tflint",
               "ts_ls",
+              "vim-language-server",
             },
           })
 
@@ -1671,7 +1675,59 @@ else
               end
             end,
           })
+        end,
+        init = function()
+          if lsp.inlay_hint then
+            lsp.inlay_hint.enable(true, { 0 })
+          end
 
+          local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+          for type, icon in pairs(signs) do
+            local hl = "DiagnosticSign" .. type
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+          end
+
+          -- format on save
+          autocmd("BufWritePre", {
+            callback = function()
+              lsp.buf.format({ async = false })
+            end,
+          })
+
+          -- disable diagnostics virtualtext
+          diagnostic.config({
+            virtual_text = false,
+            signs = true,
+            underline = true,
+            update_in_insert = false,
+            severity_sort = false,
+          })
+
+          -- diagnostics hover text
+          autocmd("CursorHold", {
+            callback = function()
+              local opts = {
+                focusable = false,
+                close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+                border = "none",
+                source = "always",
+                prefix = " ",
+                scope = "cursor",
+              }
+              diagnostic.open_float(nil, opts)
+            end,
+          })
+        end,
+      },
+      {
+        "jay-babu/mason-null-ls.nvim",
+        lazy = false,
+        dependencies = {
+          "nvimtools/none-ls.nvim",
+          "nvimtools/none-ls-extras.nvim",
+          "gbprod/none-ls-shellcheck.nvim",
+        },
+        config = function()
           require("mason-null-ls").setup({
             ensure_installed = {
               "goimports",
@@ -1679,6 +1735,7 @@ else
               "jq",
               "markdownlint",
               "stylua",
+              "shellcheck",
               "shfmt",
               "prettier",
               "black",
@@ -1716,52 +1773,10 @@ else
               }),
               null_ls.builtins.diagnostics.markdownlint,
               null_ls.builtins.completion.spell,
-              -- require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
+              require("none-ls-shellcheck.diagnostics"),
+              require("none-ls-shellcheck.code_actions"),
+              require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
             },
-          })
-        end,
-        init = function()
-          if lsp.inlay_hint then
-            lsp.inlay_hint.enable(true, { 0 })
-          end
-
-          local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-          for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-          end
-
-          -- format on save
-          autocmd("BufWritePre", {
-            buffer = buffer,
-            callback = function()
-              vim.lsp.buf.format({ async = false })
-            end,
-          })
-
-          -- disable diagnostics virtualtext
-          diagnostic.config({
-            virtual_text = false,
-            signs = true,
-            underline = true,
-            update_in_insert = false,
-            severity_sort = false,
-          })
-
-          -- diagnostics hover text
-          autocmd("CursorHold", {
-            buffer = bufnr,
-            callback = function()
-              local opts = {
-                focusable = false,
-                close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-                border = "none",
-                source = "always",
-                prefix = " ",
-                scope = "cursor",
-              }
-              diagnostic.open_float(nil, opts)
-            end,
           })
         end,
       },
@@ -1892,7 +1907,7 @@ else
 
   hl(0, "LineNr", { fg = "#505050" })
   hl(0, "FoldColumn", { fg = "#808080" })
-  hl(0, "WhiteSpace", { fg = "#383838" })
+  hl(0, "WhiteSpace", { fg = "#303030" })
   hl(0, "CursorLine", { bg = "#383838" })
   hl(0, "CocFloating", { bg = "#383838" })
   hl(0, "CocMenuSel", { bg = "#505050" })
