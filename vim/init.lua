@@ -1478,63 +1478,6 @@ else
         },
       },
       {
-        "neovim/nvim-lspconfig",
-        keys = {
-          { "K", lsp.buf.hover, mode = "n", noremap = true, silent = true, desc = "lsp hover" },
-          { "<leader>/", lsp.buf.format, mode = "n", noremap = true, silent = true, desc = "lsp format" },
-          { "gr", lsp.buf.references, mode = "n", noremap = true, silent = true, desc = "lsp references" },
-          { "gd", lsp.buf.definition, mode = "n", noremap = true, silent = true, desc = "lsp definition" },
-          { "gD", lsp.buf.declaration, mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
-          { "gi", lsp.buf.implementation, mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
-          { "gt", lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
-          { "<leader>rn", lsp.buf.rename, mode = "n", noremap = true, silent = true, desc = "lsp rename" },
-          { "ga", lsp.buf.code_action, mode = "n", noremap = true, silent = true, desc = "lsp code action" },
-          { "ge", diagnostic.open_float, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
-          { "g]", diagnostic.goto_next, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
-          { "g[", diagnostic.goto_prev, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
-        },
-        init = function()
-          local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-          for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-          end
-
-          -- format on save
-          autocmd("BufWritePre", {
-            buffer = buffer,
-            callback = function()
-              vim.lsp.buf.format({ async = false })
-            end,
-          })
-
-          -- disable diagnostics virtualtext
-          diagnostic.config({
-            virtual_text = false,
-            signs = true,
-            underline = true,
-            update_in_insert = false,
-            severity_sort = false,
-          })
-
-          -- diagnostics hover text
-          autocmd("CursorHold", {
-            buffer = bufnr,
-            callback = function()
-              local opts = {
-                focusable = false,
-                close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-                border = "none",
-                source = "always",
-                prefix = " ",
-                scope = "cursor",
-              }
-              diagnostic.open_float(nil, opts)
-            end,
-          })
-        end,
-      },
-      {
         "hrsh7th/nvim-cmp",
         dependencies = {
           "hrsh7th/cmp-nvim-lsp",
@@ -1609,9 +1552,26 @@ else
         end,
       },
       {
-        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
         dependencies = {
           { "williamboman/mason.nvim", opts = {} },
+          "williamboman/mason-lspconfig.nvim",
+          "jay-babu/mason-null-ls.nvim",
+          "nvimtools/none-ls.nvim",
+        },
+        keys = {
+          { "K", lsp.buf.hover, mode = "n", noremap = true, silent = true, desc = "lsp hover" },
+          { "<leader>/", lsp.buf.format, mode = "n", noremap = true, silent = true, desc = "lsp format" },
+          { "gr", lsp.buf.references, mode = "n", noremap = true, silent = true, desc = "lsp references" },
+          { "gd", lsp.buf.definition, mode = "n", noremap = true, silent = true, desc = "lsp definition" },
+          { "gD", lsp.buf.declaration, mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
+          { "gi", lsp.buf.implementation, mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
+          { "gt", lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
+          { "<leader>rn", lsp.buf.rename, mode = "n", noremap = true, silent = true, desc = "lsp rename" },
+          { "ga", lsp.buf.code_action, mode = "n", noremap = true, silent = true, desc = "lsp code action" },
+          { "ge", diagnostic.open_float, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
+          { "g]", diagnostic.goto_next, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
+          { "g[", diagnostic.goto_prev, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
         },
         config = function()
           local lspconfig = require("lspconfig")
@@ -1711,21 +1671,7 @@ else
               end
             end,
           })
-        end,
-        init = function()
-          if lsp.inlay_hint then
-            lsp.inlay_hint.enable(true, { 0 })
-          end
-        end,
-      },
-      {
-        "jay-babu/mason-null-ls.nvim",
-        dependencies = {
-          "nvimtools/none-ls.nvim",
-          { "williamboman/mason.nvim", opts = {} },
-        },
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
+
           require("mason-null-ls").setup({
             ensure_installed = {
               "goimports",
@@ -1772,6 +1718,50 @@ else
               null_ls.builtins.completion.spell,
               -- require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
             },
+          })
+        end,
+        init = function()
+          if lsp.inlay_hint then
+            lsp.inlay_hint.enable(true, { 0 })
+          end
+
+          local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+          for type, icon in pairs(signs) do
+            local hl = "DiagnosticSign" .. type
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+          end
+
+          -- format on save
+          autocmd("BufWritePre", {
+            buffer = buffer,
+            callback = function()
+              vim.lsp.buf.format({ async = false })
+            end,
+          })
+
+          -- disable diagnostics virtualtext
+          diagnostic.config({
+            virtual_text = false,
+            signs = true,
+            underline = true,
+            update_in_insert = false,
+            severity_sort = false,
+          })
+
+          -- diagnostics hover text
+          autocmd("CursorHold", {
+            buffer = bufnr,
+            callback = function()
+              local opts = {
+                focusable = false,
+                close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+                border = "none",
+                source = "always",
+                prefix = " ",
+                scope = "cursor",
+              }
+              diagnostic.open_float(nil, opts)
+            end,
           })
         end,
       },
