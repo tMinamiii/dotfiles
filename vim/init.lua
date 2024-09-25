@@ -162,6 +162,7 @@ autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = { "*zshrc"
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.mjs", command = "setfiletype javascript" })
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.csv", command = "setfiletype csv" })
 autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = ".env.*", command = "setfiletype sh" })
+autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.json", command = "setfiletype jsonc" })
 autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\s\\+$//ge" })
 autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\r//ge" })
 
