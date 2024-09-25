@@ -369,19 +369,7 @@ if g.vscode then
         "folke/flash.nvim",
         event = "VeryLazy",
         ---@type Flash.Config
-        opts = {
-          highlight = {
-            backdrop = true,
-            matches = true,
-            priority = 5000,
-            groups = {
-              match = "FlashMatch",
-              current = "FlashCurrent",
-              backdrop = "FlashBackdrop",
-              label = "FlashLabel",
-            },
-          },
-        },
+        opts = {},
         -- stylua: ignore
         keys = {
           { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
@@ -606,19 +594,7 @@ else
         "folke/flash.nvim",
         event = "VeryLazy",
         ---@type Flash.Config
-        opts = {
-          highlight = {
-            backdrop = true,
-            matches = true,
-            priority = 5000,
-            groups = {
-              match = "FlashMatch",
-              current = "FlashCurrent",
-              backdrop = "FlashBackdrop",
-              label = "FlashLabel",
-            },
-          },
-        },
+        opts = {},
         -- stylua: ignore
         keys = {
           { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
@@ -1472,8 +1448,8 @@ else
           check_ts = false,
           map_cr = true,
           map_bs = true, -- map the <BS> key
-          map_c_h = true, -- Map the <C-h> key to delete a pair
-          map_c_w = true, -- map <c-w> to delete a pair if possible
+          map_c_h = false, -- Map the <C-h> key to delete a pair
+          map_c_w = false, -- map <c-w> to delete a pair if possible
         },
       },
       {
@@ -1910,6 +1886,4 @@ else
   hl(0, "TreesitterContext", { bg = "#383838" })
   hl(0, "TreesitterContextBottom", { underline = true })
   hl(0, "TreesitterContextLineNumberBottom", { underline = true })
-  hl(0, "FlashMatch", { bg = "#AA0000" })
-  hl(0, "FlashBackdrop", { fg = "#808080" })
 end
