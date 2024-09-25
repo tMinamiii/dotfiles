@@ -1588,7 +1588,7 @@ else
             ensure_installed = {
               "bashls",
               "biome",
-              "css-lsp",
+              "cssls",
               "denols",
               "eslint",
               "gopls",
@@ -1600,7 +1600,7 @@ else
               "lua_ls",
               "marksman",
               "pyright",
-              "ruby-lsp",
+              "ruby_lsp",
               "rust_analyzer",
               "sorbet",
               "sqls",
@@ -1608,7 +1608,7 @@ else
               "terraformls",
               "tflint",
               "ts_ls",
-              "vim-language-server",
+              "vimls",
             },
           })
 
