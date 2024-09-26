@@ -784,9 +784,7 @@ else
         config = function()
           require("nvim-treesitter.configs").setup({
             -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-            ensure_installed = {
-              "all",
-            },
+            ensure_installed = "all",
             sync_install = true,
             auto_install = true,
             ignore_install = {},
