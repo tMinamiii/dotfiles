@@ -17,13 +17,11 @@ opt.encoding = "utf-8"
 
 -- Always show the signcolumn, otherwise it would shift the text each time
 -- diagnostics appeared/became resolved
-opt.signcolumn = "yes"
 opt.cursorline = true
 opt.ignorecase = true -- 大文字小文字を区別しない
 opt.smartcase = true -- 検索文字に大文字がある場合は大文字小文字を区別
 opt.incsearch = true -- インクリメンタルサーチ
 opt.hlsearch = true -- 検索マッチテキストをハイライト
-
 opt.hidden = true -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
 -- opt.switchbuf = "usetab" -- 新しく開く代わりにすでに開いてあるバッファを開く
 opt.showmatch = true -- 対応する括弧などをハイライト表示する
@@ -96,6 +94,8 @@ g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを yyyy/
 g.netrw_preview = 1 -- " プレビューウィンドウを垂直分割で表示する
 g.mapleader = " "
 g.maplocalleader = "\\"
+
+vim.wo.wrap = false
 
 keyset("n", "<ESC>", ":noh<CR>", { noremap = true, silent = true })
 keyset("n", "<M-p>", ":bp<CR>", { noremap = true, silent = true })
