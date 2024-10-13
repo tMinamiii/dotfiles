@@ -1434,6 +1434,7 @@ else
         opts = {},
       },
 
+      --------------------------------------------------------------------------------------------------
       {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
@@ -1589,6 +1590,7 @@ else
               "tflint",
               "ts_ls",
               "vimls",
+              "yamlls",
             },
           })
 
@@ -1655,6 +1657,19 @@ else
               end
             end,
           })
+
+          lspconfig.yamlls.setup({
+            settings = {
+              yaml = {
+                format = {
+                  enable = true,
+                },
+                schemaStore = {
+                  enable = true,
+                },
+              },
+            },
+          })
         end,
         init = function()
           if lsp.inlay_hint then
@@ -1720,6 +1735,7 @@ else
               "prettier",
               "black",
               "biome",
+              "xmlformatter",
             },
           })
           local null_ls = require("null-ls")
@@ -1760,6 +1776,8 @@ else
           })
         end,
       },
+
+      ----------------------------------------------------------------------------------------
       -- {
       --   "neoclide/coc.nvim",
       --   lazy = false,
