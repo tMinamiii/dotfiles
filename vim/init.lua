@@ -1584,7 +1584,7 @@ else
               "ruby_lsp",
               "rust_analyzer",
               "sorbet",
-              "sqls",
+              "sqlls",
               "taplo",
               "terraformls",
               "tflint",
@@ -1670,6 +1670,14 @@ else
               },
             },
           })
+
+          lspconfig.taplo.setup({
+            filetypes = { "toml" },
+            -- IMPORTANT: this is required for taplo LSP to work in non-git repositories
+            root_dir = require("lspconfig.util").root_pattern("*.toml", ".git"),
+          })
+
+          lspconfig.sqlls.setup({})
         end,
         init = function()
           if lsp.inlay_hint then
@@ -1726,12 +1734,14 @@ else
           require("mason-null-ls").setup({
             ensure_installed = {
               "goimports",
+              "hadolint",
               "isort",
               "jq",
               "markdownlint",
               "stylua",
               "shellcheck",
               "shfmt",
+              "sql-formatter",
               "prettier",
               "black",
               "biome",
@@ -1746,6 +1756,7 @@ else
               null_ls.builtins.formatting.isort,
               null_ls.builtins.formatting.black,
               null_ls.builtins.formatting.shfmt,
+              null_ls.builtins.formatting.sql_formatter,
               null_ls.builtins.formatting.biome.with({
                 condition = function(utils)
                   return utils.root_has_file({ "biome.json", "biome.jsonc" })
@@ -1769,6 +1780,10 @@ else
               }),
               null_ls.builtins.diagnostics.markdownlint,
               null_ls.builtins.completion.spell,
+              null_ls.builtins.diagnostics.hadolint,
+              -- null_ls.builtins.diagnostics.sqlfluff.with({
+              --   extra_args = { "--dialect", "postgres" }, -- change to your dialect
+              -- }),
               require("none-ls-shellcheck.diagnostics"),
               require("none-ls-shellcheck.code_actions"),
               require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
