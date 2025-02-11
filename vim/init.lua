@@ -1534,8 +1534,8 @@ else
               completeopt = "menu,menuone,noinsert",
             },
             sources = {
-              { name = "nvim_lsp" },
               { name = "copilot" },
+              { name = "nvim_lsp" },
               { name = "buffer" },
               { name = "path" },
             },
@@ -1789,22 +1789,24 @@ else
         end,
       },
       {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        config = function()
-          require("copilot").setup({
-            suggestion = { enabled = false },
-            panel = { enabled = false },
-            copilot_node_command = "node",
-          })
-        end,
-      },
-      {
         "zbirenbaum/copilot-cmp",
         config = function()
           require("copilot_cmp").setup()
         end,
+        dependencies = {
+          {
+            "zbirenbaum/copilot.lua",
+            cmd = "Copilot",
+            event = "InsertEnter",
+            config = function()
+              require("copilot").setup({
+                suggestion = { enabled = false },
+                panel = { enabled = false },
+                copilot_node_command = "node",
+              })
+            end,
+          },
+        },
       },
       {
         "jay-babu/mason-null-ls.nvim",
