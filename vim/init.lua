@@ -1778,6 +1778,7 @@ else
           })
         end,
       },
+      { "dstein64/vim-startuptime" },
     },
     checker = { enabled = true, notify = false },
   })
