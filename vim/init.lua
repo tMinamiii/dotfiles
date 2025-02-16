@@ -462,16 +462,6 @@ else
     root = lazyroot,
     spec = {
       { "kylechui/nvim-surround", version = "*", opts = {} },
-      -- LSPと干渉 ---
-      -- {
-      --   "mg979/vim-visual-multi",
-      --   init = function()
-      --     g.VM_maps = {
-      --       ["Find Under"] = "<C-m>",
-      --       ["Find Subword Under"] = "<C-m>",
-      --     }
-      --   end,
-      -- },
       { "tpope/vim-fugitive" },
       {
         "mechatroner/rainbow_csv",
@@ -650,13 +640,6 @@ else
           vim.fn["mkdp#util#install"]()
         end,
       },
-      -- {
-      --   "xiyaowong/transparent.nvim",
-      --   opts = { extra_groups = { "NeoTreeNormal", "NeoTreeNormalNC" }, exclude_groups = { "CursorLine" } },
-      --   init = function()
-      --     g.transparent_enabled = true
-      --   end
-      -- },
       {
         "simeji/winresizer",
         init = function()
@@ -854,13 +837,6 @@ else
         end,
       },
       { "nvim-treesitter/nvim-treesitter-context", opts = {} },
-      -- {
-      --   'Bekaboo/dropbar.nvim',
-      --   -- optional, but required for fuzzy finder support
-      --   dependencies = {
-      --     'nvim-telescope/telescope-fzf-native.nvim'
-      --   },
-      -- },
       {
         "nvim-neo-tree/neo-tree.nvim",
         lazy = false,
@@ -1306,55 +1282,6 @@ else
         },
         opts = {},
       },
-      -- {
-      --   "folke/noice.nvim",
-      --   event = "VeryLazy",
-      --   opts = {
-      --     messages = {
-      --       enabled = true, -- enables the Noice messages UI
-      --       view = "mini", -- default view for messages
-      --       view_error = "notify", -- view for errors
-      --       view_warn = "notify", -- view for warnings
-      --       view_history = "messages", -- view for :messages
-      --       view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-      --     },
-      --     lsp = {
-      --       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-      --       override = {
-      --         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      --         ["vim.lsp.util.stylize_markdown"] = true,
-      --         ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-      --       },
-      --     },
-      --     presets = {
-      --       bottom_search = false, -- use a classic bottom cmdline for search
-      --       command_palette = false, -- position the cmdline and popupmenu together
-      --       long_message_to_split = true, -- long messages will be sent to a split
-      --       inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      --       lsp_doc_border = true, -- add a border to hover docs and signature help
-      --     },
-      --     routes = {
-      --       {
-      --         filter = {
-      --           event = "msg_show",
-      --           kind = "emsg",
-      --           find = "E21: Cannot make changes, 'modifiable' is off", -- pattern
-      --         },
-      --         opts = { skip = true },
-      --       },
-      --     },
-      --   },
-      --   dependencies = {
-      --     "MunifTanjim/nui.nvim",
-      --     "rcarriga/nvim-notify",
-      --     "hrsh7th/nvim-cmp",
-      --   },
-      --   init = function()
-      --     require("notify").setup({
-      --       background_colour = "#000000",
-      --     })
-      --   end,
-      -- },
       {
         "norcalli/nvim-colorizer.lua",
         config = function()
@@ -1399,7 +1326,7 @@ else
           require("telescope").load_extension("projects")
         end,
       },
-      { "folke/persistence.nvim", event = "BufReadPre", opts = {} },
+      -- { "folke/persistence.nvim", event = "BufReadPre", opts = {} },
       {
         "stevearc/aerial.nvim",
         lazy = false,
@@ -1484,8 +1411,6 @@ else
         event = { "CursorMoved", "WinScrolled" },
         opts = {},
       },
-
-      --------------------------------------------------------------------------------------------------
       {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
@@ -1846,9 +1771,6 @@ else
               null_ls.builtins.diagnostics.markdownlint,
               null_ls.builtins.completion.spell,
               null_ls.builtins.diagnostics.hadolint,
-              -- null_ls.builtins.diagnostics.sqlfluff.with({
-              --   extra_args = { "--dialect", "postgres" }, -- change to your dialect
-              -- }),
               require("none-ls-shellcheck.diagnostics"),
               require("none-ls-shellcheck.code_actions"),
               require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
@@ -1856,124 +1778,6 @@ else
           })
         end,
       },
-
-      ----------------------------------------------------------------------------------------
-      -- {
-      --   "neoclide/coc.nvim",
-      --   lazy = false,
-      --   dependencies = { "fannheyward/coc-marketplace" },
-      --   keys = {
-      --     {
-      --       "<TAB>",
-      --       "coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? '<TAB>' : coc#refresh()",
-      --       mode = "i",
-      --       noremap = true,
-      --       silent = true,
-      --       expr = true,
-      --       replace_keycodes = false,
-      --     },
-      --     {
-      --       "<S-TAB>",
-      --       [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]],
-      --       mode = "i",
-      --       noremap = true,
-      --       silent = true,
-      --       expr = true,
-      --       replace_keycodes = false,
-      --     },
-      --     {
-      --       "<cr>",
-      --       -- [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-      --       [[coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
-      --       mode = "i",
-      --       noremap = true,
-      --       silent = true,
-      --       expr = true,
-      --       replace_keycodes = false,
-      --     },
-      --     -- keyset("i", "<c-j>", "<Plug>(coc-snippets-expand-jump)")
-      --     { "gd", "<Plug>(coc-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto definition" },
-      --     { "gi", "<Plug>(coc-implementation)", mode = "n", noremap = true, silent = true, desc = "coc goto implementa,tion" },
-      --     { "gr", "<Plug>(coc-references)", mode = "n", noremap = true, silent = true, desc = "coc goto references" },
-      --     { "gt", "<Plug>(coc-type-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto type definition" },
-      --     { "gp", "<Plug>(coc-peek-definition)", mode = "n", noremap = true, silent = true, desc = "coc goto peek definition" },
-      --     { "[g", "<Plug>(coc-diagnostic-prev)", mode = "n", noremap = true, silent = true, desc = "coc goto prev diagnostic" },
-      --     { "]g", "<Plug>(coc-diagnostic-next)", mode = "n", noremap = true, silent = true, desc = "coc goto next diagnostic" },
-      --     { "<leader>rn", "<Plug>(coc-rename)", mode = "n", noremap = true, silent = true, desc = "coc rename" },
-      --     { "<F2>", "<Plug>(coc-rename)", mode = "n", noremap = true, silent = true, desc = "coc rename" },
-      --     { "<leader>/", "<Cmd>call CocAction('format')<CR>", mode = { "n", "x" }, noremap = true, silent = true, desc = "coc format" },
-      --     {
-      --       "K",
-      --       function()
-      --         local cw = vim.fn.expand("<cword>")
-      --         if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
-      --           command("h " .. cw)
-      --         elseif vim.api.nvim_eval("coc#rpc#ready()") then
-      --           vim.fn.CocActionAsync("doHover")
-      --         else
-      --           command("!" .. vim.o.keywordprg .. " " .. cw)
-      --         end
-      --       end,
-      --       mode = "n",
-      --       noremap = true,
-      --       silent = true,
-      --       desc = "coc hover",
-      --     },
-      --   },
-      --   branch = "release",
-      --   init = function()
-      --     -- Autocomplete for tab keyset
-      --     function _G.check_back_space()
-      --       local col = vim.fn.col(".") - 1
-      --       return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
-      --     end
-
-      --     user_command("Eslint", "call CocAction('runCommand', 'eslint.executeAutofix')", {})
-      --     -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
-      --     augroup("CocGroup", {})
-      --     autocmd("CursorHold", {
-      --       group = "CocGroup",
-      --       command = "silent call CocActionAsync('highlight')",
-      --       desc = "Highlight symbol under cursor on CursorHold",
-      --     })
-
-      --     g.coc_global_extensions = {
-      --       "coc-clangd",
-      --       "coc-biome",
-      --       "coc-deno",
-      --       "coc-docker",
-      --       "coc-eslint",
-      --       "coc-git",
-      --       "coc-html",
-      --       "coc-java-dev",
-      --       "coc-json",
-      --       "coc-kotlin-dev",
-      --       "coc-markdownlint",
-      --       "coc-marketplace",
-      --       "coc-pairs",
-      --       "coc-prettier",
-      --       "coc-pyright",
-      --       "coc-rust-analyzer",
-      --       "coc-sh",
-      --       "coc-sql",
-      --       "coc-sqlfluff",
-      --       "coc-sumneko-lua",
-      --       "@statiolake/coc-stylua",
-      --       "coc-tailwindcss",
-      --       "coc-toml",
-      --       "coc-tsserver",
-      --       "coc-vimlsp",
-      --       "coc-xml",
-      --       "coc-yaml",
-      --     }
-
-      --     -- autocmd BufWritePre *.go :call CocAction("runCommand", "editor.action.organizeImport")
-      --     autocmd("BufWritePre", {
-      --       pattern = "*.go",
-      --       command = "silent call CocAction('runCommand', 'editor.action.organizeImport')",
-      --     })
-      --   end,
-      -- },
     },
     checker = { enabled = true, notify = false },
   })
