@@ -155,47 +155,49 @@ user_command("LU", ":Lazy update", {})
 user_command("LS", ":Lazy sync", {})
 user_command("LC", ":Lazy clean", {})
 
-augroup("filetypes", {})
-autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
-autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = { "*zshrc", "*zsh" }, command = "setfiletype zsh" })
-autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.mjs", command = "setfiletype javascript" })
-autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.csv", command = "setfiletype csv" })
-autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = ".env.*", command = "setfiletype sh" })
-autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.json", command = "setfiletype jsonc" })
-autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\s\\+$//ge" })
-autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\r//ge" })
+if not g.vscode then
+  augroup("filetypes", {})
+  autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
+  autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = { "*zshrc", "*zsh" }, command = "setfiletype zsh" })
+  autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.mjs", command = "setfiletype javascript" })
+  autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.csv", command = "setfiletype csv" })
+  autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = ".env.*", command = "setfiletype sh" })
+  autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.json", command = "setfiletype jsonc" })
+  autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\s\\+$//ge" })
+  autocmd("BufWritePre", { group = "filetypes", pattern = "*", command = ":%s/\\r//ge" })
 
-augroup("indent", {})
-autocmd("FileType", {
-  group = "indent",
-  pattern = {
-    "sh",
-    "vue",
-    "yaml",
-    "javascript",
-    "typescript",
-    "javascriptreact",
-    "typescriptreact",
-    "json",
-    "html",
-    "vim",
-    "markdown",
-    "lua",
-  },
-  command = "setlocal shiftwidth=2 tabstop=2",
-})
-autocmd("FileType", {
-  group = "indent",
-  pattern = { "python", "c" },
-  command = "setlocal shiftwidth=4 tabstop=4",
-})
-autocmd("FileType", {
-  group = "indent",
-  pattern = { "go", "make" },
-  command = "setlocal shiftwidth=4 tabstop=4 noexpandtab",
-})
+  augroup("indent", {})
+  autocmd("FileType", {
+    group = "indent",
+    pattern = {
+      "sh",
+      "vue",
+      "yaml",
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "json",
+      "html",
+      "vim",
+      "markdown",
+      "lua",
+    },
+    command = "setlocal shiftwidth=2 tabstop=2",
+  })
+  autocmd("FileType", {
+    group = "indent",
+    pattern = { "python", "c" },
+    command = "setlocal shiftwidth=4 tabstop=4",
+  })
+  autocmd("FileType", {
+    group = "indent",
+    pattern = { "go", "make" },
+    command = "setlocal shiftwidth=4 tabstop=4 noexpandtab",
+  })
+end
 
-if vim.fn.has("wsl") == 1 then
+if vim.fn.has("wsl") == 1 and not g.vscode then
   g.clipboard = {
     name = "win32yank-wsl",
     copy = {
@@ -380,6 +382,11 @@ if g.vscode then
               backdrop = "FlashBackdrop",
               label = "FlashLabel",
             },
+            modes = {
+              char = {
+                jump_labels = true,
+              },
+            },
           },
         },
         -- stylua: ignore
@@ -390,18 +397,6 @@ if g.vscode then
           -- { "<leader>F", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
           -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
-      },
-      {
-        "vscode-neovim/vscode-multi-cursor.nvim",
-        opts = {
-          default_mappings = true,
-          no_selection = false,
-        },
-        init = function()
-          keyset({ "n", "x", "i" }, "<C-m>", function()
-            require("vscode-multi-cursor").addSelectionToNextFindMatch()
-          end)
-        end,
       },
     },
     checker = { enabled = true },
@@ -618,14 +613,19 @@ else
               backdrop = "FlashBackdrop",
               label = "FlashLabel",
             },
+            modes = {
+              char = {
+                jump_labels = true,
+              },
+            },
           },
         },
         -- stylua: ignore
         keys = {
           { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-          -- { "", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+          -- { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
           -- { "", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-          -- { "<leader>F", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+          -- { "<leader>f", mode = {  "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
           -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
       },
@@ -1534,7 +1534,6 @@ else
               completeopt = "menu,menuone,noinsert",
             },
             sources = {
-              { name = "copilot" },
               { name = "nvim_lsp" },
               { name = "buffer" },
               { name = "path" },
@@ -1787,26 +1786,6 @@ else
             end,
           })
         end,
-      },
-      {
-        "zbirenbaum/copilot-cmp",
-        config = function()
-          require("copilot_cmp").setup()
-        end,
-        dependencies = {
-          {
-            "zbirenbaum/copilot.lua",
-            cmd = "Copilot",
-            event = "InsertEnter",
-            config = function()
-              require("copilot").setup({
-                suggestion = { enabled = false },
-                panel = { enabled = false },
-                copilot_node_command = "node",
-              })
-            end,
-          },
-        },
       },
       {
         "jay-babu/mason-null-ls.nvim",
