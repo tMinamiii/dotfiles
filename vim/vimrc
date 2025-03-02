@@ -254,7 +254,7 @@ call plug#begin(s:vim_plug_plugins)
 call plug#end()
 
 " ファイルタイププラグインおよびインデントを有効化
-syntax off
+syntax on
 try
   colorscheme material
 catch

@@ -8,9 +8,7 @@ local opt = vim.opt
 local hl = vim.api.nvim_set_hl
 local diagnostic = vim.diagnostic
 local lsp = vim.lsp
-
 local g = vim.g
-
 opt.encoding = "utf-8"
 -- opt.completeopt:append({ "noselect" })
 -- opt.completeopt = { "menu", "menuone", "noselect" }
@@ -461,10 +459,11 @@ else
   require("lazy").setup({
     root = lazyroot,
     spec = {
-      { "kylechui/nvim-surround", version = "*", opts = {} },
-      { "tpope/vim-fugitive" },
+      { "kylechui/nvim-surround", lazy = true, version = "*", opts = {} },
+      { "tpope/vim-fugitive", lazy = true },
       {
         "mechatroner/rainbow_csv",
+        lazy = true,
         init = function()
           g.rainbow_active = 0
           g.rainbow_conf = {
@@ -473,7 +472,7 @@ else
           }
         end,
       },
-      { "machakann/vim-highlightedyank" },
+      { "machakann/vim-highlightedyank", lazy = true },
       {
         "terryma/vim-expand-region",
         lazy = false,
@@ -587,9 +586,10 @@ else
           })
         end,
       },
-      { "numToStr/Comment.nvim", opts = {} },
+      { "numToStr/Comment.nvim", lazy = true, opts = {} },
       {
         "folke/flash.nvim",
+        lazy = true,
         event = "VeryLazy",
         ---@type Flash.Config
         opts = {
@@ -619,10 +619,10 @@ else
           -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
       },
-      { "marko-cerovac/material.nvim" },
-      { "Mofiqul/vscode.nvim" },
+      { "projekt0n/github-nvim-theme", name = "github-theme", lazy = false },
       {
         "iamcco/markdown-preview.nvim",
+        lazy = true,
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         ft = { "markdown" },
         keys = {
@@ -642,6 +642,7 @@ else
       },
       {
         "simeji/winresizer",
+        lazy = true,
         init = function()
           g.winresizer_start_key = "<leader>e"
         end,
@@ -671,6 +672,7 @@ else
       },
       {
         "lewis6991/gitsigns.nvim",
+        lazy = true,
         opts = {
           on_attach = function(bufnr)
             local gs = require("gitsigns")
@@ -836,7 +838,7 @@ else
           })
         end,
       },
-      { "nvim-treesitter/nvim-treesitter-context", opts = {} },
+      { "nvim-treesitter/nvim-treesitter-context", lazy = true, opts = {} },
       {
         "nvim-neo-tree/neo-tree.nvim",
         lazy = false,
@@ -916,6 +918,7 @@ else
       },
       {
         "rcarriga/nvim-dap-ui",
+        lazy = true,
         dependencies = {
           "mfussenegger/nvim-dap",
           "nvim-neotest/nvim-nio",
@@ -1258,7 +1261,7 @@ else
           })
         end,
       },
-      { "sindrets/diffview.nvim" },
+      { "sindrets/diffview.nvim", lazy = true },
       {
         "linrongbin16/gitlinker.nvim",
         lazy = false,
@@ -1281,17 +1284,20 @@ else
           },
         },
         opts = {},
+        lazy = true,
       },
       {
         "norcalli/nvim-colorizer.lua",
         config = function()
           require("colorizer").setup()
         end,
+        lazy = true,
       },
       {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
+        lazy = true,
       },
       {
         "goolord/alpha-nvim",
@@ -1307,6 +1313,7 @@ else
       },
       {
         "ahmedkhalf/project.nvim",
+        lazy = true,
         keys = {
           {
             "<leader>p",
@@ -1344,8 +1351,8 @@ else
           -- },
         },
       },
-      { "nvim-telescope/telescope-fzf-writer.nvim" },
-      { "nvim-telescope/telescope-ui-select.nvim" },
+      { "nvim-telescope/telescope-fzf-writer.nvim", lazy = true },
+      { "nvim-telescope/telescope-ui-select.nvim", lazy = true },
       {
         "nvim-telescope/telescope.nvim",
         lazy = false,
@@ -1408,11 +1415,13 @@ else
       { "wakatime/vim-wakatime", lazy = false },
       {
         "Aasim-A/scrollEOF.nvim",
+        lazy = false,
         event = { "CursorMoved", "WinScrolled" },
         opts = {},
       },
       {
         "windwp/nvim-autopairs",
+        lazy = false,
         event = "InsertEnter",
         config = true,
         opts = {
@@ -1435,13 +1444,35 @@ else
         },
       },
       {
+        "zbirenbaum/copilot.lua",
+        lazy = true,
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+          require("copilot").setup({
+            suggestion = { enabled = true },
+            -- panel = { enabled = true },
+            copilot_node_command = "node",
+          })
+        end,
+      },
+      {
         "hrsh7th/nvim-cmp",
+        lazy = true,
         dependencies = {
           "hrsh7th/cmp-nvim-lsp",
+          "nvim-lua/plenary.nvim",
           "hrsh7th/cmp-buffer",
           "hrsh7th/cmp-path",
           "hrsh7th/cmp-cmdline",
           "onsails/lspkind.nvim",
+          {
+            "zbirenbaum/copilot-cmp",
+            lazy = true,
+            config = function()
+              require("copilot_cmp").setup()
+            end,
+          },
         },
         config = function()
           local cmp = require("cmp")
@@ -1459,6 +1490,7 @@ else
               completeopt = "menu,menuone,noinsert",
             },
             sources = {
+              { name = "copilot" },
               { name = "nvim_lsp" },
               { name = "buffer" },
               { name = "path" },
@@ -1490,9 +1522,10 @@ else
             formatting = {
               format = lspkind.cmp_format({
                 mode = "symbol_text", -- show only symbol annotations
-                maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                maxwidth = 100, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
                 ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
                 -- show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+                symbol_map = { Copilot = "" },
               }),
             },
           })
@@ -1522,7 +1555,7 @@ else
           })
         end,
       },
-      { "williamboman/mason.nvim", opts = {} },
+      { "williamboman/mason.nvim", lazy = false, opts = {} },
       {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -1778,13 +1811,11 @@ else
           })
         end,
       },
-      { "dstein64/vim-startuptime" },
     },
     checker = { enabled = true, notify = false },
   })
 
-  -- colorscheme("material")
-  colorscheme("vscode")
+  colorscheme("github_dark_dimmed")
 
   hl(0, "NormalFloat", { bg = "#454545" })
 
