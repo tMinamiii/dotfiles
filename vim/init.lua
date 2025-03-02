@@ -1444,18 +1444,22 @@ else
         },
       },
       {
-        "zbirenbaum/copilot.lua",
-        lazy = true,
-        cmd = "Copilot",
-        event = "InsertEnter",
-        config = function()
-          require("copilot").setup({
-            suggestion = { enabled = true },
-            -- panel = { enabled = true },
-            copilot_node_command = "node",
-          })
-        end,
+        "github/copilot.vim",
+        lazy = false,
       },
+      -- {
+      --   "zbirenbaum/copilot.lua",
+      --   lazy = true,
+      --   cmd = "Copilot",
+      --   event = "InsertEnter",
+      --   config = function()
+      --     require("copilot").setup({
+      --       suggestion = { enabled = true },
+      --       -- panel = { enabled = true },
+      --       copilot_node_command = "node",
+      --     })
+      --   end,
+      -- },
       {
         "hrsh7th/nvim-cmp",
         lazy = true,
@@ -1466,13 +1470,13 @@ else
           "hrsh7th/cmp-path",
           "hrsh7th/cmp-cmdline",
           "onsails/lspkind.nvim",
-          {
-            "zbirenbaum/copilot-cmp",
-            lazy = true,
-            config = function()
-              require("copilot_cmp").setup()
-            end,
-          },
+          -- {
+          --   "zbirenbaum/copilot-cmp",
+          --   lazy = true,
+          --   config = function()
+          --     require("copilot_cmp").setup()
+          --   end,
+          -- },
         },
         config = function()
           local cmp = require("cmp")
@@ -1490,7 +1494,7 @@ else
               completeopt = "menu,menuone,noinsert",
             },
             sources = {
-              { name = "copilot" },
+              -- { name = "copilot" },
               { name = "nvim_lsp" },
               { name = "buffer" },
               { name = "path" },
@@ -1511,13 +1515,13 @@ else
               ["<C-Space>"] = cmp.mapping.complete(),
               ["<C-e>"] = cmp.mapping.abort(),
               ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-              ["<Tab>"] = vim.schedule_wrap(function(fallback)
-                if cmp.visible() and has_words_before() then
-                  cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                else
-                  fallback()
-                end
-              end),
+              -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
+              --   if cmp.visible() and has_words_before() then
+              --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+              --   else
+              --     fallback()
+              --   end
+              -- end),
             }),
             formatting = {
               format = lspkind.cmp_format({
