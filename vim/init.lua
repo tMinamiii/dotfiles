@@ -665,6 +665,7 @@ else
       },
       {
         "romgrk/barbar.nvim",
+        lazy = true,
         dependencies = {
           "lewis6991/gitsigns.nvim",
           "nvim-tree/nvim-web-devicons",
@@ -1405,6 +1406,7 @@ else
       },
       {
         "prochri/telescope-all-recent.nvim",
+        lazy = true,
         dependencies = {
           "nvim-telescope/telescope.nvim",
           "kkharji/sqlite.lua",
@@ -1447,19 +1449,6 @@ else
         "github/copilot.vim",
         lazy = false,
       },
-      -- {
-      --   "zbirenbaum/copilot.lua",
-      --   lazy = true,
-      --   cmd = "Copilot",
-      --   event = "InsertEnter",
-      --   config = function()
-      --     require("copilot").setup({
-      --       suggestion = { enabled = true },
-      --       -- panel = { enabled = true },
-      --       copilot_node_command = "node",
-      --     })
-      --   end,
-      -- },
       {
         "hrsh7th/nvim-cmp",
         lazy = true,
@@ -1470,13 +1459,6 @@ else
           "hrsh7th/cmp-path",
           "hrsh7th/cmp-cmdline",
           "onsails/lspkind.nvim",
-          -- {
-          --   "zbirenbaum/copilot-cmp",
-          --   lazy = true,
-          --   config = function()
-          --     require("copilot_cmp").setup()
-          --   end,
-          -- },
         },
         config = function()
           local cmp = require("cmp")
@@ -1494,7 +1476,6 @@ else
               completeopt = "menu,menuone,noinsert",
             },
             sources = {
-              -- { name = "copilot" },
               { name = "nvim_lsp" },
               { name = "buffer" },
               { name = "path" },
