@@ -1265,7 +1265,7 @@ else
       { "sindrets/diffview.nvim", lazy = true },
       {
         "linrongbin16/gitlinker.nvim",
-        lazy = false,
+        lazy = true,
         keys = {
           {
             "<leader>gl",
@@ -1285,24 +1285,23 @@ else
           },
         },
         opts = {},
-        lazy = true,
       },
       {
         "norcalli/nvim-colorizer.lua",
+        lazy = true,
         config = function()
           require("colorizer").setup()
         end,
-        lazy = true,
       },
       {
         "folke/todo-comments.nvim",
+        lazy = true,
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
-        lazy = true,
       },
       {
         "goolord/alpha-nvim",
-        -- dependencies = { 'echasnovski/mini.icons' },
+        lazy = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
           local startify = require("alpha.themes.startify")
@@ -1337,7 +1336,7 @@ else
       -- { "folke/persistence.nvim", event = "BufReadPre", opts = {} },
       {
         "stevearc/aerial.nvim",
-        lazy = false,
+        lazy = true,
         dependencies = {
           "nvim-treesitter/nvim-treesitter",
           "nvim-tree/nvim-web-devicons",
@@ -1356,7 +1355,7 @@ else
       { "nvim-telescope/telescope-ui-select.nvim", lazy = true },
       {
         "nvim-telescope/telescope.nvim",
-        lazy = false,
+        lazy = true,
         dependencies = {
           "nvim-lua/plenary.nvim",
         },
@@ -1423,7 +1422,7 @@ else
       },
       {
         "windwp/nvim-autopairs",
-        lazy = false,
+        lazy = true,
         event = "InsertEnter",
         config = true,
         opts = {
