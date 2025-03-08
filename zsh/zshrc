@@ -1,8 +1,9 @@
 #!/bin/zsh
-
+autoload -Uz compinit
+compinit
 # zmodload zsh/zprof && zprof
 
-IsUbuntu() { [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
+IsUbuntu() { [[ -f /etc/os-release ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
 # IsWSL() { [[  -n "${WSL_DISTRO_NAME}" ]] && [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]}
 # IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
 
@@ -44,7 +45,7 @@ zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 
 export PATH=$PATH
 export TERM=xterm-256color
-[[ "${TMUX}" != "" ]] && TERM="screen-256color"
+[[ ${TMUX} != "" ]] && TERM="screen-256color"
 export ARCHFLAGS="-arch $(uname -m)"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -55,13 +56,13 @@ export EDITOR="nvim"
 export SHELL=/bin/zsh
 export GOPRIVATE=github.com/tMinamiii/,github.com/everytv
 
-[[ ! -d "${HOME}/.local/bin" ]] && mkdir -p "${HOME}/.local/bin"
-[[ ! -d "${HOME}/bin" ]] && mkdir -p "${HOME}/bin"
-[[ ! -d "${HOME}/.cache" ]] && mkdir -p "${HOME}/.cache"
-[[ ! -d "${HOME}/.config" ]] && mkdir -p "${HOME}/.config"
+[[ ! -d ${HOME}/.local/bin ]] && mkdir -p "${HOME}/.local/bin"
+[[ ! -d ${HOME}/bin ]] && mkdir -p "${HOME}/bin"
+[[ ! -d ${HOME}/.cache ]] && mkdir -p "${HOME}/.cache"
+[[ ! -d ${HOME}/.config ]] && mkdir -p "${HOME}/.config"
 
 # Homebrew for M1 mac
-[[ -f "/opt/homebrew/bin/brew" ]] && eval $(/opt/homebrew/bin/brew shellenv)
+[[ -f /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 
 ### FZF
 export FZF_DEFAULT_OPTS='--height 40% --border --info=inline'
@@ -75,16 +76,16 @@ else
 fi
 
 tools=""
-[[ ! -f "$(which wget)" ]] && tools="${tools} wget"
-[[ ! -f "$(which curl)" ]] && tools="${tools} curl"
-[[ ! -f "$(which git)" ]] && tools="${tools} git"
-[[ ! -f "$(which jq)" ]] && tools="${tools} jq"
-[[ ! -f "$(which direnv)" ]] && tools="${tools} direnv"
-[[ ! -f "$(which tmux)" ]] && tools="${tools} tmux"
-[[ ! -f "$(which unzip)" ]] && tools="${tools} unzip"
-[[ ! -f "$(which hxselect)" ]] && tools="${tools} html-xml-utils"
-[[ ! -f "$(which whois)" ]] && tools="${tools} whois"
-if [[ ! -f "$(which gh)" ]]; then
+[[ ! -f $(which wget) ]] && tools="${tools} wget"
+[[ ! -f $(which curl) ]] && tools="${tools} curl"
+[[ ! -f $(which git) ]] && tools="${tools} git"
+[[ ! -f $(which jq) ]] && tools="${tools} jq"
+[[ ! -f $(which direnv) ]] && tools="${tools} direnv"
+[[ ! -f $(which tmux) ]] && tools="${tools} tmux"
+[[ ! -f $(which unzip) ]] && tools="${tools} unzip"
+[[ ! -f $(which hxselect) ]] && tools="${tools} html-xml-utils"
+[[ ! -f $(which whois) ]] && tools="${tools} whois"
+if [[ ! -f $(which gh) ]]; then
   IsMacOS && tools="${tools} gh"
   if IsUbuntu; then
     type -p curl >/dev/null || sudo apt install curl -y
@@ -96,13 +97,13 @@ if [[ ! -f "$(which gh)" ]]; then
   fi
 fi
 
-if [[ "${tools}" != "" ]]; then
+if [[ ${tools} != "" ]]; then
   IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install ${tools}
   IsUbuntu && sudo apt install ${tools} -y
 fi
 
-[[ -f "$(which direnv)" ]] && eval "$(direnv hook zsh)"
-[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
+[[ -f $(which direnv) ]] && eval "$(direnv hook zsh)"
+[[ -f ${HOME}/.cargo/env ]] && source "${HOME}/.cargo/env"
 
 export MANPATH="/usr/local/man:${MANPATH}"
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
@@ -176,7 +177,7 @@ elif IsMacOS; then
   export DBC_USER="takahiro.minami@every.tv"
 
   work_zsh="${HOME}/.local/share/work/work.git"
-  if [[ ! -f "${work_zsh}/work.zsh" ]]; then
+  if [[ ! -f ${work_zsh}/work.zsh ]]; then
     command mkdir -p ${work_zsh} && command chmod g-rwX ${work_zsh}
     command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "${work_zsh}"
   fi
@@ -314,46 +315,46 @@ tools() {
     go-install eg           golang.org/x/tools/cmd/eg@latest
   fi
 
-  if [[ -d "${MISE_ROOT}/python" ]]; then
+  if [[ -d ${MISE_ROOT}/python ]]; then
     pip-update
   fi
 
-  if [[ -d "${MISE_ROOT}/node" ]]; then
+  if [[ -d ${MISE_ROOT}/node ]]; then
     mods="yarn npm-check-updates prettier textlint zenn-cli neovim typescript ts-node"
     IsWSL && mods="${mods} wsl-open"
     npm i -g $(echo ${mods})
   fi
 
-  if [[ -d "${MISE_ROOT}/ruby" ]]; then
+  if [[ -d ${MISE_ROOT}/ruby ]]; then
     gem install neovim
   fi
 
-  if [[ -d "${HOME}/.cargo/bin" ]]; then
+  if [[ -d ${HOME}/.cargo/bin ]]; then
     cargo install cargo-update fd-find ripgrep tree-sitter-cli
   fi
 }
 
 tools-up() {
-  if [[ -x "${HOME}/go/bin" ]]; then
+  if [[ -x ${HOME}/go/bin ]]; then
     gup update
   fi
 
-  if [[ -x "${MISE_ROOT}/python" ]]; then
+  if [[ -x ${MISE_ROOT}/python ]]; then
     pip-update
   fi
 
-  if [[ -x "${MISE_ROOT}/node" ]]; then
+  if [[ -x ${MISE_ROOT}/node ]]; then
     IsWSL && npm i -g wsl-open
     npm update -g npm
     npm update -g
   fi
 
-  if [[ -x "${MISE_ROOT}/ruby" ]]; then
+  if [[ -x ${MISE_ROOT}/ruby ]]; then
     gem update --system
     gem update
   fi
 
-  if [[ -x "${HOME}/.cargo/bin" ]]; then
+  if [[ -x ${HOME}/.cargo/bin ]]; then
     cargo-install-update install-update --all
   fi
 
@@ -488,7 +489,7 @@ install-go(){
       && sudo tar -C /usr/local -xzf "${GOGZ}"
 }
 
-[[ ! -f "/usr/local/go/bin/go" ]] && install-go
+[[ ! -f /usr/local/go/bin/go ]] && install-go
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
@@ -501,10 +502,6 @@ if [ -f '/Users/takahiro.minami/Downloads/google-cloud-sdk 2/path.zsh.inc' ]; th
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/takahiro.minami/Downloads/google-cloud-sdk 2/completion.zsh.inc' ]; then . '/Users/takahiro.minami/Downloads/google-cloud-sdk 2/completion.zsh.inc'; fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 eval "$($HOME/.local/bin/mise activate zsh)"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
@@ -514,3 +511,7 @@ eval "$($HOME/.local/bin/mise activate zsh)"
 #   zprof
 # fi
 
+. "/Users/tminamiii/.deno/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/tminamiii/.lmstudio/bin"

@@ -3,7 +3,7 @@
 set -Ceu
 
 function IsUbuntu() {
-  [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]
+  [[ $(grep 'name="Ubuntu"' /etc/os-release) != "" ]]
 }
 
 function IsMacOS() {
@@ -12,7 +12,6 @@ function IsMacOS() {
 
 if IsMacOS; then
     brew install \
-      awscli \
       bat \
       ctop \
       direnv \
@@ -20,7 +19,7 @@ if IsMacOS; then
       ghq \
       htop \
       jq \
-      lua@5.1 \
+      lua@5.3 \
       luarocks \
       luajit \
       neovim \
