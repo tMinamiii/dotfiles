@@ -153,6 +153,17 @@ user_command("LU", ":Lazy update", {})
 user_command("LS", ":Lazy sync", {})
 user_command("LC", ":Lazy clean", {})
 
+autocmd("FileType", {
+  callback = function()
+    local bufnr = vim.fn.bufnr("%")
+    keyset("n", "e", function()
+      vim.api.nvim_command([[execute "normal! \<cr>"]])
+      vim.api.nvim_command(bufnr .. "bd")
+    end, { buffer = bufnr })
+  end,
+  pattern = "qf",
+})
+
 if not g.vscode then
   augroup("filetypes", {})
   autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
