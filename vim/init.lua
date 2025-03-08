@@ -466,6 +466,9 @@ if g.vscode then
   keyset("n", "<C-w><C-j>", "<nop>", { noremap = true, silent = true })
   keyset("n", "<C-w><C-k>", "<nop>", { noremap = true, silent = true })
   keyset("n", "<C-w><C-l>", "<nop>", { noremap = true, silent = true })
+
+  vscmap("v", "gc", "editor.action.commentLine", { desc = "comment line" })
+  vscmap("v", "gb", "editor.action.blockComment", { desc = "comment line" })
 else
   require("lazy").setup({
     root = lazyroot,
