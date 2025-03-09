@@ -1553,6 +1553,32 @@ else
           })
         end,
       },
+      {
+        "nvimdev/lspsaga.nvim",
+        lazy = false,
+        config = function()
+          require("lspsaga").setup({
+            lightbulb = {
+              enable = false,
+            },
+            code_action_lightbulb = {
+              enable = true,
+            },
+          })
+        end,
+        dependencies = {
+          "nvim-treesitter/nvim-treesitter", -- optional
+          "nvim-tree/nvim-web-devicons", -- optional
+        },
+        keys = {
+          -- { "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga hover" },
+          { "pd", "<cmd>Lspsaga peek_definition<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage peek definition" },
+          { "<leader>rn", "<cmd>Lspsaga rename<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
+          { "ga", "<cmd>Lspsaga code_action<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga code action" },
+          { "g]", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic next" },
+          { "g[", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic prev" },
+        },
+      },
       { "williamboman/mason.nvim", lazy = false, opts = {} },
       {
         "neovim/nvim-lspconfig",
@@ -1568,11 +1594,11 @@ else
           { "gD", lsp.buf.declaration, mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
           { "gi", lsp.buf.implementation, mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
           { "gt", lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
-          { "<leader>rn", lsp.buf.rename, mode = "n", noremap = true, silent = true, desc = "lsp rename" },
-          { "ga", lsp.buf.code_action, mode = "n", noremap = true, silent = true, desc = "lsp code action" },
           { "ge", diagnostic.open_float, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
-          { "g]", diagnostic.goto_next, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
-          { "g[", diagnostic.goto_prev, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
+          -- { "<leader>rn", lsp.buf.rename, mode = "n", noremap = true, silent = true, desc = "lsp rename" },
+          -- { "ga", lsp.buf.code_action, mode = "n", noremap = true, silent = true, desc = "lsp code action" },
+          -- { "g]", diagnostic.goto_next, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
+          -- { "g[", diagnostic.goto_prev, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
         },
         config = function()
           local lspconfig = require("lspconfig")
@@ -1743,6 +1769,7 @@ else
           })
         end,
       },
+
       {
         "jay-babu/mason-null-ls.nvim",
         lazy = false,
