@@ -1564,6 +1564,11 @@ else
             code_action_lightbulb = {
               enable = true,
             },
+            rename = {
+              keys = {
+                quit = "<esc>",
+              },
+            },
           })
         end,
         dependencies = {
@@ -1574,6 +1579,7 @@ else
           -- { "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga hover" },
           { "pd", "<cmd>Lspsaga peek_definition<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage peek definition" },
           { "<leader>rn", "<cmd>Lspsaga rename<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
+          { "<F2>", "<cmd>Lspsaga rename<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
           { "ga", "<cmd>Lspsaga code_action<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga code action" },
           { "g]", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic next" },
           { "g[", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic prev" },
