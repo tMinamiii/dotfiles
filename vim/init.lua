@@ -473,8 +473,8 @@ else
   require("lazy").setup({
     root = lazyroot,
     spec = {
-      { "kylechui/nvim-surround", lazy = true, version = "*", opts = {} },
-      { "tpope/vim-fugitive", lazy = true },
+      { "kylechui/nvim-surround", lazy = false, version = "*", opts = {} },
+      { "tpope/vim-fugitive", lazy = false },
       {
         "mechatroner/rainbow_csv",
         lazy = true,
@@ -486,7 +486,7 @@ else
           }
         end,
       },
-      { "machakann/vim-highlightedyank", lazy = true },
+      { "machakann/vim-highlightedyank", lazy = false },
       {
         "terryma/vim-expand-region",
         lazy = false,
@@ -656,7 +656,7 @@ else
       },
       {
         "simeji/winresizer",
-        lazy = true,
+        lazy = false,
         init = function()
           g.winresizer_start_key = "<leader>e"
         end,
@@ -679,7 +679,7 @@ else
       },
       {
         "romgrk/barbar.nvim",
-        lazy = true,
+        lazy = false,
         dependencies = {
           "lewis6991/gitsigns.nvim",
           "nvim-tree/nvim-web-devicons",
@@ -1577,7 +1577,7 @@ else
         },
         keys = {
           -- { "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga hover" },
-          { "pd", "<cmd>Lspsaga peek_definition<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage peek definition" },
+          { "gp", "<cmd>Lspsaga peek_definition<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage peek definition" },
           { "<leader>rn", "<cmd>Lspsaga rename<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
           { "<F2>", "<cmd>Lspsaga rename<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
           { "ga", "<cmd>Lspsaga code_action<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga code action" },
