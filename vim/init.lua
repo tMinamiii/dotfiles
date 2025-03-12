@@ -477,7 +477,7 @@ else
       { "tpope/vim-fugitive", lazy = false },
       {
         "mechatroner/rainbow_csv",
-        lazy = true,
+        lazy = false,
         init = function()
           g.rainbow_active = 0
           g.rainbow_conf = {
