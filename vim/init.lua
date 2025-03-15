@@ -1311,7 +1311,6 @@ else
       },
       {
         "norcalli/nvim-colorizer.lua",
-        lazy = true,
         config = function()
           require("colorizer").setup()
         end,
@@ -1496,7 +1495,7 @@ else
       },
       {
         "hrsh7th/nvim-cmp",
-        lazy = true,
+        lazy = false,
         dependencies = {
           "hrsh7th/cmp-nvim-lsp",
           "nvim-lua/plenary.nvim",
