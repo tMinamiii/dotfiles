@@ -633,7 +633,6 @@ else
           -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
       },
-      { "projekt0n/github-nvim-theme", name = "github-theme", lazy = false },
       {
         "iamcco/markdown-preview.nvim",
         lazy = true,
@@ -762,6 +761,16 @@ else
         },
       },
       {
+        "chikko80/error-lens.nvim",
+        event = "BufRead",
+        dependencies = {
+          "nvim-telescope/telescope.nvim",
+        },
+        opts = {
+          -- your options go here
+        },
+      },
+      {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         ---@module "ibl"
@@ -791,7 +800,6 @@ else
               "c",
               "cpp",
               "css",
-              "csv",
               "dockerfile",
               "editorconfig",
               "git_config",
@@ -837,7 +845,7 @@ else
               "zig",
             },
             sync_install = true,
-            auto_install = true,
+            auto_install = false,
             ignore_install = {},
             highlight = {
               enable = true,
@@ -1277,16 +1285,7 @@ else
         end,
       },
       { "sindrets/diffview.nvim", lazy = true },
-      {
-        "chikko80/error-lens.nvim",
-        event = "BufRead",
-        dependencies = {
-          "nvim-telescope/telescope.nvim",
-        },
-        opts = {
-          -- your options go here
-        },
-      },
+
       {
         "linrongbin16/gitlinker.nvim",
         lazy = true,
@@ -1323,18 +1322,6 @@ else
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
       },
-      -- {
-      --   "goolord/alpha-nvim",
-      --   lazy = false,
-      --   dependencies = { "nvim-tree/nvim-web-devicons" },
-      --   config = function()
-      --     local startify = require("alpha.themes.startify")
-      --     -- available: devicons, mini, default is mini
-      --     -- if provider not loaded and enabled is true, it will try to use another provider
-      --     startify.file_icons.provider = "devicons"
-      --     require("alpha").setup(startify.config)
-      --   end,
-      -- },
       {
         "nvimdev/dashboard-nvim",
         event = "VimEnter",
@@ -1379,24 +1366,6 @@ else
           require("telescope").load_extension("projects")
         end,
       },
-      -- { "folke/persistence.nvim", event = "BufReadPre", opts = {} },
-      -- {
-      --   "stevearc/aerial.nvim",
-      --   lazy = true,
-      --   dependencies = {
-      --     "nvim-treesitter/nvim-treesitter",
-      --     "nvim-tree/nvim-web-devicons",
-      --   },
-      --   keys = {
-      --     { "<leader>a", "<cmd>AerialToggle!<CR>", mode = "n", noremap = true, silent = true, desc = "aerial toggle" },
-      --   },
-      --   opts = {
-      --     -- layout = {
-      --     --   max_width = { 50, 0.3 },
-      --     --   min_width = 30,
-      --     -- },
-      --   },
-      -- },
       {
         "bassamsdata/namu.nvim",
         config = function()
@@ -1908,6 +1877,7 @@ else
           })
         end,
       },
+      { "projekt0n/github-nvim-theme", name = "github-theme", lazy = false },
     },
     checker = { enabled = true, notify = false },
   })
