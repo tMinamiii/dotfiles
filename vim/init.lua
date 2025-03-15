@@ -1329,8 +1329,20 @@ else
         "nvimdev/dashboard-nvim",
         event = "VimEnter",
         config = function()
+          local logo = [[
+███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+]]
+
           require("dashboard").setup({
             theme = "hyper",
+            config = {
+              header = vim.split(logo, "\n"),
+            },
           })
         end,
         dependencies = { { "nvim-tree/nvim-web-devicons" } },
