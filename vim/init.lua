@@ -1278,6 +1278,16 @@ else
       },
       { "sindrets/diffview.nvim", lazy = true },
       {
+        "chikko80/error-lens.nvim",
+        event = "BufRead",
+        dependencies = {
+          "nvim-telescope/telescope.nvim",
+        },
+        opts = {
+          -- your options go here
+        },
+      },
+      {
         "linrongbin16/gitlinker.nvim",
         lazy = true,
         keys = {
@@ -1728,6 +1738,9 @@ else
           lspconfig.lua_ls.setup({
             settings = {
               Lua = {
+                diagnostics = {
+                  globals = { "vim" },
+                },
                 format = {
                   enable = false,
                 },
