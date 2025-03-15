@@ -777,6 +777,15 @@ else
         ---@type ibl.config
         config = function()
           require("ibl").setup({
+            exclude = {
+              filetypes = {
+                "checkhealth",
+                "dashboard",
+                "help",
+                "man",
+                "lspinfo",
+              },
+            },
             indent = {
               highlight = { "WhiteSpace" },
               char = "▏",
