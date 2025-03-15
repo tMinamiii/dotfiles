@@ -1313,17 +1313,27 @@ else
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
       },
+      -- {
+      --   "goolord/alpha-nvim",
+      --   lazy = false,
+      --   dependencies = { "nvim-tree/nvim-web-devicons" },
+      --   config = function()
+      --     local startify = require("alpha.themes.startify")
+      --     -- available: devicons, mini, default is mini
+      --     -- if provider not loaded and enabled is true, it will try to use another provider
+      --     startify.file_icons.provider = "devicons"
+      --     require("alpha").setup(startify.config)
+      --   end,
+      -- },
       {
-        "goolord/alpha-nvim",
-        lazy = false,
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        "nvimdev/dashboard-nvim",
+        event = "VimEnter",
         config = function()
-          local startify = require("alpha.themes.startify")
-          -- available: devicons, mini, default is mini
-          -- if provider not loaded and enabled is true, it will try to use another provider
-          startify.file_icons.provider = "devicons"
-          require("alpha").setup(startify.config)
+          require("dashboard").setup({
+            theme = "hyper",
+          })
         end,
+        dependencies = { { "nvim-tree/nvim-web-devicons" } },
       },
       {
         "ahmedkhalf/project.nvim",
