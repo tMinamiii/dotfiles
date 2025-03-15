@@ -511,7 +511,12 @@ eval "$($HOME/.local/bin/mise activate zsh)"
 #   zprof
 # fi
 
-. "/Users/tminamiii/.deno/env"
+. "$HOME/.deno/env"
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/tminamiii/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=($HOME/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
