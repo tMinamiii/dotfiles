@@ -761,16 +761,6 @@ else
         },
       },
       {
-        "chikko80/error-lens.nvim",
-        event = "BufRead",
-        dependencies = {
-          "nvim-telescope/telescope.nvim",
-        },
-        opts = {
-          -- your options go here
-        },
-      },
-      {
         "shellRaining/hlchunk.nvim",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
@@ -1687,7 +1677,7 @@ else
               "biome",
               "cssls",
               "denols",
-              "eslint",
+              -- "eslint",
               "gopls",
               "html",
               "jdtls",
@@ -1748,14 +1738,14 @@ else
             },
           })
 
-          lspconfig.eslint.setup({
-            on_attach = function(client, bufnr)
-              autocmd("BufWritePre", {
-                buffer = bufnr,
-                command = "EslintFixAll",
-              })
-            end,
-          })
+          -- lspconfig.eslint.setup({
+          --   on_attach = function(client, bufnr)
+          --     autocmd("BufWritePre", {
+          --       buffer = bufnr,
+          --       command = "EslintFixAll",
+          --     })
+          --   end,
+          -- })
 
           local is_node_dir = function()
             return lspconfig.util.root_pattern("package.json")(vim.fn.getcwd())
@@ -1862,7 +1852,7 @@ else
               "shellcheck",
               "shfmt",
               "sql-formatter",
-              "prettier",
+              -- "prettier",
               "black",
               "biome",
               "xmlformatter",
@@ -1882,28 +1872,28 @@ else
                   return utils.root_has_file({ "biome.json", "biome.jsonc" })
                 end,
               }),
-              null_ls.builtins.formatting.prettier.with({
-                condition = function(utils)
-                  return utils.root_has_file({
-                    ".prettierrc",
-                    ".prettierrc.json",
-                    ".prettierrc.yml",
-                    ".prettierrc.yaml",
-                    ".prettierrc.json5",
-                    ".prettierrc.js",
-                    ".prettierrc.cjs",
-                    ".prettierrc.toml",
-                    "prettier.config.js",
-                    "prettier.config.cjs",
-                  })
-                end,
-              }),
+              -- null_ls.builtins.formatting.prettier.with({
+              --   condition = function(utils)
+              --     return utils.root_has_file({
+              --       ".prettierrc",
+              --       ".prettierrc.json",
+              --       ".prettierrc.yml",
+              --       ".prettierrc.yaml",
+              --       ".prettierrc.json5",
+              --       ".prettierrc.js",
+              --       ".prettierrc.cjs",
+              --       ".prettierrc.toml",
+              --       "prettier.config.js",
+              --       "prettier.config.cjs",
+              --     })
+              --   end,
+              -- }),
               null_ls.builtins.diagnostics.markdownlint,
               null_ls.builtins.completion.spell,
               null_ls.builtins.diagnostics.hadolint,
               require("none-ls-shellcheck.diagnostics"),
               require("none-ls-shellcheck.code_actions"),
-              require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
+              -- require("none-ls.diagnostics.eslint"), -- requires none-ls-extras.nvim
             },
           })
         end,
