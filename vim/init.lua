@@ -624,14 +624,14 @@ else
             },
           },
         },
-        -- stylua: ignore
-        keys = {
-          { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-          -- { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-          -- { "", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-          -- { "<leader>f", mode = {  "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-          -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-        },
+          -- stylua: ignore
+          keys = {
+            { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            -- { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+            -- { "", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+            -- { "<leader>f", mode = {  "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+            -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+          },
       },
       {
         "iamcco/markdown-preview.nvim",
@@ -771,29 +771,52 @@ else
         },
       },
       {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        ---@module "ibl"
-        ---@type ibl.config
+        "shellRaining/hlchunk.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
-          require("ibl").setup({
-            exclude = {
-              filetypes = {
-                "checkhealth",
-                "dashboard",
-                "help",
-                "man",
-                "lspinfo",
+          require("hlchunk").setup({
+            indent = {
+              enable = true,
+              chars = { "▏" },
+              style = {
+                vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
               },
             },
-            indent = {
-              highlight = { "WhiteSpace" },
-              char = "▏",
+            blank = {
+              chars = {
+                "․",
+              },
+              style = {
+                { vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"), "" },
+              },
             },
-            scope = { enabled = false },
           })
         end,
       },
+      -- {
+      --   "lukas-reineke/indent-blankline.nvim",
+      --   main = "ibl",
+      --   ---@module "ibl"
+      --   ---@type ibl.config
+      --   config = function()
+      --     require("ibl").setup({
+      --       exclude = {
+      --         filetypes = {
+      --           "checkhealth",
+      --           "dashboard",
+      --           "help",
+      --           "man",
+      --           "lspinfo",
+      --         },
+      --       },
+      --       indent = {
+      --         highlight = { "WhiteSpace" },
+      --         char = "▏",
+      --       },
+      --       scope = { enabled = false },
+      --     })
+      --   end,
+      -- },
       {
         "nvim-treesitter/nvim-treesitter",
         build = function()
@@ -1335,13 +1358,13 @@ else
         event = "VimEnter",
         config = function()
           local logo = [[
-███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
-]]
+  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+  ]]
 
           require("dashboard").setup({
             theme = "hyper",
@@ -1896,7 +1919,8 @@ else
 
   hl(0, "LineNr", { fg = "#505050" })
   hl(0, "FoldColumn", { fg = "#808080" })
-  hl(0, "WhiteSpace", { fg = "#303030" })
+  -- hl(0, "WhiteSpace", { fg = "#303030" })
+  hl(0, "WhiteSpace", { fg = "#555555" })
   hl(0, "CursorLine", { bg = "#383838" })
   hl(0, "CocFloating", { bg = "#383838" })
   hl(0, "CocMenuSel", { bg = "#505050" })
