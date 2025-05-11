@@ -1638,11 +1638,11 @@ else
           { "g[", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic prev" },
         },
       },
-      { "williamboman/mason.nvim", lazy = false, opts = {} },
+      { "williamboman/mason.nvim", version = "^1.0.0", lazy = false, opts = {} },
       {
         "neovim/nvim-lspconfig",
         dependencies = {
-          "williamboman/mason-lspconfig.nvim",
+          { "williamboman/mason-lspconfig.nvim", version = "^1.0.0" },
         },
         lazy = false,
         keys = {
