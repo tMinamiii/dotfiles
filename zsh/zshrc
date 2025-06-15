@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 autoload -Uz compinit
 compinit
 # zmodload zsh/zprof && zprof
@@ -261,7 +263,6 @@ alias pi3='ssh ubuntu@172.16.27.12'
 # language setup
 alias py-setup='curl -sSfL https://git.io/Ju0Rv | bash'
 alias ts-setup='curl -sSfL https://raw.githubusercontent.com/tMinamiii/dotfiles/master/templates/typescript/install.sh | sh'
-alias ide="$HOME/dotfiles/tmux/ide.sh"
 
 alias oreore='openssl req -x509 -nodes -days 36500 -newkey rsa:2048 -keyout private.key -out public.crt'
 alias golangci-lint-update='curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin $(curl --silent "https://api.github.com/repos/golangci/golangci-lint/releases/latest" | jq -r .tag_name)'
@@ -415,6 +416,7 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 zinit light sobolevn/wakatime-zsh-plugin
+# Set Oh My Zsh theme conditionally
 zinit light dracula/zsh
 
 zinit ice wait"!0" blockf silent
@@ -423,7 +425,7 @@ zinit light "zsh-users/zsh-completions"
 zinit ice wait"!0" silent
 zinit light b4b4r07/enhancd
 
-zinit ice wait"!0" silent atload"_zsh_autosuggest_start"
+# zinit ice wait"!0" silent atload"_zsh_autosuggest_start"
 zinit light zsh-users/zsh-autosuggestions
 
 # zinit light marlonrichert/zsh-autocomplete
@@ -503,8 +505,6 @@ eval "$($HOME/.local/bin/mise activate zsh)"
 
 . "$HOME/.deno/env"
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:$HOME/.lmstudio/bin"
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=($HOME/.docker/completions $fpath)
 autoload -Uz compinit
@@ -521,3 +521,7 @@ if [[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]]; then . "$HOME/google-cloud-sd
 
 # The next line enables shell command completion for gcloud.
 if [[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
