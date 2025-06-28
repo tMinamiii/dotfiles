@@ -1,12 +1,19 @@
 #!/bin/zsh
 #
-autoload -Uz compinit
-compinit
+# Set up completion system once
+if [[ -z "$_comp_setup" ]]; then
+  autoload -Uz compinit
+  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+  _comp_setup=1
+fi
+
 # zmodload zsh/zprof && zprof
 
 IsUbuntu() { [[ -f /etc/os-release ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
-# IsWSL() { [[  -n "${WSL_DISTRO_NAME}" ]] && [[ -f "/etc/os-release" ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]}
-# IsMacOS() { [[ "$(uname)" = "Darwin" ]] }
 
 IsWSL() {
 	case "$(uname -r)" in
@@ -69,41 +76,45 @@ export GOPRIVATE=github.com/tMinamiii/,github.com/everytv
 export FZF_DEFAULT_OPTS='--height 40% --border --info=inline'
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!\.git/*"'
 
-if [[ -f ~/.fzf.zsh ]]; then
-  source ~/.fzf.zsh
-else
+# Lazy load fzf
+if [[ ! -f ~/.fzf.zsh ]] && [[ ! -d ~/.fzf ]]; then
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
 fi
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
-tools=""
-[[ ! -f $(which wget) ]] && tools="${tools} wget"
-[[ ! -f $(which curl) ]] && tools="${tools} curl"
-[[ ! -f $(which git) ]] && tools="${tools} git"
-[[ ! -f $(which jq) ]] && tools="${tools} jq"
-[[ ! -f $(which direnv) ]] && tools="${tools} direnv"
-[[ ! -f $(which tmux) ]] && tools="${tools} tmux"
-[[ ! -f $(which unzip) ]] && tools="${tools} unzip"
-[[ ! -f $(which hxselect) ]] && tools="${tools} html-xml-utils"
-[[ ! -f $(which whois) ]] && tools="${tools} whois"
-if [[ ! -f $(which gh) ]]; then
-  IsMacOS && tools="${tools} gh"
-  if IsUbuntu; then
-    type -p curl >/dev/null || sudo apt install curl -y
-    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-      && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-      && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-      && sudo apt update
-      tools="${tools} gh"
+# Cache command existence checks
+if [[ -z "$_tools_checked" ]]; then
+  tools=""
+  command -v wget >/dev/null || tools="${tools} wget"
+  command -v curl >/dev/null || tools="${tools} curl"
+  command -v git >/dev/null || tools="${tools} git"
+  command -v jq >/dev/null || tools="${tools} jq"
+  command -v direnv >/dev/null || tools="${tools} direnv"
+  command -v tmux >/dev/null || tools="${tools} tmux"
+  command -v unzip >/dev/null || tools="${tools} unzip"
+  command -v hxselect >/dev/null || tools="${tools} html-xml-utils"
+  command -v whois >/dev/null || tools="${tools} whois"
+  command -v gh >/dev/null || {
+    IsMacOS && tools="${tools} gh"
+    if IsUbuntu; then
+      type -p curl >/dev/null || sudo apt install curl -y
+      curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+        && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+        && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+        && sudo apt update
+        tools="${tools} gh"
+    fi
+  }
+
+  if [[ ${tools} != "" ]]; then
+    IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install ${tools}
+    IsUbuntu && sudo apt install ${tools} -y
   fi
+  _tools_checked=1
 fi
 
-if [[ ${tools} != "" ]]; then
-  IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install ${tools}
-  IsUbuntu && sudo apt install ${tools} -y
-fi
-
-[[ -f $(which direnv) ]] && eval "$(direnv hook zsh)"
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 [[ -f ${HOME}/.cargo/env ]] && source "${HOME}/.cargo/env"
 
 export MANPATH="/usr/local/man:${MANPATH}"
@@ -414,20 +425,29 @@ source "${ZINIT}/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit light sobolevn/wakatime-zsh-plugin
-# Set Oh My Zsh theme conditionally
+# Load theme immediately (visual impact)
 zinit light dracula/zsh
 
-zinit ice wait"!0" blockf silent
-zinit light "zsh-users/zsh-completions"
+# Essential plugins with optimized timing
+zinit ice wait"1" lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
 
-zinit ice wait"!0" silent
-zinit light b4b4r07/enhancd
-
-# zinit ice wait"!0" silent atload"_zsh_autosuggest_start"
+zinit ice wait"2" lucid atload'_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
-# zinit light marlonrichert/zsh-autocomplete
+# Optional plugins - load only if needed
+if [[ -n "$WAKATIME_API_KEY" ]]; then
+  zinit ice wait"3" lucid
+  zinit light sobolevn/wakatime-zsh-plugin
+fi
+
+# Heavy plugins loaded last
+zinit ice wait"4" lucid
+zinit light b4b4r07/enhancd
+
+# Must be last
+zinit ice wait"5" lucid
+zinit light zsh-users/zsh-syntax-highlighting
 
 ### Bind keys ###
 zle -N ghq-fzf
@@ -491,42 +511,28 @@ install-go(){
 }
 # [[ ! -f /usr/local/go/bin/go ]] && install-go
 
-[[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
-[[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Lazy install language runtimes only when needed
+# [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
+# [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-## fzf rendering speed up omajinai
-echo "" | fzf --select-1 --exit-0 --print0
+# Skip fzf warmup - causes delay
+# echo "" | fzf --select-1 --exit-0 --print0
 
-eval "$($HOME/.local/bin/mise activate zsh)"
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh --shims)"
+else
+  eval "$(mise activate zsh)"
+fi
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
 . "$HOME/.deno/env"
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=($HOME/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
+# Docker CLI completions (consolidated)
+if [[ -d "$HOME/.docker/completions" ]]; then
+  fpath=($HOME/.docker/completions $fpath)
+fi
 
-
-# The next line updates PATH for the Google Cloud SDK.
-# if [[ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-# if [[ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
-
-# Amazon Q post block. Keep at the bottom of this file.
-# [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
-
- if (which zprof > /dev/null 2>&1) ;then
-   zprof
- fi
-
-
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/tminamiii/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
+if (which zprof > /dev/null 2>&1); then
+  zprof
+fi

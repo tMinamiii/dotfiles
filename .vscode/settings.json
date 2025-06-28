@@ -1,0 +1,11 @@
+{
+  "go.goroot": "/Users/tminamiii/.local/share/mise/installs/go/1.24.4",
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "/Users/tminamiii/.local/share/mise/shims/node"
+  },
+"python.defaultInterpreterPath": "/Users/tminamiii/.local/share/mise/installs/aws-cli/2.27.35/aws-cli.pkg/Payload/aws-cli/python",
+"go.alternateTools": {
+    "go": "/Users/tminamiii/.local/share/mise/shims/go",
+    "gopls": "/Users/tminamiii/.local/share/mise/shims/gopls"
+}
+}
