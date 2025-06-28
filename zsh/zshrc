@@ -4,7 +4,7 @@
 export ZSH_DISABLE_COMPFIX=true
 skip_global_compinit=1
 
-zmodload zsh/zprof && zprof
+# zmodload zsh/zprof && zprof
 
 #  1. キャッシュ改善: .zcompdump を24時間単位で更新
 #  2. 重複削除: Docker の重複 compinit 削除
