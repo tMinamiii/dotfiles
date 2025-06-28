@@ -5,24 +5,6 @@
 export ZSH_DISABLE_COMPFIX=true
 skip_global_compinit=1
 
-# - キャッシュ改善: .zcompdump を24時間単位で更新
-# - 補完オプション最適化: AUTO_MENU, COMPLETE_IN_WORD 設定
-# - キャッシュ機能: use-cache on で補完結果をキャッシュ
-# - キャッシュディレクトリ: ~/.zsh/cache 作成
-
-# Set up completion system once with aggressive caching
-if [[ -z "$_comp_setup" ]]; then
-  autoload -Uz compinit
-  # Only rebuild completion cache once per day
-  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
-    compinit
-  else
-    compinit -C
-  fi
-  _comp_setup=1
-fi
-
-
 # Cache OS detection results
 _is_ubuntu_cached() {
   [[ -n "$_IS_UBUNTU" ]] && return $_IS_UBUNTU
@@ -565,10 +547,10 @@ fi
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
 . "$HOME/.deno/env"
+
 fpath=(/Users/tminamiii/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
-# End of Docker CLI completions
 
 if (which zprof > /dev/null 2>&1); then
   zprof
