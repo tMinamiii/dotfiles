@@ -17,13 +17,13 @@ opt.encoding = "utf-8"
 -- diagnostics appeared/became resolved
 opt.cursorline = true
 opt.ignorecase = true -- 大文字小文字を区別しない
-opt.smartcase = true -- 検索文字に大文字がある場合は大文字小文字を区別
-opt.incsearch = true -- インクリメンタルサーチ
-opt.hlsearch = true -- 検索マッチテキストをハイライト
-opt.hidden = true -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
+opt.smartcase = true  -- 検索文字に大文字がある場合は大文字小文字を区別
+opt.incsearch = true  -- インクリメンタルサーチ
+opt.hlsearch = true   -- 検索マッチテキストをハイライト
+opt.hidden = true     -- バッファを閉じる代わりに隠す（Undo履歴を残すため）
 -- opt.switchbuf = "usetab" -- 新しく開く代わりにすでに開いてあるバッファを開く
-opt.showmatch = true -- 対応する括弧などをハイライト表示する
-opt.matchtime = 2 -- 対応括弧のハイライト表示を3秒にする
+opt.showmatch = true  -- 対応する括弧などをハイライト表示する
+opt.matchtime = 2     -- 対応括弧のハイライト表示を3秒にする
 
 opt.clipboard = "unnamedplus"
 -- opt.clipboard = "unnamed"
@@ -40,7 +40,7 @@ opt.showtabline = 0 -- 常にタブラインを表示
 opt.laststatus = 2
 opt.cmdheight = 1
 opt.whichwrap = "b,s,<,>,[,]" -- wrapするカッコ一覧
-opt.list = true -- 不可視文字の可視化
+opt.list = true               -- 不可視文字の可視化
 opt.listchars:append({ space = "·", tab = [[▏ ]], trail = "￭", extends = "❯", precedes = "❮" })
 opt.ttimeout = nil
 opt.ttimeoutlen = 10
@@ -66,7 +66,7 @@ opt.smartindent = true
 
 --- ufo ---
 opt.foldcolumn = "1" -- '0' is not bad
-opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+opt.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 opt.foldlevelstart = 99
 opt.foldenable = true
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -85,11 +85,11 @@ opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 -- cmap / cnoremap  |    -   |   -    |    @    |   -    |   -    |    -     |
 -----------------------------------------------------------------------------"
 
-g.netrw_liststyle = 1 -- " ファイルツリーの表示形式、1にするとls -laのような表示になります
-g.netrw_banner = 0 -- " ヘッダを非表示にする
-g.netrw_sizestyle = "H" -- " サイズを(K,M,G)で表示する
+g.netrw_liststyle = 1                     -- " ファイルツリーの表示形式、1にするとls -laのような表示になります
+g.netrw_banner = 0                        -- " ヘッダを非表示にする
+g.netrw_sizestyle = "H"                   -- " サイズを(K,M,G)で表示する
 g.netrw_timefmt = "%Y/%m/%d(%a) %H:%M:%S" -- " 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-g.netrw_preview = 1 -- " プレビューウィンドウを垂直分割で表示する
+g.netrw_preview = 1                       -- " プレビューウィンドウを垂直分割で表示する
 g.mapleader = " "
 g.maplocalleader = "\\"
 
@@ -167,8 +167,10 @@ autocmd("FileType", {
 
 if not g.vscode then
   augroup("filetypes", {})
-  autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
-  autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = { "*zshrc", "*zsh" }, command = "setfiletype zsh" })
+  autocmd({ "BufRead", "BufNewFile" },
+    { group = "filetypes", pattern = "*Dockerfile", command = "setfiletype dockerfile" })
+  autocmd({ "BufRead", "BufNewFile" },
+    { group = "filetypes", pattern = { "*zshrc", "*zsh" }, command = "setfiletype zsh" })
   autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.mjs", command = "setfiletype javascript" })
   autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = "*.csv", command = "setfiletype csv" })
   autocmd({ "BufRead", "BufNewFile" }, { group = "filetypes", pattern = ".env.*", command = "setfiletype sh" })
@@ -236,7 +238,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
+      { out,                            "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
@@ -250,7 +252,7 @@ if g.vscode then
   require("lazy").setup({
     root = lazyroot,
     spec = {
-      { "kylechui/nvim-surround", version = "*", opts = {} },
+      { "kylechui/nvim-surround",       version = "*", opts = {} },
       {
         "terryma/vim-expand-region",
         lazy = false,
@@ -356,7 +358,7 @@ if g.vscode then
           require("dial.config").augends:register_group({
             -- default augends used when no group name is specified
             default = {
-              augend.constant.alias.bool, -- boolean value (true <-> false)
+              augend.constant.alias.bool,    -- boolean value (true <-> false)
               augend.semver.alias.semver,
               augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
               augend.integer.alias.decimal_int,
@@ -475,7 +477,7 @@ else
     root = lazyroot,
     spec = {
       { "kylechui/nvim-surround", lazy = false, version = "*", opts = {} },
-      { "tpope/vim-fugitive", lazy = false },
+      { "tpope/vim-fugitive",     lazy = false },
       {
         "mechatroner/rainbow_csv",
         lazy = false,
@@ -592,7 +594,7 @@ else
           require("dial.config").augends:register_group({
             -- default augends used when no group name is specified
             default = {
-              augend.constant.alias.bool, -- boolean value (true <-> false)
+              augend.constant.alias.bool,    -- boolean value (true <-> false)
               augend.semver.alias.semver,
               augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
               augend.integer.alias.decimal_int,
@@ -601,7 +603,7 @@ else
           })
         end,
       },
-      { "numToStr/Comment.nvim", lazy = true, opts = {} },
+      { "numToStr/Comment.nvim",         lazy = true, opts = {} },
       {
         "folke/flash.nvim",
         lazy = true,
@@ -625,14 +627,14 @@ else
             },
           },
         },
-          -- stylua: ignore
-          keys = {
-            { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-            -- { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-            -- { "", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-            -- { "<leader>f", mode = {  "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-            -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-          },
+        -- stylua: ignore
+        keys = {
+          { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+          -- { "<leader>f", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+          -- { "", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+          -- { "<leader>f", mode = {  "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+          -- { "", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+        },
       },
       {
         "iamcco/markdown-preview.nvim",
@@ -962,6 +964,98 @@ else
           insert_mappings = false,
         },
       },
+      -- {
+      --   "microsoft/vscode-js-debug",
+      --   lazy = true,
+      --   build = "npm install --legacy-peer-deps && git checkout package-lock.json && npx gulp vsDebugServerBundle && mv dist out",
+      --   config = function()
+      --     local function get_js_debug()
+      --       local path = vim.fn.stdpath("data")
+      --       return path .. "/lazy/vscode-js-debug"
+      --     end
+      --     require("dap-vscode-js").setup({
+      --       node_path = "node",
+      --       debugger_path = get_js_debug(),
+      --       adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
+      --     })
+
+      --     for _, language in ipairs({ "typescript", "javascript" }) do
+      --       require("dap").configurations[language] = {
+      --         {
+      --           type = "pwa-node",
+      --           request = "launch",
+      --           name = "Launch file",
+      --           program = "${file}",
+      --           cwd = "${workspaceFolder}",
+      --         },
+      --         {
+      --           type = "pwa-node",
+      --           request = "attach",
+      --           name = "Attach",
+      --           processId = require("dap.utils").pick_process,
+      --           cwd = "${workspaceFolder}",
+      --         },
+      --         {
+      --           type = "pwa-node",
+      --           request = "launch",
+      --           name = "Debug Jest Tests",
+      --           -- trace = true, -- include debugger info
+      --           runtimeExecutable = "node",
+      --           runtimeArgs = {
+      --             "./node_modules/jest/bin/jest.js",
+      --             "--runInBand",
+      --           },
+      --           rootPath = "${workspaceFolder}",
+      --           cwd = "${workspaceFolder}",
+      --           console = "integratedTerminal",
+      --           internalConsoleOptions = "neverOpen",
+      --         },
+      --         {
+      --           type = "pwa-chrome",
+      --           name = "Attach - Remote Debugging",
+      --           request = "attach",
+      --           program = "${file}",
+      --           cwd = vim.fn.getcwd(),
+      --           sourceMaps = true,
+      --           protocol = "inspector",
+      --           port = 9222, -- Start Chrome google-chrome --remote-debugging-port=9222
+      --           webRoot = "${workspaceFolder}",
+      --         },
+      --         {
+      --           type = "pwa-chrome",
+      --           name = "Launch Chrome",
+      --           request = "launch",
+      --           url = "http://localhost:5173", -- This is for Vite. Change it to the framework you use
+      --           webRoot = "${workspaceFolder}",
+      --           userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
+      --         },
+      --       }
+      --     end
+      --     for _, language in ipairs({ "typescriptreact", "javascriptreact" }) do
+      --       require("dap").configurations[language] = {
+      --         {
+      --           type = "pwa-chrome",
+      --           name = "Attach - Remote Debugging",
+      --           request = "attach",
+      --           program = "${file}",
+      --           cwd = vim.fn.getcwd(),
+      --           sourceMaps = true,
+      --           protocol = "inspector",
+      --           port = 9222, -- Start Chrome google-chrome --remote-debugging-port=9222
+      --           webRoot = "${workspaceFolder}",
+      --         },
+      --         {
+      --           type = "pwa-chrome",
+      --           name = "Launch Chrome",
+      --           request = "launch",
+      --           url = "http://localhost:5173", -- This is for Vite. Change it to the framework you use
+      --           webRoot = "${workspaceFolder}",
+      --           userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
+      --         },
+      --       }
+      --     end
+      --   end,
+      -- },
       {
         "rcarriga/nvim-dap-ui",
         lazy = true,
@@ -970,98 +1064,6 @@ else
           "nvim-neotest/nvim-nio",
           "leoluz/nvim-dap-go",
           "mxsdev/nvim-dap-vscode-js",
-          {
-            "microsoft/vscode-js-debug",
-            lazy = true,
-            build = "npm install --legacy-peer-deps && git checkout package-lock.json && npx gulp vsDebugServerBundle && mv dist out",
-            config = function()
-              local function get_js_debug()
-                local path = vim.fn.stdpath("data")
-                return path .. "/lazy/vscode-js-debug"
-              end
-              require("dap-vscode-js").setup({
-                node_path = "node",
-                debugger_path = get_js_debug(),
-                adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
-              })
-
-              for _, language in ipairs({ "typescript", "javascript" }) do
-                require("dap").configurations[language] = {
-                  {
-                    type = "pwa-node",
-                    request = "launch",
-                    name = "Launch file",
-                    program = "${file}",
-                    cwd = "${workspaceFolder}",
-                  },
-                  {
-                    type = "pwa-node",
-                    request = "attach",
-                    name = "Attach",
-                    processId = require("dap.utils").pick_process,
-                    cwd = "${workspaceFolder}",
-                  },
-                  {
-                    type = "pwa-node",
-                    request = "launch",
-                    name = "Debug Jest Tests",
-                    -- trace = true, -- include debugger info
-                    runtimeExecutable = "node",
-                    runtimeArgs = {
-                      "./node_modules/jest/bin/jest.js",
-                      "--runInBand",
-                    },
-                    rootPath = "${workspaceFolder}",
-                    cwd = "${workspaceFolder}",
-                    console = "integratedTerminal",
-                    internalConsoleOptions = "neverOpen",
-                  },
-                  {
-                    type = "pwa-chrome",
-                    name = "Attach - Remote Debugging",
-                    request = "attach",
-                    program = "${file}",
-                    cwd = vim.fn.getcwd(),
-                    sourceMaps = true,
-                    protocol = "inspector",
-                    port = 9222, -- Start Chrome google-chrome --remote-debugging-port=9222
-                    webRoot = "${workspaceFolder}",
-                  },
-                  {
-                    type = "pwa-chrome",
-                    name = "Launch Chrome",
-                    request = "launch",
-                    url = "http://localhost:5173", -- This is for Vite. Change it to the framework you use
-                    webRoot = "${workspaceFolder}",
-                    userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
-                  },
-                }
-              end
-              for _, language in ipairs({ "typescriptreact", "javascriptreact" }) do
-                require("dap").configurations[language] = {
-                  {
-                    type = "pwa-chrome",
-                    name = "Attach - Remote Debugging",
-                    request = "attach",
-                    program = "${file}",
-                    cwd = vim.fn.getcwd(),
-                    sourceMaps = true,
-                    protocol = "inspector",
-                    port = 9222, -- Start Chrome google-chrome --remote-debugging-port=9222
-                    webRoot = "${workspaceFolder}",
-                  },
-                  {
-                    type = "pwa-chrome",
-                    name = "Launch Chrome",
-                    request = "launch",
-                    url = "http://localhost:5173", -- This is for Vite. Change it to the framework you use
-                    webRoot = "${workspaceFolder}",
-                    userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
-                  },
-                }
-              end
-            end,
-          },
         },
         init = function()
           local dap, dapui = require("dap"), require("dapui")
@@ -1083,17 +1085,17 @@ else
           layouts = {
             {
               elements = {
-                { id = "scopes", size = 0.25 },
+                { id = "scopes",      size = 0.25 },
                 { id = "breakpoints", size = 0.25 },
-                { id = "stacks", size = 0.25 },
-                { id = "watches", size = 0.25 },
+                { id = "stacks",      size = 0.25 },
+                { id = "watches",     size = 0.25 },
               },
               position = "left",
               size = 60,
             },
             {
               elements = {
-                { id = "repl", size = 0.5 },
+                { id = "repl",    size = 0.5 },
                 { id = "console", size = 0.5 },
               },
               position = "bottom",
@@ -1239,7 +1241,7 @@ else
           },
         },
       },
-      { "petertriho/nvim-scrollbar", opts = {} },
+      { "petertriho/nvim-scrollbar",               opts = {} },
       {
         "kevinhwang91/nvim-ufo",
         lazy = false,
@@ -1300,14 +1302,14 @@ else
           require("statuscol").setup({
             relculright = true,
             segments = {
-              { text = { "%s " }, click = "v:lua.ScSa" },
-              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+              { text = { "%s " },                  click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc, " " },  click = "v:lua.ScLa" },
               { text = { builtin.foldfunc, "  " }, click = "v:lua.ScFa" },
             },
           })
         end,
       },
-      { "sindrets/diffview.nvim", lazy = true },
+      { "sindrets/diffview.nvim",                   lazy = true },
 
       {
         "linrongbin16/gitlinker.nvim",
@@ -1403,7 +1405,7 @@ else
               enable = false,
               options = {
                 -- NOTE: if you activate persist, then please remove any vim.cmd("colorscheme ...") in your config, no needed anymore
-                persist = true, -- very efficient mechanism to Remember selected colorscheme
+                persist = true,      -- very efficient mechanism to Remember selected colorscheme
                 write_shada = false, -- If you open multiple nvim instances, then probably you need to enable this
               },
             },
@@ -1420,7 +1422,7 @@ else
         end,
       },
       { "nvim-telescope/telescope-fzf-writer.nvim", lazy = true },
-      { "nvim-telescope/telescope-ui-select.nvim", lazy = true },
+      { "nvim-telescope/telescope-ui-select.nvim",  lazy = true },
       {
         "nvim-telescope/telescope.nvim",
         lazy = true,
@@ -1481,7 +1483,7 @@ else
         },
         opts = {},
       },
-      { "wakatime/vim-wakatime", lazy = false },
+      { "wakatime/vim-wakatime",   lazy = false },
       {
         "Aasim-A/scrollEOF.nvim",
         lazy = false,
@@ -1495,19 +1497,19 @@ else
         config = true,
         opts = {
           disable_filetype = { "TelescopePrompt", "spectre_panel" },
-          disable_in_macro = true, -- disable when recording or executing a macro
+          disable_in_macro = true,        -- disable when recording or executing a macro
           disable_in_visualblock = false, -- disable when insert after visual block mode
           disable_in_replace_mode = true,
           ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
           enable_moveright = true,
-          enable_afterquote = true, -- add bracket pairs after quote
+          enable_afterquote = true,         -- add bracket pairs after quote
           enable_check_bracket_line = true, --- check bracket in same line
-          enable_bracket_in_quote = true, --
-          enable_abbr = false, -- trigger abbreviation
-          break_undo = true, -- switch for basic rule break undo sequence
+          enable_bracket_in_quote = true,   --
+          enable_abbr = false,              -- trigger abbreviation
+          break_undo = true,                -- switch for basic rule break undo sequence
           check_ts = false,
           map_cr = true,
-          map_bs = true, -- map the <BS> key
+          map_bs = true,  -- map the <BS> key
           map_c_h = true, -- Map the <C-h> key to delete a pair
           map_c_w = true, -- map <c-w> to delete a pair if possible
         },
@@ -1573,8 +1575,8 @@ else
             }),
             formatting = {
               format = lspkind.cmp_format({
-                mode = "symbol_text", -- show only symbol annotations
-                maxwidth = 100, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                mode = "symbol_text",  -- show only symbol annotations
+                maxwidth = 100,        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
                 ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
                 -- show_labelDetails = true, -- show labelDetails in menu. Disabled by default
                 symbol_map = { Copilot = "" },
@@ -1627,16 +1629,16 @@ else
         end,
         dependencies = {
           "nvim-treesitter/nvim-treesitter", -- optional
-          "nvim-tree/nvim-web-devicons", -- optional
+          "nvim-tree/nvim-web-devicons",     -- optional
         },
         keys = {
           -- { "K", "<cmd>Lspsaga hover_doc<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga hover" },
-          { "gp", "<cmd>Lspsaga peek_definition<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage peek definition" },
-          { "<leader>rn", "<cmd>Lspsaga rename<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
-          { "<F2>", "<cmd>Lspsaga rename<CR>", mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
-          { "ga", "<cmd>Lspsaga code_action<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga code action" },
-          { "g]", "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic next" },
-          { "g[", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic prev" },
+          { "gp",         "<cmd>Lspsaga peek_definition<CR>",      mode = "n", noremap = true, silent = true, desc = "lspsage peek definition" },
+          { "<leader>rn", "<cmd>Lspsaga rename<CR>",               mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
+          { "<F2>",       "<cmd>Lspsaga rename<CR>",               mode = "n", noremap = true, silent = true, desc = "lspsage rename" },
+          { "ga",         "<cmd>Lspsaga code_action<CR>",          mode = "n", noremap = true, silent = true, desc = "lspsaga code action" },
+          { "g]",         "<cmd>Lspsaga diagnostic_jump_next<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic next" },
+          { "g[",         "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = "n", noremap = true, silent = true, desc = "lspsaga diagnostic prev" },
         },
       },
       { "williamboman/mason.nvim", version = "^1.0.0", lazy = false, opts = {} },
@@ -1647,14 +1649,14 @@ else
         },
         lazy = false,
         keys = {
-          { "K", lsp.buf.hover, mode = "n", noremap = true, silent = true, desc = "lsp hover" },
-          { "<leader>/", lsp.buf.format, mode = "n", noremap = true, silent = true, desc = "lsp format" },
-          { "gr", lsp.buf.references, mode = "n", noremap = true, silent = true, desc = "lsp references" },
-          { "gd", lsp.buf.definition, mode = "n", noremap = true, silent = true, desc = "lsp definition" },
-          { "gD", lsp.buf.declaration, mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
-          { "gi", lsp.buf.implementation, mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
-          { "gt", lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
-          { "ge", diagnostic.open_float, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
+          { "K",         lsp.buf.hover,           mode = "n", noremap = true, silent = true, desc = "lsp hover" },
+          { "<leader>/", lsp.buf.format,          mode = "n", noremap = true, silent = true, desc = "lsp format" },
+          { "gr",        lsp.buf.references,      mode = "n", noremap = true, silent = true, desc = "lsp references" },
+          { "gd",        lsp.buf.definition,      mode = "n", noremap = true, silent = true, desc = "lsp definition" },
+          { "gD",        lsp.buf.declaration,     mode = "n", noremap = true, silent = true, desc = "lsp declaration" },
+          { "gi",        lsp.buf.implementation,  mode = "n", noremap = true, silent = true, desc = "lsp implementation" },
+          { "gt",        lsp.buf.type_definition, mode = "n", noremap = true, silent = true, desc = "lsp type definition" },
+          { "ge",        diagnostic.open_float,   mode = "n", noremap = true, silent = true, desc = "lsp diagnostic open float" },
           -- { "<leader>rn", lsp.buf.rename, mode = "n", noremap = true, silent = true, desc = "lsp rename" },
           -- { "ga", lsp.buf.code_action, mode = "n", noremap = true, silent = true, desc = "lsp code action" },
           -- { "g]", diagnostic.goto_next, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic next" },
