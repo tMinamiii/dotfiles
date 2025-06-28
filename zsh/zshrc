@@ -1,11 +1,22 @@
 #!/bin/zsh
 
-# zmodload zsh/zprof && zprof
+# Skip compaudit entirely - biggest bottleneck
+export ZSH_DISABLE_COMPFIX=true
+skip_global_compinit=1
 
-# Set up completion system once
+zmodload zsh/zprof && zprof
+
+#  1. キャッシュ改善: .zcompdump を24時間単位で更新
+#  2. 重複削除: Docker の重複 compinit 削除
+#  3. 補完オプション最適化: AUTO_MENU, COMPLETE_IN_WORD 設定
+#  4. キャッシュ機能: use-cache on で補完結果をキャッシュ
+#  5. キャッシュディレクトリ: ~/.zsh/cache 作成
+
+# Set up completion system once with aggressive caching
 if [[ -z "$_comp_setup" ]]; then
   autoload -Uz compinit
-  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  # Only rebuild completion cache once per day
+  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
     compinit
   else
     compinit -C
@@ -46,6 +57,12 @@ IsMacOS() { _is_macos_cached; }
 
 set bell-style none
 skip_global_compinit=1
+# Reduce compdef overhead
+setopt AUTO_MENU
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
+unsetopt MENU_COMPLETE
+unsetopt FLOWCONTROL
 setopt no_beep
 
 export HISTFILE=${HOME}/.zsh_history
@@ -64,6 +81,11 @@ setopt interactivecomments
 
 zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
 zstyle ':completion:*:*:*:*:globbed-files' ignored-patterns ''
+# Performance optimizations for completion
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 export PATH=$PATH
 export TERM=xterm-256color
