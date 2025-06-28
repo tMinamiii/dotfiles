@@ -1,6 +1,5 @@
 #!/bin/zsh
-# Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+#
 autoload -Uz compinit
 compinit
 # zmodload zsh/zprof && zprof
@@ -490,8 +489,8 @@ install-go(){
       && sudo rm -rf /usr/local/go \
       && sudo tar -C /usr/local -xzf "${GOGZ}"
 }
+# [[ ! -f /usr/local/go/bin/go ]] && install-go
 
-[[ ! -f /usr/local/go/bin/go ]] && install-go
 [[ ! -f $(which deno) ]] && curl -fsSL https://deno.land/install.sh | sh
 [[ ! -f $(which rustc) ]] && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
