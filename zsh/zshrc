@@ -1,5 +1,7 @@
 #!/bin/zsh
-#
+
+# zmodload zsh/zprof && zprof
+
 # Set up completion system once
 if [[ -z "$_comp_setup" ]]; then
   autoload -Uz compinit
@@ -11,7 +13,6 @@ if [[ -z "$_comp_setup" ]]; then
   _comp_setup=1
 fi
 
-# zmodload zsh/zprof && zprof
 
 # Cache OS detection results
 _is_ubuntu_cached() {
@@ -456,12 +457,14 @@ if [[ -n "$WAKATIME_API_KEY" ]]; then
   zinit light sobolevn/wakatime-zsh-plugin
 fi
 
-# Heavy plugins - longer delays
-zinit ice wait"3" lucid
-zinit light b4b4r07/enhancd
+# Heavy plugins - longer delays and conditional loading
+if [[ -n "$ENHANCD_ENABLED" ]]; then
+  zinit ice wait"3" lucid
+  zinit light b4b4r07/enhancd
+fi
 
-# Syntax highlighting must be last
-zinit ice wait"4" lucid
+# Syntax highlighting must be last - reduce delay
+zinit ice wait"2" lucid
 zinit light zsh-users/zsh-syntax-highlighting
 
 ### Bind keys ###
