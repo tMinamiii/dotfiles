@@ -59,6 +59,7 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
+let $PATH = $HOME . '/.local/share/mise/shims:' . $PATH
 
 function! IsWSL()
     return $WSL_DISTRO_NAME != ""
@@ -221,6 +222,7 @@ if !isdirectory(expand(s:vim_plug_root))
   call system('git clone https://github.com/junegunn/vim-plug.git ' . s:vim_plug_root . '/vim-plug/autoload')
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 
 call plug#begin(s:vim_plug_plugins)
     Plug 'preservim/nerdtree'
