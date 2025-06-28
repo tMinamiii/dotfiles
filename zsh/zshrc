@@ -13,23 +13,35 @@ fi
 
 # zmodload zsh/zprof && zprof
 
-IsUbuntu() { [[ -f /etc/os-release ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]] }
-
-IsWSL() {
-	case "$(uname -r)" in
-	*microsoft* ) true ;; # WSL 2
-	*Microsoft* ) true ;; # WSL 1
-	* ) false;;
-	esac
+# Cache OS detection results
+_is_ubuntu_cached() {
+  [[ -n "$_IS_UBUNTU" ]] && return $_IS_UBUNTU
+  [[ -f /etc/os-release ]] && [[ $(grep 'NAME="Ubuntu"' /etc/os-release) != "" ]]
+  _IS_UBUNTU=$?; return $_IS_UBUNTU
 }
 
-IsMacOS() {
-	case "$(uname -s)" in
-	*darwin* ) true ;;
-	*Darwin* ) true ;;
-	* ) false;;
-	esac
+_is_wsl_cached() {
+  [[ -n "$_IS_WSL" ]] && return $_IS_WSL
+  case "$(uname -r)" in
+    *microsoft*|*Microsoft*) _IS_WSL=0 ;;
+    *) _IS_WSL=1 ;;
+  esac
+  return $_IS_WSL
 }
+
+_is_macos_cached() {
+  [[ -n "$_IS_MACOS" ]] && return $_IS_MACOS
+  case "$(uname -s)" in
+    *darwin*|*Darwin*) _IS_MACOS=0 ;;
+    *) _IS_MACOS=1 ;;
+  esac
+  return $_IS_MACOS
+}
+
+# Lazy wrapper functions
+IsUbuntu() { _is_ubuntu_cached; }
+IsWSL() { _is_wsl_cached; }
+IsMacOS() { _is_macos_cached; }
 
 set bell-style none
 skip_global_compinit=1
@@ -408,7 +420,8 @@ install-win32yank() {
   fi
 }
 
-install-win32yank
+# Only install if we're actually in WSL
+IsWSL && install-win32yank
 
 ### Zinit's installer ###
 export ZINIT="${HOME}/.local/share/zinit"
@@ -428,25 +441,26 @@ autoload -Uz _zinit
 # Load theme immediately (visual impact)
 zinit light dracula/zsh
 
-# Essential plugins with optimized timing
-zinit ice wait"1" lucid blockf atpull'zinit creinstall -q .'
+# Essential plugins - load completions first
+zinit ice lucid blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
-zinit ice wait"2" lucid atload'_zsh_autosuggest_start'
+# Core interactive features
+zinit ice wait"1" lucid atload'_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
 
-# Optional plugins - load only if needed
+# Optional plugins - conditional loading
 if [[ -n "$WAKATIME_API_KEY" ]]; then
-  zinit ice wait"3" lucid
+  zinit ice wait"2" lucid
   zinit light sobolevn/wakatime-zsh-plugin
 fi
 
-# Heavy plugins loaded last
-zinit ice wait"4" lucid
+# Heavy plugins - longer delays
+zinit ice wait"3" lucid
 zinit light b4b4r07/enhancd
 
-# Must be last
-zinit ice wait"5" lucid
+# Syntax highlighting must be last
+zinit ice wait"4" lucid
 zinit light zsh-users/zsh-syntax-highlighting
 
 ### Bind keys ###
@@ -518,10 +532,14 @@ install-go(){
 # Skip fzf warmup - causes delay
 # echo "" | fzf --select-1 --exit-0 --print0
 
-if command -v mise >/dev/null 2>&1; then
-  eval "$(mise activate zsh --shims)"
-else
-  eval "$(mise activate zsh)"
+# Cache mise activation
+if [[ -z "$_mise_activated" ]] && command -v mise >/dev/null 2>&1; then
+  if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate zsh --shims)"
+  else
+    eval "$(mise activate zsh)"
+  fi
+  _mise_activated=1
 fi
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
