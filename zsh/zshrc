@@ -1,16 +1,14 @@
 #!/bin/zsh
 
+# zmodload zsh/zprof && zprof
 # Skip compaudit entirely - biggest bottleneck
 export ZSH_DISABLE_COMPFIX=true
 skip_global_compinit=1
 
-# zmodload zsh/zprof && zprof
-
-#  1. キャッシュ改善: .zcompdump を24時間単位で更新
-#  2. 重複削除: Docker の重複 compinit 削除
-#  3. 補完オプション最適化: AUTO_MENU, COMPLETE_IN_WORD 設定
-#  4. キャッシュ機能: use-cache on で補完結果をキャッシュ
-#  5. キャッシュディレクトリ: ~/.zsh/cache 作成
+# - キャッシュ改善: .zcompdump を24時間単位で更新
+# - 補完オプション最適化: AUTO_MENU, COMPLETE_IN_WORD 設定
+# - キャッシュ機能: use-cache on で補完結果をキャッシュ
+# - キャッシュディレクトリ: ~/.zsh/cache 作成
 
 # Set up completion system once with aggressive caching
 if [[ -z "$_comp_setup" ]]; then
