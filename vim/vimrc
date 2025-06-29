@@ -86,6 +86,9 @@ let mapleader = "\<Space>"
 "---------------------------------------------------------------------------"
 "
 """"" key remap
+
+map <Leader><Leader> <pLUG>(EASYMOTION-PREFIX)
+
 nnoremap <silent> <ESC><ESC> :noh<CR>
 nnoremap <silent> <M-p> :bp<CR>
 nnoremap <silent> <M-n> :bn<CR>
@@ -245,9 +248,13 @@ call plug#begin(s:vim_plug_plugins)
 
     Plug 'terryma/vim-multiple-cursors'
 
-    Plug 'deris/vim-shot-f'
+    " Plug 'deris/vim-shot-f'
+
+    Plug 'easymotion/vim-easymotion'
 
     Plug 'machakann/vim-highlightedyank'
+
+    Plug 'sheerun/vim-polyglot'
 
     Plug 'simeji/winresizer'
       let g:winresizer_vert_resize = 1
