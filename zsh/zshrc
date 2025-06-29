@@ -149,13 +149,9 @@ ghpr() {
   gh pr list -s all -S $1 -w
 }
 
-ghview() {
-  gh pr view --web
-}
+alias ghvw='gh pr view --web'
+alias ghcr'gh pr create --web'
 
-ghcreate() {
-  gh pr create --web
-}
 
 if uname -a | grep -sq "Linux"; then
   # ls, the common ones I use a lot shortened for rapid fire usage
