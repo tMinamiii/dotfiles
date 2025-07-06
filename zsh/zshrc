@@ -530,15 +530,7 @@ install-go(){
 # Skip fzf warmup - causes delay
 # echo "" | fzf --select-1 --exit-0 --print0
 
-# Cache mise activation
-if [[ -z "$_mise_activated" ]] && command -v mise >/dev/null 2>&1; then
-  if command -v mise >/dev/null 2>&1; then
-    eval "$(mise activate zsh --shims)"
-  else
-    eval "$(mise activate zsh)"
-  fi
-  _mise_activated=1
-fi
+eval "$(mise activate zsh)"
 
 [[ ~/.zshrc -nt ~/.zshrc.zwc ]] && zcompile ~/.zshrc
 
