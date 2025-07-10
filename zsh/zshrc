@@ -221,6 +221,7 @@ fi
 alias zshrc='${=EDITOR} ~/.zshrc' # Quick access to the ~/.zshrc file
 alias vimrc='${=EDITOR} ~/.vim/vimrc' # Quick access to the ~/.zshrc file
 alias initlua='nvim ~/.vim/init.lua' # Quick access to the ~/.zshrc file
+alias ideavimrc='${=EDITOR} ~/.ideavimrc' # Quick access to the ~/.ideavimrc file
 alias gitignore='${=EDITOR} ~/.config/git/ignore'
 alias dotfiles='cd ~/dotfiles' # Quick access to the ~/.zshrc file
 alias groot='cd "$(git rev-parse --show-toplevel)"'

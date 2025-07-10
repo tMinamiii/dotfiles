@@ -1,17 +1,29 @@
-set visualbell
-set clipboard+=unnamed
-set noerrorbells
-set smartcase
-set ignorecase
-Plug 'tpope/vim-surround'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'preservim/nerdtree'
-set surround
+" https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
+" set clipboard+=unnamed
+set clipboard=unnamedplus,unnamed,ideaput " integrate with system clipboard
 set commentary
+set gdefault                      " substitute all occurrences in line per default
+set history=10000                 " keep x lines of command line history
+set hlsearch                      " highlight search occurrences
+set ideajoin
+set ideastatusicon=disabled
+set ignorecase                    " ignore case in search patterns
+set incsearch                     " show search results while typing
+set multiple-cursors
+set noerrorbells
+set scrolloff=5 sidescrolloff=10  " keep some lines before and after the cursor visible
+set smartcase                     " no ignore case when pattern is uppercase
+set surround                      " emulate vim-surround plugin
+set visualbell
+set wrapscan                      " searches wrap around the end of the file
+
+" Plug 'tpope/vim-surround'
+" Plug 'terryma/vim-multiple-cursors'
+" Plug 'preservim/nerdtree'
+" set commentary
 
 " leaders
 let mapleader = "\<space>" " Use space as leader key
-let maplocalleader = "," " Use , as local leader key
 
 " lsp
 nnoremap gi :action GotoImplementation<CR>
@@ -20,16 +32,14 @@ nnoremap <c-n> <down>
 nnoremap <c-p> <up>
 
 " nnoremap  :NERDTree<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
+" nnoremap <leader>n :NERDTreeToggle<CR>
+set easymotion
+map <leader>w <Plug>(easymotion-bd-w)  " word単位移動
+map <leader>s <Plug>(easymotion-bd-f2) " 検索移動
+map <leader>l <Plug>(easymotion-bd-jk) " 行移動
 
-" easy window navigation
-" nnoremap <c-l> <c-w>l
-" nnoremap <c-j> <c-w>j
-" nnoremap <c-h> <c-w>h
-" nnoremap <c-k> <c-w>k
-inoremap <c-]> <esc>
 " fuzzyfinder
-nnoremap <leader>g :action SearchEverywhere<cr>
+nnoremap <leader>l :action SearchEverywhere<cr>
 
 " comment
 " nnoremap <leader>c<space> :action CommentByLineComment<cr>
