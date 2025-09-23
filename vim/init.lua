@@ -1661,14 +1661,12 @@ else
           -- { "g[", diagnostic.goto_prev, mode = "n", noremap = true, silent = true, desc = "lsp diagnostic prev" },
         },
         config = function()
-          local lspconfig = require("lspconfig")
+          local lspconfig = lsp.config
           local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
           require("mason-lspconfig").setup_handlers({
             function(server_name)
-              lspconfig[server_name].setup({
-                capabilities = capabilities,
-              })
+              vim.lsp.enable({ server_name })
             end,
           })
 
@@ -1701,7 +1699,7 @@ else
             },
           })
 
-          lspconfig.gopls.setup({
+          lspconfig("gopls", {
             settings = {
               gopls = {
                 analyses = {
@@ -1726,7 +1724,7 @@ else
             },
           })
 
-          lspconfig.lua_ls.setup({
+          lspconfig("lua_ls", {
             settings = {
               Lua = {
                 diagnostics = {
@@ -1752,7 +1750,7 @@ else
             return lspconfig.util.root_pattern("package.json")(vim.fn.getcwd())
           end
 
-          lspconfig.ts_ls.setup({
+          lspconfig("ts_ls", {
             on_attach = function(client)
               if not is_node_dir() then
                 client.stop(true)
@@ -1760,7 +1758,7 @@ else
             end,
           })
 
-          lspconfig.denols.setup({
+          lspconfig("denols", {
             on_attach = function(client)
               if is_node_dir() then
                 client.stop(true)
@@ -1768,7 +1766,7 @@ else
             end,
           })
 
-          lspconfig.yamlls.setup({
+          lspconfig("yamlls", {
             settings = {
               yaml = {
                 format = {
@@ -1781,13 +1779,13 @@ else
             },
           })
 
-          lspconfig.taplo.setup({
+          lspconfig("taplo", {
             filetypes = { "toml" },
             -- IMPORTANT: this is required for taplo LSP to work in non-git repositories
             root_dir = require("lspconfig.util").root_pattern("*.toml", ".git"),
           })
 
-          lspconfig.sqlls.setup({})
+          lspconfig("sqlls", {})
         end,
         init = function()
           if lsp.inlay_hint then
