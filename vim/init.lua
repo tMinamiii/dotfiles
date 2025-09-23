@@ -1367,28 +1367,6 @@ else
         dependencies = { { "nvim-tree/nvim-web-devicons" } },
       },
       {
-        "ahmedkhalf/project.nvim",
-        lazy = true,
-        keys = {
-          {
-            "<leader>p",
-            function()
-              require("telescope").extensions.projects.projects({})
-            end,
-            mode = "n",
-            noremap = true,
-            silent = true,
-            desc = "telescope find project",
-          },
-        },
-        config = function()
-          require("project_nvim").setup({})
-        end,
-        init = function()
-          require("telescope").load_extension("projects")
-        end,
-      },
-      {
         "bassamsdata/namu.nvim",
         config = function()
           require("namu").setup({
@@ -1419,14 +1397,25 @@ else
           -- })
         end,
       },
+      {
+        "DrKJeff16/project.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "nvim-telescope/telescope.nvim",
+          "ibhagwan/fzf-lua",
+        },
+        opts = {
+          telescope = {
+            enable = true,
+          },
+        },
+        cond = vim.fn.has("nvim-0.11") == 1,
+      },
       { "nvim-telescope/telescope-fzf-writer.nvim", lazy = true },
       { "nvim-telescope/telescope-ui-select.nvim", lazy = true },
       {
         "nvim-telescope/telescope.nvim",
-        lazy = true,
-        dependencies = {
-          "nvim-lua/plenary.nvim",
-        },
+        dependencies = { "nvim-lua/plenary.nvim", "DrKJeff16/project.nvim" },
         keys = {
           {
             "<C-p>",
@@ -1448,10 +1437,16 @@ else
             silent = true,
             desc = "telescope live grep",
           },
-          -- keyset("n", "<leader>pb", builtin.buffers, { noremap = true, silent = true, desc = "telescope buffers" })
-          -- keyset("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
+          {
+            "<leader>p",
+            "<cmd>Telescope projects<CR>",
+            mode = "n",
+            noremap = true,
+            silent = true,
+            desc = "telescope find project",
+          },
         },
-        version = "0.1.8",
+        -- version = "0.1.8",
         config = function()
           require("telescope").setup({
             extensions = {
@@ -1469,6 +1464,8 @@ else
               },
             },
           })
+
+          require("telescope").load_extension("projects")
         end,
       },
       {
