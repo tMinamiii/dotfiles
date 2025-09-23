@@ -1397,25 +1397,24 @@ else
           -- })
         end,
       },
-      {
-        "DrKJeff16/project.nvim",
-        dependencies = {
-          "nvim-lua/plenary.nvim",
-          "nvim-telescope/telescope.nvim",
-          "ibhagwan/fzf-lua",
-        },
-        opts = {
-          telescope = {
-            enable = true,
-          },
-        },
-        cond = vim.fn.has("nvim-0.11") == 1,
-      },
+
       { "nvim-telescope/telescope-fzf-writer.nvim", lazy = true },
       { "nvim-telescope/telescope-ui-select.nvim", lazy = true },
       {
         "nvim-telescope/telescope.nvim",
-        dependencies = { "nvim-lua/plenary.nvim", "DrKJeff16/project.nvim" },
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "ibhagwan/fzf-lua",
+          {
+            "DrKJeff16/project.nvim",
+            opts = {
+              telescope = {
+                enable = true,
+              },
+            },
+            cond = vim.fn.has("nvim-0.11") == 1,
+          },
+        },
         keys = {
           {
             "<C-p>",
