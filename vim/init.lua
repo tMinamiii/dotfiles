@@ -1344,59 +1344,59 @@ else
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
       },
-      {
-        "nvimdev/dashboard-nvim",
-        event = "VimEnter",
-        config = function()
-          local logo = [[
-  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
-  ]]
-
-          require("dashboard").setup({
-            theme = "hyper",
-            config = {
-              header = vim.split(logo, "\n"),
-            },
-          })
-        end,
-        dependencies = { { "nvim-tree/nvim-web-devicons" } },
-      },
-      {
-        "bassamsdata/namu.nvim",
-        config = function()
-          require("namu").setup({
-            -- Enable the modules you want
-            namu_symbols = {
-              enable = true,
-              options = {}, -- here you can configure namu
-            },
-            -- Optional: Enable other modules if needed
-            ui_select = { enable = false }, -- vim.ui.select() wrapper
-            colorscheme = {
-              enable = false,
-              options = {
-                -- NOTE: if you activate persist, then please remove any vim.cmd("colorscheme ...") in your config, no needed anymore
-                persist = true, -- very efficient mechanism to Remember selected colorscheme
-                write_shada = false, -- If you open multiple nvim instances, then probably you need to enable this
-              },
-            },
-          })
-          -- === Suggested Keymaps: ===
-          vim.keymap.set("n", "<leader>a", ":Namu symbols<cr>", {
-            desc = "Jump to LSP symbol",
-            silent = true,
-          })
-          -- vim.keymap.set("n", "<leader>th", ":Namu colorscheme<cr>", {
-          --   desc = "Colorscheme Picker",
-          --   silent = true,
-          -- })
-        end,
-      },
+      --       {
+      --         "nvimdev/dashboard-nvim",
+      --         event = "VimEnter",
+      --         config = function()
+      --           local logo = [[
+      --   ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+      --   ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+      --   ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+      --   ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+      --   ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+      --   ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+      --   ]]
+      --
+      --           require("dashboard").setup({
+      --             theme = "hyper",
+      --             config = {
+      --               header = vim.split(logo, "\n"),
+      --             },
+      --           })
+      --         end,
+      --         dependencies = { { "nvim-tree/nvim-web-devicons" } },
+      --       },
+      -- {
+      --   "bassamsdata/namu.nvim",
+      --   config = function()
+      --     require("namu").setup({
+      --       -- Enable the modules you want
+      --       namu_symbols = {
+      --         enable = true,
+      --         options = {}, -- here you can configure namu
+      --       },
+      --       -- Optional: Enable other modules if needed
+      --       ui_select = { enable = false }, -- vim.ui.select() wrapper
+      --       colorscheme = {
+      --         enable = false,
+      --         options = {
+      --           -- NOTE: if you activate persist, then please remove any vim.cmd("colorscheme ...") in your config, no needed anymore
+      --           persist = true, -- very efficient mechanism to Remember selected colorscheme
+      --           write_shada = false, -- If you open multiple nvim instances, then probably you need to enable this
+      --         },
+      --       },
+      --     })
+      --     -- === Suggested Keymaps: ===
+      --     vim.keymap.set("n", "<leader>a", ":Namu symbols<cr>", {
+      --       desc = "Jump to LSP symbol",
+      --       silent = true,
+      --     })
+      --     -- vim.keymap.set("n", "<leader>th", ":Namu colorscheme<cr>", {
+      --     --   desc = "Colorscheme Picker",
+      --     --   silent = true,
+      --     -- })
+      --   end,
+      -- },
 
       { "nvim-telescope/telescope-fzf-writer.nvim", lazy = true },
       { "nvim-telescope/telescope-ui-select.nvim", lazy = true },
