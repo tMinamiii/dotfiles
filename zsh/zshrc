@@ -199,12 +199,13 @@ elif IsMacOS; then
 
   export DBC_USER="takahiro.minami@every.tv"
 
-  work_zsh="${HOME}/.local/share/work/work.git"
-  if [[ ! -f ${work_zsh}/work.zsh ]]; then
-    command mkdir -p ${work_zsh} && command chmod g-rwX ${work_zsh}
-    command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "${work_zsh}"
+  work_zsh_path="${HOME}/.local/share/work/work.git"
+  alias workzsh="${=EDITOR} ${HOME}/.local/share/work/work.git/work.zsh"
+  if [[ ! -f ${work_zsh_path}/work.zsh ]]; then
+    command mkdir -p ${work_zsh_path} && command chmod g-rwX ${work_zsh_path}
+    command git clone git@gist.github.com:adb0e6dbed1ec82a2de645040485c525.git "${work_zsh_path}"
   fi
-  source "$work_zsh/work.zsh"
+  source "$work_zsh_path/work.zsh"
 
   # ls, the common ones I use a lot shortened for rapid fire usage
   alias ls='ls -G'
