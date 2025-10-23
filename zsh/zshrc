@@ -297,46 +297,35 @@ alias ipaddr='curl ifconfig.me'
 alias monitor='ssh -i ~/.ssh/gcp otherthan_new@100.92.113.120'
 
 ### functions
-gosdk() {
-  go install golang.org/dl/go$1@latest
-  ${HOME}/go/bin/go$1 download
-}
-
-go-install() {
-  local gobindir="${HOME}/go/bin"
-  [[ ! -f "${gobindir}/$1" ]] && go install $2
-}
-
 pip-update() {
-  candidates="pre-commit pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pynvim neovim uv ruff sqlfluff"
+  candidates="pre-commit pipenv poetry ipython black flake8 mypy autopep8 pycodestyle matplotlib pynvim neovim uv ruff sqlfluff ipykernel marker-pdf"
   pip install -U pip
   pip install -U $(echo ${candidates})
 }
 
 MISE_ROOT=${HOME}/.local/share/mise/installs
+
 tools() {
   if [[ -d "${HOME}/go/bin" ]]; then
-    go-install go-update    github.com/tMinamiii/go-update@latest
-    go-install lgtm         github.com/tMinamiii/lgtm@latest
-    go-install ghq          github.com/x-motemen/ghq@latest
-    go-install air          github.com/air-verse/air@latest
-    go-install gotests      github.com/cweill/gotests@latest
-    go-install gomodifytags github.com/fatih/gomodifytags@latest
-    go-install impl         github.com/josharian/impl@latest
-    go-install goplay       github.com/haya14busa/goplay/cmd/goplay@latest
-    go-install dlv          github.com/go-delve/delve/cmd/dlv@latest
-    go-install staticcheck  honnef.co/go/tools/cmd/staticcheck@latest
-    go-install gopls        golang.org/x/tools/gopls@latest
-    go-install sql-migrate  github.com/rubenv/sql-migrate/...@latest
-    go-install golint       golang.org/x/lint/golint@latest
-    go-install gore         github.com/x-motemen/gore/cmd/gore@latest
-    go-install gocode       github.com/mdempsky/gocode@latest
-    go-install gqlgen       github.com/99designs/gqlgen@latest
-    go-install gup          github.com/nao1215/gup@latest
-    go-install sqlboiler    github.com/volatiletech/sqlboiler/v4@latest
-    go-install sqlboiler-sqlite3 github.com/volatiletech/sqlboiler/v4/drivers/sqlboiler-sqlite3@latest
-    go-install gonew        golang.org/x/tools/cmd/gonew@latest
-    go-install eg           golang.org/x/tools/cmd/eg@latest
+    go install github.com/tMinamiii/go-update@latest
+    go install github.com/tMinamiii/lgtm@latest
+    go install github.com/x-motemen/ghq@latest
+    go install github.com/air-verse/air@latest
+    go install github.com/cweill/gotests@latest
+    go install github.com/fatih/gomodifytags@latest
+    go install github.com/josharian/impl@latest
+    go install github.com/haya14busa/goplay/cmd/goplay@latest
+    go install github.com/go-delve/delve/cmd/dlv@latest
+    go install honnef.co/go/tools/cmd/staticcheck@latest
+    go install golang.org/x/tools/gopls@latest
+    go install github.com/rubenv/sql-migrate/...@latest
+    go install golang.org/x/lint/golint@latest
+    go install github.com/x-motemen/gore/cmd/gore@latest
+    go install github.com/mdempsky/gocode@latest
+    go install github.com/99designs/gqlgen@latest
+    go install github.com/nao1215/gup@latest
+    go install golang.org/x/tools/cmd/gonew@latest
+    go install golang.org/x/tools/cmd/eg@latest
   fi
 
   if [[ -d ${MISE_ROOT}/python ]]; then
