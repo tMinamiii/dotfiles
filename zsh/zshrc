@@ -150,7 +150,7 @@ ghpr() {
 
 alias ghvw='gh pr view --web'
 alias ghcr'gh pr create --web'
-
+alias cdg='cd "$(git rev-parse --show-toplevel)"'
 
 if uname -a | grep -sq "Linux"; then
   # ls, the common ones I use a lot shortened for rapid fire usage
