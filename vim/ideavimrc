@@ -34,9 +34,12 @@ nnoremap <c-p> <up>
 " nnoremap  :NERDTree<CR>
 " nnoremap <leader>n :NERDTreeToggle<CR>
 set easymotion
-map <leader>w <Plug>(easymotion-bd-w)  " word単位移動
-map <leader>s <Plug>(easymotion-bd-f2) " 検索移動
-map <leader>l <Plug>(easymotion-bd-jk) " 行移動
+" word単位移動
+map <leader><leader>w <Plug>(easymotion-bd-w)
+" 検索移動
+map <leader><leader>s <Plug>(easymotion-bd-f2)
+" 行移動
+map <leader><leader>l <Plug>(easymotion-bd-jk)
 
 " fuzzyfinder
 nnoremap <leader>l :action SearchEverywhere<cr>
