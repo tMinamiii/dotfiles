@@ -461,7 +461,8 @@ if g.vscode then
   vscmap("n", "<leader>p", "workbench.action.openRecent", { desc = "open recent" })
   vscmap("n", "<leader>m", "workbench.action.closePanel", { desc = "close panel" })
   vscmap("n", "<leader>n", "workbench.action.toggleSidebarVisibility", { desc = "toggle sidebar visibility" })
-  vscmap("n", "<leader>/", { "editor.action.organizeImports", "editor.action.format" }, { desc = "organize imports" })
+  vscmap("n", "<leader>/", { "editor.action.format" }, { desc = "format" })
+  vscmap("n", "<leader><leader>/", { "editor.action.organizeImports", "editor.action.format" }, { desc = "organize imports and format" })
 
   keyset("n", "<C-w><C-h>", "<nop>", { noremap = true, silent = true })
   keyset("n", "<C-w><C-j>", "<nop>", { noremap = true, silent = true })
