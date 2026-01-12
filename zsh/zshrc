@@ -99,38 +99,7 @@ if [[ ! -f ~/.fzf.zsh ]] && [[ ! -d ~/.fzf ]]; then
 fi
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
-# Cache command existence checks
-if [[ -z "$_tools_checked" ]]; then
-  tools=""
-  command -v wget >/dev/null || tools="${tools} wget"
-  command -v curl >/dev/null || tools="${tools} curl"
-  command -v git >/dev/null || tools="${tools} git"
-  command -v jq >/dev/null || tools="${tools} jq"
-  command -v direnv >/dev/null || tools="${tools} direnv"
-  command -v tmux >/dev/null || tools="${tools} tmux"
-  command -v unzip >/dev/null || tools="${tools} unzip"
-  command -v hxselect >/dev/null || tools="${tools} html-xml-utils"
-  command -v whois >/dev/null || tools="${tools} whois"
-  command -v gh >/dev/null || {
-    IsMacOS && tools="${tools} gh"
-    if IsUbuntu; then
-      type -p curl >/dev/null || sudo apt install curl -y
-      curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-        && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-        && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-        && sudo apt update
-        tools="${tools} gh"
-    fi
-  }
-
-  if [[ ${tools} != "" ]]; then
-    IsMacOS && ARCHFLAGS="-arch $(uname -m)" brew install ${tools}
-    IsUbuntu && sudo apt install ${tools} -y
-  fi
-  _tools_checked=1
-fi
-
-command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+# command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 export MANPATH="/usr/local/man:${MANPATH}"
 export JAVA_HOME="$HOME/.sdkman/candidates/java/current"
@@ -259,7 +228,6 @@ alias glog='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset
 alias glogalga='log --graph --all --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative'
 alias dus='du --max-depth=1 -h | sort -nr'
 alias sync-monitor='sudo cp ~/.config/monitors.xml ~gdm/.config/'
-
 
 alias go-mod-init='go mod init $(pwd | sed -r "s/(^.*?)(github\.com\/.*?\/.*$)/\2/")'
 alias python-up='mise use --global python'
