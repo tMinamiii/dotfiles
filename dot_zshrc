@@ -117,6 +117,7 @@ ghpr() {
   gh pr list -s all -S $1 -w
 }
 
+alias cm='chezmoi'
 alias ghvw='gh pr view --web'
 alias ghcr'gh pr create --web'
 alias cdg='cd "$(git rev-parse --show-toplevel)"'
