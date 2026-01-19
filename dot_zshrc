@@ -189,12 +189,13 @@ elif IsMacOS; then
   alias t='tail -f'
 fi
 
-alias zshrc='${=EDITOR} ~/.zshrc' # Quick access to the ~/.zshrc file
-alias vimrc='${=EDITOR} ~/.vimrc' # Quick access to the ~/.zshrc file
-alias initlua='nvim ~/.config/nvim/init.lua' # Quick access to the ~/.zshrc file
-alias ideavimrc='${=EDITOR} ~/.ideavimrc' # Quick access to the ~/.ideavimrc file
-alias gitignore='${=EDITOR} ~/.config/git/ignore'
-alias dotfiles='cd ~/dotfiles' # Quick access to the ~/.zshrc file
+alias zshrc='chezmoi edit ~/.zshrc'
+alias vimrc='chezmoi edit ~/.vimrc'
+alias initlua='chezmoi edit ~/.config/nvim/init.lua'
+alias ghostty='chezmoi edit ~/.config/ghostty/config'
+alias tmuxconf='chezmoi edit ~/.tmux.conf'
+alias ideavimrc='chezmoi edit ~/.ideavimrc'
+alias gitconfig='chezmoi edit ~/.gitconfig'
 alias groot='cd "$(git rev-parse --show-toplevel)"'
 
 # Command line head / tail shortcuts
