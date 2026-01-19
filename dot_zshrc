@@ -428,7 +428,7 @@ bindkey -e
 bindkey '^G' ghq-fzf
 bindkey '^[' autosuggest-accept
 bindkey '^x^e' edit-command-line
-bindkey -s "^[[91;5u" ""
+bindkey -s "^[[91;5u" ""  # ghostty error
 
 ### PATH ###
 if uname -a | grep -sq "Linux"; then
