@@ -428,6 +428,7 @@ bindkey -e
 bindkey '^G' ghq-fzf
 bindkey '^[' autosuggest-accept
 bindkey '^x^e' edit-command-line
+bindkey -s "^[[91;5u" ""
 
 ### PATH ###
 if uname -a | grep -sq "Linux"; then
