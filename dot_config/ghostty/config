@@ -30,9 +30,9 @@ font-family = 'UDEV Gothic NF'
 font-feature = "-calt"
 font-feature = "-dlig"
 font-feature = "-liga"
-font-size = 16
-scrollback-limit = 4294967295
+font-size = 15
 
+scrollback-limit = 4294967295
 
 macos-option-as-alt = true
 # window-padding-x = 2
