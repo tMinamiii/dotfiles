@@ -27,10 +27,10 @@
 # # separated by equals signs.
 
 font-family = 'UDEV Gothic NF'
-# font-feature = "-calt"
-# font-feature = "-dlig"
-# font-feature = "-liga"
-font-size = 14
+font-feature = "-calt"
+font-feature = "-dlig"
+font-feature = "-liga"
+font-size = 16
 scrollback-limit = 4294967295
 
 
