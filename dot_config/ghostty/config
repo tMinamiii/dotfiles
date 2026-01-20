@@ -31,13 +31,17 @@ font-feature = "-calt"
 font-feature = "-dlig"
 font-feature = "-liga"
 font-size = 15
+font-thicken
 
 scrollback-limit = 4294967295
 
-font-thicken
 # font-thicken-strength = 255
 
+window-padding-x = 6
+window-padding-y = 6
+
 macos-option-as-alt = true
+
 # window-padding-x = 2
 #
 # # Spacing around the equals sign does not matter.
