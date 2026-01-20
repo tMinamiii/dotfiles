@@ -35,7 +35,7 @@ font-size = 15
 scrollback-limit = 4294967295
 
 font-thicken
-font-thicken-strength = 255
+# font-thicken-strength = 255
 
 macos-option-as-alt = true
 # window-padding-x = 2
